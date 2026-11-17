@@ -1,0 +1,174 @@
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.util.event.handler
+
+import "../../../../../../allbinary_java" for JObject, JException, JR
+
+class BasicEventHandler is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  eventStrings { _eventStrings }
+  eventStrings=(value) { _eventStrings = value }
+  eventListenerInterfaceList { _eventListenerInterfaceList }
+  eventListenerInterfaceList=(value) { _eventListenerInterfaceList = value }
+
+  initFields_BasicEventHandler() {
+    _logUtil = null
+    _commonStrings = null
+    _eventStrings = null
+    _eventListenerInterfaceList = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        _eventStrings = EventStrings.getInstance()
+        
+  }
+    
+
+    construct new() {
+    super()
+    initFields_BasicEventHandler()
+        _eventListenerInterfaceList = BasicArrayListD.new()
+    }
+    
+
+    removeAllListeners() {
+        _eventListenerInterfaceList = BasicArrayListD.new()
+    }
+    
+
+    addListeners(vector) {
+        var eventListenerInterface = null
+        var size = vector.size()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            eventListenerInterface = vector.get(index)
+            this.addListenerInterface(eventListenerInterface)
+            }
+        }
+    }
+    
+
+    removeListeners(vector) {
+        var eventListenerInterface = null
+        var size = vector.size()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            eventListenerInterface = vector.get(index)
+            this.removeListener(eventListenerInterface)
+            }
+        }
+    }
+    
+
+    addListenerSingleThreaded(eventListenerInterface) {
+        if (!_eventListenerInterfaceList.contains(eventListenerInterface)) {
+            _eventListenerInterfaceList.add(eventListenerInterface)
+        }
+    }
+    
+
+    addListenerInterface(eventListenerInterface) {
+        if (!_eventListenerInterfaceList.contains(eventListenerInterface)) {
+            _eventListenerInterfaceList.add(eventListenerInterface)
+        }
+    }
+    
+
+    removeListenerSingleThreaded(eventListenerInterface) {
+        _eventListenerInterfaceList.remove(eventListenerInterface)
+    }
+    
+
+    removeListener(eventListenerInterface) {
+        _eventListenerInterfaceList.remove(eventListenerInterface)
+    }
+    
+
+    fireEvent(eventObject) {
+        var eventListenerInterface = null
+        var index = 0
+        while ((index < _eventListenerInterfaceList.size())) {
+            var jerror0 = Fiber.new {
+                eventListenerInterface = _eventListenerInterfaceList.get(index)
+                this.process(eventObject, eventListenerInterface)
+            }.try()
+            if (jerror0 != null) {
+                var e = jerror0
+                _logUtil.put(_commonStrings.EXCEPTION, this, _eventStrings.FIRE_EVENT, e)
+            }
+            index = JR.i32(index + 1)
+        }
+    }
+    
+
+    process(eventObject, eventListenerInterface) {
+        eventListenerInterface.onEvent(eventObject)
+    }
+    
+
+    getEventListenerInterfaceListP() {
+        return _eventListenerInterfaceList
+    }
+    
+
+    toString() {
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append(_eventStrings.TOTAL_LISTENERS)
+        stringBuffer.appendint(_eventListenerInterfaceList.size())
+        var eventListenerInterface = null
+        var index = 0
+        while ((index < _eventListenerInterfaceList.size())) {
+            var jerror1 = Fiber.new {
+                eventListenerInterface = _eventListenerInterfaceList.get(index)
+                stringBuffer.append(_eventStrings.LISTENER_LABEL)
+                stringBuffer.append(eventListenerInterface.toString())
+            }.try()
+            if (jerror1 != null) {
+                var e = jerror1
+                _logUtil.put(_commonStrings.EXCEPTION, this, _commonStrings.TOSTRING, e)
+            }
+            index = JR.i32(index + 1)
+        }
+        return stringBuffer.toString()
+    }
+}
+
+import "../../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../../../org/allbinary/logic/util/event/EventListenerInterface" for EventListenerInterface
+import "../../../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
+import "../../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./BasicEventHandlerInterface" for BasicEventHandlerInterface
+

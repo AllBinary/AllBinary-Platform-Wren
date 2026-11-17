@@ -1,0 +1,87 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.allbinary</groupId>
+    <artifactId>OtherGraphicsMediaLibraryPWren</artifactId>
+    <packaging>pom</packaging>
+    <!-- AllBinary Platform Version Start -->
+    <version>1.0.0-SNAPSHOT</version>
+    <!-- AllBinary Platform Version End -->
+
+    <name>OtherGraphicsMediaLibraryPWren</name>
+    <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
+
+    <properties>
+        <buildLabel>${project.version}</buildLabel>
+        <assemblyPluginVersion>2.2-beta-1</assemblyPluginVersion>
+    </properties>
+
+    <modules>
+
+        <!--
+        -->
+        <module>../../graphics/animation/vector/VectorAnimationBaseJavaLibraryWrenM</module>
+
+        <module>../../graphics/animation/vector/VectorAnimationJ2MEJavaLibraryWrenM</module>
+        <module>../../graphics/animation/vector/VectorAnimationJavaLibraryWrenM</module>
+
+        <module>../../graphics/VectorJavaLibraryWrenM</module>
+
+        <module>../../graphics/BoundsJavaLibraryWrenM</module>
+
+        <module>../../../../graphics/opengl/OpenGLESNullImageJavaLibraryWrenM</module>
+        <module>../../../../graphics/opengl/OpenGLESNullImageJ2MEJavaLibraryWrenM</module>
+
+        <module>../../graphics/animation/image/AllBinaryImageAnimationJavaLibraryWrenM</module>
+        <module>../../graphics/animation/sprite/AllBinarySpriteAnimationJavaLibraryWrenM</module>
+
+        <!--
+        ../../
+        <module>../../../../../workwren/j2me/media/graphics/animation/sprite/AllBinaryQuarterSpriteAnimationJavaLibraryWrenM</module>
+        -->
+        <!--
+        ../../
+        <module>../../../../../workwren/j2me/media/graphics/animation/sprite/AllBinaryQuarterSpriteAnimation2JavaLibraryWrenM</module>
+        -->
+
+        <module>../../graphics/animation/image/ImageJ2MEJavaLibraryWrenM</module>
+        <!--
+        <module>../../graphics/animation/image/ImageHTMLJavaLibraryWrenM</module>
+        -->
+        <!--<module>../../graphics/animation/image/ImageJ2SEJavaLibraryWrenM</module>-->
+        <!--
+        <module>../../graphics/animation/image/ImageAndroidJavaLibraryWrenM</module>
+        -->
+        <!--
+        <module>../../graphics/animation/image/ImageSwtJ2SEJavaLibraryWrenM</module>
+        -->
+        
+        <!--
+        ../../
+        <module>../../../../../workwren/j2me/media/graphics/layer/AllBinaryTiledLayerJavaLibraryWrenM</module>
+        <module>../../graphics/layer/AllBinaryTiledLayerJavaLibraryWrenM</module>
+        -->
+
+        <!-- Not used in Platform Libraries -->
+        <module>../../graphics/GraphicsBasicImageJavaLibraryWrenM</module>
+        <!--
+        -->
+        <module>../../graphics/animation/image/AllBinaryImageAnimationRotationJavaLibraryWrenM</module>
+
+    </modules>
+
+</project>
+

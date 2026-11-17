@@ -1,0 +1,142 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.allbinary</groupId>
+  <artifactId>CombatGameJavaLibraryPOMWren</artifactId>
+  <packaging>pom</packaging>
+  <!-- AllBinary Platform Version Start -->
+  <version>1.0.0-SNAPSHOT</version>
+  <!-- AllBinary Platform Version End -->
+
+  <name>CombatGameJavaLibraryPOMWren</name>
+  <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <buildLabel>${project.version}</buildLabel>
+        <assemblyPluginVersion>2.2-beta-1</assemblyPluginVersion>
+    </properties>
+
+    <modules>
+
+        <!--
+
+        -->
+
+        <module>../../games/TickableJavaLibraryWrenM</module>
+
+        <module>../../games/CommonHeadsUpDisplayLibraryWrenM</module>
+
+        <module>../../../physics/MovementJavaLibraryWrenM</module>
+        <!--        -->
+        <module>../../games/PartsJavaLibraryWrenM</module>
+        <module>../../games/PickupGameJavaLibraryWrenM</module>
+
+        <module>../../../allbinary_src/licensing/HardCodedLicenseInitInfoJavaLibraryWrenM</module>
+        <module>../../../allbinary_src/licensing/FileLicenseInitInfoJavaLibraryWrenM</module>
+        <module>../../../allbinary_src/licensing/ClientInfoLicensingJavaLibraryWrenM</module>
+
+        <module>../../games/licensing/PartnerJ2MEJavaLibraryWrenM</module>
+        <!--<module>../../games/licensing/PartnerHTMLJavaLibraryWrenM</module>-->
+        <!--<module>../../games/licensing/PartnerAndroidJavaLibraryWrenM</module>-->
+        <module>../../games/licensing/NoGameLicensingJavaLibraryWrenM</module>
+        <module>../../games/licensing/GameLicensingOnlyDemoJavaLibraryWrenM</module>
+        <!--<module>../../games/licensing/GameLicensingOnlyNormalJavaLibraryWrenM</module>-->
+        <module>../../games/licensing/GameLicensingBaseJavaLibraryWrenM</module>
+
+        <!--
+        <module>../../games/GameScoresBaseLibraryWrenM</module>
+        <module>../../games/GameScoresBaseHTMLLibraryWrenM</module>
+        <module>../../games/GameScoresBaseJ2MELibraryWrenM</module>
+        -->
+        <module>../../games/GameScoresLocalJavaLibraryWrenM</module>
+        <!--<module>../../games/GameScoresRemoteAndLocalJavaLibraryWrenM</module>-->
+
+        <module>../../../store/ThirdPartyStoreJavaLibraryWrenM</module>
+        <module>../../../store/NoThirdPartyStoreJavaLibraryWrenM</module>
+
+        <module>../../media/graphics/layer/CollisionLayerJavaLibraryWrenM</module>
+        <module>../../games/CollisionLibraryWrenM</module>
+
+        <module>../../games/multiplayer/AllBinaryGameClientBaseNullJavaLibraryWrenM</module>
+
+        <module>../../games/PickupLayerJavaLibraryWrenM</module>
+
+        <module>../../games/DamageGameJavaLibraryWrenM</module>
+        <module>../../games/DropJavaLibraryWrenM</module>
+        <module>../../games/WeaponLayerJavaLibraryWrenM</module>
+
+        <module>../../games/CombatGameJavaLibraryWrenM</module>
+        <module>../../games/LifeJavaLibraryWrenM</module>
+
+        <module>../../games/CommonHeadsUpDisplayCombatGameLibraryWrenM</module>
+        <module>../../games/LifeOrDeathDataJavaLibraryWrenM</module>
+
+        <module>../../games/BasicWeaponPartsJavaLibraryWrenM</module>
+        <module>../../games/weapon/WeaponPropertiesJavaLibraryWrenM</module>
+
+        <module>../../games/weapon/WeaponMineJavaLibraryWrenM</module>
+
+        <!--
+        <module>../../media/graphics/effects/fireworks/FireworksJavaLibraryWrenM</module>
+        -->
+
+        <module>../../media/graphics/geography/map/TerrainEventJavaLibraryWrenM</module>
+
+<!--
+        <module>../../media/graphics/geography/map/BasicPlatformGeographicMapJavaLibraryWrenM</module>
+        -->
+
+        <!--
+        <module>../../media/graphics/geography/map/RaceTrackWrenP</module>
+        -->
+
+        <!--
+        XmlRpcJavaLibrary
+        RemoteXmlRpcJavaLibrary
+
+        Since POMs are built before the other libs is it best to handle this differently
+        ../../
+        <module>../../../../workwren/j2me/games/strategy/rts/RTSGameJavaLibraryWrenP</module>
+        -->
+
+        <module>../../media/graphics/OtherGraphicsMediaLibraryWrenP</module>
+
+        <module>../../input/NoTouchButtonResourceAnimationJavaLibraryWrenM</module>
+        <module>../../input/TouchButtonResourceAnimationJavaLibraryWrenM</module>
+        <module>../../input/TouchButtonResourceOpenGLESAnimationJavaLibraryWrenM</module>
+
+        <module>../../input/TrackingEventJavaLibraryWrenM</module>
+        <module>../../../game/behavior/BehaviorLibraryWrenP</module>
+
+        <module>../../media/sound/OtherSoundMediaLibraryWrenP</module>
+
+        <module>../../../allbinary_src/licensing/ApplicationConfigurationJavaLibraryWrenM</module>
+        <module>../../../allbinary_src/licensing/ApplicationConfigurationNoFSJavaLibraryWrenM</module>
+        <module>../../input/AllBinaryMagneticFieldSensorJavaLibraryWrenM</module>
+        <!--<module>../../android/VirtualKeyboardJavaLibraryWrenM</module>-->
+
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
+

@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.allbinary</groupId>
+    <artifactId>AllBinaryBaseLibraryPOMWren</artifactId>
+    <packaging>pom</packaging>
+    <!-- AllBinary Platform Version Start -->
+    <version>1.0.0-SNAPSHOT</version>
+    <!-- AllBinary Platform Version End -->
+
+    <name>AllBinaryBaseLibraryPOMWren</name>
+    <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+    
+    <properties>
+        <buildLabel>${project.version}</buildLabel>
+        <assemblyPluginVersion>2.2-beta-1</assemblyPluginVersion>
+    </properties>
+
+    <modules>
+        <module>../CommonJavaLibraryWrenM</module>
+        <module>../TempBaseJavaLibraryWrenM</module>
+        
+        <module>../../allbinary_src/LogWrenM</module>
+        <module>../../allbinary_src/allbinary_src_designpatterns_srcWrenM</module>
+        <module>../../allbinary_src/data/BaseDataJavaLibraryWrenM</module>
+        <module>../../allbinary_src/cache/BaseCacheJavaLibraryWrenM</module>
+        <module>../../allbinary_src/logic/BasePreloaderJavaLibraryWrenM</module>
+        <module>../../allbinary_src/logic/BasePreloaderJ2MEJavaLibraryWrenM</module>
+
+        <module>../ExceptionHTMLJavaLibraryWrenM</module>
+        <module>../J2MEExceptionLibraryWrenM</module>
+        <module>../../allbinary_src/J2SEExceptionLibraryWrenM</module>
+        <module>../J2MEUtilJavaLibraryWrenM</module>
+        <module>../J2MEColorJavaLibraryWrenM</module>
+        <module>../EventJ2MELibraryWrenM</module>
+
+        <module>../../allbinary_src/LogNoPlatformJavaLibraryWrenM</module>
+        <module>../../allbinary_src/LogJ2MEJavaLibraryWrenM</module>
+        <module>../../allbinary_src/LogJ2SEJavaLibraryWrenM</module>
+        <!--<module>../../allbinary_src/LogAndroidJavaLibraryWrenM</module>-->
+        <module>../logging/LoggingNoneWrenM</module>
+        <module>../logging/LoggingJ2MEAllWrenM</module>
+        <module>../logging/LoggingJ2MEExceptionWrenM</module>
+        <!--<module>../logging/LoggingAndroidAllWrenM</module>-->
+        <!--
+        //While it is a possible dependency option it really does not fit here
+        //as such it is actually build in the final POM builds instead
+        <module>../logging/LoggingRemoteExceptionWrenM</module>  
+        -->
+        
+        <module>../J2MEWindowingJavaLibraryWrenM</module>
+        
+        <module>../lib/BaseMathLibraryWrenM</module>
+        <module>../lib/BasicMathLibraryWrenM</module>
+        
+        <module>../../allbinary_src/ThreadLibraryWrenM</module>
+        <!--<module>../../allbinary_src/ThreadHTMLLibraryWrenM</module>-->
+        <module>../../replace_these_stub_projects/allbinary_src/NoneOnlyJavaLibraryWrenM</module>
+        <module>../../allbinary_src/ThreadJ2MELibraryWrenM</module>
+        <module>../time/TimeJavaLibraryWrenM</module>
+
+        <module>../statistics/ApplicationStatisticsJ2SELibraryWrenM</module>
+        <module>../statistics/ApplicationStatisticsJ2MELibraryWrenM</module>
+        <module>../statistics/ApplicationStatisticsJavaLibraryWrenM</module>
+
+        <module>../../allbinary_src/logging/BasicLogConfigTypeJavaLibraryWrenM</module>
+        <module>../../allbinary_src/logging/LogConfigTypeGameClientJavaLibraryWrenM</module>
+
+        <module>../../allbinary_src/hardware/HardwareLibraryPOWrenM</module>
+
+        <module>../lib/TrigBaseLibraryWrenM</module>
+
+    </modules>
+
+</project>
+

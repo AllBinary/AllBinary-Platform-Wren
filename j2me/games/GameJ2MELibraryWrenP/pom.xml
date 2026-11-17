@@ -1,0 +1,192 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.allbinary</groupId>
+  <artifactId>GameJ2MELibraryPOMWren</artifactId>
+  <packaging>pom</packaging>
+  <!-- AllBinary Platform Version Start -->
+  <version>1.0.0-SNAPSHOT</version>
+  <!-- AllBinary Platform Version End -->
+
+  <name>GameJ2MELibraryPOMWren</name>
+  <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
+
+
+    <modules>
+
+        <!--
+        NoGyroSensorLibrary
+
+        -->
+        <!--<module>../../android/AndroidUtilJavaLibraryWrenM</module>-->
+
+        <module>../../../allbinary_src/security/SimpleCryptLibraryWrenM</module>
+        <!--
+        <module>../../../../working_thirdpartywren/security/BouncyCastleDESJavaLibraryWrenM</module>
+        <module>../../../../working_thirdpartywren/communication/XmlRpc/XmlRpcJavaLibraryWrenM</module>
+        -->
+        <module>../../../allbinary_src/TokenizerJavaLibraryWrenM</module>
+        <module>../../../allbinary_src/security/BasicSecurityJavaLibraryWrenM</module>
+        <!--<module>../../../replace_these_stub_projects/security/YourCryptFileJavaLibraryWrenM</module>-->
+        <module>../../../replace_these_stub_projects/security/YourSecurityJavaLibraryWrenM</module>
+        <module>../../../replace_these_stub_projects/communication/YourXmlRpcJavaLibraryWrenM</module>
+        <module>../../../replace_these_stub_projects/allbinary_src/J2MEOnlyJavaLibraryWrenM</module>
+        <module>../../../replace_these_stub_projects/allbinary_src/J2MECompatibilityJavaLibraryWrenM</module>
+        <module>../../../replace_these_stub_projects/allbinary_src/J2MEJsInteropCompatibilityJavaLibraryWrenM</module>
+
+        <module>../../DebugJavaLibraryWrenM</module>             
+        <module>../../ResourceLibraryWrenM</module>
+        <module>../../ResourceJ2MEJavaLibraryWrenM</module>
+        <!--<module>../../AndroidResourceLibraryWrenM</module>-->
+        <!--<module>../../../allbinary_src/hardware/AndroidSystemJavaLibraryWrenM</module>-->
+
+        <module>../../../game/behavior/ArtificialIntelligenceLibraryWrenM</module>
+
+        <module>../../media/graphics/PlatformNullImageJavaLibraryWrenM</module>
+        <module>../../media/graphics/ImageCacheBaseJ2MEJavaLibraryWrenM</module>
+        <module>../../media/graphics/ImageCacheJ2MEJavaLibraryWrenM</module>
+        <module>../../../graphics/opengl/OpenGLJ2MENoneJavaLibraryWrenM</module>
+        <module>../../../graphics/opengl/OpenGLNoneJavaLibraryWrenM</module>
+        <module>../../../graphics/opengl/OpenGLNoneOtherJavaLibraryWrenM</module>
+        <module>../../../graphics/opengl/OpenGLNoneOther2JavaLibraryWrenM</module>
+        <module>../../../graphics/opengl/OpenGLESBaseJ2MEJavaLibraryWrenM</module>
+
+        <module>../../media/graphics/animation/AnimationLibraryWrenM</module>
+        <module>../../media/graphics/animation/RotationAnimationJavaLibraryWrenM</module>
+
+        <module>../../games/GameInputLibraryWrenM</module>
+
+        <module>../../games/GameScoresBaseJavaLibraryWrenM</module>
+        <module>../../games/GameScoresBaseJ2MELibraryWrenM</module>
+
+        <module>../../statistics/ApplicationStatisticsHTMLLibraryWrenM</module>
+        <!--
+        <module>../../games/GameConfigurationHTMLJavaLibraryWrenM</module>
+        -->
+        <module>../../games/GameConfigurationJ2MEJavaLibraryWrenM</module>   
+        <module>../../games/GameConfigurationJavaLibraryWrenM</module>
+
+        <module>../../games/GameIntermissionLibraryWrenM</module>
+
+        <module>../../GroupLibraryWrenM</module>
+
+        <module>../../input/NoSensorJavaLibraryWrenM</module>
+
+        <module>../../input/AllBinarySensorJavaLibraryWrenM</module>
+
+        <module>../../input/platform/me/GameInputMEJavaLibraryWrenM</module>
+        <module>../../input/platform/me/GameInputMEKeyOnlyJavaLibraryWrenM</module>
+        <module>../../input/platform/me/GameInputMEMotionJavaLibraryWrenM</module>
+        <module>../../input/platform/pc/GameInputPCBaseJavaLibraryWrenM</module>
+        <module>../../input/platform/pc/GameInputPCJavaLibraryWrenM</module>
+        <module>../../input/platform/pc/GameInputPCKeyOnlyJavaLibraryWrenM</module>
+        <module>../../input/platform/pc/GameInputPCMotionJavaLibraryWrenM</module>
+        <module>../../input/platform/pc/GameInputSwtJavaLibraryWrenM</module>
+
+        <module>../../input/AllBinaryGyroSensorJavaLibraryWrenM</module>
+        <module>../../input/MotionGestureJavaLibraryWrenM</module>
+        
+        <module>../../input/MotionGestureBaseJavaLibraryWrenM</module>
+
+        <module>../../games/GameInputPersistanceLibraryWrenM</module>
+        <module>../../games/GameInputNoPersistanceLibraryWrenM</module>
+        
+        <module>../../lib/VectorThreeDimensionalLibraryWrenM</module>
+        <module>../../input/AllBinaryAccelerometerSensorJavaLibraryWrenM</module>
+        <module>../../input/NoGyroSensorJavaLibraryWrenM</module>
+        <module>../../input/JSEGyroSensorJavaLibraryWrenM</module>
+        <!--
+        <module>../../input/android/</module>
+        <module>../../input/platform/android/GameInputAndroidBaseJavaLibraryWrenM</module>
+        -->
+
+        <module>../../media/sound/BasicPlayerJavaLibraryWrenM</module>
+        <module>../../media/sound/BasicPlayerMIDP2JavaLibraryWrenM</module>
+        <module>../../media/sound/NoPlayerJavaLibraryWrenM</module>
+        <module>../../media/sound/SoundJ2MELibraryWrenM</module>
+
+        <module>../../media/motion/AllBinaryVibrationJavaLibraryWrenM</module>
+        <module>../../media/motion/NoVibrateJavaLibraryWrenM</module>
+        <!--<module>../../media/motion/VibrateAndroidJavaLibraryWrenM</module>-->
+
+        <module>../../media/graphics/NullCustomUIJavaLibraryWrenM</module>
+        <module>../../media/graphics/NullCustomUIBaseJavaLibraryWrenM</module>
+
+        <module>../../media/graphics/FormValidationJavaLibraryWrenM</module>
+        
+        <module>../../media/graphics/FormJavaLibraryWrenM</module>
+        <module>../../media/graphics/FormBaseJavaLibraryWrenM</module>
+        <!--
+        <module>../../media/graphics/FormJMEJavaLibraryWrenM</module>
+        -->
+        <module>../../../j2me/media/graphics/FormJMEJavaLibraryWrenM</module>
+
+        <module>../../media/graphics/animation/AnimationResourceJavaLibraryWrenM</module>
+        <module>../../media/graphics/animation/TransitionAnimationJavaLibraryWrenM</module>
+        <module>../../media/graphics/animation/NoTransitionAnimationJavaLibraryWrenM</module>
+        <!--
+        AndroidTransitionAnimationJavaLibraryM
+        -->
+        <module>../../media/graphics/animation/GameAnimationJavaLibraryWrenM</module>
+        <module>../../games/GameResourceJavaLibraryWrenM</module>
+        <module>../../games/GameSoundsJavaLibraryWrenM</module>
+
+        <module>../../input/TouchInputLibraryWrenP</module>
+
+        <module>../../media/MediaDataWrenM</module>
+        <module>../../media/sound/NotDeviceSpecificNoMediaMIDP1LibraryWrenM</module>
+
+        <module>../../../allbinary_src/content/ContentNoneJavaLibraryWrenM</module>
+        <!--<module>../../../allbinary_src/content/ContentAndroidJavaLibraryWrenM</module>-->
+
+        <module>../../games/GameConfigurationFormJavaLibraryWrenM</module>
+
+        <module>../../FullScreenNoneJavaLibraryWrenM</module>
+        <!--
+        <module>../../FullScreenJavaLibraryWrenM</module>
+        -->
+
+        <module>../../../physics/VelocityLibraryWrenM</module>
+
+        <module>../../games/weapon/SoundsBasicWeaponsJavaLibraryWrenM</module>
+
+        <module>../../lib/TrigJ2MELibraryWrenM</module>
+
+        <module>../../media/graphics/geography/map/LayerPlacementLibraryWrenM</module>
+        <module>../../media/graphics/layer/AllBinaryLayerJavaLibraryWrenM</module>
+
+        <module>../../ScreenCaptureNoneJavaLibraryWrenM</module>
+        
+        <module>../licensing/GameLicensingNullJavaLibraryWrenM</module>
+        
+        <module>../../business/advertisement/AllBinaryAdvertisementClientJavaLibraryWrenM</module>
+        <module>../../business/advertisement/AdvertisementClientNoneJavaLibraryWrenM</module>
+
+        <module>../GameNotificationJavaLibraryWrenM</module>
+
+        <module>../../../graphics/opengl/NoSWTJavaLibraryWrenM</module>
+        <module>../../../graphics/opengl/SWTWithoutJOGLJavaLibraryWrenM</module>
+        <module>../SWTJavaLibraryWrenM</module>
+        <module>../GameJ2MELibraryWrenM</module>
+        
+        <!--
+        <module>../GameJ2MEOptionalLibraryPOWrenM</module>
+        -->
+    
+    </modules>
+
+</project>
+

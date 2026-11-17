@@ -1,0 +1,147 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.allbinary.business</groupId>
+    <artifactId>BlisketJavaLibraryPWren</artifactId>
+    <packaging>pom</packaging>
+    <!-- AllBinary Platform Version Start -->
+    <version>1.0.0-SNAPSHOT</version>
+    <!-- AllBinary Platform Version End -->
+
+    <name>BlisketJavaLibraryPWren</name>
+    <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+    
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
+    <modules>
+
+        <!--
+        <module>../../j2me/AllBinaryJ2MELibraryWrenP</module>
+        -->
+        <!--
+        <module>../data/DataJavaLibraryWrenM</module>
+        -->
+
+        <module>../licensing/TestServiceClientInfoJavaLibraryWrenM</module>        
+
+        <module>../data/DataTableInterfacesWrenM</module>
+        
+        <module>../QueueJavaLibraryWrenM</module>
+        
+        <!--
+        <module>../TokenizerJavaLibraryWrenM</module>
+        -->
+
+        <module>../logging/LogConfigTypeFreeblisketJavaLibraryWrenM</module>
+
+        <module>../JavaUtilLibraryWrenM</module>
+        <module>../NullInitInfoJavaLibraryWrenM</module>        
+        <module>../InitInfoJavaLibraryWrenM</module>
+        <module>../PreLoaderHttpJavaLibraryWrenM</module>
+        
+        <module>../TagsBaseJavaLibraryWrenM</module>
+        <module>../CustomLoaderJavaLibraryWrenM</module>
+        
+        <!--
+        <module>../logic/data/file/FileJ2SEJavaLibraryWrenM</module>
+        <module>../logic/data/file/FileJavaLibraryWrenM</module>
+        -->
+
+        <module>../data/SQLAllBinaryJavaLibraryWrenM</module>
+
+        <!--
+        <module>../licensing/FileLicenseInitInfoJavaLibraryWrenM</module>
+        -->
+
+        <module>../DocumentObjectModelJavaLibraryWrenM</module>
+
+        <module>../VisualStyleJavaLibraryWrenM</module>
+
+        <module>../ConfigurationJavaLibraryWrenM</module>
+
+        <module>../VisualTransformBaseJavaLibraryWrenM</module>
+
+        <module>../CategoryBaseJavaLibraryWrenM</module>
+        <module>../CategoryJavaLibraryWrenM</module>
+
+        <module>../UserJavaLibraryWrenM</module>
+
+        <module>../PaymentGatewayBaseJavaLibraryWrenM</module>
+
+        <module>../data/vo/EntitiesBlisketVOJavaLibraryWrenM</module>
+        <module>../PaymentGatewayJavaLibraryWrenM</module>
+        <module>../data/vo/EntitiesOrderHistoryVOJavaLibraryWrenM</module>
+        <module>../data/vo/EntityPaymentGatewayVOJavaLibraryWrenM</module>
+        <module>../data/vo/EntityStoreFrontVOJavaLibraryWrenM</module>
+
+        <module>../data/EntitiesBlisketBaseInterfacesJavaLibraryWrenM</module>
+        <module>../data/EntitiesBlisketBaseJavaLibraryWrenM</module>
+        
+        <module>../data/EntitiesAdvertisementBaseJavaLibraryWrenM</module>
+        <module>../data/EntityOrderHistoryJavaLibraryWrenM</module>
+        <module>../data/EntityPaymentGatewayJavaLibraryWrenM</module>
+        <module>../data/EntityVisualTransformJavaLibraryWrenM</module>
+        <module>../data/EntityUserJavaLibraryWrenM</module>
+        <module>../data/EntityWorkflowJavaLibraryWrenM</module>
+
+        <module>../SMTPConfigurationJavaLibraryWrenM</module>
+        <module>../SMTPBaseJavaLibraryWrenM</module>
+
+        <module>../VisualTransformJavaLibraryWrenM</module>
+
+        <module>../../replace_these_stub_projects/allbinary_src/YourRuntimeEnvironmentJavaLibraryWrenM</module>
+        <module>../GatewayJavaLibraryWrenM</module>
+        
+        <module>../WorkflowBaseJavaLibraryWrenM</module>
+        <module>../WorkflowJavaLibraryWrenM</module>
+
+        <module>../IdGeneratorUsingFilesJavaLibraryWrenM</module>
+        <module>../BlisketPreVOJavaLibraryWrenM</module>
+
+        <!-- 
+        EntitiesOrderHistoryVOJavaLibrary
+        UserJavaLibrary
+        -->
+        
+        <module>../BlisketVOJavaLibraryWrenM</module>
+
+        <module>../UserCommerceJavaLibraryWrenM</module>
+
+        <module>../CustomizerValidatorsJavaLibraryWrenM</module>
+
+        <!-- 
+        AllBinaryCacheForShiftOneJavaLibrary
+        AllBinaryJSECacheJavaLibrary
+        ColorJavaLibrary
+        ImageJavaLibrary
+        -->
+        
+        <module>../logic/data/file/FileMediaJ2SEJavaLibraryWrenM</module>
+        <module>../BlisketBaseJavaLibraryWrenM</module>
+
+        <module>../logging/LoggingGAEAllWrenM</module>
+        <module>../BlisketJavaLibraryWrenM</module>
+        
+    </modules>
+
+</project>
+

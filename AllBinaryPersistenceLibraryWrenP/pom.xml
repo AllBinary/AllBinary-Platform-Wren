@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.allbinary</groupId>
+    <artifactId>AllBinaryPersistenceLibraryPWren</artifactId>
+    <packaging>pom</packaging>
+    <!-- AllBinary Platform Version Start -->
+    <version>1.0.0-SNAPSHOT</version>
+    <!-- AllBinary Platform Version End -->
+
+    <name>AllBinaryPersistenceLibraryPWren</name>
+    <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+    
+    <properties>
+        <buildLabel>${project.version}</buildLabel>
+        <assemblyPluginVersion>2.2-beta-1</assemblyPluginVersion>
+    </properties>
+
+    <modules>
+        
+        <!--
+        -->
+        <module>../allbinary_src/cache/AllBinaryCacheLibraryWrenM</module>
+        <module>../allbinary_src/PermutationsJavaLibraryWrenM</module>
+        <module>../allbinary_src/logic/BasePreloaderFileJavaLibraryWrenM</module>
+        <module>../allbinary_src/logic/data/file/FileJavaLibraryWrenM</module>
+        <module>../allbinary_src/logic/data/file/FileJ2SEJavaLibraryWrenM</module>
+        <!--<module>../allbinary_src/data/DataJavaLibraryWrenM</module>-->
+        <!--<module>../allbinary_src/logic/data/file/FileUnamedJavaLibraryWrenM</module>-->
+        <!--<module>../allbinary_src/logic/data/file/FileAdvancedJavaLibraryWrenM</module>-->
+        <!--<module>../allbinary_src/PreLoaderJavaLibraryWrenM</module>-->
+        <!--<module>../allbinary_src/FileInitInfoJavaLibraryWrenM</module>-->
+        <!--<module>../allbinary_src/PreLoaderFileJavaLibraryWrenM</module>-->
+        <!--<module>../allbinary_src/PreLoaderLicenseJavaLibraryWrenM</module>-->
+        <module>../j2me/PCResourceLibraryWrenM</module>
+        <module>../j2me/ProgressJ2MEJavaLibraryWrenM</module>
+        <module>../allbinary_src/licensing/ClientInfoBaseJavaLibraryWrenM</module>
+        <!--<module>../allbinary_src/licensing/RemoteXmlRpcJavaLibraryWrenM</module>-->
+        <!--<module>../allbinary_src/licensing/LicenseClientJavaLibraryWrenM</module>-->
+
+        <!--
+        <module>../allbinary_src/PreLoaderLicenseJavaLibraryWrenM</module>
+        -->
+    </modules>
+
+</project>
+
