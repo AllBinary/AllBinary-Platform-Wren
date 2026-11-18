@@ -1,123 +1,137 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.button
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.button
 
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class TouchScreenFactory is JObject {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = TouchScreenFactory.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  touch { _touch }
+  touch=(value) { _touch = value }
+  multiTouch { _multiTouch }
+  multiTouch=(value) { _multiTouch = value }
+  multiTouchDistinct { _multiTouchDistinct }
+  multiTouchDistinct=(value) { _multiTouchDistinct = value }
+  touchScreenType { _touchScreenType }
+  touchScreenType=(value) { _touchScreenType = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TouchScreenFactory() {
+    _logUtil = null
+    _touch = false
+    _multiTouch = false
+    _multiTouchDistinct = false
+    _touchScreenType = null
+        _logUtil = LogUtil.getInstance()
+        _touch = false
+        _multiTouch = false
+        _multiTouchDistinct = false
+        _touchScreenType = TouchScreenTypesFactory.getInstance().NOTOUCH
+  }
+    
 
-local TouchScreenFactory = {}
-TouchScreenFactory.__index = TouchScreenFactory
-TouchScreenFactory.className = "TouchScreenFactory"
+    construct new() {
+    super()
+    initFields_TouchScreenFactory()
+        var jerror0 = Fiber.new {
+            this.setTouch(true)
+            this.setMultiTouch(false)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, TouchScreenFactory.SINGLETON, commonStrings.GET_INSTANCE, e)
+        }
+    }
+    
 
-function TouchScreenFactory:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.touch = false
-    self.multiTouch = false
-    self.multiTouchDistinct = false
-    self.touchScreenType = TouchScreenTypesFactory.getInstance().NOTOUCH
-end
-
-
-function TouchScreenFactory.new()
-    local self = setmetatable({}, TouchScreenFactory)
-    self:_init_fields()
-        local try_ok, try_error = pcall(function()
-            self:setTouch(true)
-            self:setMultiTouch(false)
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, TouchScreenFactory.SINGLETON, commonStrings.GET_INSTANCE, e)
-        end
-    return self
-end
-
-
-function TouchScreenFactory.getInstance()
+    static getInstance() {
         return TouchScreenFactory.SINGLETON
-end
+    }
+    
 
+    setMultiTouch(multiTouch) {
+        _multiTouch = multiTouch
+    }
+    
 
-function TouchScreenFactory:setMultiTouch(multiTouch)
-        self.multiTouch = multiTouch
-end
+    isMultiTouch() {
+        return _multiTouch
+    }
+    
 
+    setTouch(touch) {
+        _touch = touch
+    }
+    
 
-function TouchScreenFactory:isMultiTouch()
-        return self.multiTouch
-end
+    isTouch() {
+        return _touch
+    }
+    
 
+    setMultiTouchDistinct(multiTouchDistinct) {
+        _multiTouchDistinct = multiTouchDistinct
+    }
+    
 
-function TouchScreenFactory:setTouch(touch)
-        self.touch = touch
-end
+    isMultiTouchDistinct() {
+        return _multiTouchDistinct
+    }
+    
 
+    setTouchScreenType(touchScreenType) {
+        _touchScreenType = touchScreenType
+    }
+    
 
-function TouchScreenFactory:isTouch()
-        return self.touch
-end
+    getTouchScreenType() {
+        return _touchScreenType
+    }
+    
 
+    toString() {
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append("TouchScreen: ")
+        stringBuffer.appendboolean(this.isTouch())
+        stringBuffer.append(" MultiTouch: ")
+        stringBuffer.appendboolean(this.isMultiTouch())
+        stringBuffer.append(" Distinct MultiTouch: ")
+        stringBuffer.appendboolean(this.isMultiTouchDistinct())
+        stringBuffer.append(" TouchScreenType: ")
+        stringBuffer.append(StringUtil.getInstance().toString(this.getTouchScreenType()))
+        return stringBuffer.toString()
+    }
+}
 
-function TouchScreenFactory:setMultiTouchDistinct(multiTouchDistinct)
-        self.multiTouchDistinct = multiTouchDistinct
-end
-
-
-function TouchScreenFactory:isMultiTouchDistinct()
-        return self.multiTouchDistinct
-end
-
-
-function TouchScreenFactory:setTouchScreenType(touchScreenType)
-        self.touchScreenType = touchScreenType
-end
-
-
-function TouchScreenFactory:getTouchScreenType()
-        return self.touchScreenType
-end
-
-
-function TouchScreenFactory:toString()
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append("TouchScreen: ")
-        stringBuffer:appendboolean(self:isTouch())
-        stringBuffer:append(" MultiTouch: ")
-        stringBuffer:appendboolean(self:isMultiTouch())
-        stringBuffer:append(" Distinct MultiTouch: ")
-        stringBuffer:appendboolean(self:isMultiTouchDistinct())
-        stringBuffer:append(" TouchScreenType: ")
-        stringBuffer:append(StringUtil.getInstance():toString(self:getTouchScreenType()))
-        return tostring(stringBuffer)
-end
-TouchScreenFactory.__tostring = function(self) return self:toString() end
-
-TouchScreenFactory.SINGLETON = TouchScreenFactory.new()
-
-return TouchScreenFactory
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./TouchScreenTypesFactory" for TouchScreenTypesFactory
+import "./TouchScreenType" for TouchScreenType
 

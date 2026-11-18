@@ -1,76 +1,64 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form.item
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form.item
 
--- local Canvas = require("javax.microedition.lcdui.Canvas")
--- local Font = require("javax.microedition.lcdui.Font")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local Visitor = require("org.allbinary.logic.util.visitor.Visitor")
-local ABTextItem = require("org.allbinary.graphics.form.item.ABTextItem")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./ABTextItem" for ABTextItem
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ABTextFieldItem is ABTextItem {
+  font { _font }
+  font=(value) { _font = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ABTextFieldItem() {
+    _font = null
+        
+  }
+    
 
-local ABTextFieldItem = {}
-ABTextFieldItem.__index = ABTextFieldItem
-ABTextFieldItem.className = "ABTextFieldItem"
-setmetatable(ABTextFieldItem, {__index = ABTextItem})
+    construct new(canvas, visitor, label, value, maxSize, layout, altText, font, backgroundBasicColor, foregroundBasicColor) {
+        super(label, layout, altText, backgroundBasicColor, foregroundBasicColor)
+        initFields_ABTextFieldItem()
+        _font = font
+    }
+    
 
-function ABTextFieldItem:_init_fields()
-    self.font = nil
-end
-
-
-function ABTextFieldItem.new(canvas, visitor, label, value, maxSize, layout, altText, font, backgroundBasicColor, foregroundBasicColor)
-    local self = setmetatable(ABTextItem.new(label, layout, altText, backgroundBasicColor, foregroundBasicColor), ABTextFieldItem)
-    self:_init_fields()
-        -- super(...) made self above
-        self.font = font
-    return self
-end
-
-
-function ABTextFieldItem:getLabel()
+    getLabel() {
         return StringUtil.getInstance().EMPTY_STRING
-end
+    }
+    
 
+    setLabel(label) {
+    }
+    
 
-function ABTextFieldItem:setLabel(label)
-end
-
-
-function ABTextFieldItem:getString()
+    getString() {
         return StringUtil.getInstance().EMPTY_STRING
-end
+    }
+    
 
+    setString(string) {
+    }
+    
 
-function ABTextFieldItem:setString(string)
-end
+    setFocus(state) {
+    }
+    
 
+    getFontHeight() {
+        return _font.getHeight()
+    }
+    
 
-function ABTextFieldItem:setFocus(state)
-end
+    setBackgroundBasicColorP(basicColor) {
+    }
+    
 
+    setForegroundBasicColorP(basicColor) {
+    }
+}
 
-function ABTextFieldItem:getFontHeight()
-        return self.font:getHeight()
-end
-
-
-function ABTextFieldItem:setBackgroundBasicColorP(basicColor)
-end
-
-
-function ABTextFieldItem:setForegroundBasicColorP(basicColor)
-end
-
-return ABTextFieldItem
+import "../../../../../javax/microedition/lcdui/Canvas" for Canvas
+import "../../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/logic/util/visitor/Visitor" for Visitor
 

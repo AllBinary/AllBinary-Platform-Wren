@@ -1,54 +1,56 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.android.input.motion
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.android.input.motion
 
-local AnalogLocationInput = require("org.allbinary.game.input.analog.AnalogLocationInput")
-local AnalogLocationInputFactory = require("org.allbinary.game.input.analog.AnalogLocationInputFactory")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local AnalogControllerVisitor = require("org.allbinary.android.input.motion.AnalogControllerVisitor")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./AnalogControllerVisitor" for AnalogControllerVisitor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AllAnalogControllerVisitor is AnalogControllerVisitor {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AllAnalogControllerVisitor() {
+  }
 
-local AllAnalogControllerVisitor = {}
-AllAnalogControllerVisitor.__index = AllAnalogControllerVisitor
-AllAnalogControllerVisitor.className = "AllAnalogControllerVisitor"
-setmetatable(AllAnalogControllerVisitor, {__index = AnalogControllerVisitor})
+  construct new() {
+    super()
+    initFields_AllAnalogControllerVisitor()
+  }
+    
 
-function AllAnalogControllerVisitor.new()
-    local self = setmetatable(AnalogControllerVisitor.new(), AllAnalogControllerVisitor)
-    return self
-end
+    process(allbinaryLayerManager, analogLocationInputProcessor) {
+        var analogLocationInputList = AnalogLocationInputFactory.getInstance().getList()
+        var analogLocationInput = null
+        if (true) {
+            var index = JR.i32(analogLocationInputList.size() - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            analogLocationInput = analogLocationInputList.get(index)
+            analogLocationInputProcessor.process(allbinaryLayerManager, analogLocationInput)
+            }
+        }
+    }
+}
 
-
-function AllAnalogControllerVisitor:process(allbinaryLayerManager, analogLocationInputProcessor)
-        local analogLocationInputList = AnalogLocationInputFactory.getInstance():getList()
-        local analogLocationInput = nil
-        for index = analogLocationInputList:size() - 1, 0, -1 do
-            analogLocationInput = analogLocationInputList:get(index)
-            analogLocationInputProcessor:process(allbinaryLayerManager, analogLocationInput)
-        end
-end
-
-return AllAnalogControllerVisitor
+import "../../../../../org/allbinary/game/input/analog/AnalogLocationInput" for AnalogLocationInput
+import "../../../../../org/allbinary/game/input/analog/AnalogLocationInputFactory" for AnalogLocationInputFactory
+import "../../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "./AnalogLocationInputProcessor" for AnalogLocationInputProcessor
 

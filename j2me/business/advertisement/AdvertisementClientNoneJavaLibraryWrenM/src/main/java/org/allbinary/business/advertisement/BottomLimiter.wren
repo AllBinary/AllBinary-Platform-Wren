@@ -1,84 +1,95 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.business.advertisement
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.business.advertisement
 
-local GameAdState = require("org.allbinary.game.GameAdState")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BottomLimiter is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = BottomLimiter.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  bottom { _bottom }
+  bottom=(value) { _bottom = value }
+  deltaY { _deltaY }
+  deltaY=(value) { _deltaY = value }
+  lower { _lower }
+  lower=(value) { _lower = value }
+  higher { _higher }
+  higher=(value) { _higher = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BottomLimiter() {
+    _bottom = 0
+    _deltaY = 0
+    _lower = 0
+    _higher = 0
+        _bottom = 0
+        _deltaY = 0
+        _lower = 0
+        _higher = 0
+  }
+    
 
-local BottomLimiter = {}
-BottomLimiter.__index = BottomLimiter
-BottomLimiter.className = "BottomLimiter"
-
-function BottomLimiter:_init_fields()
-    self.bottom = 0
-    self.deltaY = 0
-    self.lower = 0
-    self.higher = 0
-end
-
-
-function BottomLimiter.getInstance()
+    static getInstance() {
         return BottomLimiter.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_BottomLimiter()
+    }
+    
 
-function BottomLimiter.new()
-    local self = setmetatable({}, BottomLimiter)
-    self:_init_fields()
-    return self
-end
+    init(lower, higher) {
+        _lower = lower
+        _higher = higher
+    }
+    
 
+    update() {
+        var displayInfo = DisplayInfoSingleton.getInstance()
+        var gameAdState = GameAdStateFactory.getInstance().getCurrentInstance()
+        if (gameAdState.isShowingAt()) {
+            _deltaY = _higher
+        } else {
+            _deltaY = _lower
+        }
+        _bottom = (displayInfo.getLastHeight() - _deltaY)
+    }
+    
 
-function BottomLimiter:init(lower, higher)
-        self.lower = lower
-        self.higher = higher
-end
+    getDeltaY() {
+        return _deltaY
+    }
+    
 
+    getBottom() {
+        return _bottom
+    }
+}
 
-function BottomLimiter:update()
-        local displayInfo = DisplayInfoSingleton.getInstance()
-        local gameAdState = GameAdStateFactory.getInstance():getCurrentInstance()
-        if gameAdState:isShowingAt() then
-            self.deltaY = self.higher
-        else
-            self.deltaY = self.lower
-        end
-        self.bottom = displayInfo:getLastHeight() - self.deltaY
-end
-
-
-function BottomLimiter:getDeltaY()
-        return self.deltaY
-end
-
-
-function BottomLimiter:getBottom()
-        return self.bottom
-end
-
-BottomLimiter.instance = BottomLimiter.new()
-
-return BottomLimiter
+import "../../../../org/allbinary/game/GameAdState" for GameAdState
+import "../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "./GameAdStateFactory" for GameAdStateFactory
 

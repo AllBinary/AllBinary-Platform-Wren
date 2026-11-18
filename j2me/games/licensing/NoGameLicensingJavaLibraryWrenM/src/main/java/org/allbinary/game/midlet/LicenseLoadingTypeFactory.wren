@@ -1,53 +1,64 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.midlet
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.midlet
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LicenseLoadingTypeFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = LicenseLoadingTypeFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  INITIAL_LOADING { _INITIAL_LOADING }
+  INITIAL_LOADING=(value) { _INITIAL_LOADING = value }
+  GAME_START { _GAME_START }
+  GAME_START=(value) { _GAME_START = value }
+  LOGIN { _LOGIN }
+  LOGIN=(value) { _LOGIN = value }
+  OTHER { _OTHER }
+  OTHER=(value) { _OTHER = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LicenseLoadingTypeFactory() {
+    _INITIAL_LOADING = null
+    _GAME_START = null
+    _LOGIN = null
+    _OTHER = null
+        _INITIAL_LOADING = LicenseLoadingType.new("Initial Loading")
+        _GAME_START = LicenseLoadingType.new("Game Start")
+        _LOGIN = LicenseLoadingType.new("Login")
+        _OTHER = LicenseLoadingType.new("Other/Usually The First Non Demo Level")
+  }
 
-local LicenseLoadingTypeFactory = {}
-LicenseLoadingTypeFactory.__index = LicenseLoadingTypeFactory
-LicenseLoadingTypeFactory.className = "LicenseLoadingTypeFactory"
+  construct new() {
+    super()
+    initFields_LicenseLoadingTypeFactory()
+  }
+    
 
-function LicenseLoadingTypeFactory:_init_fields()
-    self.INITIAL_LOADING = LicenseLoadingType.new("Initial Loading")
-    self.GAME_START = LicenseLoadingType.new("Game Start")
-    self.LOGIN = LicenseLoadingType.new("Login")
-    self.OTHER = LicenseLoadingType.new("Other/Usually The First Non Demo Level")
-end
-
-function LicenseLoadingTypeFactory.new()
-    local self = setmetatable({}, LicenseLoadingTypeFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function LicenseLoadingTypeFactory.getIntance()
+    static getIntance() {
         return LicenseLoadingTypeFactory.instance
-end
+    }
+}
 
-LicenseLoadingTypeFactory.instance = LicenseLoadingTypeFactory.new()
-
-return LicenseLoadingTypeFactory
+import "./LicenseLoadingType" for LicenseLoadingType
 

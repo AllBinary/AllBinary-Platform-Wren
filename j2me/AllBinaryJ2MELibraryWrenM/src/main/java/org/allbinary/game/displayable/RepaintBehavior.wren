@@ -1,74 +1,78 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable
 
--- local Canvas = require("javax.microedition.lcdui.Canvas")
-local Features = require("org.allbinary.game.configuration.feature.Features")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
-local OpenGLFeatureFactory = require("org.allbinary.graphics.opengles.OpenGLFeatureFactory")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local NullRunnable = require("org.allbinary.thread.NullRunnable")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RepaintBehavior is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = RepaintBehavior.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  NAME { _NAME }
+  NAME=(value) { _NAME = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RepaintBehavior() {
+    _logUtil = null
+    _NAME = null
+        _logUtil = LogUtil.getInstance()
+        _NAME = "RepaintBehavior"
+  }
 
-local RepaintBehavior = {}
-RepaintBehavior.__index = RepaintBehavior
-RepaintBehavior.className = "RepaintBehavior"
+  construct new() {
+    super()
+    initFields_RepaintBehavior()
+  }
+    
 
-function RepaintBehavior:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.NAME = "RepaintBehavior"
-end
-
-function RepaintBehavior.new()
-    local self = setmetatable({}, RepaintBehavior)
-    self:_init_fields()
-    return self
-end
-
-
-function RepaintBehavior.getInstance()
+    static getInstance() {
         return RepaintBehavior.instance
-end
+    }
+    
 
+    repaint(canvas) {
+    }
+    
 
-function RepaintBehavior:repaint(canvas)
-end
+    onChangeRepaint(canvas) {
+        var features = Features.getInstance()
+        var openGLFeatureFactory = OpenGLFeatureFactory.getInstance()
+        if (features.isFeature(openGLFeatureFactory.OPENGL)) {
+            DisplayInfoSingleton.getInstance().process()
+        } else {
+            var thread = Thread.new(RepaintRunnable.new(canvas), _NAME)
+            thread.start()
+        }
+    }
+}
 
-
-function RepaintBehavior:onChangeRepaint(canvas)
-        local features = Features.getInstance()
-        local openGLFeatureFactory = OpenGLFeatureFactory.getInstance()
-        if features:isFeature(openGLFeatureFactory.OPENGL) then
-            DisplayInfoSingleton.getInstance():process()
-        else
-            local thread = Thread.new(RepaintRunnable.new(canvas), self.NAME)
-            thread:start()
-        end
-end
-
-RepaintBehavior.instance = RepaintBehavior.new()
-
-return RepaintBehavior
+import "../../../../javax/microedition/lcdui/Canvas" for Canvas
+import "../../../../org/allbinary/game/configuration/feature/Features" for Features
+import "../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "../../../../org/allbinary/graphics/opengles/OpenGLFeatureFactory" for OpenGLFeatureFactory
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../java/lang/Thread" for Thread
+import "./RepaintRunnable" for RepaintRunnable
 

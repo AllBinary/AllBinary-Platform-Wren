@@ -1,91 +1,89 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input
 
-local AllMotionRecognizer = require("org.allbinary.input.motion.AllMotionRecognizer")
-local BasicMotionGesturesHandler = require("org.allbinary.input.motion.gesture.observer.BasicMotionGesturesHandler")
-local GameMotionGestureListener = require("org.allbinary.input.motion.gesture.observer.GameMotionGestureListener")
-local MotionGestureReceiveInterfaceFactory = require("org.allbinary.input.motion.gesture.observer.MotionGestureReceiveInterfaceFactory")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//TouchJ2ME
+class TouchJ2ME is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  DEVICE_ID { _DEVICE_ID }
+  DEVICE_ID=(value) { _DEVICE_ID = value }
+  motionRecognizer { _motionRecognizer }
+  motionRecognizer=(value) { _motionRecognizer = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TouchJ2ME() {
+    _logUtil = null
+    _DEVICE_ID = 0
+    _motionRecognizer = null
+        _logUtil = LogUtil.getInstance()
+        _DEVICE_ID = 0
+        _motionRecognizer = AllMotionRecognizer.new()
+  }
+    
 
---TouchJ2ME
-local TouchJ2ME = {}
-TouchJ2ME.__index = TouchJ2ME
-TouchJ2ME.className = "TouchJ2ME"
+    construct new() {
+    super()
+    initFields_TouchJ2ME()
+        var motionGesturesHandler = _motionRecognizer.getMotionGestureRecognizer().getMotionGesturesHandler()
+        motionGesturesHandler.addListenerInterface(GameMotionGestureListener.new(MotionGestureReceiveInterfaceFactory.getInstance()))
+    }
+    
 
-function TouchJ2ME:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.DEVICE_ID = 0
-    self.motionRecognizer = AllMotionRecognizer.new()
-end
+    pointerDragged(x, y) {
+        var jerror0 = Fiber.new {
+            _motionRecognizer.processDraggedMotionEvent(x, y, _DEVICE_ID, 0)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, "pointerDragged", e)
+        }
+    }
+    
 
+    pointerPressed(x, y) {
+        var jerror1 = Fiber.new {
+            _motionRecognizer.processStartMotionEvent(x, y, _DEVICE_ID, 0)
+        }.try()
+        if (jerror1 != null) {
+            var e = jerror1
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, "pointerPressed", e)
+        }
+    }
+    
 
-function TouchJ2ME.new()
-    local self = setmetatable({}, TouchJ2ME)
-    self:_init_fields()
-        local motionGesturesHandler = self.motionRecognizer:getMotionGestureRecognizer():getMotionGesturesHandler()
-        motionGesturesHandler:addListenerInterface(GameMotionGestureListener.new(MotionGestureReceiveInterfaceFactory.getInstance()))
-    return self
-end
+    pointerReleased(x, y) {
+        var jerror2 = Fiber.new {
+            _motionRecognizer.processEndMotionEvent(x, y, _DEVICE_ID, 0)
+        }.try()
+        if (jerror2 != null) {
+            var e = jerror2
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, "pointerReleased", e)
+        }
+    }
+}
 
-
-function TouchJ2ME:pointerDragged(x, y)
-        local try_ok, try_error = pcall(function()
-            self.motionRecognizer:processDraggedMotionEvent(x, y, self.DEVICE_ID, 0)
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, "pointerDragged", e)
-        end
-end
-
-
-function TouchJ2ME:pointerPressed(x, y)
-        local try_ok, try_error = pcall(function()
-            self.motionRecognizer:processStartMotionEvent(x, y, self.DEVICE_ID, 0)
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, "pointerPressed", e)
-        end
-end
-
-
-function TouchJ2ME:pointerReleased(x, y)
-        local try_ok, try_error = pcall(function()
-            self.motionRecognizer:processEndMotionEvent(x, y, self.DEVICE_ID, 0)
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, "pointerReleased", e)
-        end
-end
-
-return TouchJ2ME
+import "../../../org/allbinary/input/motion/AllMotionRecognizer" for AllMotionRecognizer
+import "../../../org/allbinary/input/motion/gesture/observer/BasicMotionGesturesHandler" for BasicMotionGesturesHandler
+import "../../../org/allbinary/input/motion/gesture/observer/GameMotionGestureListener" for GameMotionGestureListener
+import "../../../org/allbinary/input/motion/gesture/observer/MotionGestureReceiveInterfaceFactory" for MotionGestureReceiveInterfaceFactory
+import "../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../org/allbinary/string/CommonStrings" for CommonStrings
 

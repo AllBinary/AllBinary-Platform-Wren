@@ -1,49 +1,50 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.opengles.shader
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.opengles.shader
 
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListUtil = require("org.allbinary.util.BasicArrayListUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Shader is JObject {
+  shaderName { _shaderName }
+  shaderName=(value) { _shaderName = value }
+  shaderStringList { _shaderStringList }
+  shaderStringList=(value) { _shaderStringList = value }
+  shaderAsString { _shaderAsString }
+  shaderAsString=(value) { _shaderAsString = value }
+  shaderHandle { _shaderHandle }
+  shaderHandle=(value) { _shaderHandle = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Shader() {
+    _shaderName = null
+    _shaderStringList = null
+    _shaderAsString = null
+    _shaderHandle = 0
+        _shaderName = StringUtil.getInstance().EMPTY_STRING
+        _shaderStringList = BasicArrayListUtil.getInstance().getImmutableInstance()
+        _shaderAsString = StringUtil.getInstance().EMPTY_STRING
+        _shaderHandle = 0
+  }
 
-local Shader = {}
-Shader.__index = Shader
-Shader.className = "Shader"
+  construct new() {
+    super()
+    initFields_Shader()
+  }
+}
 
-function Shader:_init_fields()
-    self.shaderName = StringUtil.getInstance().EMPTY_STRING
-    self.shaderStringList = BasicArrayListUtil.getInstance():getImmutableInstance()
-    self.shaderAsString = StringUtil.getInstance().EMPTY_STRING
-    self.shaderHandle = 0
-end
-
-function Shader.new()
-    local self = setmetatable({}, Shader)
-    self:_init_fields()
-    return self
-end
-
-return Shader
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListUtil" for BasicArrayListUtil
 

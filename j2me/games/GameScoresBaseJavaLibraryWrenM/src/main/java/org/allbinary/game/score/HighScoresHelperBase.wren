@@ -1,101 +1,86 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.score
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.score
 
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local HighScoresHelperBaseInterface = require("org.allbinary.game.score.HighScoresHelperBaseInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class HighScoresHelperBase is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  highScoresArrayP { _highScoresArrayP }
+  highScoresArrayP=(value) { _highScoresArrayP = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_HighScoresHelperBase() {
+    _logUtil = null
+    _highScoresArrayP = null
+        _logUtil = LogUtil.getInstance()
+        _highScoresArrayP = LastFetchHighScoresFactory.getInstance().highScoresArray
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  construct new() {
+    super()
+    initFields_HighScoresHelperBase()
+  }
+    
 
-local HighScoresHelperBase = {}
-HighScoresHelperBase.__index = HighScoresHelperBase
-HighScoresHelperBase.className = "HighScoresHelperBase"
+    setHighScoresArray(highScoresArrayP) {
+        if ((highScoresArrayP != null)) {
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.putF(StringMaker.new().append(commonStrings.START).appendint(highScoresArrayP.count).toString(), this, "setHighScoresArray")
+        } else {
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.putF(commonStrings.START, this, "setHighScoresArray")
+        }
+        _highScoresArrayP = highScoresArrayP
+    }
+    
 
-function HighScoresHelperBase:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.highScoresArrayP = LastFetchHighScoresFactory.getInstance().highScoresArray
-end
-
-function HighScoresHelperBase.new()
-    local self = setmetatable({}, HighScoresHelperBase)
-    self:_init_fields()
-    return self
-end
-
-
-function HighScoresHelperBase:setHighScoresArray(highScoresArrayP)
-        if highScoresArrayP ~= nil then
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:putF(tostring(StringMaker.new():append(commonStrings.START):appendint((highScoresArrayP.n or #highScoresArrayP))), self, "setHighScoresArray")
-        else
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:putF(commonStrings.START, self, "setHighScoresArray")
-        end
-        self.highScoresArrayP = highScoresArrayP
-end
-
-
-function HighScoresHelperBase:getNextHighScores()
+    getNextHighScores() {
         return NullHighScoresSingletonFactory.getInstance()
-end
+    }
+    
 
+    isAnyHighScores() {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+    
 
-function HighScoresHelperBase:isAnyHighScores()
-        error(java_exception("RuntimeException"), 0)
-end
+    setSelectedHighScores(selectedHighScores) {
+    }
+    
 
-
-function HighScoresHelperBase:setSelectedHighScores(selectedHighScores)
-end
-
-
-function HighScoresHelperBase:getSelectedHighScores()
+    getSelectedHighScores() {
         return NullHighScoresSingletonFactory.getInstance()
-end
+    }
+    
 
+    getHighScoresArray() {
+        return _highScoresArrayP
+    }
+    
 
-function HighScoresHelperBase:getHighScoresArray()
-        return self.highScoresArrayP
-end
+    selectHighScores() {
+    }
+}
 
-
-function HighScoresHelperBase:selectHighScores()
-end
-
-return HighScoresHelperBase
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./HighScoresHelperBaseInterface" for HighScoresHelperBaseInterface
+import "./LastFetchHighScoresFactory" for LastFetchHighScoresFactory
+import "./HighScores" for HighScores
+import "./NullHighScoresSingletonFactory" for NullHighScoresSingletonFactory
 

@@ -1,111 +1,109 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer
 
-local ArtificialIntelligence = require("org.allbinary.ai.ArtificialIntelligence")
-local ArtificialIntelligenceInterface = require("org.allbinary.ai.ArtificialIntelligenceInterface")
-local CollidableBaseBehavior = require("org.allbinary.game.collision.CollidableBaseBehavior")
-local CollidableBaseBehaviorFactory = require("org.allbinary.game.collision.CollidableBaseBehaviorFactory")
-local CollidableInterfaceCompositeInterface = require("org.allbinary.game.collision.CollidableInterfaceCompositeInterface")
-local CollidableNeverCollideBehaviorFactory = require("org.allbinary.game.collision.CollidableNeverCollideBehaviorFactory")
-local Rectangle = require("org.allbinary.graphics.Rectangle")
-local RectangleFactory = require("org.allbinary.graphics.RectangleFactory")
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local ViewPositionBase = require("org.allbinary.view.ViewPositionBase")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local AllBinaryGameLayer = require("org.allbinary.game.layer.AllBinaryGameLayer")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./AllBinaryGameLayer" for AllBinaryGameLayer
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CollidableCompositeLayer is AllBinaryGameLayer {
+    static NULL_COLLIDABLE_COMPOSITE_LAYER {
+    if (__NULL_COLLIDABLE_COMPOSITE_LAYER_set == null) {
+      __NULL_COLLIDABLE_COMPOSITE_LAYER_set = true
+      __NULL_COLLIDABLE_COMPOSITE_LAYER = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __NULL_COLLIDABLE_COMPOSITE_LAYER
+  }
+  static NULL_COLLIDABLE_COMPOSITE_LAYER=(value) {
+    __NULL_COLLIDABLE_COMPOSITE_LAYER_set = true
+    __NULL_COLLIDABLE_COMPOSITE_LAYER = value
+  }
+  collidableInferface { _collidableInferface }
+  collidableInferface=(value) { _collidableInferface = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CollidableCompositeLayer() {
+    _collidableInferface = null
+        _collidableInferface = CollidableNeverCollideBehaviorFactory.getInstance().createBehavior()
+  }
+    
 
-local CollidableCompositeLayer = {}
-CollidableCompositeLayer.__index = CollidableCompositeLayer
-CollidableCompositeLayer.className = "CollidableCompositeLayer"
-setmetatable(CollidableCompositeLayer, {__index = AllBinaryGameLayer})
-
-function CollidableCompositeLayer:_init_fields()
-    self.collidableInferface = CollidableNeverCollideBehaviorFactory.getInstance():createBehavior()
-end
-
-
-function CollidableCompositeLayer.getNullInstance()
-        if CollidableCompositeLayer.NULL_COLLIDABLE_COMPOSITE_LAYER == NullUtil.getInstance().NULL_OBJECT then
+    static getNullInstance() {
+        if ((CollidableCompositeLayer.NULL_COLLIDABLE_COMPOSITE_LAYER == NullUtil.getInstance().NULL_OBJECT)) {
             CollidableCompositeLayer.NULL_COLLIDABLE_COMPOSITE_LAYER = CollidableCompositeLayer.new(StringUtil.getInstance().EMPTY_STRING, RectangleFactory.SINGLETON, ViewPositionBase.NULL_VIEW_POSITION, CollidableNeverCollideBehaviorFactory.getInstance())
-        end
+        }
         return CollidableCompositeLayer.NULL_COLLIDABLE_COMPOSITE_LAYER
-end
+    }
+    
 
+    construct new(name, layerInfo, viewPosition, collidableBaseBehaviorFactory) {
+        super(name, layerInfo, viewPosition)
+        initFields_CollidableCompositeLayer()
+        if ((collidableBaseBehaviorFactory != CollidableNeverCollideBehaviorFactory.getInstance())) {
+            this.setCollidableInferface(collidableBaseBehaviorFactory.createBehavior())
+        }
+    }
+    
 
-function CollidableCompositeLayer.new(name, layerInfo, viewPosition, collidableBaseBehaviorFactory)
-    local self = setmetatable(AllBinaryGameLayer.new(name, layerInfo, viewPosition), CollidableCompositeLayer)
-    self:_init_fields()
-        -- super(...) made self above
-        if collidableBaseBehaviorFactory ~= CollidableNeverCollideBehaviorFactory.getInstance() then
-            self:setCollidableInferface(collidableBaseBehaviorFactory:createBehavior())
-        end
-    return self
-end
-
-
-function CollidableCompositeLayer:getArtificialIntelligenceInterface()
-        ForcedLogUtil.log(self.commonStrings.NOT_IMPLEMENTED, self)
+    getArtificialIntelligenceInterface() {
+        ForcedLogUtil.log(this.commonStrings.NOT_IMPLEMENTED, this)
         return ArtificialIntelligence.getInstance()
-end
+    }
+    
 
+    getCollidableInferface() {
+        return _collidableInferface
+    }
+    
 
-function CollidableCompositeLayer:getCollidableInferface()
-        return self.collidableInferface
-end
+    setCollidableInferface(collidableInferface) {
+        _collidableInferface = collidableInferface
+    }
+    
 
-
-function CollidableCompositeLayer:setCollidableInferface(collidableInferface)
-        self.collidableInferface = collidableInferface
-end
-
-
-function CollidableCompositeLayer:implmentsCollidableInterface()
+    implmentsCollidableInterface() {
         return true
-end
+    }
+    
 
+    toStringAppend(stringBuffer) {
+        var commonSeps = CommonSeps.getInstance()
+        super.toStringAppend(stringBuffer)
+        stringBuffer.append(commonSeps.NEW_LINE)
+        stringBuffer.append(this.getCollidableInferface().toString())
+    }
+    
 
-function CollidableCompositeLayer:toStringAppend(stringBuffer)
-        local commonSeps = CommonSeps.getInstance()
-        AllBinaryGameLayer.toStringAppend(self, stringBuffer)
-        stringBuffer:append(commonSeps.NEW_LINE)
-        stringBuffer:append(tostring(self:getCollidableInferface()))
-end
+    toString() {
+        var stringBuffer = StringMaker.new()
+        this.toStringAppend(stringBuffer)
+        return stringBuffer.toString()
+    }
+}
 
-
-function CollidableCompositeLayer:toString()
-        local stringBuffer = StringMaker.new()
-        self:toStringAppend(stringBuffer)
-        return tostring(stringBuffer)
-end
-CollidableCompositeLayer.__tostring = function(self) return self:toString() end
-
-CollidableCompositeLayer.NULL_COLLIDABLE_COMPOSITE_LAYER = NullUtil.getInstance().NULL_OBJECT
-
-return CollidableCompositeLayer
+import "../../../../org/allbinary/ai/ArtificialIntelligence" for ArtificialIntelligence
+import "../../../../org/allbinary/ai/ArtificialIntelligenceInterface" for ArtificialIntelligenceInterface
+import "../../../../org/allbinary/game/collision/CollidableBaseBehavior" for CollidableBaseBehavior
+import "../../../../org/allbinary/game/collision/CollidableBaseBehaviorFactory" for CollidableBaseBehaviorFactory
+import "../../../../org/allbinary/game/collision/CollidableInterfaceCompositeInterface" for CollidableInterfaceCompositeInterface
+import "../../../../org/allbinary/game/collision/CollidableNeverCollideBehaviorFactory" for CollidableNeverCollideBehaviorFactory
+import "../../../../org/allbinary/graphics/Rectangle" for Rectangle
+import "../../../../org/allbinary/graphics/RectangleFactory" for RectangleFactory
+import "../../../../org/allbinary/logic/communication/log/ForcedLogUtil" for ForcedLogUtil
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../../org/allbinary/view/ViewPositionBase" for ViewPositionBase
+import "../../../../org/allbinary/logic/NullUtil" for NullUtil
 

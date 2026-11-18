@@ -1,142 +1,133 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.util.event.handler
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.util.event.handler
 
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventListenerInterface = require("org.allbinary.logic.util.event.EventListenerInterface")
-local EventStrings = require("org.allbinary.logic.util.event.EventStrings")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local BasicEventHandlerInterface = require("org.allbinary.logic.util.event.handler.BasicEventHandlerInterface")
+import "../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BasicEventHandler is JObject {
+    static PERFORMANCE_MESSAGE { "Use Custom onEvent Methods for needed optimization" }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  eventListenerInterfaceList { _eventListenerInterfaceList }
+  eventListenerInterfaceList=(value) { _eventListenerInterfaceList = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BasicEventHandler() {
+    _logUtil = null
+    _eventListenerInterfaceList = null
+        _logUtil = LogUtil.getInstance()
+        
+  }
+    
 
-local BasicEventHandler = {}
-BasicEventHandler.__index = BasicEventHandler
-BasicEventHandler.className = "BasicEventHandler"
+    construct new() {
+    super()
+    initFields_BasicEventHandler()
+        _eventListenerInterfaceList = BasicArrayListD.new()
+    }
+    
 
-function BasicEventHandler:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.eventListenerInterfaceList = nil
-end
+    toString() {
+        var stringBuffer = StringMaker.new()
+        var LISTENER = " Listener: "
+        stringBuffer.append("Total Listeners: ")
+        stringBuffer.appendint(_eventListenerInterfaceList.size())
+        var eventListenerInterface = null
+        var index = 0
+        while ((index < _eventListenerInterfaceList.size())) {
+            var jerror0 = Fiber.new {
+                eventListenerInterface = _eventListenerInterfaceList.objectArray[index]
+                stringBuffer.append(LISTENER)
+                stringBuffer.append(StringUtil.getInstance().toString(eventListenerInterface))
+            }.try()
+            if (jerror0 != null) {
+                var e = jerror0
+                var commonStrings = CommonStrings.getInstance()
+                _logUtil.put(commonStrings.EXCEPTION, this, commonStrings.TOSTRING, e)
+            }
+            index = JR.i32(index + 1)
+        }
+        return stringBuffer.toString()
+    }
+    
 
+    removeAllListeners() {
+        _eventListenerInterfaceList = BasicArrayListD.new()
+    }
+    
 
-function BasicEventHandler.new()
-    local self = setmetatable({}, BasicEventHandler)
-    self:_init_fields()
-        self.eventListenerInterfaceList = BasicArrayListD.new()
-    return self
-end
+    addListenerSingleThreaded(eventListenerInterface) {
+        if (!_eventListenerInterfaceList.contains(eventListenerInterface)) {
+            _eventListenerInterfaceList.add(eventListenerInterface)
+        }
+    }
+    
 
+    addListenerInterface(eventListenerInterface) {
+        if (!_eventListenerInterfaceList.contains(eventListenerInterface)) {
+            _eventListenerInterfaceList.add(eventListenerInterface)
+        }
+    }
+    
 
-function BasicEventHandler:toString()
-        local stringBuffer = StringMaker.new()
-        local LISTENER = " Listener: "
-        stringBuffer:append("Total Listeners: ")
-        stringBuffer:appendint(self.eventListenerInterfaceList:size())
-        local eventListenerInterface = nil
-        local index = 0
-        while index < self.eventListenerInterfaceList:size() do
-            local try_ok, try_error = pcall(function()
-                eventListenerInterface = self.eventListenerInterfaceList.objectArray[index + 1]
-                stringBuffer:append(LISTENER)
-                stringBuffer:append(StringUtil.getInstance():toString(eventListenerInterface))
-            end)
-            if not try_ok then
-                local e = try_error
-                local commonStrings = CommonStrings.getInstance()
-                self.logUtil:put(commonStrings.EXCEPTION, self, commonStrings.TOSTRING, e)
-            end
-            index = index + 1
-        end
-        return tostring(stringBuffer)
-end
-BasicEventHandler.__tostring = function(self) return self:toString() end
+    removeListenerSingleThreaded(eventListenerInterface) {
+        _eventListenerInterfaceList.remove(eventListenerInterface)
+    }
+    
 
+    removeListener(eventListenerInterface) {
+        _eventListenerInterfaceList.remove(eventListenerInterface)
+    }
+    
 
-function BasicEventHandler:removeAllListeners()
-        self.eventListenerInterfaceList = BasicArrayListD.new()
-end
+    fireEvent(eventObject) {
+        var index = 0
+        var eventListenerInterface = null
+        while ((index < _eventListenerInterfaceList.size())) {
+            var jerror1 = Fiber.new {
+                eventListenerInterface = _eventListenerInterfaceList.objectArray[index]
+                this.process(eventObject, eventListenerInterface)
+            }.try()
+            if (jerror1 != null) {
+                var e = jerror1
+                var commonStrings = CommonStrings.getInstance()
+                _logUtil.put(commonStrings.EXCEPTION, this, EventStrings.getInstance().FIRE_EVENT, e)
+            }
+            index = JR.i32(index + 1)
+        }
+    }
+    
 
+    process(eventObject, eventListenerInterface) {
+        eventListenerInterface.onEvent(eventObject)
+    }
+    
 
-function BasicEventHandler:addListenerSingleThreaded(eventListenerInterface)
-        if not self.eventListenerInterfaceList:contains(eventListenerInterface) then
-            self.eventListenerInterfaceList:add(eventListenerInterface)
-        end
-end
+    getEventListenerInterfaceListP() {
+        return _eventListenerInterfaceList
+    }
+}
 
-
-function BasicEventHandler:addListenerInterface(eventListenerInterface)
-        if not self.eventListenerInterfaceList:contains(eventListenerInterface) then
-            self.eventListenerInterfaceList:add(eventListenerInterface)
-        end
-end
-
-
-function BasicEventHandler:removeListenerSingleThreaded(eventListenerInterface)
-        self.eventListenerInterfaceList:remove(eventListenerInterface)
-end
-
-
-function BasicEventHandler:removeListener(eventListenerInterface)
-        self.eventListenerInterfaceList:remove(eventListenerInterface)
-end
-
-
--- throws Exception
-function BasicEventHandler:fireEvent(eventObject)
-        local index = 0
-        local eventListenerInterface = nil
-        while index < self.eventListenerInterfaceList:size() do
-            local try_ok, try_error = pcall(function()
-                eventListenerInterface = self.eventListenerInterfaceList.objectArray[index + 1]
-                self:process(eventObject, eventListenerInterface)
-            end)
-            if not try_ok then
-                local e = try_error
-                local commonStrings = CommonStrings.getInstance()
-                self.logUtil:put(commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-            end
-            index = index + 1
-        end
-end
-
-
--- throws Exception
-function BasicEventHandler:process(eventObject, eventListenerInterface)
-        eventListenerInterface:onEvent(eventObject)
-end
-
-
-function BasicEventHandler:getEventListenerInterfaceListP()
-        return self.eventListenerInterfaceList
-end
-
-BasicEventHandler.PERFORMANCE_MESSAGE = "Use Custom onEvent Methods for needed optimization"
-
-return BasicEventHandler
+import "../../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../../../org/allbinary/logic/util/event/EventListenerInterface" for EventListenerInterface
+import "../../../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
+import "../../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./BasicEventHandlerInterface" for BasicEventHandlerInterface
 

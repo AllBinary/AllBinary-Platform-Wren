@@ -1,141 +1,146 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Image = require("javax.microedition.lcdui.Image")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local CircularIndexUtil = require("org.allbinary.util.CircularIndexUtil")
-local ImageAnimation = require("org.allbinary.animation.image.ImageAnimation")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./ImageAnimation" for ImageAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ImageSegmentAnimation is ImageAnimation {
+  startX { _startX }
+  startX=(value) { _startX = value }
+  startY { _startY }
+  startY=(value) { _startY = value }
+  drawWidth { _drawWidth }
+  drawWidth=(value) { _drawWidth = value }
+  drawHeight { _drawHeight }
+  drawHeight=(value) { _drawHeight = value }
+  circularIndexUtil { _circularIndexUtil }
+  circularIndexUtil=(value) { _circularIndexUtil = value }
+  sequenceArray { _sequenceArray }
+  sequenceArray=(value) { _sequenceArray = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImageSegmentAnimation() {
+    _startX = 0
+    _startY = 0
+    _drawWidth = 0
+    _drawHeight = 0
+    _circularIndexUtil = null
+    _sequenceArray = null
+        
+        
+        
+        
+        
+        
+  }
+    
 
-local ImageSegmentAnimation = {}
-ImageSegmentAnimation.__index = ImageSegmentAnimation
-ImageSegmentAnimation.className = "ImageSegmentAnimation"
-setmetatable(ImageSegmentAnimation, {__index = ImageAnimation})
+    construct new(image, sequenceArray, animationBehavior) {
+        super(image, animationBehavior)
+        initFields_ImageSegmentAnimation()
+        _startX = 0
+        _startY = 0
+        _drawWidth = this.getImage().getWidth()
+        _drawHeight = this.getImage().getHeight()
+        _circularIndexUtil = CircularIndexUtil.createInstance(_drawHeight)
+        _sequenceArray = sequenceArray
+    }
+    
 
-function ImageSegmentAnimation:_init_fields()
-    self.startX = nil
-    self.startY = nil
-    self.drawWidth = nil
-    self.drawHeight = nil
-    self.circularIndexUtil = nil
-    self.sequenceArray = nil
-end
+    nextFrame() {
+        _circularIndexUtil.next()
+    }
+    
 
+    previousFrame() {
+        _circularIndexUtil.previous()
+    }
+    
 
-function ImageSegmentAnimation.new(image, sequenceArray, animationBehavior)
-    local self = setmetatable(ImageAnimation.new(image, animationBehavior), ImageSegmentAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.startX = 0
-        self.startY = 0
-        self.drawWidth = self:getImage():getWidth()
-        self.drawHeight = self:getImage():getHeight()
-        self.circularIndexUtil = CircularIndexUtil.createInstance(self.drawHeight)
-        self.sequenceArray = sequenceArray
-    return self
-end
+    setFrame(index) {
+        _circularIndexUtil.setIndex(index)
+    }
+    
 
+    getFrame() {
+        return _circularIndexUtil.getIndex()
+    }
+    
 
-function ImageSegmentAnimation:nextFrame()
-        self.circularIndexUtil:next()
-end
+    getSize() {
+        return _circularIndexUtil.getSize()
+    }
+    
 
+    setSequence(sequenceArray) {
+        _sequenceArray = sequenceArray
+    }
+    
 
-function ImageSegmentAnimation:previousFrame()
-        self.circularIndexUtil:previous()
-end
+    getSequence() {
+        return _sequenceArray
+    }
+    
 
+    paintXY(graphics, x, y) {
+    }
+    
 
-function ImageSegmentAnimation:setFrame(index)
-        self.circularIndexUtil:setIndex(index)
-end
+    getStartX() {
+        return _startX
+    }
+    
 
+    setStartX(startX) {
+        _startX = startX
+    }
+    
 
-function ImageSegmentAnimation:getFrame()
-        return self.circularIndexUtil:getIndex()
-end
+    getStartY() {
+        return _startY
+    }
+    
 
+    setStartY(startY) {
+        _startY = startY
+    }
+    
 
-function ImageSegmentAnimation:getSize()
-        return self.circularIndexUtil:getSize()
-end
+    getDrawWidth() {
+        return _drawWidth
+    }
+    
 
+    setDrawWidth(drawWidth) {
+        _drawWidth = drawWidth
+    }
+    
 
-function ImageSegmentAnimation:setSequence(sequenceArray)
-        self.sequenceArray = sequenceArray
-end
+    getDrawHeight() {
+        return _drawHeight
+    }
+    
 
+    setDrawHeight(drawHeight) {
+        _drawHeight = drawHeight
+    }
+}
 
-function ImageSegmentAnimation:getSequence()
-        return self.sequenceArray
-end
-
-
-function ImageSegmentAnimation:paintXY(graphics, x, y)
-end
-
-
-function ImageSegmentAnimation:getStartX()
-        return self.startX
-end
-
-
-function ImageSegmentAnimation:setStartX(startX)
-        self.startX = startX
-end
-
-
-function ImageSegmentAnimation:getStartY()
-        return self.startY
-end
-
-
-function ImageSegmentAnimation:setStartY(startY)
-        self.startY = startY
-end
-
-
-function ImageSegmentAnimation:getDrawWidth()
-        return self.drawWidth
-end
-
-
-function ImageSegmentAnimation:setDrawWidth(drawWidth)
-        self.drawWidth = drawWidth
-end
-
-
-function ImageSegmentAnimation:getDrawHeight()
-        return self.drawHeight
-end
-
-
-function ImageSegmentAnimation:setDrawHeight(drawHeight)
-        self.drawHeight = drawHeight
-end
-
-return ImageSegmentAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/util/CircularIndexUtil" for CircularIndexUtil
 

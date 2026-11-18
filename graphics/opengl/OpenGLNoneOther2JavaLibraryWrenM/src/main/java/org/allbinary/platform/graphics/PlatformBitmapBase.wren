@@ -1,65 +1,69 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.platform.graphics
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.platform.graphics
 
--- local Image = require("javax.microedition.lcdui.Image")
--- local NullImage = require("javax.microedition.lcdui.NullImage")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PlatformBitmapBase is JObject {
+    static NULL_PLATFORM_BITMAP_BASE {
+    if (__NULL_PLATFORM_BITMAP_BASE_set == null) {
+      __NULL_PLATFORM_BITMAP_BASE_set = true
+      __NULL_PLATFORM_BITMAP_BASE = PlatformBitmapBase.new()
+    }
+    return __NULL_PLATFORM_BITMAP_BASE
+  }
+  static NULL_PLATFORM_BITMAP_BASE=(value) {
+    __NULL_PLATFORM_BITMAP_BASE_set = true
+    __NULL_PLATFORM_BITMAP_BASE = value
+  }
+  alpha { _alpha }
+  alpha=(value) { _alpha = value }
+  basicColor { _basicColor }
+  basicColor=(value) { _basicColor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PlatformBitmapBase() {
+    _alpha = 0
+    _basicColor = null
+        _alpha = 255
+        _basicColor = BasicColorFactory.getInstance().NULL_COLOR
+  }
 
-local PlatformBitmapBase = {}
-PlatformBitmapBase.__index = PlatformBitmapBase
-PlatformBitmapBase.className = "PlatformBitmapBase"
+  construct new() {
+    super()
+    initFields_PlatformBitmapBase()
+  }
+    
 
-function PlatformBitmapBase:_init_fields()
-    self.alpha = 255
-    self.basicColor = BasicColorFactory.getInstance().NULL_COLOR
-end
-
-function PlatformBitmapBase.new()
-    local self = setmetatable({}, PlatformBitmapBase)
-    self:_init_fields()
-    return self
-end
-
-
-function PlatformBitmapBase:getWidth()
+    getWidth() {
         return 0
-end
+    }
+    
 
-
-function PlatformBitmapBase:getHeight()
+    getHeight() {
         return 0
-end
+    }
+    
 
-
-function PlatformBitmapBase:getImage()
+    getImage() {
         return NullImage.NULL_IMAGE
-end
+    }
+}
 
-PlatformBitmapBase.NULL_PLATFORM_BITMAP_BASE = PlatformBitmapBase.new()
-
-return PlatformBitmapBase
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../javax/microedition/lcdui/NullImage" for NullImage
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
 

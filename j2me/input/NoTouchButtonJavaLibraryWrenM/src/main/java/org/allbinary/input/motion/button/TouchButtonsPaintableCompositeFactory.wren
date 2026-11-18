@@ -1,46 +1,39 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.button
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.button
 
-local InputMappingInterface = require("org.allbinary.game.input.mapping.InputMappingInterface")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local ProcessPaintable = require("org.allbinary.graphics.paint.ProcessPaintable")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class TouchButtonsPaintableCompositeFactory is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TouchButtonsPaintableCompositeFactory() {
+  }
 
-local TouchButtonsPaintableCompositeFactory = {}
-TouchButtonsPaintableCompositeFactory.__index = TouchButtonsPaintableCompositeFactory
-TouchButtonsPaintableCompositeFactory.className = "TouchButtonsPaintableCompositeFactory"
+  construct new() {
+    super()
+    initFields_TouchButtonsPaintableCompositeFactory()
+  }
+    
 
-function TouchButtonsPaintableCompositeFactory.new()
-    local self = setmetatable({}, TouchButtonsPaintableCompositeFactory)
-    return self
-end
-
-
-function TouchButtonsPaintableCompositeFactory.getInstance(inputMappingInterface, basicColor)
+    static getInstance(inputMappingInterface, basicColor) {
         return ProcessPaintable.new()
-end
+    }
+}
 
-return TouchButtonsPaintableCompositeFactory
+import "../../../../../org/allbinary/game/input/mapping/InputMappingInterface" for InputMappingInterface
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../org/allbinary/graphics/paint/ProcessPaintable" for ProcessPaintable
 

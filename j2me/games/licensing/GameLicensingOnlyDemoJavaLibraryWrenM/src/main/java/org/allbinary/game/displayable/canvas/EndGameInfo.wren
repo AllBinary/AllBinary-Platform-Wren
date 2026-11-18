@@ -1,81 +1,85 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
-local GameInfo = require("org.allbinary.game.GameInfo")
-local MyCanvas = require("org.allbinary.graphics.displayable.MyCanvas")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class EndGameInfo is JObject {
+  NORMAL_GAME_OVER_WIN { _NORMAL_GAME_OVER_WIN }
+  NORMAL_GAME_OVER_WIN=(value) { _NORMAL_GAME_OVER_WIN = value }
+  TEASER_DEMO_GAME_END_LAST_LEVEL { _TEASER_DEMO_GAME_END_LAST_LEVEL }
+  TEASER_DEMO_GAME_END_LAST_LEVEL=(value) { _TEASER_DEMO_GAME_END_LAST_LEVEL = value }
+  TEASER_DEMO_GAME_END { _TEASER_DEMO_GAME_END }
+  TEASER_DEMO_GAME_END=(value) { _TEASER_DEMO_GAME_END = value }
+  gameOverStr { _gameOverStr }
+  gameOverStr=(value) { _gameOverStr = value }
+  winStr { _winStr }
+  winStr=(value) { _winStr = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_EndGameInfo() {
+    _NORMAL_GAME_OVER_WIN = null
+    _TEASER_DEMO_GAME_END_LAST_LEVEL = null
+    _TEASER_DEMO_GAME_END = null
+    _gameOverStr = null
+    _winStr = null
+        _NORMAL_GAME_OVER_WIN = "You Won"
+        _TEASER_DEMO_GAME_END_LAST_LEVEL = "End of Demo."
+        _TEASER_DEMO_GAME_END = "Demo Game Over."
+        _gameOverStr = StringUtil.getInstance().EMPTY_STRING
+        _winStr = _gameOverStr
+  }
 
-local EndGameInfo = {}
-EndGameInfo.__index = EndGameInfo
-EndGameInfo.className = "EndGameInfo"
+  construct new() {
+    super()
+    initFields_EndGameInfo()
+  }
+    
 
-function EndGameInfo:_init_fields()
-    self.NORMAL_GAME_OVER_WIN = "You Won"
-    self.TEASER_DEMO_GAME_END_LAST_LEVEL = "End of Demo."
-    self.TEASER_DEMO_GAME_END = "Demo Game Over."
-    self.gameOverStr = StringUtil.getInstance().EMPTY_STRING
-    self.winStr = self.gameOverStr
-end
+    update(gameInfo, myCanvas) {
+        if (gameInfo.isLastLevel()) {
+            this.setWinStr(_TEASER_DEMO_GAME_END_LAST_LEVEL)
+            this.setGameOverStr(_TEASER_DEMO_GAME_END_LAST_LEVEL)
+        } else {
+            this.setWinStr(_NORMAL_GAME_OVER_WIN)
+            this.setGameOverStr(_TEASER_DEMO_GAME_END)
+        }
+    }
+    
 
-function EndGameInfo.new()
-    local self = setmetatable({}, EndGameInfo)
-    self:_init_fields()
-    return self
-end
+    getGameOverStr() {
+        return _gameOverStr
+    }
+    
 
+    setGameOverStr(gameOverStr) {
+        _gameOverStr = gameOverStr
+    }
+    
 
-function EndGameInfo:update(gameInfo, myCanvas)
-        if gameInfo:isLastLevel() then
-            self:setWinStr(self.TEASER_DEMO_GAME_END_LAST_LEVEL)
-            self:setGameOverStr(self.TEASER_DEMO_GAME_END_LAST_LEVEL)
-        else
-            self:setWinStr(self.NORMAL_GAME_OVER_WIN)
-            self:setGameOverStr(self.TEASER_DEMO_GAME_END)
-        end
-end
+    getWinStr() {
+        return _winStr
+    }
+    
 
+    setWinStr(winStr) {
+        _winStr = winStr
+    }
+}
 
-function EndGameInfo:getGameOverStr()
-        return self.gameOverStr
-end
-
-
-function EndGameInfo:setGameOverStr(gameOverStr)
-        self.gameOverStr = gameOverStr
-end
-
-
-function EndGameInfo:getWinStr()
-        return self.winStr
-end
-
-
-function EndGameInfo:setWinStr(winStr)
-        self.winStr = winStr
-end
-
-return EndGameInfo
+import "../../../../../org/allbinary/game/GameInfo" for GameInfo
+import "../../../../../org/allbinary/graphics/displayable/MyCanvas" for MyCanvas
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
 

@@ -1,63 +1,52 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.ai.sequence
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.ai.sequence
 
-local ArtificialIntelligenceInterface = require("org.allbinary.ai.ArtificialIntelligenceInterface")
-local GameInput = require("org.allbinary.game.input.GameInput")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local SequenceAI = require("org.allbinary.game.ag.ai.sequence.SequenceAI")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "./SequenceAI" for SequenceAI
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NumberLayersSequenceAI is SequenceAI {
+  numberOfLayersLeft { _numberOfLayersLeft }
+  numberOfLayersLeft=(value) { _numberOfLayersLeft = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NumberLayersSequenceAI() {
+    _numberOfLayersLeft = 0
+        
+  }
+    
 
-local NumberLayersSequenceAI = {}
-NumberLayersSequenceAI.__index = NumberLayersSequenceAI
-NumberLayersSequenceAI.className = "NumberLayersSequenceAI"
-setmetatable(NumberLayersSequenceAI, {__index = SequenceAI})
+    construct new(numberOfEnemiesLeft, artificialIntelligenceInterface, ownerLayerInterface, gameInput) {
+        super(artificialIntelligenceInterface, ownerLayerInterface, gameInput)
+        initFields_NumberLayersSequenceAI()
+        _numberOfLayersLeft = numberOfEnemiesLeft
+    }
+    
 
-function NumberLayersSequenceAI:_init_fields()
-    self.numberOfLayersLeft = nil
-end
+    processAI(allBinaryLayerManager) {
+        if ((this.getIndex() == 0)) {
+            if ((allBinaryLayerManager.getSize() < _numberOfLayersLeft)) {
+                this.setIndex(1)
+            }
+        }
+        super.processAI(allBinaryLayerManager)
+    }
+}
 
-
-function NumberLayersSequenceAI.new(numberOfEnemiesLeft, artificialIntelligenceInterface, ownerLayerInterface, gameInput)
-    local self = setmetatable(SequenceAI.new(artificialIntelligenceInterface, ownerLayerInterface, gameInput), NumberLayersSequenceAI)
-    self:_init_fields()
-        -- super(...) made self above
-        self.numberOfLayersLeft = numberOfEnemiesLeft
-    return self
-end
-
-
--- throws Exception
-function NumberLayersSequenceAI:processAI(allBinaryLayerManager)
-        if self:getIndex() == 0 then
-            if allBinaryLayerManager:getSize() < self.numberOfLayersLeft then
-                self:setIndex(1)
-            end
-        end
-        SequenceAI.processAI(self, allBinaryLayerManager)
-end
-
-return NumberLayersSequenceAI
+import "../../../../../../org/allbinary/ai/ArtificialIntelligenceInterface" for ArtificialIntelligenceInterface
+import "../../../../../../org/allbinary/game/input/GameInput" for GameInput
+import "../../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
 

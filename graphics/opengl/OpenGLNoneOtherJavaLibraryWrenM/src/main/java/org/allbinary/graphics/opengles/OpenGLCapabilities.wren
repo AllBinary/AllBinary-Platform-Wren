@@ -1,92 +1,126 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.opengles
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.opengles
 
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class OpenGLCapabilities is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = OpenGLCapabilities.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  CUSTOM_GL_SURFACE_VIEW { _CUSTOM_GL_SURFACE_VIEW }
+  CUSTOM_GL_SURFACE_VIEW=(value) { _CUSTOM_GL_SURFACE_VIEW = value }
+  VERSION_1_0 { _VERSION_1_0 }
+  VERSION_1_0=(value) { _VERSION_1_0 = value }
+  VERSION_1_1 { _VERSION_1_1 }
+  VERSION_1_1=(value) { _VERSION_1_1 = value }
+  VERSION_2_0 { _VERSION_2_0 }
+  VERSION_2_0=(value) { _VERSION_2_0 = value }
+  VERSION_3_0 { _VERSION_3_0 }
+  VERSION_3_0=(value) { _VERSION_3_0 = value }
+  VERSION_3_1 { _VERSION_3_1 }
+  VERSION_3_1=(value) { _VERSION_3_1 = value }
+  VERSION_3_2 { _VERSION_3_2 }
+  VERSION_3_2=(value) { _VERSION_3_2 = value }
+  VERSION_HIGHER_THAN_EXISTS { _VERSION_HIGHER_THAN_EXISTS }
+  VERSION_HIGHER_THAN_EXISTS=(value) { _VERSION_HIGHER_THAN_EXISTS = value }
+  glVersion { _glVersion }
+  glVersion=(value) { _glVersion = value }
+  shaderVersion { _shaderVersion }
+  shaderVersion=(value) { _shaderVersion = value }
+  glInstanceVersion { _glInstanceVersion }
+  glInstanceVersion=(value) { _glInstanceVersion = value }
+  maxTextureSize { _maxTextureSize }
+  maxTextureSize=(value) { _maxTextureSize = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_OpenGLCapabilities() {
+    _CUSTOM_GL_SURFACE_VIEW = false
+    _VERSION_1_0 = null
+    _VERSION_1_1 = null
+    _VERSION_2_0 = null
+    _VERSION_3_0 = null
+    _VERSION_3_1 = null
+    _VERSION_3_2 = null
+    _VERSION_HIGHER_THAN_EXISTS = null
+    _glVersion = null
+    _shaderVersion = 0
+    _glInstanceVersion = null
+    _maxTextureSize = 0
+        _CUSTOM_GL_SURFACE_VIEW = true
+        _VERSION_1_0 = "1.0"
+        _VERSION_1_1 = "1.1"
+        _VERSION_2_0 = "2.0"
+        _VERSION_3_0 = "3.0"
+        _VERSION_3_1 = "3.1"
+        _VERSION_3_2 = "3.2"
+        _VERSION_HIGHER_THAN_EXISTS = "999.999"
+        _glVersion = StringUtil.getInstance().EMPTY_STRING
+        _shaderVersion = 0
+        _glInstanceVersion = StringUtil.getInstance().EMPTY_STRING
+        _maxTextureSize = 64
+  }
+    
 
-local OpenGLCapabilities = {}
-OpenGLCapabilities.__index = OpenGLCapabilities
-OpenGLCapabilities.className = "OpenGLCapabilities"
-
-function OpenGLCapabilities:_init_fields()
-    self.CUSTOM_GL_SURFACE_VIEW = true
-    self.VERSION_1_0 = "1.0"
-    self.VERSION_1_1 = "1.1"
-    self.VERSION_2_0 = "2.0"
-    self.VERSION_3_0 = "3.0"
-    self.VERSION_3_1 = "3.1"
-    self.VERSION_3_2 = "3.2"
-    self.VERSION_HIGHER_THAN_EXISTS = "999.999"
-    self.glVersion = StringUtil.getInstance().EMPTY_STRING
-    self.shaderVersion = 0
-    self.glInstanceVersion = StringUtil.getInstance().EMPTY_STRING
-    self.maxTextureSize = 64
-end
-
-
-function OpenGLCapabilities.getInstance()
+    static getInstance() {
         return OpenGLCapabilities.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_OpenGLCapabilities()
+    }
+    
 
-function OpenGLCapabilities.new()
-    local self = setmetatable({}, OpenGLCapabilities)
-    self:_init_fields()
-    return self
-end
-
-
-function OpenGLCapabilities:isInitialized()
+    isInitialized() {
         return true
-end
+    }
+    
 
+    initCapabilities(gl) {
+    }
+    
 
-function OpenGLCapabilities:initCapabilities(gl)
-end
-
-
-function OpenGLCapabilities:isGlExtensionDrawTexture()
+    isGlExtensionDrawTexture() {
         return false
-end
+    }
+    
 
+    getGlVersion() {
+        return _glVersion
+    }
+    
 
-function OpenGLCapabilities:getGlVersion()
-        return self.glVersion
-end
-
-
-function OpenGLCapabilities:isVertexBufferObjectSupport()
+    isVertexBufferObjectSupport() {
         return false
-end
+    }
+    
 
-
-function OpenGLCapabilities:isTextureSizeValid(widthAndHeight)
+    isTextureSizeValid(widthAndHeight) {
         return true
-end
+    }
+}
 
-OpenGLCapabilities.instance = OpenGLCapabilities.new()
-
-return OpenGLCapabilities
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
 

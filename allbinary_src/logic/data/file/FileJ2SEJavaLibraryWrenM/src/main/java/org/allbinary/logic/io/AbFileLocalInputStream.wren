@@ -1,45 +1,35 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.io
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.io
 
--- local FileNotFoundException = require("java.io.FileNotFoundException")
-local AbFile = require("org.allbinary.logic.io.file.AbFile")
-local AbFileNativeUtil = require("org.allbinary.logic.io.file.AbFileNativeUtil")
-local AbFileInputStream = require("org.allbinary.logic.io.AbFileInputStream")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./AbFileInputStream" for AbFileInputStream
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AbFileLocalInputStream is AbFileInputStream {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AbFileLocalInputStream() {
+  }
+    
 
-local AbFileLocalInputStream = {}
-AbFileLocalInputStream.__index = AbFileLocalInputStream
-AbFileLocalInputStream.className = "AbFileLocalInputStream"
-setmetatable(AbFileLocalInputStream, {__index = AbFileInputStream})
+    construct new(file) {
+        super(AbFileNativeUtil.get(file).getPath())
+    }
+}
 
-
-function AbFileLocalInputStream.new(file)
-    local self = setmetatable(AbFileInputStream.new(AbFileNativeUtil.get(file):getPath()), AbFileLocalInputStream)
-        -- super(...) made self above
-    return self
-end
-
-return AbFileLocalInputStream
+import "../../../../java/io/FileNotFoundException" for FileNotFoundException
+import "../../../../org/allbinary/logic/io/file/AbFile" for AbFile
+import "../../../../org/allbinary/logic/io/file/AbFileNativeUtil" for AbFileNativeUtil
 

@@ -1,27 +1,14 @@
--- Generated Code Do Not Modify
--- package java.lang.annotation
+// Generated Code Do Not Modify
+// package java.lang.annotation
 
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Annotation is JObject {
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    annotationType() {
+        Fiber.abort(JR.exception("AbstractMethodError", "annotationType"))
+    }
+}
 
--- Java interface
-local Annotation = {}
-Annotation.__index = Annotation
-Annotation.className = "Annotation"
-
-
-function Annotation:annotationType()
-    error("abstract method annotationType")
-end
-
-return Annotation
 

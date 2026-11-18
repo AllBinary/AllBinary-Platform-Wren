@@ -1,80 +1,81 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer.hud.event
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer.hud.event
 
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventListenerInterface = require("org.allbinary.logic.util.event.EventListenerInterface")
-local NullEventListener = require("org.allbinary.logic.util.event.NullEventListener")
-local BasicEventHandler = require("org.allbinary.logic.util.event.handler.BasicEventHandler")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/logic/util/event/handler/BasicEventHandler" for BasicEventHandler
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameNotificationEventHandler is BasicEventHandler {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = GameNotificationEventHandler.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  enabled { _enabled }
+  enabled=(value) { _enabled = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameNotificationEventHandler() {
+    _enabled = false
+        _enabled = true
+  }
+    
 
-local GameNotificationEventHandler = {}
-GameNotificationEventHandler.__index = GameNotificationEventHandler
-GameNotificationEventHandler.className = "GameNotificationEventHandler"
-setmetatable(GameNotificationEventHandler, {__index = BasicEventHandler})
+    construct new() {
+    super()
+    initFields_GameNotificationEventHandler()
+    }
+    
 
-function GameNotificationEventHandler:_init_fields()
-    self.enabled = true
-end
+    removeAllListeners() {
+        var eventListenerInterface = NullEventListener.NULL_EVENT_LISTENER
+        var list = this.eventListenerInterfaceList
+        if ((list.size() > 0)) {
+            eventListenerInterface = list.objectArray[0]
+        }
+        super.removeAllListeners()
+        if ((eventListenerInterface != NullEventListener.NULL_EVENT_LISTENER)) {
+            this.addListenerInterface(eventListenerInterface)
+        }
+    }
+    
 
-
-function GameNotificationEventHandler.new()
-    local self = setmetatable(BasicEventHandler.new(), GameNotificationEventHandler)
-    self:_init_fields()
-    return self
-end
-
-
-function GameNotificationEventHandler:removeAllListeners()
-        local eventListenerInterface = NullEventListener.NULL_EVENT_LISTENER
-        local list = self.eventListenerInterfaceList
-        if list:size() > 0 then
-            eventListenerInterface = list.objectArray[1]
-        end
-        BasicEventHandler.removeAllListeners(self)
-        if eventListenerInterface ~= NullEventListener.NULL_EVENT_LISTENER then
-            self:addListenerInterface(eventListenerInterface)
-        end
-end
-
-
-function GameNotificationEventHandler.getInstance()
+    static getInstance() {
         return GameNotificationEventHandler.instance
-end
+    }
+    
 
-
--- throws Exception
-function GameNotificationEventHandler:process(eventObject, eventListenerInterface)
-        if not self.enabled then
+    process(eventObject, eventListenerInterface) {
+        if (!_enabled) {
             return
-        end
-        local gameNotificationListenerInterface = eventListenerInterface
-        gameNotificationListenerInterface:onGameNotificationEvent(eventObject)
-end
+        }
+        var gameNotificationListenerInterface = eventListenerInterface
+        gameNotificationListenerInterface.onGameNotificationEvent(eventObject)
+    }
+}
 
-GameNotificationEventHandler.instance = GameNotificationEventHandler.new()
-
-return GameNotificationEventHandler
+import "../../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../../../org/allbinary/logic/util/event/EventListenerInterface" for EventListenerInterface
+import "../../../../../../org/allbinary/logic/util/event/NullEventListener" for NullEventListener
+import "../../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "./GameNotificationListenerInterface" for GameNotificationListenerInterface
+import "./GameNotificationEvent" for GameNotificationEvent
 

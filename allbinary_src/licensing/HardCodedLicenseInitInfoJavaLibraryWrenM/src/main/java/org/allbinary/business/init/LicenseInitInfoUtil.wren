@@ -1,78 +1,86 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.business.init
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.business.init
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LicenseInitInfoUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = LicenseInitInfoUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  INITFILENAME { _INITFILENAME }
+  INITFILENAME=(value) { _INITFILENAME = value }
+  ABOUT { _ABOUT }
+  ABOUT=(value) { _ABOUT = value }
+  PRIVACY_POLICY { _PRIVACY_POLICY }
+  PRIVACY_POLICY=(value) { _PRIVACY_POLICY = value }
+  OFFICIAL_ALLBINARY_SERVICES_SERVER { _OFFICIAL_ALLBINARY_SERVICES_SERVER }
+  OFFICIAL_ALLBINARY_SERVICES_SERVER=(value) { _OFFICIAL_ALLBINARY_SERVICES_SERVER = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LicenseInitInfoUtil() {
+    _INITFILENAME = null
+    _ABOUT = null
+    _PRIVACY_POLICY = null
+    _OFFICIAL_ALLBINARY_SERVICES_SERVER = null
+        _INITFILENAME = "licenseinitdata.dat"
+        _ABOUT = "about"
+        _PRIVACY_POLICY = "privacy_policy"
+        _OFFICIAL_ALLBINARY_SERVICES_SERVER = "https://services.allbinary.com/LicServ/serverssl.php"
+  }
+    
 
-local LicenseInitInfoUtil = {}
-LicenseInitInfoUtil.__index = LicenseInitInfoUtil
-LicenseInitInfoUtil.className = "LicenseInitInfoUtil"
-
-function LicenseInitInfoUtil:_init_fields()
-    self.INITFILENAME = "licenseinitdata.dat"
-    self.ABOUT = "about"
-    self.PRIVACY_POLICY = "privacy_policy"
-    self.OFFICIAL_ALLBINARY_SERVICES_SERVER = "https://services.allbinary.com/LicServ/serverssl.php"
-end
-
-
-function LicenseInitInfoUtil.getInstance()
+    static getInstance() {
         return LicenseInitInfoUtil.instance
-end
+    }
+    
 
+    setFilePath(filePath) {
+    }
+    
 
-function LicenseInitInfoUtil:setFilePath(filePath)
-end
+    construct new() {
+    super()
+    initFields_LicenseInitInfoUtil()
+    }
+    
 
+    write(initData) {
+    }
+    
 
-function LicenseInitInfoUtil.new()
-    local self = setmetatable({}, LicenseInitInfoUtil)
-    self:_init_fields()
-    return self
-end
+    read() {
+        return this.readAgain(0)
+    }
+    
 
-
--- throws Exception
-function LicenseInitInfoUtil:write(initData)
-end
-
-
--- throws Exception
-function LicenseInitInfoUtil:read()
-        return self:readAgain(0)
-end
-
-
--- throws Exception
-function LicenseInitInfoUtil:readAgain(initializeCounter)
-        local licenseInitInfo = LicenseInitInfo.new()
-        licenseInitInfo:clearServers()
-        licenseInitInfo:addServer(self.OFFICIAL_ALLBINARY_SERVICES_SERVER)
+    readAgain(initializeCounter) {
+        var licenseInitInfo = LicenseInitInfo.new()
+        licenseInitInfo.clearServers()
+        licenseInitInfo.addServer(_OFFICIAL_ALLBINARY_SERVICES_SERVER)
         return licenseInitInfo
-end
+    }
+}
 
-LicenseInitInfoUtil.instance = LicenseInitInfoUtil.new()
-
-return LicenseInitInfoUtil
+import "./LicenseInitInfo" for LicenseInitInfo
 

@@ -1,45 +1,36 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form.item
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form.item
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local MyFontProcessor = require("org.allbinary.graphics.font.MyFontProcessor")
-local UpdateMyFontInterface = require("org.allbinary.graphics.font.UpdateMyFontInterface")
-local UpdateMyFontProcessor = require("org.allbinary.graphics.font.UpdateMyFontProcessor")
-local ABCustomItem = require("org.allbinary.graphics.form.item.ABCustomItem")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./ABCustomItem" for ABCustomItem
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CustomCustomItem is ABCustomItem {
+  updateMyFontProcessor { _updateMyFontProcessor }
+  updateMyFontProcessor=(value) { _updateMyFontProcessor = value }
+  myFontProcessor { _myFontProcessor }
+  myFontProcessor=(value) { _myFontProcessor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CustomCustomItem() {
+    _updateMyFontProcessor = null
+    _myFontProcessor = null
+        _updateMyFontProcessor = UpdateMyFontProcessor.new(this)
+        _myFontProcessor = _updateMyFontProcessor
+  }
+    
 
-local CustomCustomItem = {}
-CustomCustomItem.__index = CustomCustomItem
-CustomCustomItem.className = "CustomCustomItem"
-setmetatable(CustomCustomItem, {__index = ABCustomItem})
+    construct new(label, backgroundBasicColor, foregroundBasicColor) {
+        super(label, backgroundBasicColor, foregroundBasicColor)
+        initFields_CustomCustomItem()
+    }
+    
 
-function CustomCustomItem:_init_fields()
-    self.updateMyFontProcessor = UpdateMyFontProcessor.new(self)
-    self.myFontProcessor = self.updateMyFontProcessor
-end
+    updateMeasurement(graphics) {
+    }
+}
 
-
-function CustomCustomItem.new(label, backgroundBasicColor, foregroundBasicColor)
-    local self = setmetatable(ABCustomItem.new(label, backgroundBasicColor, foregroundBasicColor), CustomCustomItem)
-    self:_init_fields()
-        -- super(...) made self above
-    return self
-end
-
-
-function CustomCustomItem:updateMeasurement(graphics)
-end
-
-return CustomCustomItem
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../org/allbinary/graphics/font/MyFontProcessor" for MyFontProcessor
+import "../../../../../org/allbinary/graphics/font/UpdateMyFontInterface" for UpdateMyFontInterface
+import "../../../../../org/allbinary/graphics/font/UpdateMyFontProcessor" for UpdateMyFontProcessor
 

@@ -1,106 +1,136 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.combat.damage
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.combat.damage
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local MyRandomFactory = require("org.allbinary.game.rand.MyRandomFactory")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorArrayIndexer = require("org.allbinary.graphics.color.BasicColorArrayIndexer")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local BasicColorSetUtil = require("org.allbinary.graphics.color.BasicColorSetUtil")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local CharArrayFactory = require("org.allbinary.logic.java.character.CharArrayFactory")
-local PrimitiveLongUtil = require("org.allbinary.logic.math.PrimitiveLongUtil")
-local CircularIndexUtil = require("org.allbinary.util.CircularIndexUtil")
-local ViewPosition = require("org.allbinary.view.ViewPosition")
-local ViewPositionBase = require("org.allbinary.view.ViewPositionBase")
-local DamageFloaters = require("org.allbinary.game.combat.damage.DamageFloaters")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./DamageFloaters" for DamageFloaters
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class PtsDamageFloaters is DamageFloaters {
+    static basicColorArrayIndexer {
+    if (__basicColorArrayIndexer_set == null) {
+      __basicColorArrayIndexer_set = true
+      __basicColorArrayIndexer = BasicColorArrayIndexer.new([BasicColorFactory.getInstance().WHITE, BasicColorFactory.getInstance().RED, BasicColorFactory.getInstance().YELLOW, BasicColorFactory.getInstance().BLUE])
+    }
+    return __basicColorArrayIndexer
+  }
+  static basicColorArrayIndexer=(value) {
+    __basicColorArrayIndexer_set = true
+    __basicColorArrayIndexer = value
+  }
+  basicSetColorUtil { _basicSetColorUtil }
+  basicSetColorUtil=(value) { _basicSetColorUtil = value }
+  layerInterface { _layerInterface }
+  layerInterface=(value) { _layerInterface = value }
+  lastDamage { _lastDamage }
+  lastDamage=(value) { _lastDamage = value }
+  lastDamageString { _lastDamageString }
+  lastDamageString=(value) { _lastDamageString = value }
+  lastDamageStringSizeArray { _lastDamageStringSizeArray }
+  lastDamageStringSizeArray=(value) { _lastDamageStringSizeArray = value }
+  circularIndexUtil { _circularIndexUtil }
+  circularIndexUtil=(value) { _circularIndexUtil = value }
+  primitiveLongUtil { _primitiveLongUtil }
+  primitiveLongUtil=(value) { _primitiveLongUtil = value }
+  myRandomFactory { _myRandomFactory }
+  myRandomFactory=(value) { _myRandomFactory = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_PtsDamageFloaters() {
+    _basicSetColorUtil = null
+    _layerInterface = null
+    _lastDamage = null
+    _lastDamageString = null
+    _lastDamageStringSizeArray = null
+    _circularIndexUtil = null
+    _primitiveLongUtil = null
+    _myRandomFactory = null
+        _basicSetColorUtil = BasicColorSetUtil.getInstance()
+        
+        _lastDamage = List.filled(5, 0)
+        _lastDamageString = JR.listOf(5, Fn.new { List.filled(0, 0) })
+        _lastDamageStringSizeArray = List.filled(5, 0)
+        _circularIndexUtil = CircularIndexUtil.createInstance(5)
+        
+        _myRandomFactory = MyRandomFactory.getInstance()
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(layerInterface) {
+    super()
+    initFields_PtsDamageFloaters()
+        _primitiveLongUtil = PrimitiveLongUtil.createPowerOfTen(100000)
+        _layerInterface = layerInterface
+        var CHAR_ARRAY = CharArrayFactory.getInstance().getZeroCharArray()
+        if (true) {
+            var index = JR.i32(_lastDamageString.count - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            _lastDamageString[index] = CHAR_ARRAY
+            }
+        }
+    }
+    
 
-local PtsDamageFloaters = {}
-PtsDamageFloaters.__index = PtsDamageFloaters
-PtsDamageFloaters.className = "PtsDamageFloaters"
-setmetatable(PtsDamageFloaters, {__index = DamageFloaters})
+    add(damage) {
+        var index = _circularIndexUtil.getIndex()
+        _lastDamage[index] = damage
+        _lastDamageString[index] = _primitiveLongUtil.getCharArray(_lastDamage[index])
+        _lastDamageStringSizeArray[index] = _primitiveLongUtil.getCurrentTotalDigits()
+        _circularIndexUtil.next()
+    }
+    
 
-function PtsDamageFloaters:_init_fields()
-    self.basicSetColorUtil = BasicColorSetUtil.getInstance()
-    self.layerInterface = nil
-    self.lastDamage = java_new_array(0, 5)
-    self.lastDamageString = java_new_array("\0", 5, 0)
-    self.lastDamageStringSizeArray = java_new_array(0, 5)
-    self.circularIndexUtil = CircularIndexUtil.createInstance(5)
-    self.primitiveLongUtil = nil
-    self.myRandomFactory = MyRandomFactory.getInstance()
-end
+    paint(graphics) {
+        var viewPosition = _layerInterface.getViewPosition()
+        var x = viewPosition.getX()
+        var y = viewPosition.getY()
+        if (true) {
+            var index = JR.i32(_lastDamage.count - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            if ((_lastDamage[index] != 0)) {
+                var delta = JR.i32(10 * (JR.i32(index + 2)))
+                _basicSetColorUtil.setBasicColorP(graphics, PtsDamageFloaters.basicColorArrayIndexer.get())
+                graphics.drawChars(_lastDamageString[index], 0, _lastDamageStringSizeArray[index], (x - _myRandomFactory.getNextInt(delta)), JR.i32(y - delta), 0)
+                PtsDamageFloaters.basicColorArrayIndexer.next()
+            }
+            _lastDamage[index] = 0
+            }
+        }
+    }
+}
 
-
-function PtsDamageFloaters.new(layerInterface)
-    local self = setmetatable(DamageFloaters.new(), PtsDamageFloaters)
-    self:_init_fields()
-        self.primitiveLongUtil = PrimitiveLongUtil.createPowerOfTen(100000)
-        self.layerInterface = layerInterface
-        local CHAR_ARRAY = CharArrayFactory.getInstance():getZeroCharArray()
-        for index = (self.lastDamageString.n or #self.lastDamageString) - 1, 0, -1 do
-            self.lastDamageString[index + 1] = CHAR_ARRAY
-        end
-    return self
-end
-
-
-function PtsDamageFloaters:add(damage)
-        local index = self.circularIndexUtil:getIndex()
-        self.lastDamage[index + 1] = damage
-        self.lastDamageString[index + 1] = self.primitiveLongUtil:getCharArray(self.lastDamage[index + 1])
-        self.lastDamageStringSizeArray[index + 1] = self.primitiveLongUtil:getCurrentTotalDigits()
-        self.circularIndexUtil:next()
-end
-
-
-function PtsDamageFloaters:paint(graphics)
-        local viewPosition = self.layerInterface:getViewPosition()
-        local x = viewPosition:getX()
-        local y = viewPosition:getY()
-        for index = (self.lastDamage.n or #self.lastDamage) - 1, 0, -1 do
-            if self.lastDamage[index + 1] ~= 0 then
-                local delta = 10 * (index + 2)
-                self.basicSetColorUtil:setBasicColorP(graphics, PtsDamageFloaters.basicColorArrayIndexer:get())
-                graphics:drawChars(self.lastDamageString[index + 1], 0, self.lastDamageStringSizeArray[index + 1], x - self.myRandomFactory:getNextInt(delta), y - delta, 0)
-                PtsDamageFloaters.basicColorArrayIndexer:next()
-            end
-            self.lastDamage[index + 1] = 0
-        end
-end
-
-PtsDamageFloaters.basicColorArrayIndexer = BasicColorArrayIndexer.new({BasicColorFactory.getInstance().WHITE, BasicColorFactory.getInstance().RED, BasicColorFactory.getInstance().YELLOW, BasicColorFactory.getInstance().BLUE})
-
-return PtsDamageFloaters
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../org/allbinary/game/rand/MyRandomFactory" for MyRandomFactory
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../org/allbinary/graphics/color/BasicColorArrayIndexer" for BasicColorArrayIndexer
+import "../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../org/allbinary/graphics/color/BasicColorSetUtil" for BasicColorSetUtil
+import "../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../org/allbinary/logic/java/character/CharArrayFactory" for CharArrayFactory
+import "../../../../../org/allbinary/logic/math/PrimitiveLongUtil" for PrimitiveLongUtil
+import "../../../../../org/allbinary/util/CircularIndexUtil" for CircularIndexUtil
+import "../../../../../org/allbinary/view/ViewPositionBase" for ViewPositionBase
 

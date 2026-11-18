@@ -1,154 +1,139 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary
 
--- local Displayable = require("javax.microedition.lcdui.Displayable")
--- local Form = require("javax.microedition.lcdui.Form")
--- local InvalidRecordIDException = require("javax.microedition.rms.InvalidRecordIDException")
--- local RecordStore = require("javax.microedition.rms.RecordStore")
--- local RecordStoreException = require("javax.microedition.rms.RecordStoreException")
--- local RecordStoreNotOpenException = require("javax.microedition.rms.RecordStoreNotOpenException")
-local NullUtil = require("org.allbinary.logic.NullUtil")
+import "../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+//J2SE
+class TsUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = TsUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_instanceof(object, class)
-    local metatable = getmetatable(object)
-    while metatable do
-        if metatable == class then return true end
-        local parent = getmetatable(metatable)
-        metatable = parent and parent.__index
-    end
-    return false
-end
+  initFields_TsUtil() {
+  }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  construct new() {
+    super()
+    initFields_TsUtil()
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
---J2SE
-local TsUtil = {}
-TsUtil.__index = TsUtil
-TsUtil.className = "TsUtil"
-
-function TsUtil.new()
-    local self = setmetatable({}, TsUtil)
-    return self
-end
-
-
-function TsUtil.getInstance()
+    static getInstance() {
         return TsUtil.instance
-end
+    }
+    
 
+    longBitsToDouble(bits) {
+        return Double.longBitsToDouble(bits)
+    }
+    
 
-function TsUtil:longBitsToDouble(bits)
-        return java.lang.Double:longBitsToDouble(bits)
-end
+    intBitsToFloat(bits) {
+        return Float.intBitsToFloat(bits)
+    }
+    
 
+    hashCode(anyType) {
+        return anyType.hashCode()
+    }
+    
 
-function TsUtil:intBitsToFloat(bits)
-        return java.lang.Float:intBitsToFloat(bits)
-end
+    waitFor(any, timeoutMillis) {
+        var anyType = any
+        anyType.wait(timeoutMillis)
+    }
+    
 
+    getRecord(anyType, recordId) {
+        var recordStore = anyType
+        var data = null
+        if (true) {
+            data = List.filled(recordStore.getRecordSize(recordId), 0)
+            recordStore.getRecord(recordId, data, 0)
+        }
+        return ((data.count < 1) ? NullUtil.getInstance().NULL_BYTE_ARRAY : data)
+    }
+    
 
-function TsUtil:hashCode(anyType)
-        return anyType:hashCode()
-end
+    compareTo(a, b) {
+        return JR.compareTo(a, b)
+    }
+    
 
+    equalIgnoreCase(a, b) {
+        return JR.equalsIgnoreCase(a, b)
+    }
+    
 
--- throws InterruptedException
-function TsUtil:waitFor(any, timeoutMillis)
-        local anyType = any
-        anyType:wait(timeoutMillis)
-end
+    equalsNotstring(anyType, object2) {
+        return anyType.equals(object2)
+    }
+    
 
+    getClassClassLoader(anyType) {
+        return JR.className(anyType).getClassLoader()
+    }
+    
 
--- throws RecordStoreNotOpenException, InvalidRecordIDException, RecordStoreException
-function TsUtil:getRecord(anyType, recordId)
-        local recordStore = anyType
-        local data = nil
-        do -- synchronized (self)
-            data = java_new_array(0, recordStore:getRecordSize(recordId))
-            recordStore:getRecord(recordId, data, 0)
-        end
-        return (function() if (data.n or #data) < 1 then return NullUtil.getInstance().NULL_BYTE_ARRAY else return data end end)()
-end
+    toNumberFromChar(value) {
+        return JR.i32(value)
+    }
+    
 
-
-function TsUtil:compareTo(a, b)
-        return ((a < b and -1) or (a > b and 1) or 0)
-end
-
-
-function TsUtil:equalIgnoreCase(a, b)
-        return (string.lower(a) == string.lower(b))
-end
-
-
-function TsUtil:equalsNotstring(anyType, object2)
-        return anyType:equals(object2)
-end
-
-
-function TsUtil:getClassClassLoader(anyType)
-        return getmetatable(anyType):getClassLoader()
-end
-
-
-function TsUtil:toNumberFromChar(value)
-        return string.byte(value)
-end
-
-
-function TsUtil:toNumber(value)
+    toNumber(value) {
         return value
-end
+    }
+    
 
+    getByteArray(string) {
+        return JR.getBytes(string)
+    }
+    
 
-function TsUtil:getByteArray(string)
-        return {string.byte(string, 1, -1)}
-end
-
-
-function TsUtil:isItemListener(owner)
-        if java_instanceof(owner, Form) then
+    isItemListener(owner) {
+        if ((owner is Form)) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+    
 
+    gc() {
+        JSystem.gc()
+    }
+}
 
-function TsUtil:gc()
-        collectgarbage()
-end
-
-TsUtil.instance = TsUtil.new()
-
-return TsUtil
+import "../../javax/microedition/lcdui/Displayable" for Displayable
+import "../../javax/microedition/lcdui/Form" for Form
+import "../../javax/microedition/rms/InvalidRecordIDException" for InvalidRecordIDException
+import "../../javax/microedition/rms/RecordStore" for RecordStore
+import "../../javax/microedition/rms/RecordStoreException" for RecordStoreException
+import "../../javax/microedition/rms/RecordStoreNotOpenException" for RecordStoreNotOpenException
+import "../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../java/lang/System" for JSystem
+import "../../java/lang/Float" for Float
+import "../../java/lang/Double" for Double
 

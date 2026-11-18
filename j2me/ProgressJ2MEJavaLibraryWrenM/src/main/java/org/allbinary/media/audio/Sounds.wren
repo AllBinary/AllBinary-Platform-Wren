@@ -1,123 +1,152 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.media.audio
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media.audio
 
--- local Player = require("javax.microedition.media.Player")
-local ProgressCanvas = require("org.allbinary.graphics.canvas.transition.progress.ProgressCanvas")
-local ProgressCanvasFactory = require("org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Sounds is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  soundStrings { _soundStrings }
+  soundStrings=(value) { _soundStrings = value }
+  soundsFactoryInterface { _soundsFactoryInterface }
+  soundsFactoryInterface=(value) { _soundsFactoryInterface = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Sounds() {
+    _logUtil = null
+    _commonStrings = null
+    _soundStrings = null
+    _soundsFactoryInterface = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        _soundStrings = SoundStrings.getInstance()
+        
+  }
+    
 
-local Sounds = {}
-Sounds.__index = Sounds
-Sounds.className = "Sounds"
+    construct new(soundsFactoryInterface) {
+    super()
+    initFields_Sounds()
+        _soundsFactoryInterface = soundsFactoryInterface
+    }
+    
 
-function Sounds:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.soundStrings = SoundStrings.getInstance()
-    self.soundsFactoryInterface = nil
-end
+    init() {
+        _logUtil.putF(_commonStrings.START, this, _commonStrings.INIT)
+        var commonLabels = CommonLabels.getInstance()
+        var progressCanvas = ProgressCanvasFactory.getInstance()
+        _soundsFactoryInterface.init()
+        var soundInterfaceArray = _soundsFactoryInterface.getSoundInterfaceArray()
+        var smallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
+        var indexInteger = null
+        var indexString = null
+        var stringBuffer = StringMaker.new()
+        if (true) {
+            var i = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    i = JR.i32(i + 1)
+                }
+                jfirst = false
+                if (!((i < soundInterfaceArray.count))) break
+            var soundInterface = soundInterfaceArray[i]
+            if ((soundInterface != null)) {
+                indexInteger = smallIntegerSingletonFactory.getAt(i)
+                indexString = indexInteger.toString()
+                stringBuffer.delete(0, stringBuffer.length())
+                stringBuffer.append(commonLabels.INDEX_LABEL)
+                stringBuffer.append(indexString)
+                stringBuffer.append(_soundStrings.SOUND)
+                stringBuffer.append(JR.className(soundInterface))
+                _logUtil.putF(stringBuffer.toString(), this, _commonStrings.INIT)
+                soundInterface.init()
+                progressCanvas.addNormalPortion(100, StringMaker.new().append(_soundStrings.INIT_SOUND).append(indexString).toString())
+            }
+            }
+        }
+        _soundsFactoryInterface.setInitialized(true)
+        _logUtil.putF(_commonStrings.END, this, _commonStrings.INIT)
+    }
+    
 
+    stopAll() {
+        _logUtil.putF(_commonStrings.START, this, _soundStrings.STOP_ALL)
+        var soundInterfaceArray = _soundsFactoryInterface.getSoundInterfaceArray()
+        var progressCanvas = ProgressCanvasFactory.getInstance()
+        var player = null
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < soundInterfaceArray.count))) break
+            if ((soundInterfaceArray[index] != null)) {
+                player = soundInterfaceArray[index].getPlayerP()
+                if ((player != null)) {
+                    player.stop()
+                    progressCanvas.addPortion(100, _soundStrings.STOPPING_SOUND, index)
+                }
+            }
+            }
+        }
+    }
+    
 
-function Sounds.new(soundsFactoryInterface)
-    local self = setmetatable({}, Sounds)
-    self:_init_fields()
-        self.soundsFactoryInterface = soundsFactoryInterface
-    return self
-end
+    closeAll() {
+        _logUtil.putF(_commonStrings.START, this, _soundStrings.CLOSE_ALL)
+        var soundInterfaceArray = _soundsFactoryInterface.getSoundInterfaceArray()
+        var progressCanvas = ProgressCanvasFactory.getInstance()
+        var player = null
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < soundInterfaceArray.count))) break
+            if ((soundInterfaceArray[index] != null)) {
+                player = soundInterfaceArray[index].getPlayerP()
+                if ((player != null)) {
+                    player.close()
+                    progressCanvas.addPortion(100, _soundStrings.CLOSING_SOUND, index)
+                }
+            }
+            }
+        }
+    }
+}
 
-
--- throws Exception
-function Sounds:init()
-        self.logUtil:putF(self.commonStrings.START, self, self.commonStrings.INIT)
-        local commonLabels = CommonLabels.getInstance()
-        local progressCanvas = ProgressCanvasFactory.getInstance()
-        self.soundsFactoryInterface:init()
-        local soundInterfaceArray = self.soundsFactoryInterface:getSoundInterfaceArray()
-        local smallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
-        local indexInteger = nil
-        local indexString = nil
-        local stringBuffer = StringMaker.new()
-        for i = 0, (soundInterfaceArray.n or #soundInterfaceArray) - 1 do
-            local soundInterface = soundInterfaceArray[i + 1]
-            if soundInterface ~= nil then
-                indexInteger = smallIntegerSingletonFactory:getAt(i)
-                indexString = tostring(indexInteger)
-                stringBuffer:delete(0, stringBuffer:length())
-                stringBuffer:append(commonLabels.INDEX_LABEL)
-                stringBuffer:append(indexString)
-                stringBuffer:append(self.soundStrings.SOUND)
-                stringBuffer:append(getmetatable(soundInterface).className)
-                self.logUtil:putF(tostring(stringBuffer), self, self.commonStrings.INIT)
-                soundInterface:init()
-                progressCanvas:addNormalPortion(100, tostring(StringMaker.new():append(self.soundStrings.INIT_SOUND):append(indexString)))
-            end
-        end
-        self.soundsFactoryInterface:setInitialized(true)
-        self.logUtil:putF(self.commonStrings.END, self, self.commonStrings.INIT)
-end
-
-
--- throws Exception
-function Sounds:stopAll()
-        self.logUtil:putF(self.commonStrings.START, self, self.soundStrings.STOP_ALL)
-        local soundInterfaceArray = self.soundsFactoryInterface:getSoundInterfaceArray()
-        local progressCanvas = ProgressCanvasFactory.getInstance()
-        local player = nil
-        for index = 0, (soundInterfaceArray.n or #soundInterfaceArray) - 1 do
-            if soundInterfaceArray[index + 1] ~= nil then
-                player = soundInterfaceArray[index + 1]:getPlayerP()
-                if player ~= nil then
-                    player:stop()
-                    progressCanvas:addPortion(100, self.soundStrings.STOPPING_SOUND, index)
-                end
-            end
-        end
-end
-
-
--- throws Exception
-function Sounds:closeAll()
-        self.logUtil:putF(self.commonStrings.START, self, self.soundStrings.CLOSE_ALL)
-        local soundInterfaceArray = self.soundsFactoryInterface:getSoundInterfaceArray()
-        local progressCanvas = ProgressCanvasFactory.getInstance()
-        local player = nil
-        for index = 0, (soundInterfaceArray.n or #soundInterfaceArray) - 1 do
-            if soundInterfaceArray[index + 1] ~= nil then
-                player = soundInterfaceArray[index + 1]:getPlayerP()
-                if player ~= nil then
-                    player:close()
-                    progressCanvas:addPortion(100, self.soundStrings.CLOSING_SOUND, index)
-                end
-            end
-        end
-end
-
-return Sounds
+import "../../../../javax/microedition/media/Player" for Player
+import "../../../../org/allbinary/graphics/canvas/transition/progress/ProgressCanvas" for ProgressCanvas
+import "../../../../org/allbinary/graphics/canvas/transition/progress/ProgressCanvasFactory" for ProgressCanvasFactory
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/string/CommonLabels" for CommonLabels
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../java/lang/Integer" for Integer
+import "./SoundStrings" for SoundStrings
+import "./SoundsFactoryInterface" for SoundsFactoryInterface
+import "./Sound" for Sound
 

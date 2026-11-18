@@ -1,44 +1,46 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2026 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.canvas.transition.progress
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2026 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.canvas.transition.progress
 
+import "../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ProgressEndListener is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ProgressEndListener.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ProgressEndListener() {
+  }
 
-local ProgressEndListener = {}
-ProgressEndListener.__index = ProgressEndListener
-ProgressEndListener.className = "ProgressEndListener"
+  construct new() {
+    super()
+    initFields_ProgressEndListener()
+  }
+    
 
-function ProgressEndListener.new()
-    local self = setmetatable({}, ProgressEndListener)
-    return self
-end
+    onEndEvent() {
+    }
+}
 
-
-function ProgressEndListener:onEndEvent()
-end
-
-ProgressEndListener.instance = ProgressEndListener.new()
-
-return ProgressEndListener
 

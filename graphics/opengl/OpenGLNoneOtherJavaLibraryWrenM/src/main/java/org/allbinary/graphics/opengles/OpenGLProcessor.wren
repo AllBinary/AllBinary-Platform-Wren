@@ -1,39 +1,32 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.opengles
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.opengles
 
--- local GL10 = require("javax.microedition.khronos.opengles.GL10")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class OpenGLProcessor is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_OpenGLProcessor() {
+    _logUtil = null
+    _commonStrings = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+  }
 
-local OpenGLProcessor = {}
-OpenGLProcessor.__index = OpenGLProcessor
-OpenGLProcessor.className = "OpenGLProcessor"
+  construct new() {
+    super()
+    initFields_OpenGLProcessor()
+  }
+    
 
-function OpenGLProcessor:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-end
+    process(gl) {
+    }
+}
 
-function OpenGLProcessor.new()
-    local self = setmetatable({}, OpenGLProcessor)
-    self:_init_fields()
-    return self
-end
-
-
-function OpenGLProcessor:process(gl)
-end
-
-return OpenGLProcessor
+import "../../../../javax/microedition/khronos/opengles/GL10" for GL10
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
 

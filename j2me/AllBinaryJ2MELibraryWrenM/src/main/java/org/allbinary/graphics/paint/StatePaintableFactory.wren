@@ -1,45 +1,48 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.paint
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.paint
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class StatePaintableFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = StatePaintable.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_StatePaintableFactory() {
+  }
 
-local StatePaintableFactory = {}
-StatePaintableFactory.__index = StatePaintableFactory
-StatePaintableFactory.className = "StatePaintableFactory"
+  construct new() {
+    super()
+    initFields_StatePaintableFactory()
+  }
+    
 
-function StatePaintableFactory.new()
-    local self = setmetatable({}, StatePaintableFactory)
-    return self
-end
-
-
-function StatePaintableFactory.getInstance()
+    static getInstance() {
         return StatePaintableFactory.instance
-end
+    }
+}
 
-StatePaintableFactory.instance = StatePaintable.new()
-
-return StatePaintableFactory
+import "./StatePaintable" for StatePaintable
 

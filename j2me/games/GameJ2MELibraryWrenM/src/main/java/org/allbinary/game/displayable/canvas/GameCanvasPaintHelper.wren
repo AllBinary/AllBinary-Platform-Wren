@@ -1,57 +1,49 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local ProcessPaintable = require("org.allbinary.graphics.paint.ProcessPaintable")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/graphics/paint/ProcessPaintable" for ProcessPaintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameCanvasPaintHelper is ProcessPaintable {
+  gameCanvas { _gameCanvas }
+  gameCanvas=(value) { _gameCanvas = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameCanvasPaintHelper() {
+    _gameCanvas = null
+        
+  }
+    
 
-local GameCanvasPaintHelper = {}
-GameCanvasPaintHelper.__index = GameCanvasPaintHelper
-GameCanvasPaintHelper.className = "GameCanvasPaintHelper"
-setmetatable(GameCanvasPaintHelper, {__index = ProcessPaintable})
+    construct new(gameCanvas) {
+    super()
+    initFields_GameCanvasPaintHelper()
+        _gameCanvas = gameCanvas
+    }
+    
 
-function GameCanvasPaintHelper:_init_fields()
-    self.gameCanvas = nil
-end
+    process() {
+    }
+    
 
+    paint(graphics) {
+        _gameCanvas.draw(graphics)
+    }
+}
 
-function GameCanvasPaintHelper.new(gameCanvas)
-    local self = setmetatable(ProcessPaintable.new(), GameCanvasPaintHelper)
-    self:_init_fields()
-        self.gameCanvas = gameCanvas
-    return self
-end
-
-
-function GameCanvasPaintHelper:process()
-end
-
-
-function GameCanvasPaintHelper:paint(graphics)
-        self.gameCanvas:draw(graphics)
-end
-
-return GameCanvasPaintHelper
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "./AllBinaryGameCanvas" for AllBinaryGameCanvas
 

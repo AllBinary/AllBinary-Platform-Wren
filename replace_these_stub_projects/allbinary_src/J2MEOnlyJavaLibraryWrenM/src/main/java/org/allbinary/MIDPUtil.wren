@@ -1,81 +1,81 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2026 AllBinary
---
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
---
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
---
--- Created By: Travis Berthelot
--- 
--- Generated Code Do Not Modify
--- package org.allbinary
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2026 AllBinary
+ *
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ *
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ *
+ * Created By: Travis Berthelot
+ * 
+ */
+// Generated Code Do Not Modify
+// package org.allbinary
 
--- local IOException = require("java.io.IOException")
--- local InputStream = require("java.io.InputStream")
--- local Form = require("javax.microedition.lcdui.Form")
--- local Image = require("javax.microedition.lcdui.Image")
--- local Item = require("javax.microedition.lcdui.Item")
--- local Manager = require("javax.microedition.media.Manager")
--- local MediaException = require("javax.microedition.media.MediaException")
--- local Player = require("javax.microedition.media.Player")
+import "../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//like microemu-playn, so the languages without overloading can be generated. J2ME uses the MIDP overloads.
+class MIDPUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = MIDPUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_MIDPUtil() {
+  }
 
---like microemu-playn, so the languages without overloading can be generated. J2ME uses the MIDP overloads.
-local MIDPUtil = {}
-MIDPUtil.__index = MIDPUtil
-MIDPUtil.className = "MIDPUtil"
+  construct new() {
+    super()
+    initFields_MIDPUtil()
+  }
+    
 
-function MIDPUtil.new()
-    local self = setmetatable({}, MIDPUtil)
-    return self
-end
-
-
-function MIDPUtil.getInstance()
+    static getInstance() {
         return MIDPUtil.instance
-end
+    }
+    
 
-
-function MIDPUtil:createImageWH(width, height)
+    createImageWH(width, height) {
         return Image.createImage(width, height)
-end
+    }
+    
 
-
-function MIDPUtil:createImageFromByteArray(imageData, imageOffset, imageLength)
+    createImageFromByteArray(imageData, imageOffset, imageLength) {
         return Image.createImage(imageData, imageOffset, imageLength)
-end
+    }
+    
 
-
--- throws IOException
-function MIDPUtil:createImageFromInputStream(inputStream)
+    createImageFromInputStream(inputStream) {
         return Image.createImage(inputStream)
-end
+    }
+    
 
-
--- throws IOException, MediaException
-function MIDPUtil:createPlayerFromInputStream(inputStream, type)
+    createPlayerFromInputStream(inputStream, type) {
         return Manager.createPlayer(inputStream, type)
-end
+    }
+    
 
+    appendItem(form, item) {
+        return form.append(item)
+    }
+}
 
-function MIDPUtil:appendItem(form, item)
-        return form:append(item)
-end
-
-MIDPUtil.instance = MIDPUtil.new()
-
-return MIDPUtil
+import "../../java/io/IOException" for IOException
+import "../../java/io/InputStream" for InputStream
+import "../../javax/microedition/lcdui/Form" for Form
+import "../../javax/microedition/lcdui/Image" for Image
+import "../../javax/microedition/lcdui/Item" for Item
+import "../../javax/microedition/media/Manager" for Manager
+import "../../javax/microedition/media/MediaException" for MediaException
+import "../../javax/microedition/media/Player" for Player
 

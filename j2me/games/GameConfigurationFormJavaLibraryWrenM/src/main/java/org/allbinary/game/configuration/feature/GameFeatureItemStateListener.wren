@@ -1,67 +1,52 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration.feature
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration.feature
 
--- local ChoiceGroup = require("javax.microedition.lcdui.ChoiceGroup")
--- local Item = require("javax.microedition.lcdui.Item")
--- local ItemStateListener = require("javax.microedition.lcdui.ItemStateListener")
-local GameConfigurationGauge = require("org.allbinary.game.configuration.GameConfigurationGauge")
-local GameConfigurationUtil = require("org.allbinary.game.configuration.GameConfigurationUtil")
-local GameOptionsForm = require("org.allbinary.game.configuration.GameOptionsForm")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_instanceof(object, class)
-    local metatable = getmetatable(object)
-    while metatable do
-        if metatable == class then return true end
-        local parent = getmetatable(metatable)
-        metatable = parent and parent.__index
-    end
-    return false
-end
+class GameFeatureItemStateListener is JObject {
+    static toggleList {
+    if (__toggleList_set == null) {
+      __toggleList_set = true
+      __toggleList = BasicArrayListD.new()
+    }
+    return __toggleList
+  }
+  static toggleList=(value) {
+    __toggleList_set = true
+    __toggleList = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  gameOptionsForm { _gameOptionsForm }
+  gameOptionsForm=(value) { _gameOptionsForm = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_GameFeatureItemStateListener() {
+    _logUtil = null
+    _gameOptionsForm = null
+        _logUtil = LogUtil.getInstance()
+        
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local GameFeatureItemStateListener = {}
-GameFeatureItemStateListener.__index = GameFeatureItemStateListener
-GameFeatureItemStateListener.className = "GameFeatureItemStateListener"
-
-function GameFeatureItemStateListener:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.gameOptionsForm = nil
-end
-
-
-function GameFeatureItemStateListener.new(gameOptionsForm)
-    local self = setmetatable({}, GameFeatureItemStateListener)
-    self:_init_fields()
-        self.gameOptionsForm = gameOptionsForm
-        local gameFeatureFactory = GameFeatureFactory.getInstance()
+    construct new(gameOptionsForm) {
+    super()
+    initFields_GameFeatureItemStateListener()
+        _gameOptionsForm = gameOptionsForm
+        var gameFeatureFactory = GameFeatureFactory.getInstance()
         GameFeatureItemStateListener.add(gameFeatureFactory.ARTIFICIAL_INTELLEGENCE_PROCESSOR)
         GameFeatureItemStateListener.add(gameFeatureFactory.COLLIDABLE_INTERFACE_LAYER_PROCESSOR)
         GameFeatureItemStateListener.add(gameFeatureFactory.DAMAGE_FLOATERS)
@@ -70,40 +55,52 @@ function GameFeatureItemStateListener.new(gameOptionsForm)
         GameFeatureItemStateListener.add(gameFeatureFactory.HEALTH_BARS)
         GameFeatureItemStateListener.add(gameFeatureFactory.SOUND)
         GameFeatureItemStateListener.add(gameFeatureFactory.TICKABLE_LAYER_PROCESSOR)
-    return self
-end
+    }
+    
 
+    static add(gameFeature) {
+        if (!GameFeatureItemStateListener.toggleList.contains(gameFeature)) {
+            GameFeatureItemStateListener.toggleList.add(gameFeature)
+        }
+    }
+    
 
-function GameFeatureItemStateListener.add(gameFeature)
-        if not GameFeatureItemStateListener.toggleList:contains(gameFeature) then
-            GameFeatureItemStateListener.toggleList:add(gameFeature)
-        end
-end
+    itemStateChanged(item) {
+        var jerror0 = Fiber.new {
+            var itemLabel = item.getLabel()
+            _logUtil.putF(StringMaker.new().append(CommonLabels.getInstance().ITEM_LABEL).append(itemLabel).toString(), this, "itemStateChanged")
+            if ((item is GameConfigurationGauge)) {
+                GameConfigurationUtil.getInstance().change(_gameOptionsForm, item)
+            } else if ((item is ChoiceGroup)) {
+                var gameFeatureUtil = GameFeatureUtil.getInstance()
+                if (gameFeatureUtil.isExclusive(itemLabel)) {
+                    gameFeatureUtil.updateExclusiveForChoiceGroup(item)
+                } else {
+                    gameFeatureUtil.updateMultiple(item)
+                }
+            }
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, "itemStateChanged", e)
+        }
+    }
+}
 
-
-function GameFeatureItemStateListener:itemStateChanged(item)
-        local try_ok, try_error = pcall(function()
-            local itemLabel = item:getLabel()
-            self.logUtil:putF(tostring(StringMaker.new():append(CommonLabels.getInstance().ITEM_LABEL):append(itemLabel)), self, "itemStateChanged")
-            if java_instanceof(item, GameConfigurationGauge) then
-                GameConfigurationUtil.getInstance():change(self.gameOptionsForm, item)
-            elseif java_instanceof(item, ChoiceGroup) then
-                local gameFeatureUtil = GameFeatureUtil.getInstance()
-                if gameFeatureUtil:isExclusive(itemLabel) then
-                    gameFeatureUtil:updateExclusiveForChoiceGroup(item)
-                else
-                    gameFeatureUtil:updateMultiple(item)
-                end
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, "itemStateChanged", e)
-        end
-end
-
-GameFeatureItemStateListener.toggleList = BasicArrayListD.new()
-
-return GameFeatureItemStateListener
+import "../../../../../javax/microedition/lcdui/ChoiceGroup" for ChoiceGroup
+import "../../../../../javax/microedition/lcdui/Item" for Item
+import "../../../../../javax/microedition/lcdui/ItemStateListener" for ItemStateListener
+import "../../../../../org/allbinary/game/configuration/GameConfigurationGauge" for GameConfigurationGauge
+import "../../../../../org/allbinary/game/configuration/GameConfigurationUtil" for GameConfigurationUtil
+import "../../../../../org/allbinary/game/configuration/GameOptionsForm" for GameOptionsForm
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/string/CommonLabels" for CommonLabels
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./GameFeatureFactory" for GameFeatureFactory
+import "./GameFeature" for GameFeature
+import "./GameFeatureUtil" for GameFeatureUtil
 

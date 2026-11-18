@@ -1,130 +1,147 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.business.advertisement
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.business.advertisement
 
-local MyRandomFactory = require("org.allbinary.game.rand.MyRandomFactory")
-local LockedUtil = require("org.allbinary.logic.system.security.licensing.LockedUtil")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Advertisements is JObject {
+  bannerList { _bannerList }
+  bannerList=(value) { _bannerList = value }
+  pageList { _pageList }
+  pageList=(value) { _pageList = value }
+  myRandomFactory { _myRandomFactory }
+  myRandomFactory=(value) { _myRandomFactory = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Advertisements() {
+    _bannerList = null
+    _pageList = null
+    _myRandomFactory = null
+        _bannerList = BasicArrayListD.new()
+        _pageList = BasicArrayListD.new()
+        _myRandomFactory = MyRandomFactory.getInstance()
+  }
 
-local Advertisements = {}
-Advertisements.__index = Advertisements
-Advertisements.className = "Advertisements"
+  construct new() {
+    super()
+    initFields_Advertisements()
+  }
+    
 
-function Advertisements:_init_fields()
-    self.bannerList = BasicArrayListD.new()
-    self.pageList = BasicArrayListD.new()
-    self.myRandomFactory = MyRandomFactory.getInstance()
-end
+    addPage(advertisementProcessorInterface) {
+        if (!_pageList.contains(advertisementProcessorInterface)) {
+            _pageList.add(advertisementProcessorInterface)
+        }
+    }
+    
 
-function Advertisements.new()
-    local self = setmetatable({}, Advertisements)
-    self:_init_fields()
-    return self
-end
+    startRandomPage() {
+        var size = _pageList.size()
+        if ((size > 0)) {
+            var random = _myRandomFactory.getAbsoluteNextInt(size)
+            var advertisementProcessorInterface = _pageList.objectArray[random]
+            advertisementProcessorInterface.start()
+        }
+    }
+    
 
+    processRandomPage() {
+        if (LockedUtil.getInstance().isLocked()) {
+            var size = _pageList.size()
+            if ((size > 0)) {
+                var random = _myRandomFactory.getAbsoluteNextInt(size)
+                var advertisementProcessorInterface = _pageList.objectArray[random]
+                advertisementProcessorInterface.process()
+            }
+        }
+    }
+    
 
-function Advertisements:addPage(advertisementProcessorInterface)
-        if not self.pageList:contains(advertisementProcessorInterface) then
-            self.pageList:add(advertisementProcessorInterface)
-        end
-end
+    stopAllPage() {
+        if (true) {
+            var index = _pageList.size()
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            var advertisementProcessorInterface = _pageList.objectArray[index]
+            advertisementProcessorInterface.stop()
+            }
+        }
+    }
+    
 
+    addBanner(advertisementProcessorInterface) {
+        if (!_bannerList.contains(advertisementProcessorInterface)) {
+            _bannerList.add(advertisementProcessorInterface)
+        }
+    }
+    
 
-function Advertisements:startRandomPage()
-        local size = self.pageList:size()
-        if size > 0 then
-            local random = self.myRandomFactory:getAbsoluteNextInt(size)
-            local advertisementProcessorInterface = self.pageList.objectArray[random + 1]
-            advertisementProcessorInterface:start()
-        end
-end
+    startAll() {
+        if (true) {
+            var index = _bannerList.size()
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            var advertisementProcessorInterface = _bannerList.objectArray[index]
+            advertisementProcessorInterface.start()
+            }
+        }
+    }
+    
 
+    stopAllBanner() {
+        if (true) {
+            var index = _bannerList.size()
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            var advertisementProcessorInterface = _bannerList.objectArray[index]
+            advertisementProcessorInterface.stop()
+            }
+        }
+    }
+    
 
-function Advertisements:processRandomPage()
-        if LockedUtil.getInstance():isLocked() then
-            local size = self.pageList:size()
-            if size > 0 then
-                local random = self.myRandomFactory:getAbsoluteNextInt(size)
-                local advertisementProcessorInterface = self.pageList.objectArray[random + 1]
-                advertisementProcessorInterface:process()
-            end
-        end
-end
-
-
-function Advertisements:stopAllPage()
-        do
-            local index = self.pageList:size()
-            while (function() index = index - 1 return index end)() >= 0 do
-            local advertisementProcessorInterface = self.pageList.objectArray[index + 1]
-            advertisementProcessorInterface:stop()
-            end
-        end
-end
-
-
-function Advertisements:addBanner(advertisementProcessorInterface)
-        if not self.bannerList:contains(advertisementProcessorInterface) then
-            self.bannerList:add(advertisementProcessorInterface)
-        end
-end
-
-
-function Advertisements:startAll()
-        do
-            local index = self.bannerList:size()
-            while (function() index = index - 1 return index end)() >= 0 do
-            local advertisementProcessorInterface = self.bannerList.objectArray[index + 1]
-            advertisementProcessorInterface:start()
-            end
-        end
-end
-
-
-function Advertisements:stopAllBanner()
-        do
-            local index = self.bannerList:size()
-            while (function() index = index - 1 return index end)() >= 0 do
-            local advertisementProcessorInterface = self.bannerList.objectArray[index + 1]
-            advertisementProcessorInterface:stop()
-            end
-        end
-end
-
-
-function Advertisements:getBanner(index)
-        local advertisementProcessorInterface = self.bannerList.objectArray[index + 1]
+    getBanner(index) {
+        var advertisementProcessorInterface = _bannerList.objectArray[index]
         return advertisementProcessorInterface
-end
+    }
+    
 
+    stopAll() {
+        this.stopAllBanner()
+        this.stopAllPage()
+    }
+}
 
-function Advertisements:stopAll()
-        self:stopAllBanner()
-        self:stopAllPage()
-end
-
-return Advertisements
+import "../../../../org/allbinary/game/rand/MyRandomFactory" for MyRandomFactory
+import "../../../../org/allbinary/logic/system/security/licensing/LockedUtil" for LockedUtil
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./AdvertisementProcessorInterface" for AdvertisementProcessorInterface
 

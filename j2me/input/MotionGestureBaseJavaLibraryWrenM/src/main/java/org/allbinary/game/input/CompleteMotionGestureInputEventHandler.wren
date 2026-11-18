@@ -1,103 +1,110 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input
 
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventListenerInterface = require("org.allbinary.logic.util.event.EventListenerInterface")
-local EventStrings = require("org.allbinary.logic.util.event.EventStrings")
-local BasicEventHandler = require("org.allbinary.logic.util.event.handler.BasicEventHandler")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/logic/util/event/handler/BasicEventHandler" for BasicEventHandler
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CompleteMotionGestureInputEventHandler is BasicEventHandler {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = CompleteMotionGestureInputEventHandler.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
+  list { _list }
+  list=(value) { _list = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CompleteMotionGestureInputEventHandler() {
+    _list = null
+        _list = BasicArrayListD.new()
+  }
+    
 
-local CompleteMotionGestureInputEventHandler = {}
-CompleteMotionGestureInputEventHandler.__index = CompleteMotionGestureInputEventHandler
-CompleteMotionGestureInputEventHandler.className = "CompleteMotionGestureInputEventHandler"
-setmetatable(CompleteMotionGestureInputEventHandler, {__index = BasicEventHandler})
-
-function CompleteMotionGestureInputEventHandler:_init_fields()
-    self.list = BasicArrayListD.new()
-end
-
-
-function CompleteMotionGestureInputEventHandler.getInstance()
+    static getInstance() {
         return CompleteMotionGestureInputEventHandler.SINGLETON
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_CompleteMotionGestureInputEventHandler()
+    }
+    
 
-function CompleteMotionGestureInputEventHandler.new()
-    local self = setmetatable(BasicEventHandler.new(), CompleteMotionGestureInputEventHandler)
-    self:_init_fields()
-    return self
-end
+    addListener(completeMotionGestureInputEventListener) {
+        if (!_list.contains(completeMotionGestureInputEventListener)) {
+            _list.add(completeMotionGestureInputEventListener)
+        }
+    }
+    
 
+    removeAllListeners() {
+        _list.clear()
+        super.removeAllListeners()
+    }
+    
 
-function CompleteMotionGestureInputEventHandler:addListener(completeMotionGestureInputEventListener)
-        if not self.list:contains(completeMotionGestureInputEventListener) then
-            self.list:add(completeMotionGestureInputEventListener)
-        end
-end
+    removeListener(eventListenerInterface) {
+        _list.remove(eventListenerInterface)
+        super.removeListener(eventListenerInterface)
+    }
+    
 
+    fireEvent(eventObject) {
+        if (true) {
+            var index = _list.size()
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            var jerror0 = Fiber.new {
+                var completeMotionGestureInputEventListener = _list.objectArray[index]
+                completeMotionGestureInputEventListener.onCompleteMotionGestureInputEvent(eventObject)
+            }.try()
+            if (jerror0 != null) {
+                var e = jerror0
+                this.logUtil.put(this.commonStrings.EXCEPTION, this, EventStrings.getInstance().FIRE_EVENT, e)
+            }
+            }
+        }
+        super.fireEvent(eventObject)
+    }
+    
 
-function CompleteMotionGestureInputEventHandler:removeAllListeners()
-        self.list:clear()
-        BasicEventHandler.removeAllListeners(self)
-end
+    process(eventObject, eventListenerInterface) {
+        var completeMotionGestureInputEventListenerInterface = eventListenerInterface
+        completeMotionGestureInputEventListenerInterface.onCompleteMotionGestureInputEvent(eventObject)
+    }
+}
 
-
-function CompleteMotionGestureInputEventHandler:removeListener(eventListenerInterface)
-        self.list:remove(eventListenerInterface)
-        BasicEventHandler.removeListener(self, eventListenerInterface)
-end
-
-
--- throws Exception
-function CompleteMotionGestureInputEventHandler:fireEvent(eventObject)
-        do
-            local index = self.list:size()
-            while (function() index = index - 1 return index end)() >= 0 do
-            local try_ok, try_error = pcall(function()
-                local completeMotionGestureInputEventListener = self.list.objectArray[index + 1]
-                completeMotionGestureInputEventListener:onCompleteMotionGestureInputEvent(eventObject)
-            end)
-            if not try_ok then
-                local e = try_error
-                self.logUtil:put(self.commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-            end
-            end
-        end
-        BasicEventHandler.fireEvent(self, eventObject)
-end
-
-
--- throws Exception
-function CompleteMotionGestureInputEventHandler:process(eventObject, eventListenerInterface)
-        local completeMotionGestureInputEventListenerInterface = eventListenerInterface
-        completeMotionGestureInputEventListenerInterface:onCompleteMotionGestureInputEvent(eventObject)
-end
-
-CompleteMotionGestureInputEventHandler.SINGLETON = CompleteMotionGestureInputEventHandler.new()
-
-return CompleteMotionGestureInputEventHandler
+import "../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../org/allbinary/logic/util/event/EventListenerInterface" for EventListenerInterface
+import "../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./CompleteMotionGestureInputEventListener" for CompleteMotionGestureInputEventListener
+import "./CompleteMotionGestureInputEvent" for CompleteMotionGestureInputEvent
+import "./CompleteMotionGestureInputEventListenerInterface" for CompleteMotionGestureInputEventListenerInterface
 

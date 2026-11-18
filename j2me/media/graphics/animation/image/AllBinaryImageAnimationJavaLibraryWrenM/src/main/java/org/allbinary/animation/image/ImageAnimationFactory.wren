@@ -1,67 +1,57 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Image = require("javax.microedition.lcdui.Image")
-local Animation = require("org.allbinary.animation.Animation")
-local AnimationBehaviorFactory = require("org.allbinary.animation.AnimationBehaviorFactory")
-local OpenGLUtil = require("org.allbinary.graphics.opengles.OpenGLUtil")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
-local BaseImageAnimationFactory = require("org.allbinary.animation.image.BaseImageAnimationFactory")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./BaseImageAnimationFactory" for BaseImageAnimationFactory
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ImageAnimationFactory is BaseImageAnimationFactory {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImageAnimationFactory() {
+  }
+    
 
-local ImageAnimationFactory = {}
-ImageAnimationFactory.__index = ImageAnimationFactory
-ImageAnimationFactory.className = "ImageAnimationFactory"
-setmetatable(ImageAnimationFactory, {__index = BaseImageAnimationFactory})
+    static createFactory(image) {
+        return ImageAnimationFactory.new(image, image.getWidth(), image.getHeight(), 0, 0, AnimationBehaviorFactory.getInstance())
+    }
+    
 
+    construct new(image, width, height, dx, dy, animationBehaviorFactory) {
+        super(image, PrimitiveIntUtil.getArrayInstance(), width, height, dx, dy, animationBehaviorFactory)
+    }
+    
 
--- throws Exception
-function ImageAnimationFactory.createFactory(image)
-        return ImageAnimationFactory.new(image, image:getWidth(), image:getHeight(), 0, 0, AnimationBehaviorFactory.getInstance())
-end
+    getInstance(instanceId) {
+        var scaledImage = this.animationFactoryImageScaleUtil.createImage(this.getImage(), this.animationFactoryInitializationVisitor.width, this.animationFactoryInitializationVisitor.height, this.scaleProperties.scaleWidth, this.scaleProperties.scaleHeight)
+        var openGLUtil = OpenGLUtil.getInstance()
+        scaledImage = openGLUtil.addImage(scaledImage)
+        if (((this.animationFactoryInitializationVisitor.dx != 0) || (this.animationFactoryInitializationVisitor.dy != 0))) {
+            this.animationFactoryImageScaleUtil.processAdjust(this)
+            return AdjustedImageAnimation.new(scaledImage, this.animationFactoryInitializationVisitor.dx, this.animationFactoryInitializationVisitor.dy, this.animationBehaviorFactory.getOrCreateInstance())
+        } else {
+            return ImageAnimation.new(scaledImage, this.animationBehaviorFactory.getOrCreateInstance())
+        }
+    }
+}
 
-
-function ImageAnimationFactory.new(image, width, height, dx, dy, animationBehaviorFactory)
-    local self = setmetatable(BaseImageAnimationFactory.new(image, PrimitiveIntUtil.getArrayInstance(), width, height, dx, dy, animationBehaviorFactory), ImageAnimationFactory)
-        -- super(...) made self above
-    return self
-end
-
-
--- throws Exception
-function ImageAnimationFactory:getInstance(instanceId)
-        local scaledImage = self.animationFactoryImageScaleUtil:createImage(self:getImage(), self.animationFactoryInitializationVisitor.width, self.animationFactoryInitializationVisitor.height, self.scaleProperties.scaleWidth, self.scaleProperties.scaleHeight)
-        local openGLUtil = OpenGLUtil.getInstance()
-        scaledImage = openGLUtil:addImage(scaledImage)
-        if self.animationFactoryInitializationVisitor.dx ~= 0 or self.animationFactoryInitializationVisitor.dy ~= 0 then
-            self.animationFactoryImageScaleUtil:processAdjust(self)
-            return AdjustedImageAnimation.new(scaledImage, self.animationFactoryInitializationVisitor.dx, self.animationFactoryInitializationVisitor.dy, self.animationBehaviorFactory:getOrCreateInstance())
-        else
-            return ImageAnimation.new(scaledImage, self.animationBehaviorFactory:getOrCreateInstance())
-        end
-end
-
-return ImageAnimationFactory
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../org/allbinary/animation/AnimationBehaviorFactory" for AnimationBehaviorFactory
+import "../../../../org/allbinary/graphics/opengles/OpenGLUtil" for OpenGLUtil
+import "../../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
+import "./ImageAnimation" for ImageAnimation
+import "./AdjustedImageAnimation" for AdjustedImageAnimation
 

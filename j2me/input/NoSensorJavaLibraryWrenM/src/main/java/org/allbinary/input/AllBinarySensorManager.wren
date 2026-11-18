@@ -1,86 +1,99 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input
 
-local AccelerometerSensorFactory = require("org.allbinary.input.accelerometer.AccelerometerSensorFactory")
-local GyroSensorFactory = require("org.allbinary.input.gyro.GyroSensorFactory")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AllBinarySensorManager is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  ORIENTATION_SENSOR_INPUT { _ORIENTATION_SENSOR_INPUT }
+  ORIENTATION_SENSOR_INPUT=(value) { _ORIENTATION_SENSOR_INPUT = value }
+  ORIENTATION_TYPE { _ORIENTATION_TYPE }
+  ORIENTATION_TYPE=(value) { _ORIENTATION_TYPE = value }
+  list { _list }
+  list=(value) { _list = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AllBinarySensorManager() {
+    _logUtil = null
+    _commonStrings = null
+    _ORIENTATION_SENSOR_INPUT = null
+    _ORIENTATION_TYPE = null
+    _list = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        _ORIENTATION_SENSOR_INPUT = "Orientation Sensor Input"
+        _ORIENTATION_TYPE = "Orientation Type"
+        _list = BasicArrayListD.new()
+  }
+    
 
-local AllBinarySensorManager = {}
-AllBinarySensorManager.__index = AllBinarySensorManager
-AllBinarySensorManager.className = "AllBinarySensorManager"
-
-function AllBinarySensorManager:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.ORIENTATION_SENSOR_INPUT = "Orientation Sensor Input"
-    self.ORIENTATION_TYPE = "Orientation Type"
-    self.list = BasicArrayListD.new()
-end
-
-
-function AllBinarySensorManager.getInstance()
-        if AllBinarySensorManager.instance == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((AllBinarySensorManager.instance == NullUtil.getInstance().NULL_OBJECT)) {
             AllBinarySensorManager.instance = AllBinarySensorManager.new()
-        end
+        }
         return AllBinarySensorManager.instance
-end
+    }
+    
 
-
-function AllBinarySensorManager.new()
-    local self = setmetatable({}, AllBinarySensorManager)
-    self:_init_fields()
-        local try_ok, try_error = pcall(function()
+    construct new() {
+    super()
+    initFields_AllBinarySensorManager()
+        var jerror0 = Fiber.new {
             GyroSensorFactory.init()
             AccelerometerSensorFactory.init()
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.commonStrings.CONSTRUCTOR, e)
-        end
-    return self
-end
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            _logUtil.put(_commonStrings.EXCEPTION, this, _commonStrings.CONSTRUCTOR, e)
+        }
+    }
+    
 
+    init() {
+    }
+    
 
-function AllBinarySensorManager:init()
-end
+    getSensorNamesList() {
+        return _list
+    }
+    
 
+    shutdown() {
+    }
+}
 
-function AllBinarySensorManager:getSensorNamesList()
-        return self.list
-end
-
-
-function AllBinarySensorManager:shutdown()
-end
-
-AllBinarySensorManager.instance = NullUtil.getInstance().NULL_OBJECT
-
-return AllBinarySensorManager
+import "../../../org/allbinary/input/accelerometer/AccelerometerSensorFactory" for AccelerometerSensorFactory
+import "../../../org/allbinary/input/gyro/GyroSensorFactory" for GyroSensorFactory
+import "../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
 

@@ -1,50 +1,40 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer.special
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer.special
 
-local GameKeyEvent = require("org.allbinary.game.input.event.GameKeyEvent")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local SpecialGameInputProcessor = require("org.allbinary.game.layer.special.SpecialGameInputProcessor")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./SpecialGameInputProcessor" for SpecialGameInputProcessor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class SpecialAnalogLeftTriggerGameInputProcessor is SpecialGameInputProcessor {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_SpecialAnalogLeftTriggerGameInputProcessor() {
+  }
+    
 
-local SpecialAnalogLeftTriggerGameInputProcessor = {}
-SpecialAnalogLeftTriggerGameInputProcessor.__index = SpecialAnalogLeftTriggerGameInputProcessor
-SpecialAnalogLeftTriggerGameInputProcessor.className = "SpecialAnalogLeftTriggerGameInputProcessor"
-setmetatable(SpecialAnalogLeftTriggerGameInputProcessor, {__index = SpecialGameInputProcessor})
+    construct new(collidableDestroyableDamageableLayer) {
+        super(collidableDestroyableDamageableLayer)
+    }
+    
 
+    processAnalog(allbinaryLayerManager, gameKeyEvent, yAnalogValue) {
+        this.collidableDestroyableDamageableLayer.leftTrigger(allbinaryLayerManager, gameKeyEvent, yAnalogValue)
+    }
+}
 
-function SpecialAnalogLeftTriggerGameInputProcessor.new(collidableDestroyableDamageableLayer)
-    local self = setmetatable(SpecialGameInputProcessor.new(collidableDestroyableDamageableLayer), SpecialAnalogLeftTriggerGameInputProcessor)
-        -- super(...) made self above
-    return self
-end
-
-
--- throws Exception
-function SpecialAnalogLeftTriggerGameInputProcessor:processAnalog(allbinaryLayerManager, gameKeyEvent, yAnalogValue)
-        self.collidableDestroyableDamageableLayer:leftTrigger(allbinaryLayerManager, gameKeyEvent, yAnalogValue)
-end
-
-return SpecialAnalogLeftTriggerGameInputProcessor
+import "../../../../../org/allbinary/game/input/event/GameKeyEvent" for GameKeyEvent
+import "../../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "./CollidableDestroyableDamageableLayer" for CollidableDestroyableDamageableLayer
 

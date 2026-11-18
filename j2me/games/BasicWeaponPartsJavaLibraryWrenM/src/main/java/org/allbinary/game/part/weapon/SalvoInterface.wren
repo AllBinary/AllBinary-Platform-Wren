@@ -1,49 +1,36 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.part.weapon
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.part.weapon
 
-local WeaponProperties = require("org.allbinary.game.combat.weapon.WeaponProperties")
-local ScoreableInterface = require("org.allbinary.game.score.ScoreableInterface")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class SalvoInterface is JObject {
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    process(allbinaryLayerManager, angle, otherAngle) {
+        Fiber.abort(JR.exception("AbstractMethodError", "process"))
+    }
+    
 
--- Java interface
-local SalvoInterface = {}
-SalvoInterface.__index = SalvoInterface
-SalvoInterface.className = "SalvoInterface"
+    processScore(allbinaryLayerManager, angle, otherAngle, weaponProperties, scoreableInterface) {
+        Fiber.abort(JR.exception("AbstractMethodError", "processScore"))
+    }
+}
 
-
--- throws Exception
-function SalvoInterface:process(allbinaryLayerManager, angle, otherAngle)
-    error("abstract method process")
-end
-
-
--- throws Exception
-function SalvoInterface:processScore(allbinaryLayerManager, angle, otherAngle, weaponProperties, scoreableInterface)
-    error("abstract method processScore")
-end
-
-return SalvoInterface
+import "../../../../../org/allbinary/game/combat/weapon/WeaponProperties" for WeaponProperties
+import "../../../../../org/allbinary/game/score/ScoreableInterface" for ScoreableInterface
+import "../../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
 

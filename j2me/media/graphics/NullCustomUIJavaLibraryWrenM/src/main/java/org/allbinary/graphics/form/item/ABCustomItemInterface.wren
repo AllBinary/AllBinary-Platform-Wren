@@ -1,48 +1,35 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form.item
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form.item
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ABCustomItemInterface is JObject {
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    getMinimumWidth() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getMinimumWidth"))
+    }
+    
 
--- Java interface
-local ABCustomItemInterface = {}
-ABCustomItemInterface.__index = ABCustomItemInterface
-ABCustomItemInterface.className = "ABCustomItemInterface"
+    getMinimumHeight() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getMinimumHeight"))
+    }
+    
 
+    getLabel() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getLabel"))
+    }
+    
 
-function ABCustomItemInterface:getMinimumWidth()
-    error("abstract method getMinimumWidth")
-end
+    paintXY(graphics, x, y) {
+        Fiber.abort(JR.exception("AbstractMethodError", "paintXY"))
+    }
+    
 
+    paintUnselected(graphics, x, y) {
+        Fiber.abort(JR.exception("AbstractMethodError", "paintUnselected"))
+    }
+}
 
-function ABCustomItemInterface:getMinimumHeight()
-    error("abstract method getMinimumHeight")
-end
-
-
-function ABCustomItemInterface:getLabel()
-    error("abstract method getLabel")
-end
-
-
-function ABCustomItemInterface:paintXY(graphics, x, y)
-    error("abstract method paintXY")
-end
-
-
-function ABCustomItemInterface:paintUnselected(graphics, x, y)
-    error("abstract method paintUnselected")
-end
-
-return ABCustomItemInterface
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
 

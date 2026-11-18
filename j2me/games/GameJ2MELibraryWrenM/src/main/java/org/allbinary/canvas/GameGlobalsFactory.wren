@@ -1,54 +1,62 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.canvas
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.canvas
 
-local GPoint = require("org.allbinary.graphics.GPoint")
-local PointFactory = require("org.allbinary.graphics.PointFactory")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameGlobalsFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = GameGlobalsFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  newCanvas { _newCanvas }
+  newCanvas=(value) { _newCanvas = value }
+  newDisplaybleTime { _newDisplaybleTime }
+  newDisplaybleTime=(value) { _newDisplaybleTime = value }
+  point { _point }
+  point=(value) { _point = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameGlobalsFactory() {
+    _newCanvas = false
+    _newDisplaybleTime = 0
+    _point = null
+        _newCanvas = true
+        _newDisplaybleTime = Integer.MIN_VALUE
+        _point = PointFactory.getInstance().ZERO_ZERO
+  }
 
-local GameGlobalsFactory = {}
-GameGlobalsFactory.__index = GameGlobalsFactory
-GameGlobalsFactory.className = "GameGlobalsFactory"
+  construct new() {
+    super()
+    initFields_GameGlobalsFactory()
+  }
+    
 
-function GameGlobalsFactory:_init_fields()
-    self.newCanvas = true
-    self.newDisplaybleTime = java_int(Integer.MIN_VALUE)
-    self.point = PointFactory.getInstance().ZERO_ZERO
-end
-
-function GameGlobalsFactory.new()
-    local self = setmetatable({}, GameGlobalsFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function GameGlobalsFactory.getInstance()
+    static getInstance() {
         return GameGlobalsFactory.instance
-end
+    }
+}
 
-GameGlobalsFactory.instance = GameGlobalsFactory.new()
-
-return GameGlobalsFactory
+import "../../../org/allbinary/graphics/GPoint" for GPoint
+import "../../../org/allbinary/graphics/PointFactory" for PointFactory
+import "../../../java/lang/Integer" for Integer
 

@@ -1,69 +1,85 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.gyro
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.gyro
 
-local InputFactory = require("org.allbinary.game.input.InputFactory")
-local MotionGestureInput = require("org.allbinary.input.motion.gesture.MotionGestureInput")
-local NullUtil = require("org.allbinary.logic.NullUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class OrientationMotionGestureFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  LEFT { _LEFT }
+  LEFT=(value) { _LEFT = value }
+  RIGHT { _RIGHT }
+  RIGHT=(value) { _RIGHT = value }
+  UP { _UP }
+  UP=(value) { _UP = value }
+  DOWN { _DOWN }
+  DOWN=(value) { _DOWN = value }
+  ROLL_LEFT { _ROLL_LEFT }
+  ROLL_LEFT=(value) { _ROLL_LEFT = value }
+  ROLL_RIGHT { _ROLL_RIGHT }
+  ROLL_RIGHT=(value) { _ROLL_RIGHT = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_OrientationMotionGestureFactory() {
+    _LEFT = null
+    _RIGHT = null
+    _UP = null
+    _DOWN = null
+    _ROLL_LEFT = null
+    _ROLL_RIGHT = null
+        
+        
+        
+        
+        
+        
+  }
+    
 
-local OrientationMotionGestureFactory = {}
-OrientationMotionGestureFactory.__index = OrientationMotionGestureFactory
-OrientationMotionGestureFactory.className = "OrientationMotionGestureFactory"
-
-function OrientationMotionGestureFactory:_init_fields()
-    self.LEFT = nil
-    self.RIGHT = nil
-    self.UP = nil
-    self.DOWN = nil
-    self.ROLL_LEFT = nil
-    self.ROLL_RIGHT = nil
-end
-
-
-function OrientationMotionGestureFactory.getInstance()
-        if OrientationMotionGestureFactory.instance == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((OrientationMotionGestureFactory.instance == NullUtil.getInstance().NULL_OBJECT)) {
             OrientationMotionGestureFactory.instance = OrientationMotionGestureFactory.new()
-        end
+        }
         return OrientationMotionGestureFactory.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_OrientationMotionGestureFactory()
+        var MAX = InputFactory.getInstance().MAX
+        _LEFT = MotionGestureInput.new(JR.i32(MAX - 20), "Left Orient")
+        _RIGHT = MotionGestureInput.new(JR.i32(MAX - 21), "Right Orient")
+        _UP = MotionGestureInput.new(JR.i32(MAX - 22), "Up Orient")
+        _DOWN = MotionGestureInput.new(JR.i32(MAX - 23), "Down Orient")
+        _ROLL_LEFT = MotionGestureInput.new(JR.i32(MAX - 24), "Roll Left")
+        _ROLL_RIGHT = MotionGestureInput.new(JR.i32(MAX - 25), "Roll Right")
+    }
+}
 
-function OrientationMotionGestureFactory.new()
-    local self = setmetatable({}, OrientationMotionGestureFactory)
-    self:_init_fields()
-        local MAX = InputFactory.getInstance().MAX
-        self.LEFT = MotionGestureInput.new(MAX - 20, "Left Orient")
-        self.RIGHT = MotionGestureInput.new(MAX - 21, "Right Orient")
-        self.UP = MotionGestureInput.new(MAX - 22, "Up Orient")
-        self.DOWN = MotionGestureInput.new(MAX - 23, "Down Orient")
-        self.ROLL_LEFT = MotionGestureInput.new(MAX - 24, "Roll Left")
-        self.ROLL_RIGHT = MotionGestureInput.new(MAX - 25, "Roll Right")
-    return self
-end
-
-OrientationMotionGestureFactory.instance = NullUtil.getInstance().NULL_OBJECT
-
-return OrientationMotionGestureFactory
+import "../../../../org/allbinary/game/input/InputFactory" for InputFactory
+import "../../../../org/allbinary/input/motion/gesture/MotionGestureInput" for MotionGestureInput
+import "../../../../org/allbinary/logic/NullUtil" for NullUtil
 

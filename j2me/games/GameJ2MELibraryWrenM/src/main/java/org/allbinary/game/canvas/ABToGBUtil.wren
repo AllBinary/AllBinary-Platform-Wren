@@ -1,54 +1,58 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.canvas
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.canvas
 
--- local Canvas = require("javax.microedition.lcdui.Canvas")
--- local NullCanvas = require("javax.microedition.lcdui.NullCanvas")
-local AllBinaryGameLayerManager = require("org.allbinary.game.layer.AllBinaryGameLayerManager")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ABToGBUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ABToGBUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  abCanvas { _abCanvas }
+  abCanvas=(value) { _abCanvas = value }
+  allBinaryGameLayerManager { _allBinaryGameLayerManager }
+  allBinaryGameLayerManager=(value) { _allBinaryGameLayerManager = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ABToGBUtil() {
+    _abCanvas = null
+    _allBinaryGameLayerManager = null
+        _abCanvas = NullCanvas.NULL_CANVAS
+        _allBinaryGameLayerManager = AllBinaryGameLayerManager.getNullInstance()
+  }
 
-local ABToGBUtil = {}
-ABToGBUtil.__index = ABToGBUtil
-ABToGBUtil.className = "ABToGBUtil"
+  construct new() {
+    super()
+    initFields_ABToGBUtil()
+  }
+    
 
-function ABToGBUtil:_init_fields()
-    self.abCanvas = NullCanvas.NULL_CANVAS
-    self.allBinaryGameLayerManager = AllBinaryGameLayerManager.getNullInstance()
-end
-
-function ABToGBUtil.new()
-    local self = setmetatable({}, ABToGBUtil)
-    self:_init_fields()
-    return self
-end
-
-
-function ABToGBUtil.getInstance()
+    static getInstance() {
         return ABToGBUtil.instance
-end
+    }
+}
 
-ABToGBUtil.instance = ABToGBUtil.new()
-
-return ABToGBUtil
+import "../../../../javax/microedition/lcdui/Canvas" for Canvas
+import "../../../../javax/microedition/lcdui/NullCanvas" for NullCanvas
+import "../../../../org/allbinary/game/layer/AllBinaryGameLayerManager" for AllBinaryGameLayerManager
 

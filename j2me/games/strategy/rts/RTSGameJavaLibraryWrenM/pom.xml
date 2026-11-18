@@ -203,7 +203,7 @@
 
         <dependency>
             <groupId>org.microemu</groupId>
-            <artifactId>microemu-midpWren</artifactId>
+            <artifactId>microemu-midp-for-polyglotWren</artifactId>
             <version>3.0.0-SNAPSHOT</version>
             <optional>true</optional>
         </dependency>

@@ -1,57 +1,58 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
-local CommandTextItemArrayFactory = require("org.allbinary.graphics.form.item.CommandTextItemArrayFactory")
-local LimitCommandsVisitor = require("org.allbinary.graphics.form.item.LimitCommandsVisitor")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameLimitedCommandTextItemArrayFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = GameLimitedCommandTextItemArrayFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  commandTextItemArrayFactory { _commandTextItemArrayFactory }
+  commandTextItemArrayFactory=(value) { _commandTextItemArrayFactory = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameLimitedCommandTextItemArrayFactory() {
+    _commandTextItemArrayFactory = null
+        _commandTextItemArrayFactory = CommandTextItemArrayFactory.new(LimitCommandsVisitor.new())
+  }
 
-local GameLimitedCommandTextItemArrayFactory = {}
-GameLimitedCommandTextItemArrayFactory.__index = GameLimitedCommandTextItemArrayFactory
-GameLimitedCommandTextItemArrayFactory.className = "GameLimitedCommandTextItemArrayFactory"
+  construct new() {
+    super()
+    initFields_GameLimitedCommandTextItemArrayFactory()
+  }
+    
 
-function GameLimitedCommandTextItemArrayFactory:_init_fields()
-    self.commandTextItemArrayFactory = CommandTextItemArrayFactory.new(LimitCommandsVisitor.new())
-end
-
-function GameLimitedCommandTextItemArrayFactory.new()
-    local self = setmetatable({}, GameLimitedCommandTextItemArrayFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function GameLimitedCommandTextItemArrayFactory.getInstance()
+    static getInstance() {
         return GameLimitedCommandTextItemArrayFactory.instance
-end
+    }
+    
 
+    getCommandTextItemArrayFactory() {
+        return _commandTextItemArrayFactory
+    }
+}
 
-function GameLimitedCommandTextItemArrayFactory:getCommandTextItemArrayFactory()
-        return self.commandTextItemArrayFactory
-end
-
-GameLimitedCommandTextItemArrayFactory.instance = GameLimitedCommandTextItemArrayFactory.new()
-
-return GameLimitedCommandTextItemArrayFactory
+import "../../../../../org/allbinary/graphics/form/item/CommandTextItemArrayFactory" for CommandTextItemArrayFactory
+import "../../../../../org/allbinary/graphics/form/item/LimitCommandsVisitor" for LimitCommandsVisitor
 

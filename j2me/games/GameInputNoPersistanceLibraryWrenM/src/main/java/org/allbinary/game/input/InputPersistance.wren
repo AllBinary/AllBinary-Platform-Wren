@@ -1,101 +1,108 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input
 
--- local RecordEnumeration = require("javax.microedition.rms.RecordEnumeration")
--- local RecordStore = require("javax.microedition.rms.RecordStore")
-local BasicPersitance = require("org.allbinary.game.configuration.persistance.BasicPersitance")
-local NullRecordComparator = require("org.allbinary.game.configuration.persistance.NullRecordComparator")
-local NullRecordFilter = require("org.allbinary.game.configuration.persistance.NullRecordFilter")
-local PreLogUtil = require("org.allbinary.logic.communication.log.PreLogUtil")
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local AbeClientInformationInterface = require("org.allbinary.logic.system.security.licensing.AbeClientInformationInterface")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local HashtableUtil = require("org.allbinary.util.HashtableUtil")
-local StdUtil = require("org.allbinary.logic.StdUtil")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/game/configuration/persistance/BasicPersitance" for BasicPersitance
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//GameInputNoPersistanceLibrary
+class InputPersistance is BasicPersitance {
+  hashtableUtil { _hashtableUtil }
+  hashtableUtil=(value) { _hashtableUtil = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_InputPersistance() {
+    _hashtableUtil = null
+        _hashtableUtil = HashtableUtil.getInstance()
+  }
+    
 
---GameInputNoPersistanceLibrary
-local InputPersistance = {}
-InputPersistance.__index = InputPersistance
-InputPersistance.className = "InputPersistance"
-setmetatable(InputPersistance, {__index = BasicPersitance})
+    construct new(name) {
+        super(name)
+        initFields_InputPersistance()
+    }
+    
 
-function InputPersistance:_init_fields()
-    self.hashtableUtil = HashtableUtil.getInstance()
-end
+    loadAll(abeClientInformation) {
+        var recordStore = RecordStore.openRecordStore(this.getRecordId(abeClientInformation), true)
+        var recordEnum = recordStore.enumerateRecords(NullRecordFilter.NULL_RECORD_FILTER, NullRecordComparator.NULL_RECORD_COMPARATOR, true)
+        var hashtable = null
+        var stringBuffer = StringMaker.new()
+        var smallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
+        var id = 0
+        while (recordEnum.hasNextElement()) {
+            id = recordEnum.nextRecordId()
+            stringBuffer.delete(0, stringBuffer.length())
+            this.logUtil.putF(stringBuffer.append(this.persistanceStrings.LOADING_ID).appendint(id).toString(), this, this.persistanceStrings.LOAD_ALL)
+            hashtable = StdUtil.getInstance().createHashtable()
+            this.valueList.add(hashtable)
+            this.idList.add(smallIntegerSingletonFactory.getAt(id))
+        }
+        recordStore.closeRecordStore()
+    }
+    
 
+    save(abeClientInformation, hashtable) {
+        PreLogUtil.put(StringMaker.new().append(this.persistanceStrings.NOT_SAVING).append(StringUtil.getInstance().toString(hashtable)).toString(), this, this.commonStrings.SAVE)
+        var recordStore = RecordStore.openRecordStore(this.getRecordId(abeClientInformation), true)
+        var gameActionInput = null
+        var list = null
+        var input = null
+        var inputObjectArray = _hashtableUtil.getKeysAsArray(hashtable)
+        var size = inputObjectArray.count
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            gameActionInput = inputObjectArray[index]
+            list = hashtable.get(inputObjectArray[index])
+            if (true) {
+                var index2 = 0
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        index2 = JR.i32(index2 + 1)
+                    }
+                    jfirst = false
+                    if (!((index2 < list.size()))) break
+                input = list.get(index2)
+                }
+            }
+            }
+        }
+        recordStore.closeRecordStore()
+    }
+}
 
-function InputPersistance.new(name)
-    local self = setmetatable(BasicPersitance.new(name), InputPersistance)
-    self:_init_fields()
-        -- super(...) made self above
-    return self
-end
-
-
--- throws Exception
-function InputPersistance:loadAll(abeClientInformation)
-        local recordStore = RecordStore.openRecordStore(self:getRecordId(abeClientInformation), true)
-        local recordEnum = recordStore:enumerateRecords(NullRecordFilter.NULL_RECORD_FILTER, NullRecordComparator.NULL_RECORD_COMPARATOR, true)
-        local hashtable = nil
-        local stringBuffer = StringMaker.new()
-        local smallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
-        local id = 0
-        while recordEnum:hasNextElement() do
-            id = recordEnum:nextRecordId()
-            stringBuffer:delete(0, stringBuffer:length())
-            self.logUtil:putF(tostring(stringBuffer:append(self.persistanceStrings.LOADING_ID):appendint(id)), self, self.persistanceStrings.LOAD_ALL)
-            hashtable = StdUtil.getInstance():createHashtable()
-            self.valueList:add(hashtable)
-            self.idList:add(smallIntegerSingletonFactory:getAt(id))
-        end
-        recordStore:closeRecordStore()
-end
-
-
--- throws Exception
-function InputPersistance:save(abeClientInformation, hashtable)
-        PreLogUtil.put(tostring(StringMaker.new():append(self.persistanceStrings.NOT_SAVING):append(StringUtil.getInstance():toString(hashtable))), self, self.commonStrings.SAVE)
-        local recordStore = RecordStore.openRecordStore(self:getRecordId(abeClientInformation), true)
-        local gameActionInput = nil
-        local list = nil
-        local input = nil
-        local inputObjectArray = self.hashtableUtil:getKeysAsArray(hashtable)
-        local size = (inputObjectArray.n or #inputObjectArray)
-        for index = 0, size - 1 do
-            gameActionInput = inputObjectArray[index + 1]
-            list = hashtable:get(inputObjectArray[index + 1])
-            for index2 = 0, list:size() - 1 do
-                input = list:get(index2)
-            end
-        end
-        recordStore:closeRecordStore()
-end
-
-return InputPersistance
+import "../../../../javax/microedition/rms/RecordEnumeration" for RecordEnumeration
+import "../../../../javax/microedition/rms/RecordStore" for RecordStore
+import "../../../../org/allbinary/game/configuration/persistance/NullRecordComparator" for NullRecordComparator
+import "../../../../org/allbinary/game/configuration/persistance/NullRecordFilter" for NullRecordFilter
+import "../../../../org/allbinary/logic/communication/log/PreLogUtil" for PreLogUtil
+import "../../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/logic/system/security/licensing/AbeClientInformationInterface" for AbeClientInformationInterface
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/HashtableUtil" for HashtableUtil
+import "../../../../org/allbinary/logic/StdUtil" for StdUtil
+import "../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "./Input" for Input
 

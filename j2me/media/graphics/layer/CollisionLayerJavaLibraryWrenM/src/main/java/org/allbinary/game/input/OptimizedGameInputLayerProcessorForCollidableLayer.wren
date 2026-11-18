@@ -1,61 +1,51 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input
 
-local AllBinaryGameLayer = require("org.allbinary.game.layer.AllBinaryGameLayer")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local LayerProcessor = require("org.allbinary.layer.LayerProcessor")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/layer/LayerProcessor" for LayerProcessor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class OptimizedGameInputLayerProcessorForCollidableLayer is LayerProcessor {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_OptimizedGameInputLayerProcessorForCollidableLayer() {
+  }
+    
 
-local OptimizedGameInputLayerProcessorForCollidableLayer = {}
-OptimizedGameInputLayerProcessorForCollidableLayer.__index = OptimizedGameInputLayerProcessorForCollidableLayer
-OptimizedGameInputLayerProcessorForCollidableLayer.className = "OptimizedGameInputLayerProcessorForCollidableLayer"
-setmetatable(OptimizedGameInputLayerProcessorForCollidableLayer, {__index = LayerProcessor})
+    construct new() {
+        super(OptimizedGameInputLayerManager.new())
+    }
+    
 
+    processAt(allBinaryLayerManager, layerInterface, index) {
+        var gameInputInterface = layerInterface
+        gameInputInterface.processInput(allBinaryLayerManager)
+    }
+    
 
-function OptimizedGameInputLayerProcessorForCollidableLayer.new()
-    local self = setmetatable(LayerProcessor.new(OptimizedGameInputLayerManager.new()), OptimizedGameInputLayerProcessorForCollidableLayer)
-        -- super(...) made self above
-    return self
-end
-
-
--- throws Exception
-function OptimizedGameInputLayerProcessorForCollidableLayer:processAt(allBinaryLayerManager, layerInterface, index)
-        local gameInputInterface = layerInterface
-        gameInputInterface:processInput(allBinaryLayerManager)
-end
-
-
-function OptimizedGameInputLayerProcessorForCollidableLayer:isProcessorLayer(layerInterface)
-        if layerInterface:implmentsGameInputInterface() then
+    isProcessorLayer(layerInterface) {
+        if (layerInterface.implmentsGameInputInterface()) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+}
 
-return OptimizedGameInputLayerProcessorForCollidableLayer
+import "../../../../org/allbinary/game/layer/AllBinaryGameLayer" for AllBinaryGameLayer
+import "../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "./OptimizedGameInputLayerManager" for OptimizedGameInputLayerManager
 

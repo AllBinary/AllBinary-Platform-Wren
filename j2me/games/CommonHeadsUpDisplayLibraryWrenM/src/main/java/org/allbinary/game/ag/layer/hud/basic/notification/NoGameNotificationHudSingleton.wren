@@ -1,70 +1,75 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.hud.basic.notification
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.hud.basic.notification
 
-local BasicHudFactory = require("org.allbinary.game.graphics.hud.BasicHudFactory")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NoGameNotificationHudSingleton is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NoGameNotificationHudSingleton.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  gameNotificationHud { _gameNotificationHud }
+  gameNotificationHud=(value) { _gameNotificationHud = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NoGameNotificationHudSingleton() {
+    _logUtil = null
+    _gameNotificationHud = null
+        _logUtil = LogUtil.getInstance()
+        _gameNotificationHud = GameNotificationHud.NULL_GAME_NOTIFICATION
+  }
+    
 
-local NoGameNotificationHudSingleton = {}
-NoGameNotificationHudSingleton.__index = NoGameNotificationHudSingleton
-NoGameNotificationHudSingleton.className = "NoGameNotificationHudSingleton"
-
-function NoGameNotificationHudSingleton:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.gameNotificationHud = GameNotificationHud.NULL_GAME_NOTIFICATION
-end
-
-
-function NoGameNotificationHudSingleton.getInstance()
+    static getInstance() {
         return NoGameNotificationHudSingleton.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_NoGameNotificationHudSingleton()
+        var jerror0 = Fiber.new {
+            var basicHudFactory = BasicHudFactory.getInstance()
+            _gameNotificationHud = NoGameGameNotificationHud.new()
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, commonStrings.CONSTRUCTOR, e)
+        }
+    }
+    
 
-function NoGameNotificationHudSingleton.new()
-    local self = setmetatable({}, NoGameNotificationHudSingleton)
-    self:_init_fields()
-        local try_ok, try_error = pcall(function()
-            local basicHudFactory = BasicHudFactory.getInstance()
-            self.gameNotificationHud = NoGameGameNotificationHud.new()
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, commonStrings.CONSTRUCTOR, e)
-        end
-    return self
-end
+    getGameNotificationHud() {
+        return _gameNotificationHud
+    }
+}
 
-
-function NoGameNotificationHudSingleton:getGameNotificationHud()
-        return self.gameNotificationHud
-end
-
-NoGameNotificationHudSingleton.instance = NoGameNotificationHudSingleton.new()
-
-return NoGameNotificationHudSingleton
+import "../../../../../../../../org/allbinary/game/graphics/hud/BasicHudFactory" for BasicHudFactory
+import "../../../../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./GameNotificationHud" for GameNotificationHud
+import "./NoGameGameNotificationHud" for NoGameGameNotificationHud
 

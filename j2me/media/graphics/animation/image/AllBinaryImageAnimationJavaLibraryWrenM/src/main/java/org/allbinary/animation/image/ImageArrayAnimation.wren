@@ -1,120 +1,118 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Image = require("javax.microedition.lcdui.Image")
--- local NullImage = require("javax.microedition.lcdui.NullImage")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local IndexedAnimation = require("org.allbinary.animation.IndexedAnimation")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
-local CircularIndexUtil = require("org.allbinary.util.CircularIndexUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/animation/IndexedAnimation" for IndexedAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ImageArrayAnimation is IndexedAnimation {
+  imageArray { _imageArray }
+  imageArray=(value) { _imageArray = value }
+  totalFrames { _totalFrames }
+  totalFrames=(value) { _totalFrames = value }
+  circularIndexUtil { _circularIndexUtil }
+  circularIndexUtil=(value) { _circularIndexUtil = value }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImageArrayAnimation() {
+    _imageArray = null
+    _totalFrames = 0
+    _circularIndexUtil = null
+    _anchor = 0
+        _imageArray = NullImage.NULL_IMAGE_ARRAY
+        _totalFrames = 0
+        _circularIndexUtil = CircularIndexUtil.NULL_CIRCULAR_INDEX_UTIL
+        _anchor = Anchor.TOP_LEFT
+  }
+    
 
-local ImageArrayAnimation = {}
-ImageArrayAnimation.__index = ImageArrayAnimation
-ImageArrayAnimation.className = "ImageArrayAnimation"
-setmetatable(ImageArrayAnimation, {__index = IndexedAnimation})
+    construct new(imageArray, animationBehavior) {
+        super(animationBehavior)
+        initFields_ImageArrayAnimation()
+        this.setImageArray(imageArray)
+    }
+    
 
-function ImageArrayAnimation:_init_fields()
-    self.imageArray = NullImage.NULL_IMAGE_ARRAY
-    self.totalFrames = 0
-    self.circularIndexUtil = CircularIndexUtil.NULL_CIRCULAR_INDEX_UTIL
-    self.anchor = Anchor.TOP_LEFT
-end
+    getAnimationSize() {
+        return this.getSize()
+    }
+    
 
+    nextFrame() {
+        _circularIndexUtil.next()
+    }
+    
 
-function ImageArrayAnimation.new(imageArray, animationBehavior)
-    local self = setmetatable(IndexedAnimation.new(animationBehavior), ImageArrayAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self:setImageArray(imageArray)
-    return self
-end
+    previousFrame() {
+        _circularIndexUtil.previous()
+    }
+    
 
+    setFrame(index) {
+        _circularIndexUtil.setIndex(index)
+    }
+    
 
--- throws Exception
-function ImageArrayAnimation:getAnimationSize()
-        return self:getSize()
-end
+    getFrame() {
+        return _circularIndexUtil.getIndex()
+    }
+    
 
+    getSize() {
+        return _totalFrames
+    }
+    
 
-function ImageArrayAnimation:nextFrame()
-        self.circularIndexUtil:next()
-end
+    setSequence(sequence) {
+    }
+    
 
-
-function ImageArrayAnimation:previousFrame()
-        self.circularIndexUtil:previous()
-end
-
-
-function ImageArrayAnimation:setFrame(index)
-        self.circularIndexUtil:setIndex(index)
-end
-
-
-function ImageArrayAnimation:getFrame()
-        return self.circularIndexUtil:getIndex()
-end
-
-
-function ImageArrayAnimation:getSize()
-        return self.totalFrames
-end
-
-
-function ImageArrayAnimation:setSequence(sequence)
-end
-
-
-function ImageArrayAnimation:getSequence()
+    getSequence() {
         return PrimitiveIntUtil.getArrayInstance()
-end
+    }
+    
 
+    getImage(index) {
+        return _imageArray[index]
+    }
+    
 
-function ImageArrayAnimation:getImage(index)
-        return self.imageArray[index + 1]
-end
+    getImageArray() {
+        return _imageArray
+    }
+    
 
+    setImageArray(imageArray) {
+        _imageArray = imageArray
+        _totalFrames = imageArray.count
+        _circularIndexUtil = CircularIndexUtil.createInstance(_totalFrames)
+    }
+    
 
-function ImageArrayAnimation:getImageArray()
-        return self.imageArray
-end
+    paintXY(graphics, x, y) {
+        graphics.drawImage(_imageArray[_circularIndexUtil.getIndex()], x, y, _anchor)
+    }
+}
 
-
-function ImageArrayAnimation:setImageArray(imageArray)
-        self.imageArray = imageArray
-        self.totalFrames = (imageArray.n or #imageArray)
-        self.circularIndexUtil = CircularIndexUtil.createInstance(self.totalFrames)
-end
-
-
-function ImageArrayAnimation:paintXY(graphics, x, y)
-        graphics:drawImage(self.imageArray[self.circularIndexUtil:getIndex() + 1], x, y, self.anchor)
-end
-
-return ImageArrayAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../javax/microedition/lcdui/NullImage" for NullImage
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/graphics/Anchor" for Anchor
+import "../../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
+import "../../../../org/allbinary/util/CircularIndexUtil" for CircularIndexUtil
 

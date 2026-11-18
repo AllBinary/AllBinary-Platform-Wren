@@ -1,56 +1,58 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.ai
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.ai
 
-local ArtificialIntelligenceInterface = require("org.allbinary.ai.ArtificialIntelligenceInterface")
-local ArtificialIntelligenceInterfaceFactoryInterface = require("org.allbinary.game.ai.ArtificialIntelligenceInterfaceFactoryInterface")
-local GameInput = require("org.allbinary.game.input.GameInput")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NullAIFactory is JObject {
+    static NULL_AI {
+    if (__NULL_AI_set == null) {
+      __NULL_AI_set = true
+      __NULL_AI = NullAI.new()
+    }
+    return __NULL_AI
+  }
+  static NULL_AI=(value) {
+    __NULL_AI_set = true
+    __NULL_AI = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NullAIFactory() {
+  }
 
-local NullAIFactory = {}
-NullAIFactory.__index = NullAIFactory
-NullAIFactory.className = "NullAIFactory"
+  construct new() {
+    super()
+    initFields_NullAIFactory()
+  }
+    
 
-function NullAIFactory.new()
-    local self = setmetatable({}, NullAIFactory)
-    return self
-end
-
-
-function NullAIFactory:getInstance(hashtable, ownerLayerInterface, gameInput)
+    getInstance(hashtable, ownerLayerInterface, gameInput) {
         return NullAIFactory.NULL_AI
-end
+    }
+    
 
-
--- Java overloaded method: Lua keeps the last definition
-function NullAIFactory.getInstance()
+    static getInstance() {
         return NullAIFactory.NULL_AI
-end
+    }
+}
 
-NullAIFactory.NULL_AI = NullAI.new()
-
-return NullAIFactory
+import "../../../../../org/allbinary/ai/ArtificialIntelligenceInterface" for ArtificialIntelligenceInterface
+import "../../../../../org/allbinary/game/ai/ArtificialIntelligenceInterfaceFactoryInterface" for ArtificialIntelligenceInterfaceFactoryInterface
+import "../../../../../org/allbinary/game/input/GameInput" for GameInput
+import "../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "./NullAI" for NullAI
 

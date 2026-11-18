@@ -1,54 +1,50 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
-local AnimationBehaviorFactory = require("org.allbinary.animation.AnimationBehaviorFactory")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./AnimationBehaviorFactory" for AnimationBehaviorFactory
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class IndexedAnimationBehaviorFactory is AnimationBehaviorFactory {
+  frameDelayTime { _frameDelayTime }
+  frameDelayTime=(value) { _frameDelayTime = value }
+  loopTotal { _loopTotal }
+  loopTotal=(value) { _loopTotal = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_IndexedAnimationBehaviorFactory() {
+    _frameDelayTime = 0
+    _loopTotal = 0
+        
+        
+  }
+    
 
-local IndexedAnimationBehaviorFactory = {}
-IndexedAnimationBehaviorFactory.__index = IndexedAnimationBehaviorFactory
-IndexedAnimationBehaviorFactory.className = "IndexedAnimationBehaviorFactory"
-setmetatable(IndexedAnimationBehaviorFactory, {__index = AnimationBehaviorFactory})
+    construct new(loopTotal, frameDelayTime) {
+    super()
+    initFields_IndexedAnimationBehaviorFactory()
+        _loopTotal = loopTotal
+        _frameDelayTime = frameDelayTime
+    }
+    
 
-function IndexedAnimationBehaviorFactory:_init_fields()
-    self.frameDelayTime = nil
-    self.loopTotal = nil
-end
+    getOrCreateInstance() {
+        return IndexedAnimationBehavior.new(_loopTotal, _frameDelayTime)
+    }
+}
 
-
-function IndexedAnimationBehaviorFactory.new(loopTotal, frameDelayTime)
-    local self = setmetatable(AnimationBehaviorFactory.new(), IndexedAnimationBehaviorFactory)
-    self:_init_fields()
-        self.loopTotal = loopTotal
-        self.frameDelayTime = frameDelayTime
-    return self
-end
-
-
-function IndexedAnimationBehaviorFactory:getOrCreateInstance()
-        return IndexedAnimationBehavior.new(self.loopTotal, self.frameDelayTime)
-end
-
-return IndexedAnimationBehaviorFactory
+import "./IndexedAnimationBehavior" for IndexedAnimationBehavior
+import "./AnimationBehavior" for AnimationBehavior
 

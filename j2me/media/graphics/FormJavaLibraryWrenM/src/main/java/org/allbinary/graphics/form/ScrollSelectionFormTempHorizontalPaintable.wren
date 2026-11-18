@@ -1,55 +1,46 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local ABCustomItem = require("org.allbinary.graphics.form.item.ABCustomItem")
-local ItemIndexPaintable = require("org.allbinary.graphics.form.ItemIndexPaintable")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./ItemIndexPaintable" for ItemIndexPaintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ScrollSelectionFormTempHorizontalPaintable is ItemIndexPaintable {
+  scrollSelectionForm { _scrollSelectionForm }
+  scrollSelectionForm=(value) { _scrollSelectionForm = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ScrollSelectionFormTempHorizontalPaintable() {
+    _scrollSelectionForm = null
+        
+  }
+    
 
-local ScrollSelectionFormTempHorizontalPaintable = {}
-ScrollSelectionFormTempHorizontalPaintable.__index = ScrollSelectionFormTempHorizontalPaintable
-ScrollSelectionFormTempHorizontalPaintable.className = "ScrollSelectionFormTempHorizontalPaintable"
-setmetatable(ScrollSelectionFormTempHorizontalPaintable, {__index = ItemIndexPaintable})
+    construct new(scrollSelectionForm) {
+    super()
+    initFields_ScrollSelectionFormTempHorizontalPaintable()
+        _scrollSelectionForm = scrollSelectionForm
+    }
+    
 
-function ScrollSelectionFormTempHorizontalPaintable:_init_fields()
-    self.scrollSelectionForm = nil
-end
+    paint(graphics, index, item, dx, dy) {
+        return _scrollSelectionForm.paintItemTempHorizontal(graphics, index, item, dx, dy)
+    }
+}
 
-
-function ScrollSelectionFormTempHorizontalPaintable.new(scrollSelectionForm)
-    local self = setmetatable(ItemIndexPaintable.new(), ScrollSelectionFormTempHorizontalPaintable)
-    self:_init_fields()
-        self.scrollSelectionForm = scrollSelectionForm
-    return self
-end
-
-
--- throws Exception
-function ScrollSelectionFormTempHorizontalPaintable:paint(graphics, index, item, dx, dy)
-        return self.scrollSelectionForm:paintItemTempHorizontal(graphics, index, item, dx, dy)
-end
-
-return ScrollSelectionFormTempHorizontalPaintable
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/graphics/form/item/ABCustomItem" for ABCustomItem
+import "./ScrollSelectionForm" for ScrollSelectionForm
 

@@ -1,82 +1,84 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form
 
-local GPoint = require("org.allbinary.graphics.GPoint")
-local Rectangle = require("org.allbinary.graphics.Rectangle")
-local RectangleFactory = require("org.allbinary.graphics.RectangleFactory")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local CanvasStrings = require("org.allbinary.graphics.displayable.CanvasStrings")
-local ABCustomItem = require("org.allbinary.graphics.form.item.ABCustomItem")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local ABCustomForm = require("org.allbinary.graphics.form.ABCustomForm")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./ABCustomForm" for ABCustomForm
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class PaintableForm is ABCustomForm {
+    static NULL_PAINTABLE_FORM {
+    if (__NULL_PAINTABLE_FORM_set == null) {
+      __NULL_PAINTABLE_FORM_set = true
+      __NULL_PAINTABLE_FORM = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __NULL_PAINTABLE_FORM
+  }
+  static NULL_PAINTABLE_FORM=(value) {
+    __NULL_PAINTABLE_FORM_set = true
+    __NULL_PAINTABLE_FORM = value
+  }
+  canvasStrings { _canvasStrings }
+  canvasStrings=(value) { _canvasStrings = value }
+  rectangle { _rectangle }
+  rectangle=(value) { _rectangle = value }
+  x { _x }
+  x=(value) { _x = value }
+  y { _y }
+  y=(value) { _y = value }
+  formType { _formType }
+  formType=(value) { _formType = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_PaintableForm() {
+    _canvasStrings = null
+    _rectangle = null
+    _x = 0
+    _y = 0
+    _formType = null
+        _canvasStrings = CanvasStrings.getInstance()
+        _rectangle = RectangleFactory.SINGLETON
+        _x = 0
+        _y = 0
+        _formType = FormTypeFactory.getInstance().NULL_FORM_TYPE
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local PaintableForm = {}
-PaintableForm.__index = PaintableForm
-PaintableForm.className = "PaintableForm"
-setmetatable(PaintableForm, {__index = ABCustomForm})
-
-function PaintableForm:_init_fields()
-    self.canvasStrings = CanvasStrings.getInstance()
-    self.rectangle = RectangleFactory.SINGLETON
-    self.x = 0
-    self.y = 0
-    self.formType = FormTypeFactory.getInstance().NULL_FORM_TYPE
-end
-
-
-function PaintableForm.getNullPaintableForm()
-        if PaintableForm.NULL_PAINTABLE_FORM == NullUtil.getInstance().NULL_OBJECT then
-            PaintableForm.NULL_PAINTABLE_FORM = PaintableForm.new(StringUtil.getInstance().EMPTY_STRING, java_new_array(nil, 0), BasicColorFactory.getInstance().BLACK, BasicColorFactory.getInstance().WHITE)
-        end
+    static getNullPaintableForm() {
+        if ((PaintableForm.NULL_PAINTABLE_FORM == NullUtil.getInstance().NULL_OBJECT)) {
+            PaintableForm.NULL_PAINTABLE_FORM = PaintableForm.new(StringUtil.getInstance().EMPTY_STRING, List.filled(0, null), BasicColorFactory.getInstance().BLACK, BasicColorFactory.getInstance().WHITE)
+        }
         return PaintableForm.NULL_PAINTABLE_FORM
-end
+    }
+    
 
+    construct new(title, items, backgroundBasicColor, foregroundBasicColor) {
+        super(title, items, backgroundBasicColor, foregroundBasicColor)
+        initFields_PaintableForm()
+        this.setSelectedIndex(0)
+    }
+    
 
-function PaintableForm.new(title, items, backgroundBasicColor, foregroundBasicColor)
-    local self = setmetatable(ABCustomForm.new(title, items, backgroundBasicColor, foregroundBasicColor), PaintableForm)
-    self:_init_fields()
-        -- super(...) made self above
-        self:setSelectedIndex(0)
-    return self
-end
+    init(rectangle, formType) {
+        _rectangle = rectangle
+        var point = _rectangle.getPoint()
+        _x = point.getX()
+        _y = point.getY()
+        _formType = formType
+    }
+    
 
+    getWidth() {
+        return _rectangle.getWidth()
+    }
+}
 
--- throws Exception
-function PaintableForm:init(rectangle, formType)
-        self.rectangle = rectangle
-        local point = self.rectangle:getPoint()
-        self.x = point:getX()
-        self.y = point:getY()
-        self.formType = formType
-end
-
-
-function PaintableForm:getWidth()
-        return self.rectangle:getWidth()
-end
-
-PaintableForm.NULL_PAINTABLE_FORM = NullUtil.getInstance().NULL_OBJECT
-
-return PaintableForm
+import "../../../../org/allbinary/graphics/GPoint" for GPoint
+import "../../../../org/allbinary/graphics/Rectangle" for Rectangle
+import "../../../../org/allbinary/graphics/RectangleFactory" for RectangleFactory
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../org/allbinary/graphics/displayable/CanvasStrings" for CanvasStrings
+import "../../../../org/allbinary/graphics/form/item/ABCustomItem" for ABCustomItem
+import "../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "./FormTypeFactory" for FormTypeFactory
+import "./FormType" for FormType
 

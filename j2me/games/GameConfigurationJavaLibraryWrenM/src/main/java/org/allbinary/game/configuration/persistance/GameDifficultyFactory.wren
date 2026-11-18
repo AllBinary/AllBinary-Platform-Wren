@@ -1,60 +1,61 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration.persistance
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration.persistance
 
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameDifficultyFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = GameDifficultyFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  level { _level }
+  level=(value) { _level = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameDifficultyFactory() {
+    _level = 0
+        _level = 0
+  }
 
-local GameDifficultyFactory = {}
-GameDifficultyFactory.__index = GameDifficultyFactory
-GameDifficultyFactory.className = "GameDifficultyFactory"
+  construct new() {
+    super()
+    initFields_GameDifficultyFactory()
+  }
+    
 
-function GameDifficultyFactory:_init_fields()
-    self.level = 0
-end
-
-function GameDifficultyFactory.new()
-    local self = setmetatable({}, GameDifficultyFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function GameDifficultyFactory.getInstance()
+    static getInstance() {
         return GameDifficultyFactory.instance
-end
+    }
+    
 
+    setLevel(level) {
+        _level = level
+    }
+    
 
-function GameDifficultyFactory:setLevel(level)
-        self.level = level
-end
+    getLevel() {
+        return _level
+    }
+}
 
-
-function GameDifficultyFactory:getLevel()
-        return self.level
-end
-
-GameDifficultyFactory.instance = GameDifficultyFactory.new()
-
-return GameDifficultyFactory
 

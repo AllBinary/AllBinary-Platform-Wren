@@ -1,89 +1,68 @@
--- Generated Code Do Not Modify
--- package org.allbinary.device
+// Generated Code Do Not Modify
+// package org.allbinary.device
 
--- local GL = require("javax.microedition.khronos.opengles.GL")
--- local GL10 = require("javax.microedition.khronos.opengles.GL10")
--- local Font = require("javax.microedition.lcdui.Font")
-local FontDebugBase = require("org.allbinary.graphics.font.FontDebugBase")
-local OpenGLSurfaceChangedInterface = require("org.allbinary.image.opengles.OpenGLSurfaceChangedInterface")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local GraphicsInterface = require("org.allbinary.device.GraphicsInterface")
+import "../../../allbinary_java" for JObject, JException, JR
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class OpenGLESGraphics is JObject {
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  gl { _gl }
+  gl=(value) { _gl = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_OpenGLESGraphics() {
+    _commonStrings = null
+    _gl = null
+        _commonStrings = CommonStrings.getInstance()
+        _gl = NullGL10.NULL_GL10
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new() {
+    super()
+    initFields_OpenGLESGraphics()
+    }
+    
 
-local OpenGLESGraphics = {}
-OpenGLESGraphics.__index = OpenGLESGraphics
-OpenGLESGraphics.className = "OpenGLESGraphics"
+    updateGL(gl) {
+    }
+    
 
-function OpenGLESGraphics:_init_fields()
-    self.commonStrings = CommonStrings.getInstance()
-    self.gl = NullGL10.NULL_GL10
-end
+    set(gl) {
+    }
+    
 
+    init() {
+    }
+    
 
-function OpenGLESGraphics.new()
-    local self = setmetatable({}, OpenGLESGraphics)
-    self:_init_fields()
-    return self
-end
+    update() {
+    }
+    
 
+    setOrthoginalMode() {
+    }
+    
 
-function OpenGLESGraphics:updateGL(gl)
-end
+    setCameraMode() {
+    }
+    
 
+    getGlP() {
+        return _gl
+    }
+    
 
-function OpenGLESGraphics:set(gl)
-end
+    setFontDebug(font, fontDebug) {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+}
 
-
--- throws Exception
-function OpenGLESGraphics:init()
-end
-
-
--- throws Exception
-function OpenGLESGraphics:update()
-end
-
-
-function OpenGLESGraphics:setOrthoginalMode()
-end
-
-
-function OpenGLESGraphics:setCameraMode()
-end
-
-
-function OpenGLESGraphics:getGlP()
-        return self.gl
-end
-
-
-function OpenGLESGraphics:setFontDebug(font, fontDebug)
-        error(java_exception("RuntimeException"), 0)
-end
-
-return OpenGLESGraphics
+import "../../../javax/microedition/khronos/opengles/GL" for GL
+import "../../../javax/microedition/khronos/opengles/GL10" for GL10
+import "../../../javax/microedition/lcdui/Font" for Font
+import "../../../org/allbinary/graphics/font/FontDebugBase" for FontDebugBase
+import "../../../org/allbinary/image/opengles/OpenGLSurfaceChangedInterface" for OpenGLSurfaceChangedInterface
+import "../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./GraphicsInterface" for GraphicsInterface
+import "./NullGL10" for NullGL10
 

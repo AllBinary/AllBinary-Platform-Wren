@@ -1,150 +1,147 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.business.advertisement
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.business.advertisement
 
-local GameType = require("org.allbinary.game.GameType")
-local GameState = require("org.allbinary.game.state.GameState")
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventStrings = require("org.allbinary.logic.util.event.EventStrings")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameAdStateBase is JObject {
+  adConfigurationP { _adConfigurationP }
+  adConfigurationP=(value) { _adConfigurationP = value }
+  advertisementsP { _advertisementsP }
+  advertisementsP=(value) { _advertisementsP = value }
+  okayToShowAdsP { _okayToShowAdsP }
+  okayToShowAdsP=(value) { _okayToShowAdsP = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameAdStateBase() {
+    _adConfigurationP = null
+    _advertisementsP = null
+    _okayToShowAdsP = false
+        
+        _advertisementsP = Advertisements.new()
+        _okayToShowAdsP = false
+  }
+    
 
-local GameAdStateBase = {}
-GameAdStateBase.__index = GameAdStateBase
-GameAdStateBase.className = "GameAdStateBase"
+    construct new(adConfiguration) {
+    super()
+    initFields_GameAdStateBase()
+        _adConfigurationP = adConfiguration
+    }
+    
 
-function GameAdStateBase:_init_fields()
-    self.adConfigurationP = nil
-    self.advertisementsP = Advertisements.new()
-    self.okayToShowAdsP = false
-end
+    initViewArray(viewArray) {
+    }
+    
 
+    onStart(anyType) {
+        this.init()
+    }
+    
 
-function GameAdStateBase.new(adConfiguration)
-    local self = setmetatable({}, GameAdStateBase)
-    self:_init_fields()
-        self.adConfigurationP = adConfiguration
-    return self
-end
+    init() {
+    }
+    
 
-
-function GameAdStateBase:initViewArray(viewArray)
-end
-
-
-function GameAdStateBase:onStart(anyType)
-        self:init()
-end
-
-
-function GameAdStateBase:init()
-end
-
-
-function GameAdStateBase:isShowingAtLocation(location)
+    isShowingAtLocation(location) {
         return false
-end
+    }
+    
 
-
-function GameAdStateBase:isShowingAt()
+    isShowingAt() {
         return false
-end
+    }
+    
 
+    show() {
+    }
+    
 
-function GameAdStateBase:show()
-end
+    hide() {
+    }
+    
 
+    onEvent(eventObject) {
+        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, this)
+    }
+    
 
-function GameAdStateBase:hide()
-end
+    processAdState(gameState, gameType) {
+    }
+    
 
+    processPageAdState() {
+    }
+    
 
-function GameAdStateBase:onEvent(eventObject)
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-end
+    playingAdState() {
+    }
+    
 
+    playingAdStateWH(width, height) {
+    }
+    
 
-function GameAdStateBase:processAdState(gameState, gameType)
-end
+    notPlayingAdState() {
+    }
+    
 
+    setGameIsReady(gameIsReady) {
+    }
+    
 
-function GameAdStateBase:processPageAdState()
-end
-
-
--- throws Exception
-function GameAdStateBase:playingAdState()
-end
-
-
--- throws Exception
-function GameAdStateBase:playingAdStateWH(width, height)
-end
-
-
--- throws Exception
-function GameAdStateBase:notPlayingAdState()
-end
-
-
-function GameAdStateBase:setGameIsReady(gameIsReady)
-end
-
-
-function GameAdStateBase:isGameIsReady()
+    isGameIsReady() {
         return false
-end
+    }
+    
 
+    getAdvertisements() {
+        return _advertisementsP
+    }
+    
 
-function GameAdStateBase:getAdvertisements()
-        return self.advertisementsP
-end
+    getAdConfiguration() {
+        return _adConfigurationP
+    }
+    
 
-
-function GameAdStateBase:getAdConfiguration()
-        return self.adConfigurationP
-end
-
-
-function GameAdStateBase:isOkayToShowPageAd()
+    isOkayToShowPageAd() {
         return false
-end
+    }
+    
 
+    setOkayToShowAds(okayToShowAds) {
+        _okayToShowAdsP = okayToShowAds
+    }
+    
 
-function GameAdStateBase:setOkayToShowAds(okayToShowAds)
-        self.okayToShowAdsP = okayToShowAds
-end
+    isOkayToShowAds() {
+        return _okayToShowAdsP
+    }
+    
 
-
-function GameAdStateBase:isOkayToShowAds()
-        return self.okayToShowAdsP
-end
-
-
-function GameAdStateBase:isEnabled()
+    isEnabled() {
         return false
-end
+    }
+}
 
-return GameAdStateBase
+import "../../../../org/allbinary/game/GameType" for GameType
+import "../../../../org/allbinary/game/state/GameState" for GameState
+import "../../../../org/allbinary/logic/communication/log/ForcedLogUtil" for ForcedLogUtil
+import "../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
+import "./AdConfiguration" for AdConfiguration
+import "./Advertisements" for Advertisements
 

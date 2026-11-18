@@ -1,191 +1,241 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration
 
-local GameConfigurationPersistanceSingleton = require("org.allbinary.game.configuration.persistance.GameConfigurationPersistanceSingleton")
-local KeyValuePersistance = require("org.allbinary.game.configuration.persistance.KeyValuePersistance")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local AbeClientInformationInterface = require("org.allbinary.logic.system.security.licensing.AbeClientInformationInterface")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameConfigurationCentral is JObject {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  SCALE { _SCALE }
+  SCALE=(value) { _SCALE = value }
+  ORIENTATION { _ORIENTATION }
+  ORIENTATION=(value) { _ORIENTATION = value }
+  SENSOR_UPDATE_RATE { _SENSOR_UPDATE_RATE }
+  SENSOR_UPDATE_RATE=(value) { _SENSOR_UPDATE_RATE = value }
+  VIBRATION { _VIBRATION }
+  VIBRATION=(value) { _VIBRATION = value }
+  CHALLENGE_LEVEL { _CHALLENGE_LEVEL }
+  CHALLENGE_LEVEL=(value) { _CHALLENGE_LEVEL = value }
+  COLLIDE_DAMAGE { _COLLIDE_DAMAGE }
+  COLLIDE_DAMAGE=(value) { _COLLIDE_DAMAGE = value }
+  DURABILITY_CHALLENGE_LEVEL { _DURABILITY_CHALLENGE_LEVEL }
+  DURABILITY_CHALLENGE_LEVEL=(value) { _DURABILITY_CHALLENGE_LEVEL = value }
+  SPEED_CHALLENGE_LEVEL { _SPEED_CHALLENGE_LEVEL }
+  SPEED_CHALLENGE_LEVEL=(value) { _SPEED_CHALLENGE_LEVEL = value }
+  ATTACK_CHALLENGE_LEVEL { _ATTACK_CHALLENGE_LEVEL }
+  ATTACK_CHALLENGE_LEVEL=(value) { _ATTACK_CHALLENGE_LEVEL = value }
+  CONTROL_LEVEL { _CONTROL_LEVEL }
+  CONTROL_LEVEL=(value) { _CONTROL_LEVEL = value }
+  PLAYER_INPUT_WAIT { _PLAYER_INPUT_WAIT }
+  PLAYER_INPUT_WAIT=(value) { _PLAYER_INPUT_WAIT = value }
+  SPEED { _SPEED }
+  SPEED=(value) { _SPEED = value }
+  SOUND_VOLUME { _SOUND_VOLUME }
+  SOUND_VOLUME=(value) { _SOUND_VOLUME = value }
+  MAX_GAME_OBJECTS { _MAX_GAME_OBJECTS }
+  MAX_GAME_OBJECTS=(value) { _MAX_GAME_OBJECTS = value }
+  MAX_LAYERS { _MAX_LAYERS }
+  MAX_LAYERS=(value) { _MAX_LAYERS = value }
+  gameControlFidelity { _gameControlFidelity }
+  gameControlFidelity=(value) { _gameControlFidelity = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameConfigurationCentral() {
+    _logUtil = null
+    _SCALE = null
+    _ORIENTATION = null
+    _SENSOR_UPDATE_RATE = null
+    _VIBRATION = null
+    _CHALLENGE_LEVEL = null
+    _COLLIDE_DAMAGE = null
+    _DURABILITY_CHALLENGE_LEVEL = null
+    _SPEED_CHALLENGE_LEVEL = null
+    _ATTACK_CHALLENGE_LEVEL = null
+    _CONTROL_LEVEL = null
+    _PLAYER_INPUT_WAIT = null
+    _SPEED = null
+    _SOUND_VOLUME = null
+    _MAX_GAME_OBJECTS = null
+    _MAX_LAYERS = null
+    _gameControlFidelity = 0
+        _logUtil = LogUtil.getInstance()
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        _gameControlFidelity = 36
+  }
+    
 
-local GameConfigurationCentral = {}
-GameConfigurationCentral.__index = GameConfigurationCentral
-GameConfigurationCentral.className = "GameConfigurationCentral"
-
-function GameConfigurationCentral:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.SCALE = nil
-    self.ORIENTATION = nil
-    self.SENSOR_UPDATE_RATE = nil
-    self.VIBRATION = nil
-    self.CHALLENGE_LEVEL = nil
-    self.COLLIDE_DAMAGE = nil
-    self.DURABILITY_CHALLENGE_LEVEL = nil
-    self.SPEED_CHALLENGE_LEVEL = nil
-    self.ATTACK_CHALLENGE_LEVEL = nil
-    self.CONTROL_LEVEL = nil
-    self.PLAYER_INPUT_WAIT = nil
-    self.SPEED = nil
-    self.SOUND_VOLUME = nil
-    self.MAX_GAME_OBJECTS = nil
-    self.MAX_LAYERS = nil
-    self.gameControlFidelity = 36
-end
-
-
-function GameConfigurationCentral.getInstance()
-        if GameConfigurationCentral.SINGLETON == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((GameConfigurationCentral.SINGLETON == NullUtil.getInstance().NULL_OBJECT)) {
             GameConfigurationCentral.SINGLETON = GameConfigurationCentral.new()
-        end
+        }
         return GameConfigurationCentral.SINGLETON
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_GameConfigurationCentral()
+        var smallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
+        _SCALE = GameConfiguration.new("Scale", smallIntegerSingletonFactory.getAt(2), smallIntegerSingletonFactory.getAt(2), smallIntegerSingletonFactory.getAt(3))
+        _ORIENTATION = GameConfiguration.new("Orientation", smallIntegerSingletonFactory.getAt(0), smallIntegerSingletonFactory.getAt(0), smallIntegerSingletonFactory.getAt(8))
+        _SENSOR_UPDATE_RATE = GameConfiguration.new("Sensor Update Rate", smallIntegerSingletonFactory.getAt(0), smallIntegerSingletonFactory.getAt(0), smallIntegerSingletonFactory.getAt(3))
+        _VIBRATION = GameConfiguration.new("Vibration", smallIntegerSingletonFactory.getAt(0), smallIntegerSingletonFactory.getAt(0), smallIntegerSingletonFactory.getAt(3))
+        _CHALLENGE_LEVEL = GameConfiguration.new("Global Challenge Level", smallIntegerSingletonFactory.getAt(3), smallIntegerSingletonFactory.getAt(1), smallIntegerSingletonFactory.getAt(10))
+        _COLLIDE_DAMAGE = GameConfiguration.new("Collide Damage Challenge Level", smallIntegerSingletonFactory.getAt(3), smallIntegerSingletonFactory.getAt(1), smallIntegerSingletonFactory.getAt(10))
+        _DURABILITY_CHALLENGE_LEVEL = GameConfiguration.new("Enemy Durability Challenge Level", smallIntegerSingletonFactory.getAt(3), smallIntegerSingletonFactory.getAt(1), smallIntegerSingletonFactory.getAt(10))
+        _SPEED_CHALLENGE_LEVEL = GameConfiguration.new("Enemy Speed Challenge Level", smallIntegerSingletonFactory.getAt(3), smallIntegerSingletonFactory.getAt(1), smallIntegerSingletonFactory.getAt(10))
+        _ATTACK_CHALLENGE_LEVEL = GameConfiguration.new("Enemy Attack Challenge Level", smallIntegerSingletonFactory.getAt(3), smallIntegerSingletonFactory.getAt(1), smallIntegerSingletonFactory.getAt(10))
+        _CONTROL_LEVEL = GameConfiguration.new("Control Fidelity", smallIntegerSingletonFactory.getAt(5), smallIntegerSingletonFactory.getAt(1), smallIntegerSingletonFactory.getAt(10))
+        _PLAYER_INPUT_WAIT = GameConfiguration.new("Input Wait", smallIntegerSingletonFactory.getAt(5), smallIntegerSingletonFactory.getAt(1), smallIntegerSingletonFactory.getAt(10))
+        _SPEED = GameConfiguration.new("Game Speed (Device Specific)", smallIntegerSingletonFactory.getAt(5), smallIntegerSingletonFactory.getAt(1), smallIntegerSingletonFactory.getAt(10))
+        _SOUND_VOLUME = GameConfiguration.new("Sound Volume", smallIntegerSingletonFactory.getAt(6), smallIntegerSingletonFactory.getAt(0), smallIntegerSingletonFactory.getAt(10))
+        _MAX_GAME_OBJECTS = GameConfiguration.new("Max Game Objects", smallIntegerSingletonFactory.getAt(20), smallIntegerSingletonFactory.getAt(1), smallIntegerSingletonFactory.getAt(50))
+        _MAX_LAYERS = GameConfiguration.new("Max Layers", smallIntegerSingletonFactory.getAt(20), smallIntegerSingletonFactory.getAt(1), smallIntegerSingletonFactory.getAt(50))
+    }
+    
 
-function GameConfigurationCentral.new()
-    local self = setmetatable({}, GameConfigurationCentral)
-    self:_init_fields()
-        local smallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
-        self.SCALE = GameConfiguration.new("Scale", smallIntegerSingletonFactory:getAt(2), smallIntegerSingletonFactory:getAt(2), smallIntegerSingletonFactory:getAt(3))
-        self.ORIENTATION = GameConfiguration.new("Orientation", smallIntegerSingletonFactory:getAt(0), smallIntegerSingletonFactory:getAt(0), smallIntegerSingletonFactory:getAt(8))
-        self.SENSOR_UPDATE_RATE = GameConfiguration.new("Sensor Update Rate", smallIntegerSingletonFactory:getAt(0), smallIntegerSingletonFactory:getAt(0), smallIntegerSingletonFactory:getAt(3))
-        self.VIBRATION = GameConfiguration.new("Vibration", smallIntegerSingletonFactory:getAt(0), smallIntegerSingletonFactory:getAt(0), smallIntegerSingletonFactory:getAt(3))
-        self.CHALLENGE_LEVEL = GameConfiguration.new("Global Challenge Level", smallIntegerSingletonFactory:getAt(3), smallIntegerSingletonFactory:getAt(1), smallIntegerSingletonFactory:getAt(10))
-        self.COLLIDE_DAMAGE = GameConfiguration.new("Collide Damage Challenge Level", smallIntegerSingletonFactory:getAt(3), smallIntegerSingletonFactory:getAt(1), smallIntegerSingletonFactory:getAt(10))
-        self.DURABILITY_CHALLENGE_LEVEL = GameConfiguration.new("Enemy Durability Challenge Level", smallIntegerSingletonFactory:getAt(3), smallIntegerSingletonFactory:getAt(1), smallIntegerSingletonFactory:getAt(10))
-        self.SPEED_CHALLENGE_LEVEL = GameConfiguration.new("Enemy Speed Challenge Level", smallIntegerSingletonFactory:getAt(3), smallIntegerSingletonFactory:getAt(1), smallIntegerSingletonFactory:getAt(10))
-        self.ATTACK_CHALLENGE_LEVEL = GameConfiguration.new("Enemy Attack Challenge Level", smallIntegerSingletonFactory:getAt(3), smallIntegerSingletonFactory:getAt(1), smallIntegerSingletonFactory:getAt(10))
-        self.CONTROL_LEVEL = GameConfiguration.new("Control Fidelity", smallIntegerSingletonFactory:getAt(5), smallIntegerSingletonFactory:getAt(1), smallIntegerSingletonFactory:getAt(10))
-        self.PLAYER_INPUT_WAIT = GameConfiguration.new("Input Wait", smallIntegerSingletonFactory:getAt(5), smallIntegerSingletonFactory:getAt(1), smallIntegerSingletonFactory:getAt(10))
-        self.SPEED = GameConfiguration.new("Game Speed (Device Specific)", smallIntegerSingletonFactory:getAt(5), smallIntegerSingletonFactory:getAt(1), smallIntegerSingletonFactory:getAt(10))
-        self.SOUND_VOLUME = GameConfiguration.new("Sound Volume", smallIntegerSingletonFactory:getAt(6), smallIntegerSingletonFactory:getAt(0), smallIntegerSingletonFactory:getAt(10))
-        self.MAX_GAME_OBJECTS = GameConfiguration.new("Max Game Objects", smallIntegerSingletonFactory:getAt(20), smallIntegerSingletonFactory:getAt(1), smallIntegerSingletonFactory:getAt(50))
-        self.MAX_LAYERS = GameConfiguration.new("Max Layers", smallIntegerSingletonFactory:getAt(20), smallIntegerSingletonFactory:getAt(1), smallIntegerSingletonFactory:getAt(50))
-    return self
-end
+    load(abeClientInformation) {
+        var commonStrings = CommonStrings.getInstance()
+        var jerror0 = Fiber.new {
+            var smallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
+            var keyValuePersistance = GameConfigurationPersistanceSingleton.getInstance()
+            keyValuePersistance.clear()
+            keyValuePersistance.loadAll(abeClientInformation)
+            var list = keyValuePersistance.getIds()
+            if ((list.size() > 0)) {
+                var hashtable = keyValuePersistance.get(0)
+                var anyType = _SCALE.getName()
+                var value = hashtable.get(anyType)
+                _SCALE.setValue(smallIntegerSingletonFactory.getAt(value.intValue()))
+            } else {
+                _logUtil.putF("No Game Configuration To Load", this, commonStrings.LOAD)
+            }
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            _logUtil.put(commonStrings.EXCEPTION, this, commonStrings.LOAD, e)
+        }
+    }
+    
 
+    setGameControlFidelity(gameControlFidelity) {
+        _gameControlFidelity = gameControlFidelity
+    }
+    
 
-function GameConfigurationCentral:load(abeClientInformation)
-        local commonStrings = CommonStrings.getInstance()
-        local try_ok, try_error = pcall(function()
-            local smallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
-            local keyValuePersistance = GameConfigurationPersistanceSingleton.getInstance()
-            keyValuePersistance:clear()
-            keyValuePersistance:loadAll(abeClientInformation)
-            local list = keyValuePersistance:getIds()
-            if list:size() > 0 then
-                local hashtable = keyValuePersistance:get(0)
-                local anyType = self.SCALE:getName()
-                local value = hashtable:get(anyType)
-                self.SCALE:setValue(smallIntegerSingletonFactory:getAt(math.tointeger(tostring(value) // 1)))
-            else
-                self.logUtil:putF("No Game Configuration To Load", self, commonStrings.LOAD)
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(commonStrings.EXCEPTION, self, commonStrings.LOAD, e)
-        end
-end
+    getGameControlFidelity() {
+        return _gameControlFidelity
+    }
+    
 
+    toString() {
+        var stringBuffer = StringMaker.new()
+        var commonStrings = CommonSeps.getInstance()
+        stringBuffer.append(commonStrings.COMMA_SEP)
+        stringBuffer.append(_SCALE.getName())
+        stringBuffer.append(commonStrings.EQUALS)
+        stringBuffer.appendint(JR.i32(_SCALE.getValue().intValue()))
+        stringBuffer.append(commonStrings.COMMA_SEP)
+        stringBuffer.append(_ORIENTATION.getName())
+        stringBuffer.append(commonStrings.EQUALS)
+        stringBuffer.appendint(JR.i32(_ORIENTATION.getValue().intValue()))
+        stringBuffer.append(commonStrings.COMMA_SEP)
+        stringBuffer.append(_SENSOR_UPDATE_RATE.getName())
+        stringBuffer.append(commonStrings.EQUALS)
+        stringBuffer.appendint(JR.i32(_SENSOR_UPDATE_RATE.getValue().intValue()))
+        stringBuffer.append(commonStrings.COMMA_SEP)
+        stringBuffer.append(_VIBRATION.getName())
+        stringBuffer.append(commonStrings.EQUALS)
+        stringBuffer.appendint(JR.i32(_VIBRATION.getValue().intValue()))
+        stringBuffer.append(commonStrings.COMMA_SEP)
+        stringBuffer.append(_CHALLENGE_LEVEL.getName())
+        stringBuffer.append(commonStrings.EQUALS)
+        stringBuffer.appendint(JR.i32(_CHALLENGE_LEVEL.getValue().intValue()))
+        stringBuffer.append(commonStrings.COMMA_SEP)
+        stringBuffer.append(_COLLIDE_DAMAGE.getName())
+        stringBuffer.append(commonStrings.EQUALS)
+        stringBuffer.appendint(JR.i32(_COLLIDE_DAMAGE.getValue().intValue()))
+        stringBuffer.append(commonStrings.COMMA_SEP)
+        stringBuffer.append(_DURABILITY_CHALLENGE_LEVEL.getName())
+        stringBuffer.append(commonStrings.EQUALS)
+        stringBuffer.appendint(JR.i32(_DURABILITY_CHALLENGE_LEVEL.getValue().intValue()))
+        stringBuffer.append(commonStrings.COMMA_SEP)
+        stringBuffer.append(_SPEED_CHALLENGE_LEVEL.getName())
+        stringBuffer.append(commonStrings.EQUALS)
+        stringBuffer.appendint(JR.i32(_SPEED_CHALLENGE_LEVEL.getValue().intValue()))
+        stringBuffer.append(commonStrings.COMMA_SEP)
+        stringBuffer.append(_ATTACK_CHALLENGE_LEVEL.getName())
+        stringBuffer.append(commonStrings.EQUALS)
+        stringBuffer.appendint(JR.i32(_ATTACK_CHALLENGE_LEVEL.getValue().intValue()))
+        stringBuffer.append(commonStrings.COMMA_SEP)
+        stringBuffer.append(_CONTROL_LEVEL.getName())
+        stringBuffer.append(commonStrings.EQUALS)
+        stringBuffer.appendint(JR.i32(_CONTROL_LEVEL.getValue().intValue()))
+        stringBuffer.append(commonStrings.COMMA_SEP)
+        stringBuffer.append(_SPEED.getName())
+        stringBuffer.append(commonStrings.EQUALS)
+        stringBuffer.appendint(JR.i32(_SPEED.getValue().intValue()))
+        stringBuffer.append(commonStrings.COMMA_SEP)
+        stringBuffer.append(_MAX_GAME_OBJECTS.getName())
+        stringBuffer.append(commonStrings.EQUALS)
+        stringBuffer.appendint(JR.i32(_MAX_GAME_OBJECTS.getValue().intValue()))
+        stringBuffer.append(commonStrings.COMMA_SEP)
+        stringBuffer.append(_MAX_LAYERS.getName())
+        stringBuffer.append(commonStrings.EQUALS)
+        stringBuffer.appendint(JR.i32(_MAX_LAYERS.getValue().intValue()))
+        return stringBuffer.toString()
+    }
+}
 
-function GameConfigurationCentral:setGameControlFidelity(gameControlFidelity)
-        self.gameControlFidelity = gameControlFidelity
-end
-
-
-function GameConfigurationCentral:getGameControlFidelity()
-        return self.gameControlFidelity
-end
-
-
-function GameConfigurationCentral:toString()
-        local stringBuffer = StringMaker.new()
-        local commonStrings = CommonSeps.getInstance()
-        stringBuffer:append(commonStrings.COMMA_SEP)
-        stringBuffer:append(self.SCALE:getName())
-        stringBuffer:append(commonStrings.EQUALS)
-        stringBuffer:appendint(java_int(math.tointeger(self.SCALE:getValue() // 1)))
-        stringBuffer:append(commonStrings.COMMA_SEP)
-        stringBuffer:append(self.ORIENTATION:getName())
-        stringBuffer:append(commonStrings.EQUALS)
-        stringBuffer:appendint(java_int(math.tointeger(self.ORIENTATION:getValue() // 1)))
-        stringBuffer:append(commonStrings.COMMA_SEP)
-        stringBuffer:append(self.SENSOR_UPDATE_RATE:getName())
-        stringBuffer:append(commonStrings.EQUALS)
-        stringBuffer:appendint(java_int(math.tointeger(self.SENSOR_UPDATE_RATE:getValue() // 1)))
-        stringBuffer:append(commonStrings.COMMA_SEP)
-        stringBuffer:append(self.VIBRATION:getName())
-        stringBuffer:append(commonStrings.EQUALS)
-        stringBuffer:appendint(java_int(math.tointeger(self.VIBRATION:getValue() // 1)))
-        stringBuffer:append(commonStrings.COMMA_SEP)
-        stringBuffer:append(self.CHALLENGE_LEVEL:getName())
-        stringBuffer:append(commonStrings.EQUALS)
-        stringBuffer:appendint(java_int(math.tointeger(self.CHALLENGE_LEVEL:getValue() // 1)))
-        stringBuffer:append(commonStrings.COMMA_SEP)
-        stringBuffer:append(self.COLLIDE_DAMAGE:getName())
-        stringBuffer:append(commonStrings.EQUALS)
-        stringBuffer:appendint(java_int(math.tointeger(self.COLLIDE_DAMAGE:getValue() // 1)))
-        stringBuffer:append(commonStrings.COMMA_SEP)
-        stringBuffer:append(self.DURABILITY_CHALLENGE_LEVEL:getName())
-        stringBuffer:append(commonStrings.EQUALS)
-        stringBuffer:appendint(java_int(math.tointeger(self.DURABILITY_CHALLENGE_LEVEL:getValue() // 1)))
-        stringBuffer:append(commonStrings.COMMA_SEP)
-        stringBuffer:append(self.SPEED_CHALLENGE_LEVEL:getName())
-        stringBuffer:append(commonStrings.EQUALS)
-        stringBuffer:appendint(java_int(math.tointeger(self.SPEED_CHALLENGE_LEVEL:getValue() // 1)))
-        stringBuffer:append(commonStrings.COMMA_SEP)
-        stringBuffer:append(self.ATTACK_CHALLENGE_LEVEL:getName())
-        stringBuffer:append(commonStrings.EQUALS)
-        stringBuffer:appendint(java_int(math.tointeger(self.ATTACK_CHALLENGE_LEVEL:getValue() // 1)))
-        stringBuffer:append(commonStrings.COMMA_SEP)
-        stringBuffer:append(self.CONTROL_LEVEL:getName())
-        stringBuffer:append(commonStrings.EQUALS)
-        stringBuffer:appendint(java_int(math.tointeger(self.CONTROL_LEVEL:getValue() // 1)))
-        stringBuffer:append(commonStrings.COMMA_SEP)
-        stringBuffer:append(self.SPEED:getName())
-        stringBuffer:append(commonStrings.EQUALS)
-        stringBuffer:appendint(java_int(math.tointeger(self.SPEED:getValue() // 1)))
-        stringBuffer:append(commonStrings.COMMA_SEP)
-        stringBuffer:append(self.MAX_GAME_OBJECTS:getName())
-        stringBuffer:append(commonStrings.EQUALS)
-        stringBuffer:appendint(java_int(math.tointeger(self.MAX_GAME_OBJECTS:getValue() // 1)))
-        stringBuffer:append(commonStrings.COMMA_SEP)
-        stringBuffer:append(self.MAX_LAYERS:getName())
-        stringBuffer:append(commonStrings.EQUALS)
-        stringBuffer:appendint(java_int(math.tointeger(self.MAX_LAYERS:getValue() // 1)))
-        return tostring(stringBuffer)
-end
-GameConfigurationCentral.__tostring = function(self) return self:toString() end
-
-GameConfigurationCentral.SINGLETON = NullUtil.getInstance().NULL_OBJECT
-
-return GameConfigurationCentral
+import "../../../../org/allbinary/game/configuration/persistance/GameConfigurationPersistanceSingleton" for GameConfigurationPersistanceSingleton
+import "../../../../org/allbinary/game/configuration/persistance/KeyValuePersistance" for KeyValuePersistance
+import "../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/logic/system/security/licensing/AbeClientInformationInterface" for AbeClientInformationInterface
+import "../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../java/lang/Integer" for Integer
+import "./GameConfiguration" for GameConfiguration
 

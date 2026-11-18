@@ -1,76 +1,78 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer
 
--- local Enumeration = require("java.util.Enumeration")
-local Layer = require("org.allbinary.layer.Layer")
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local EnumerationUtil = require("org.allbinary.util.EnumerationUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LevelLayersFinder is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = LevelLayersFinder.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  enumerationUtil { _enumerationUtil }
+  enumerationUtil=(value) { _enumerationUtil = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LevelLayersFinder() {
+    _enumerationUtil = null
+        _enumerationUtil = EnumerationUtil.getInstance()
+  }
 
-local LevelLayersFinder = {}
-LevelLayersFinder.__index = LevelLayersFinder
-LevelLayersFinder.className = "LevelLayersFinder"
+  construct new() {
+    super()
+    initFields_LevelLayersFinder()
+  }
+    
 
-function LevelLayersFinder:_init_fields()
-    self.enumerationUtil = EnumerationUtil.getInstance()
-end
-
-function LevelLayersFinder.new()
-    local self = setmetatable({}, LevelLayersFinder)
-    self:_init_fields()
-    return self
-end
-
-
-function LevelLayersFinder.getInstance()
+    static getInstance() {
         return LevelLayersFinder.instance
-end
+    }
+    
 
-
-function LevelLayersFinder:get(hashtable)
-        local smallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
-        local list = BasicArrayListD.new()
-        local enumeration = hashtable:keys()
-        local layerHashtableCanBeNull = nil
-        local integerCanBeNull = nil
-        local cachedIntegerCanBeNull = nil
-        while self.enumerationUtil:hasMoreElements(enumeration) do
-            layerHashtableCanBeNull = hashtable:get(self.enumerationUtil:nextElement(enumeration))
-            integerCanBeNull = layerHashtableCanBeNull:get(Layer.ID)
-            cachedIntegerCanBeNull = smallIntegerSingletonFactory:getAt(math.tointeger(integerCanBeNull // 1))
-            if not list:contains(cachedIntegerCanBeNull) then
-                list:add(cachedIntegerCanBeNull)
-            end
-        end
+    get(hashtable) {
+        var smallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
+        var list = BasicArrayListD.new()
+        var enumeration = hashtable.keys()
+        var layerHashtableCanBeNull = null
+        var integerCanBeNull = null
+        var cachedIntegerCanBeNull = null
+        while (_enumerationUtil.hasMoreElements(enumeration)) {
+            layerHashtableCanBeNull = hashtable.get(_enumerationUtil.nextElement(enumeration))
+            integerCanBeNull = layerHashtableCanBeNull.get(Layer.ID)
+            cachedIntegerCanBeNull = smallIntegerSingletonFactory.getAt(integerCanBeNull.intValue())
+            if (!list.contains(cachedIntegerCanBeNull)) {
+                list.add(cachedIntegerCanBeNull)
+            }
+        }
         return list
-end
+    }
+}
 
-LevelLayersFinder.instance = LevelLayersFinder.new()
-
-return LevelLayersFinder
+import "../../../../java/util/Enumeration" for Enumeration
+import "../../../../org/allbinary/layer/Layer" for Layer
+import "../../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "../../../../org/allbinary/util/EnumerationUtil" for EnumerationUtil
+import "../../../../java/lang/Integer" for Integer
 

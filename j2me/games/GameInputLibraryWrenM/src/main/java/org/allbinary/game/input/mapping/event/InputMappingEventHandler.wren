@@ -1,57 +1,59 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input.mapping.event
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input.mapping.event
 
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventListenerInterface = require("org.allbinary.logic.util.event.EventListenerInterface")
-local BasicEventHandler = require("org.allbinary.logic.util.event.handler.BasicEventHandler")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/logic/util/event/handler/BasicEventHandler" for BasicEventHandler
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class InputMappingEventHandler is BasicEventHandler {
+    static gameKeyEventHandler {
+    if (__gameKeyEventHandler_set == null) {
+      __gameKeyEventHandler_set = true
+      __gameKeyEventHandler = InputMappingEventHandler.new()
+    }
+    return __gameKeyEventHandler
+  }
+  static gameKeyEventHandler=(value) {
+    __gameKeyEventHandler_set = true
+    __gameKeyEventHandler = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_InputMappingEventHandler() {
+  }
+    
 
-local InputMappingEventHandler = {}
-InputMappingEventHandler.__index = InputMappingEventHandler
-InputMappingEventHandler.className = "InputMappingEventHandler"
-setmetatable(InputMappingEventHandler, {__index = BasicEventHandler})
+    construct new() {
+    super()
+    initFields_InputMappingEventHandler()
+    }
+    
 
-
-function InputMappingEventHandler.new()
-    local self = setmetatable(BasicEventHandler.new(), InputMappingEventHandler)
-    return self
-end
-
-
-function InputMappingEventHandler.getInstance()
+    static getInstance() {
         return InputMappingEventHandler.gameKeyEventHandler
-end
+    }
+    
 
+    process(eventObject, eventListenerInterface) {
+        var inputMappingEventListenerInterface = eventListenerInterface
+        inputMappingEventListenerInterface.onInputMappingEvent(eventObject)
+    }
+}
 
--- throws Exception
-function InputMappingEventHandler:process(eventObject, eventListenerInterface)
-        local inputMappingEventListenerInterface = eventListenerInterface
-        inputMappingEventListenerInterface:onInputMappingEvent(eventObject)
-end
-
-InputMappingEventHandler.gameKeyEventHandler = InputMappingEventHandler.new()
-
-return InputMappingEventHandler
+import "../../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../../../org/allbinary/logic/util/event/EventListenerInterface" for EventListenerInterface
+import "./InputMappingEventListenerInterface" for InputMappingEventListenerInterface
+import "./InputMappingEvent" for InputMappingEvent
 

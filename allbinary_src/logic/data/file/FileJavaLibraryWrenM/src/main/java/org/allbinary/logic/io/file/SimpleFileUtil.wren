@@ -1,165 +1,168 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.logic.io.file
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.io.file
 
--- local ByteArrayOutputStream = require("java.io.ByteArrayOutputStream")
--- local InputStream = require("java.io.InputStream")
--- local OutputStream = require("java.io.OutputStream")
--- local Reader = require("java.io.Reader")
--- local Writer = require("java.io.Writer")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local NullOutputStream = require("org.allbinary.logic.io.NullOutputStream")
-local NullReader = require("org.allbinary.logic.io.NullReader")
-local NullWriter = require("org.allbinary.logic.io.NullWriter")
-local StreamUtil = require("org.allbinary.logic.io.StreamUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
--- Java library java.io.ByteArrayOutputStream
-local function java_byte_array_output_stream()
-    local stream = {buffer = {}}
-    function stream:write(value, offset, length)
-        if type(value) == "table" then
-            local first = (offset or 0) + 1
-            local last = first + (length or #value) - 1
-            for index = first, last do self.buffer[#self.buffer + 1] = string.char(value[index] % 256) end
-        elseif type(value) == "number" then
-            self.buffer[#self.buffer + 1] = string.char(value % 256)
-        else
-            self.buffer[#self.buffer + 1] = tostring(value)
-        end
-    end
-    function stream:toString() return table.concat(self.buffer) end
-    function stream:size() return #table.concat(self.buffer) end
-    function stream:reset() self.buffer = {} end
-    function stream:flush() end
-    function stream:close() end
-    return setmetatable(stream, {__tostring = function(self) return table.concat(self.buffer) end})
-end
+class SimpleFileUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = SimpleFileUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  NULL_WRITER { _NULL_WRITER }
+  NULL_WRITER=(value) { _NULL_WRITER = value }
+  NULL_READER { _NULL_READER }
+  NULL_READER=(value) { _NULL_READER = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  nullUtil { _nullUtil }
+  nullUtil=(value) { _nullUtil = value }
+  streamUtil { _streamUtil }
+  streamUtil=(value) { _streamUtil = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_SimpleFileUtil() {
+    _logUtil = null
+    _NULL_WRITER = null
+    _NULL_READER = null
+    _commonStrings = null
+    _nullUtil = null
+    _streamUtil = null
+        _logUtil = LogUtil.getInstance()
+        _NULL_WRITER = SimpleFileUtil.nullWriter()
+        _NULL_READER = SimpleFileUtil.nullReader()
+        _commonStrings = CommonStrings.getInstance()
+        _nullUtil = NullUtil.getInstance()
+        _streamUtil = StreamUtil.getInstance()
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  construct new() {
+    super()
+    initFields_SimpleFileUtil()
+  }
+    
 
-local SimpleFileUtil = {}
-SimpleFileUtil.__index = SimpleFileUtil
-SimpleFileUtil.className = "SimpleFileUtil"
-
-function SimpleFileUtil:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.NULL_WRITER = SimpleFileUtil.nullWriter()
-    self.NULL_READER = SimpleFileUtil.nullReader()
-    self.commonStrings = CommonStrings.getInstance()
-    self.nullUtil = NullUtil.getInstance()
-    self.streamUtil = StreamUtil.getInstance()
-end
-
-function SimpleFileUtil.new()
-    local self = setmetatable({}, SimpleFileUtil)
-    self:_init_fields()
-    return self
-end
-
-
-function SimpleFileUtil.getInstance()
+    static getInstance() {
         return SimpleFileUtil.instance
-end
+    }
+    
 
-
-function SimpleFileUtil.nullOutputStream()
+    static nullOutputStream() {
         return NullOutputStream.NULL_OUTPUT_STREAM
-end
+    }
+    
 
-
-function SimpleFileUtil.nullWriter()
+    static nullWriter() {
         return NullWriter.NULL_WRITER
-end
+    }
+    
 
-
-function SimpleFileUtil.nullReader()
+    static nullReader() {
         return NullReader.NULL_READER
-end
+    }
+    
 
+    loadFileAsList(inputStream, max, byteArray1) {
+        return this.loadFileAsListReturnLine(inputStream, max, byteArray1, 0)
+    }
+    
 
-function SimpleFileUtil:loadFileAsList(inputStream, max, byteArray1)
-        return self:loadFileAsListReturnLine(inputStream, max, byteArray1, 0)
-end
-
-
-function SimpleFileUtil:loadFileAsListReturnLine(inputStream, max, byteArray1, includeReturnLine)
-        local stringList = BasicArrayListD.new()
-        if inputStream == nil then
+    loadFileAsListReturnLine(inputStream, max, byteArray1, includeReturnLine) {
+        var stringList = BasicArrayListD.new()
+        if ((inputStream == null)) {
             return stringList
-        end
-        local byteArray = self.nullUtil.NULL_BYTE_ARRAY
-        local try_ok, try_error = pcall(function()
-            local outputStream2 = java_byte_array_output_stream()
-            byteArray = self.streamUtil:getByteArray(inputStream, outputStream2, byteArray1)
-            self.streamUtil:close(inputStream)
-        end)
-        if not try_ok then
-            local e = try_error
-            self.streamUtil:close(inputStream)
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.commonStrings.ADD, e)
-        end
-        if byteArray == nil then
+        }
+        var byteArray = _nullUtil.NULL_BYTE_ARRAY
+        var jerror0 = Fiber.new {
+            var outputStream2 = ByteArrayOutputStream.new(max)
+            byteArray = _streamUtil.getByteArray(inputStream, outputStream2, byteArray1)
+            _streamUtil.close(inputStream)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            _streamUtil.close(inputStream)
+            _logUtil.put(_commonStrings.EXCEPTION, this, _commonStrings.ADD, e)
+        }
+        if ((byteArray == null)) {
             return stringList
-        end
-        local size = (byteArray.n or #byteArray)
-        local index = 0
-        local startIndex = 0
-        local returnLine = 0
-        while index < size do
+        }
+        var size = byteArray.count
+        var index = 0
+        var startIndex = 0
+        var returnLine = 0
+        while ((index < size)) {
             startIndex = index
-            while index < size - 1 and byteArray[index + 1] ~= string.byte("\n") do
-                index = index + 1
-            end
-            if includeReturnLine == 0 then
-                if index > 0 and byteArray[index - 1 + 1] == string.byte("\r") then
+            while (((index < JR.i32(size - 1)) && (byteArray[index] != JR.i8("\n".bytes[0])))) {
+                index = JR.i32(index + 1)
+            }
+            if ((includeReturnLine == 0)) {
+                if (((index > 0) && (byteArray[JR.i32(index - 1)] == JR.i8("\r".bytes[0])))) {
                     returnLine = 1
-                else
+                } else {
                     returnLine = 0
-                end
-            end
-            local s = string.char(table.unpack(byteArray, startIndex, (index + includeReturnLine - returnLine - startIndex)))
-            stringList:add(s)
-            index = index + 1
-        end
+                }
+            }
+            var s = JR.fromChars(byteArray, startIndex, (JR.i32(JR.i32(JR.i32(index + includeReturnLine) - returnLine) - startIndex)))
+            stringList.add(s)
+            index = JR.i32(index + 1)
+        }
         return stringList
-end
+    }
+    
 
+    createStringFromArrayOfStrings(stringArray) {
+        var stringMaker = StringMaker.new()
+        var size = stringArray.count
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            stringMaker.append(stringArray[index])
+            }
+        }
+        return stringMaker.toString()
+    }
+}
 
-function SimpleFileUtil:createStringFromArrayOfStrings(stringArray)
-        local stringMaker = StringMaker.new()
-        local size = (stringArray.n or #stringArray)
-        for index = 0, size - 1 do
-            stringMaker:append(stringArray[index + 1])
-        end
-        return tostring(stringMaker)
-end
-
-SimpleFileUtil.instance = SimpleFileUtil.new()
-
-return SimpleFileUtil
+import "../../../../../java/io/ByteArrayOutputStream" for ByteArrayOutputStream
+import "../../../../../java/io/InputStream" for InputStream
+import "../../../../../java/io/OutputStream" for OutputStream
+import "../../../../../java/io/Reader" for Reader
+import "../../../../../java/io/Writer" for Writer
+import "../../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/io/NullOutputStream" for NullOutputStream
+import "../../../../../org/allbinary/logic/io/NullReader" for NullReader
+import "../../../../../org/allbinary/logic/io/NullWriter" for NullWriter
+import "../../../../../org/allbinary/logic/io/StreamUtil" for StreamUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
 

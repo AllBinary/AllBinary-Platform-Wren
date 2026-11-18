@@ -1,86 +1,92 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.weapon.mine
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.weapon.mine
 
-local FeaturedAnimationInterfaceFactoryInterfaceFactory = require("org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory")
-local WeaponProperties = require("org.allbinary.game.combat.weapon.WeaponProperties")
-local CountedPickedUpLayerInterfaceFactory = require("org.allbinary.game.layer.pickup.CountedPickedUpLayerInterfaceFactory")
-local IconLayerFactory = require("org.allbinary.game.layer.pickup.IconLayerFactory")
-local PickedUpLayerInterfaceFactoryInterface = require("org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface")
-local PickedUpLayerTypeFactory = require("org.allbinary.game.layer.pickup.PickedUpLayerTypeFactory")
-local WeaponLayerCircularPool = require("org.allbinary.game.layer.weapon.WeaponLayerCircularPool")
-local ScoreableInterface = require("org.allbinary.game.score.ScoreableInterface")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
+import "../../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../../org/allbinary/game/layer/pickup/CountedPickedUpLayerInterfaceFactory" for CountedPickedUpLayerInterfaceFactory
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class MineCountedPickedUpLayerInterfaceFactory is CountedPickedUpLayerInterfaceFactory {
+    static pickedUpLayerInterfaceFactoryInterface {
+    if (__pickedUpLayerInterfaceFactoryInterface_set == null) {
+      __pickedUpLayerInterfaceFactoryInterface_set = true
+      __pickedUpLayerInterfaceFactoryInterface = CountedPickedUpLayerInterfaceFactory.NULL_COUNTED_PICKUP_LAYER_FACTORY
+    }
+    return __pickedUpLayerInterfaceFactoryInterface
+  }
+  static pickedUpLayerInterfaceFactoryInterface=(value) {
+    __pickedUpLayerInterfaceFactoryInterface_set = true
+    __pickedUpLayerInterfaceFactoryInterface = value
+  }
+  weaponLayerCircularStaticPool { _weaponLayerCircularStaticPool }
+  weaponLayerCircularStaticPool=(value) { _weaponLayerCircularStaticPool = value }
+  weaponProperties { _weaponProperties }
+  weaponProperties=(value) { _weaponProperties = value }
+  smallIntegerSingletonFactory { _smallIntegerSingletonFactory }
+  smallIntegerSingletonFactory=(value) { _smallIntegerSingletonFactory = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_MineCountedPickedUpLayerInterfaceFactory() {
+    _weaponLayerCircularStaticPool = null
+    _weaponProperties = null
+    _smallIntegerSingletonFactory = null
+        _weaponLayerCircularStaticPool = MineLayerCircularStaticPool.getInstance()
+        _weaponProperties = WeaponProperties.new(-1, -1, 0, 8000, JR.i16(10))
+        _smallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
+  }
+    
 
-local MineCountedPickedUpLayerInterfaceFactory = {}
-MineCountedPickedUpLayerInterfaceFactory.__index = MineCountedPickedUpLayerInterfaceFactory
-MineCountedPickedUpLayerInterfaceFactory.className = "MineCountedPickedUpLayerInterfaceFactory"
-setmetatable(MineCountedPickedUpLayerInterfaceFactory, {__index = CountedPickedUpLayerInterfaceFactory})
-
-function MineCountedPickedUpLayerInterfaceFactory:_init_fields()
-    self.weaponLayerCircularStaticPool = MineLayerCircularStaticPool.getInstance()
-    self.weaponProperties = WeaponProperties.new(-1, -1, 0, 8000, 10)
-    self.smallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
-end
-
-
--- throws Exception
-function MineCountedPickedUpLayerInterfaceFactory.init()
+    static init() {
         MineCountedPickedUpLayerInterfaceFactory.pickedUpLayerInterfaceFactoryInterface = MineCountedPickedUpLayerInterfaceFactory.new()
-end
+    }
+    
 
+    construct new() {
+        super(PickedUpLayerTypeFactory.getInstance().MINE, IconLayerFactory.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(MineWeaponResources.getInstance().DROP_ICON_RESOURCE).getInstance(0), 10, 10), FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(MineWeaponResources.getInstance().DROP_RESOURCE).getInstance(0))
+        initFields_MineCountedPickedUpLayerInterfaceFactory()
+    }
+    
 
-function MineCountedPickedUpLayerInterfaceFactory.new()
-    local self = setmetatable(CountedPickedUpLayerInterfaceFactory.new(PickedUpLayerTypeFactory.getInstance().MINE, IconLayerFactory.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance():get(MineWeaponResources.getInstance().DROP_ICON_RESOURCE):getInstance(0), 10, 10), FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance():get(MineWeaponResources.getInstance().DROP_RESOURCE):getInstance(0)), MineCountedPickedUpLayerInterfaceFactory)
-    self:_init_fields()
-        -- super(...) made self above
-    return self
-end
-
-
-function MineCountedPickedUpLayerInterfaceFactory.getInstance()
+    static getInstance() {
         return MineCountedPickedUpLayerInterfaceFactory.pickedUpLayerInterfaceFactoryInterface
-end
+    }
+    
 
-
-function MineCountedPickedUpLayerInterfaceFactory:getTotal()
+    getTotal() {
         return 3
-end
+    }
+    
 
+    getNextInstance(hashtable, x, y, z) {
+        var sourceLayerInterface = hashtable.get(_smallIntegerSingletonFactory.getAt(0))
+        var angle = hashtable.get(_smallIntegerSingletonFactory.getAt(1))
+        var scoreableInterface = sourceLayerInterface
+        return _weaponLayerCircularStaticPool.getInstanceWeaponLayer(sourceLayerInterface, x, y, z, JR.i32(angle.intValue()), 0, _weaponProperties, scoreableInterface)
+    }
+}
 
--- throws Exception
-function MineCountedPickedUpLayerInterfaceFactory:getNextInstance(hashtable, x, y, z)
-        local sourceLayerInterface = hashtable:get(self.smallIntegerSingletonFactory:getAt(0))
-        local angle = hashtable:get(self.smallIntegerSingletonFactory:getAt(1))
-        local scoreableInterface = sourceLayerInterface
-        return self.weaponLayerCircularStaticPool:getInstanceWeaponLayer(sourceLayerInterface, x, y, z, java_int(math.tointeger(angle // 1)), 0, self.weaponProperties, scoreableInterface)
-end
-
-MineCountedPickedUpLayerInterfaceFactory.pickedUpLayerInterfaceFactoryInterface = CountedPickedUpLayerInterfaceFactory.NULL_COUNTED_PICKUP_LAYER_FACTORY
-
-return MineCountedPickedUpLayerInterfaceFactory
+import "../../../../../../../org/allbinary/animation/FeaturedAnimationInterfaceFactoryInterfaceFactory" for FeaturedAnimationInterfaceFactoryInterfaceFactory
+import "../../../../../../../org/allbinary/game/combat/weapon/WeaponProperties" for WeaponProperties
+import "../../../../../../../org/allbinary/game/layer/pickup/IconLayerFactory" for IconLayerFactory
+import "../../../../../../../org/allbinary/game/layer/pickup/PickedUpLayerInterfaceFactoryInterface" for PickedUpLayerInterfaceFactoryInterface
+import "../../../../../../../org/allbinary/game/layer/pickup/PickedUpLayerTypeFactory" for PickedUpLayerTypeFactory
+import "../../../../../../../org/allbinary/game/layer/weapon/WeaponLayerCircularPool" for WeaponLayerCircularPool
+import "../../../../../../../org/allbinary/game/score/ScoreableInterface" for ScoreableInterface
+import "../../../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "../../../../../../../java/lang/Integer" for Integer
+import "./MineLayerCircularStaticPool" for MineLayerCircularStaticPool
+import "./MineWeaponResources" for MineWeaponResources
 

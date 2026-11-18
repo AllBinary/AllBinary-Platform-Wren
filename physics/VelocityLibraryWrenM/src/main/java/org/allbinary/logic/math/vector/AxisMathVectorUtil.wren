@@ -1,66 +1,67 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.math.vector
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.math.vector
 
-local NoDecimalTrigTable = require("org.allbinary.math.NoDecimalTrigTable")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AxisMathVectorUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = AxisMathVectorUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  noDecimalTrigTable { _noDecimalTrigTable }
+  noDecimalTrigTable=(value) { _noDecimalTrigTable = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AxisMathVectorUtil() {
+    _noDecimalTrigTable = null
+        _noDecimalTrigTable = NoDecimalTrigTable.getInstance()
+  }
 
-local AxisMathVectorUtil = {}
-AxisMathVectorUtil.__index = AxisMathVectorUtil
-AxisMathVectorUtil.className = "AxisMathVectorUtil"
+  construct new() {
+    super()
+    initFields_AxisMathVectorUtil()
+  }
+    
 
-function AxisMathVectorUtil:_init_fields()
-    self.noDecimalTrigTable = NoDecimalTrigTable.getInstance()
-end
-
-function AxisMathVectorUtil.new()
-    local self = setmetatable({}, AxisMathVectorUtil)
-    self:_init_fields()
-    return self
-end
-
-
-function AxisMathVectorUtil.getInstance()
+    static getInstance() {
         return AxisMathVectorUtil.instance
-end
+    }
+    
 
+    calculateX(magnitude, angle) {
+        return ((magnitude * _noDecimalTrigTable.cos(angle)) / 10)
+    }
+    
 
-function AxisMathVectorUtil:calculateX(magnitude, angle)
-        return magnitude * self.noDecimalTrigTable:cos(angle) / 10
-end
+    calculateY(magnitude, angle) {
+        return ((magnitude * _noDecimalTrigTable.sin(angle)) / 10)
+    }
+    
 
+    calculateZ(magnitude, otherAngle) {
+        return ((magnitude * _noDecimalTrigTable.sin(otherAngle)) / 10)
+    }
+}
 
-function AxisMathVectorUtil:calculateY(magnitude, angle)
-        return magnitude * self.noDecimalTrigTable:sin(angle) / 10
-end
-
-
-function AxisMathVectorUtil:calculateZ(magnitude, otherAngle)
-        return magnitude * self.noDecimalTrigTable:sin(otherAngle) / 10
-end
-
-AxisMathVectorUtil.instance = AxisMathVectorUtil.new()
-
-return AxisMathVectorUtil
+import "../../../../../org/allbinary/math/NoDecimalTrigTable" for NoDecimalTrigTable
 

@@ -1,64 +1,55 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.hud.basic.score
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.hud.basic.score
 
-local Scoreable = require("org.allbinary.game.score.Scoreable")
+import "../../../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../../../org/allbinary/game/score/Scoreable" for Scoreable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ScoreableAddOnlyForHud is Scoreable {
+  scoreHudWidget { _scoreHudWidget }
+  scoreHudWidget=(value) { _scoreHudWidget = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ScoreableAddOnlyForHud() {
+    _scoreHudWidget = null
+        
+  }
+    
 
-local ScoreableAddOnlyForHud = {}
-ScoreableAddOnlyForHud.__index = ScoreableAddOnlyForHud
-ScoreableAddOnlyForHud.className = "ScoreableAddOnlyForHud"
-setmetatable(ScoreableAddOnlyForHud, {__index = Scoreable})
+    construct new(scoreVectorGraphic) {
+        super(0)
+        initFields_ScoreableAddOnlyForHud()
+        _scoreHudWidget = scoreVectorGraphic
+        this.getScoreHudWidget().set(0)
+    }
+    
 
-function ScoreableAddOnlyForHud:_init_fields()
-    self.scoreHudWidget = nil
-end
+    removePoints(points) {
+    }
+    
 
+    addPoints(points) {
+        super.addPoints(points)
+        this.getScoreHudWidget().add(points)
+    }
+    
 
-function ScoreableAddOnlyForHud.new(scoreVectorGraphic)
-    local self = setmetatable(Scoreable.new(0), ScoreableAddOnlyForHud)
-    self:_init_fields()
-        -- super(...) made self above
-        self.scoreHudWidget = scoreVectorGraphic
-        self:getScoreHudWidget():set(0)
-    return self
-end
+    getScoreHudWidget() {
+        return _scoreHudWidget
+    }
+}
 
-
-function ScoreableAddOnlyForHud:removePoints(points)
-end
-
-
-function ScoreableAddOnlyForHud:addPoints(points)
-        Scoreable.addPoints(self, points)
-        self:getScoreHudWidget():add(points)
-end
-
-
-function ScoreableAddOnlyForHud:getScoreHudWidget()
-        return self.scoreHudWidget
-end
-
-return ScoreableAddOnlyForHud
+import "./ScoreHudWidget" for ScoreHudWidget
 

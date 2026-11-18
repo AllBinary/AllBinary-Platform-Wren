@@ -1,157 +1,139 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.threed
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.threed
 
--- local Font = require("javax.microedition.lcdui.Font")
--- local MIDlet = require("javax.microedition.midlet.MIDlet")
--- java.lang.Runnable has no Lua module
-local Runnable = {}
+import "../../../../allbinary_java" for JObject, JException, JR
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+//SWTWithoutJOGL
+class SWTJOGLProcessor is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = SWTJOGLProcessor.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  glHolder { _glHolder }
+  glHolder=(value) { _glHolder = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_SWTJOGLProcessor() {
+    _glHolder = null
+        _glHolder = GLHolder.new()
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  construct new() {
+    super()
+    initFields_SWTJOGLProcessor()
+  }
+    
 
---SWTWithoutJOGL
-local SWTJOGLProcessor = {}
-SWTJOGLProcessor.__index = SWTJOGLProcessor
-SWTJOGLProcessor.className = "SWTJOGLProcessor"
-
-function SWTJOGLProcessor:_init_fields()
-    self.glHolder = (function()
-        local o = GLHolder.new and GLHolder.new() or setmetatable({}, {__index = GLHolder})
-        
-
-        function o:run(renderer)
-        end
-        return o
-    end)()
-end
-
-function SWTJOGLProcessor.new()
-    local self = setmetatable({}, SWTJOGLProcessor)
-    self:_init_fields()
-    return self
-end
-
-
-function SWTJOGLProcessor.getInstance()
+    static getInstance() {
         return SWTJOGLProcessor.instance
-end
+    }
+    
 
+    init(display, comp) {
+    }
+    
 
-function SWTJOGLProcessor:init(display, comp)
-end
+    isHolderCreated() {
+        return _glHolder.isCreated
+    }
+    
 
+    setRenderer(renderer) {
+    }
+    
 
-function SWTJOGLProcessor:isHolderCreated()
-        return self.glHolder.isCreated
-end
-
-
-function SWTJOGLProcessor:setRenderer(renderer)
-end
-
-
-function SWTJOGLProcessor:isJOGL()
+    isJOGL() {
         return false
-end
+    }
+    
 
+    createSurface() {
+    }
+    
 
-function SWTJOGLProcessor:createSurface()
-end
+    onSurfaceCreated() {
+    }
+    
 
+    onSurfaceChangedForEvent(event) {
+    }
+    
 
-function SWTJOGLProcessor:onSurfaceCreated()
-end
+    onSurfaceChanged() {
+    }
+    
 
+    onSurfaceChangedWH(width, height) {
+    }
+    
 
-function SWTJOGLProcessor:onSurfaceChangedForEvent(event)
-end
+    addListener() {
+    }
+    
 
+    addListeners(midlet) {
+    }
+    
 
-function SWTJOGLProcessor:onSurfaceChanged()
-end
+    run() {
+    }
+    
 
+    clear() {
+    }
+    
 
-function SWTJOGLProcessor:onSurfaceChangedWH(width, height)
-end
+    setCustom(width, height, ratio) {
+    }
+    
 
+    setRatioProcessor(ratioProcessor) {
+    }
+    
 
-function SWTJOGLProcessor:addListener()
-end
+    charWidth(font, ch) {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+    
 
+    charsWidth(font, ch, offset, length) {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+    
 
-function SWTJOGLProcessor:addListeners(midlet)
-end
+    stringWidth(font, str) {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+    
 
+    substringWidth(font, str, offset, len) {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+}
 
-function SWTJOGLProcessor:run()
-end
-
-
-function SWTJOGLProcessor:clear()
-end
-
-
-function SWTJOGLProcessor:setCustom(width, height, ratio)
-end
-
-
-function SWTJOGLProcessor:setRatioProcessor(ratioProcessor)
-end
-
-
-function SWTJOGLProcessor:charWidth(font, ch)
-        error(java_exception("RuntimeException"), 0)
-end
-
-
-function SWTJOGLProcessor:charsWidth(font, ch, offset, length)
-        error(java_exception("RuntimeException"), 0)
-end
-
-
-function SWTJOGLProcessor:stringWidth(font, str)
-        error(java_exception("RuntimeException"), 0)
-end
-
-
-function SWTJOGLProcessor:substringWidth(font, str, offset, len)
-        error(java_exception("RuntimeException"), 0)
-end
-
-SWTJOGLProcessor.instance = SWTJOGLProcessor.new()
-
-return SWTJOGLProcessor
+import "../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../javax/microedition/midlet/MIDlet" for MIDlet
+import "../../../../java/lang/Runnable" for Runnable
+import "./GLHolder" for GLHolder
+import "./RatioProcessor" for RatioProcessor
 

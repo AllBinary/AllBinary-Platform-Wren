@@ -1,80 +1,74 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input
 
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Input is JObject {
+  id { _id }
+  id=(value) { _id = value }
+  name { _name }
+  name=(value) { _name = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Input() {
+    _id = 0
+    _name = null
+        _id = 0
+        _name = StringUtil.getInstance().EMPTY_STRING
+  }
+    
 
-local Input = {}
-Input.__index = Input
-Input.className = "Input"
+    construct new(id, name) {
+    super()
+    initFields_Input()
+        this.setId(id)
+        this.setName(name)
+    }
+    
 
-function Input:_init_fields()
-    self.id = 0
-    self.name = StringUtil.getInstance().EMPTY_STRING
-end
+    getId() {
+        return _id
+    }
+    
 
+    setId(key) {
+        _id = key
+    }
+    
 
-function Input.new(id, name)
-    local self = setmetatable({}, Input)
-    self:_init_fields()
-        self:setId(id)
-        self:setName(name)
-    return self
-end
+    getName() {
+        return _name
+    }
+    
 
+    setName(keyName) {
+        _name = keyName
+    }
+    
 
-function Input:getId()
-        return self.id
-end
+    toString() {
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append("Name: ")
+        stringBuffer.append(this.getName())
+        stringBuffer.append(" Id: ")
+        stringBuffer.appendint(this.getId())
+        return stringBuffer.toString()
+    }
+}
 
-
-function Input:setId(key)
-        self.id = key
-end
-
-
-function Input:getName()
-        return self.name
-end
-
-
-function Input:setName(keyName)
-        self.name = keyName
-end
-
-
-function Input:toString()
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append("Name: ")
-        stringBuffer:append(self:getName())
-        stringBuffer:append(" Id: ")
-        stringBuffer:appendint(self:getId())
-        return tostring(stringBuffer)
-end
-Input.__tostring = function(self) return self:toString() end
-
-return Input
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
 

@@ -1,73 +1,73 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration.feature
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration.feature
 
-local ChangedGameFeatureListener = require("org.allbinary.game.configuration.event.ChangedGameFeatureListener")
-local StdUtil = require("org.allbinary.logic.StdUtil")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Feature is JObject {
+    static hashtable {
+    if (__hashtable_set == null) {
+      __hashtable_set = true
+      __hashtable = StdUtil.getInstance().createHashtable()
+    }
+    return __hashtable
+  }
+  static hashtable=(value) {
+    __hashtable_set = true
+    __hashtable = value
+  }
+  name { _name }
+  name=(value) { _name = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Feature() {
+    _name = null
+        
+  }
+    
 
-local Feature = {}
-Feature.__index = Feature
-Feature.className = "Feature"
+    construct new(name) {
+    super()
+    initFields_Feature()
+        _name = name
+        Feature.add(name, this)
+        ChangedGameFeatureListener.getInstance().add(this)
+    }
+    
 
-function Feature:_init_fields()
-    self.name = nil
-end
+    static getInstance(name) {
+        return Feature.hashtable.get(name)
+    }
+    
 
+    static add(name, gameFeature) {
+        Feature.hashtable.put(name, gameFeature)
+    }
+    
 
-function Feature.new(name)
-    local self = setmetatable({}, Feature)
-    self:_init_fields()
-        self.name = name
-        Feature.add(name, self)
-        ChangedGameFeatureListener.getInstance():add(self)
-    return self
-end
+    toString() {
+        return this.getName()
+    }
+    
 
+    getName() {
+        return _name
+    }
+}
 
-function Feature.getInstance(name)
-        return Feature.hashtable:get(name)
-end
-
-
-function Feature.add(name, gameFeature)
-        Feature.hashtable:put(name, gameFeature)
-end
-
-
-function Feature:toString()
-        return self:getName()
-end
-Feature.__tostring = function(self) return self:toString() end
-
-
-function Feature:getName()
-        return self.name
-end
-
-Feature.hashtable = StdUtil.getInstance():createHashtable()
-
-return Feature
+import "../../../../../org/allbinary/game/configuration/event/ChangedGameFeatureListener" for ChangedGameFeatureListener
+import "../../../../../org/allbinary/logic/StdUtil" for StdUtil
+import "../../../../../org/allbinary/util/ABHashtable" for ABHashtable
 

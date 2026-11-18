@@ -1,65 +1,56 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
--- 
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
--- 
--- Created By: Travis Berthelot 
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ * 
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ * 
+ * Created By: Travis Berthelot 
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable
 
--- local Canvas = require("javax.microedition.lcdui.Canvas")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local ARunnable = require("org.allbinary.thread.ARunnable")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/thread/ARunnable" for ARunnable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RepaintRunnable is ARunnable {
+  canvas { _canvas }
+  canvas=(value) { _canvas = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RepaintRunnable() {
+    _canvas = null
+        
+  }
+    
 
-local RepaintRunnable = {}
-RepaintRunnable.__index = RepaintRunnable
-RepaintRunnable.className = "RepaintRunnable"
-setmetatable(RepaintRunnable, {__index = ARunnable})
+    construct new(canvas) {
+    super()
+    initFields_RepaintRunnable()
+        _canvas = canvas
+    }
+    
 
-function RepaintRunnable:_init_fields()
-    self.canvas = nil
-end
+    run() {
+        var jerror0 = Fiber.new {
+            _canvas.repaint()
+            DisplayInfoSingleton.getInstance().process()
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            var logUtil = LogUtil.getInstance()
+            logUtil.put(commonStrings.EXCEPTION, this, commonStrings.RUN, e)
+        }
+    }
+}
 
-
-function RepaintRunnable.new(canvas)
-    local self = setmetatable(ARunnable.new(), RepaintRunnable)
-    self:_init_fields()
-        self.canvas = canvas
-    return self
-end
-
-
-function RepaintRunnable:run()
-        local try_ok, try_error = pcall(function()
-            self.canvas:repaint()
-            DisplayInfoSingleton.getInstance():process()
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            local logUtil = LogUtil.getInstance()
-            logUtil:put(commonStrings.EXCEPTION, self, commonStrings.RUN, e)
-        end
-end
-
-return RepaintRunnable
+import "../../../../javax/microedition/lcdui/Canvas" for Canvas
+import "../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
 

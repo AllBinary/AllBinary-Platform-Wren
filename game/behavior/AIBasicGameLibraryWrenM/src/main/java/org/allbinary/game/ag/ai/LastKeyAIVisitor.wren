@@ -1,68 +1,63 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.ai
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.ai
 
-local BasicAI = require("org.allbinary.game.ai.BasicAI")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local BooleanFactory = require("org.allbinary.logic.java.bool.BooleanFactory")
-local Visitor = require("org.allbinary.logic.util.visitor.Visitor")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/logic/util/visitor/Visitor" for Visitor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LastKeyAIVisitor is Visitor {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  TRUE { _TRUE }
+  TRUE=(value) { _TRUE = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LastKeyAIVisitor() {
+    _logUtil = null
+    _TRUE = null
+        _logUtil = LogUtil.getInstance()
+        _TRUE = BooleanFactory.getInstance().TRUE
+  }
+    
 
-local LastKeyAIVisitor = {}
-LastKeyAIVisitor.__index = LastKeyAIVisitor
-LastKeyAIVisitor.className = "LastKeyAIVisitor"
-setmetatable(LastKeyAIVisitor, {__index = Visitor})
+    construct new() {
+    super()
+    initFields_LastKeyAIVisitor()
+    }
+    
 
-function LastKeyAIVisitor:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.TRUE = BooleanFactory.getInstance().TRUE
-end
+    visit(anyType) {
+        var jerror0 = Fiber.new {
+            var basicAI = anyType
+            var key = basicAI.getLastKey()
+            if ((key != -1)) {
+                basicAI.processKeyAI(key)
+            }
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, commonStrings.VISIT, e)
+        }
+        return _TRUE
+    }
+}
 
-
-function LastKeyAIVisitor.new()
-    local self = setmetatable(Visitor.new(), LastKeyAIVisitor)
-    self:_init_fields()
-    return self
-end
-
-
-function LastKeyAIVisitor:visit(anyType)
-        local try_ok, try_error = pcall(function()
-            local basicAI = anyType
-            local key = basicAI:getLastKey()
-            if key ~= -1 then
-                basicAI:processKeyAI(key)
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, commonStrings.VISIT, e)
-        end
-        return self.TRUE
-end
-
-return LastKeyAIVisitor
+import "../../../../../org/allbinary/game/ai/BasicAI" for BasicAI
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/java/bool/BooleanFactory" for BooleanFactory
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../java/lang/Boolean" for Boolean
 

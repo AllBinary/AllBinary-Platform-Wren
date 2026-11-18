@@ -1,69 +1,62 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
-local RunnableCanvas = require("org.allbinary.canvas.RunnableCanvas")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local GameRunnable = require("org.allbinary.game.displayable.canvas.GameRunnable")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./GameRunnable" for GameRunnable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RunnableCanvasSingleThreadStartRunnable is GameRunnable {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  runnableCanvas { _runnableCanvas }
+  runnableCanvas=(value) { _runnableCanvas = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RunnableCanvasSingleThreadStartRunnable() {
+    _logUtil = null
+    _runnableCanvas = null
+        _logUtil = LogUtil.getInstance()
+        
+  }
+    
 
-local RunnableCanvasSingleThreadStartRunnable = {}
-RunnableCanvasSingleThreadStartRunnable.__index = RunnableCanvasSingleThreadStartRunnable
-RunnableCanvasSingleThreadStartRunnable.className = "RunnableCanvasSingleThreadStartRunnable"
-setmetatable(RunnableCanvasSingleThreadStartRunnable, {__index = GameRunnable})
+    construct new(demoCanvas) {
+    super()
+    initFields_RunnableCanvasSingleThreadStartRunnable()
+        _runnableCanvas = demoCanvas
+    }
+    
 
-function RunnableCanvasSingleThreadStartRunnable:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.runnableCanvas = nil
-end
+    run() {
+        var jerror0 = Fiber.new {
+            _runnableCanvas.run()
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, commonStrings.RUN, e)
+        }
+    }
+    
 
+    processLoopSleep() {
+        _runnableCanvas.processLoopSleep()
+    }
+}
 
-function RunnableCanvasSingleThreadStartRunnable.new(demoCanvas)
-    local self = setmetatable(GameRunnable.new(), RunnableCanvasSingleThreadStartRunnable)
-    self:_init_fields()
-        self.runnableCanvas = demoCanvas
-    return self
-end
-
-
-function RunnableCanvasSingleThreadStartRunnable:run()
-        local try_ok, try_error = pcall(function()
-            self.runnableCanvas:run()
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, commonStrings.RUN, e)
-        end
-end
-
-
--- throws Exception
-function RunnableCanvasSingleThreadStartRunnable:processLoopSleep()
-        self.runnableCanvas:processLoopSleep()
-end
-
-return RunnableCanvasSingleThreadStartRunnable
+import "../../../../../org/allbinary/canvas/RunnableCanvas" for RunnableCanvas
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
 

@@ -1,61 +1,62 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input.motion.action
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input.motion.action
 
-local CompleteMotionGestureInputEvent = require("org.allbinary.game.input.CompleteMotionGestureInputEvent")
-local CompleteMotionGestureInputEventListener = require("org.allbinary.game.input.CompleteMotionGestureInputEventListener")
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventStrings = require("org.allbinary.logic.util.event.EventStrings")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/game/input/CompleteMotionGestureInputEventListener" for CompleteMotionGestureInputEventListener
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NoCompleteMotionGestureInputEventListener is CompleteMotionGestureInputEventListener {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NoCompleteMotionGestureInputEventListener.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NoCompleteMotionGestureInputEventListener() {
+  }
+    
 
-local NoCompleteMotionGestureInputEventListener = {}
-NoCompleteMotionGestureInputEventListener.__index = NoCompleteMotionGestureInputEventListener
-NoCompleteMotionGestureInputEventListener.className = "NoCompleteMotionGestureInputEventListener"
-setmetatable(NoCompleteMotionGestureInputEventListener, {__index = CompleteMotionGestureInputEventListener})
+    construct new() {
+    super()
+    initFields_NoCompleteMotionGestureInputEventListener()
+    }
+    
 
+    onEvent(eventObject) {
+        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, this)
+    }
+    
 
-function NoCompleteMotionGestureInputEventListener.new()
-    local self = setmetatable(CompleteMotionGestureInputEventListener.new(), NoCompleteMotionGestureInputEventListener)
-    return self
-end
+    onCompleteMotionGestureInputEvent(completeMotionGestureInputEvent) {
+    }
+    
 
-
-function NoCompleteMotionGestureInputEventListener:onEvent(eventObject)
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-end
-
-
-function NoCompleteMotionGestureInputEventListener:onCompleteMotionGestureInputEvent(completeMotionGestureInputEvent)
-end
-
-
-function NoCompleteMotionGestureInputEventListener.getInstance()
+    static getInstance() {
         return NoCompleteMotionGestureInputEventListener.instance
-end
+    }
+}
 
-NoCompleteMotionGestureInputEventListener.instance = NoCompleteMotionGestureInputEventListener.new()
-
-return NoCompleteMotionGestureInputEventListener
+import "../../../../../../org/allbinary/game/input/CompleteMotionGestureInputEvent" for CompleteMotionGestureInputEvent
+import "../../../../../../org/allbinary/logic/communication/log/ForcedLogUtil" for ForcedLogUtil
+import "../../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
 

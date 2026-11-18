@@ -1,81 +1,85 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer.drop
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer.drop
 
-local PickedUpLayerInterfaceFactoryInterface = require("org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local BasicArrayListUtil = require("org.allbinary.util.BasicArrayListUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class DropLayerFactory is JObject {
+    static DROP_LAYER_FACTORY {
+    if (__DROP_LAYER_FACTORY_set == null) {
+      __DROP_LAYER_FACTORY_set = true
+      __DROP_LAYER_FACTORY = DropLayerFactory.new()
+    }
+    return __DROP_LAYER_FACTORY
+  }
+  static DROP_LAYER_FACTORY=(value) {
+    __DROP_LAYER_FACTORY_set = true
+    __DROP_LAYER_FACTORY = value
+  }
+  list { _list }
+  list=(value) { _list = value }
+  basicArrayListUtil { _basicArrayListUtil }
+  basicArrayListUtil=(value) { _basicArrayListUtil = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_DropLayerFactory() {
+    _list = null
+    _basicArrayListUtil = null
+        _list = BasicArrayListD.new()
+        _basicArrayListUtil = BasicArrayListUtil.getInstance()
+  }
+    
 
-local DropLayerFactory = {}
-DropLayerFactory.__index = DropLayerFactory
-DropLayerFactory.className = "DropLayerFactory"
+    construct new() {
+    super()
+    initFields_DropLayerFactory()
+    }
+    
 
-function DropLayerFactory:_init_fields()
-    self.list = BasicArrayListD.new()
-    self.basicArrayListUtil = BasicArrayListUtil.getInstance()
-end
+    clear() {
+        _list.clear()
+    }
+    
 
-
-function DropLayerFactory.new()
-    local self = setmetatable({}, DropLayerFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function DropLayerFactory:clear()
-        self.list:clear()
-end
-
-
-function DropLayerFactory.getInstance()
+    static getInstance() {
         return DropLayerFactory.DROP_LAYER_FACTORY
-end
+    }
+    
 
+    getSize() {
+        return _list.size()
+    }
+    
 
-function DropLayerFactory:getSize()
-        return self.list:size()
-end
+    getRandomInstance() {
+        return _basicArrayListUtil.getRandom(_list)
+    }
+    
 
+    add(layerInterfaceFactoryInterface) {
+        _list.add(layerInterfaceFactoryInterface)
+    }
+    
 
-function DropLayerFactory:getRandomInstance()
-        return self.basicArrayListUtil:getRandom(self.list)
-end
+    getList() {
+        return _list
+    }
+}
 
-
-function DropLayerFactory:add(layerInterfaceFactoryInterface)
-        self.list:add(layerInterfaceFactoryInterface)
-end
-
-
-function DropLayerFactory:getList()
-        return self.list
-end
-
-DropLayerFactory.DROP_LAYER_FACTORY = DropLayerFactory.new()
-
-return DropLayerFactory
+import "../../../../../org/allbinary/game/layer/pickup/PickedUpLayerInterfaceFactoryInterface" for PickedUpLayerInterfaceFactoryInterface
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "../../../../../org/allbinary/util/BasicArrayListUtil" for BasicArrayListUtil
 

@@ -1,120 +1,127 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.ai.scroller
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.ai.scroller
 
--- local Canvas = require("javax.microedition.lcdui.Canvas")
-local BasicAI = require("org.allbinary.game.ai.BasicAI")
-local GameInput = require("org.allbinary.game.input.GameInput")
-local AllBinaryGameLayerManager = require("org.allbinary.game.layer.AllBinaryGameLayerManager")
-local MyRandomFactory = require("org.allbinary.game.rand.MyRandomFactory")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
-local PlayerQueue = require("org.allbinary.media.audio.PlayerQueue")
-local SecondaryPlayerQueueFactory = require("org.allbinary.media.audio.SecondaryPlayerQueueFactory")
-local Sound = require("org.allbinary.media.audio.Sound")
-local TimeDelayHelper = require("org.allbinary.time.TimeDelayHelper")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/game/ai/BasicAI" for BasicAI
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class HorizontalScreenPatrolAI is BasicAI {
+    static SOUND {
+    if (__SOUND_set == null) {
+      __SOUND_set = true
+      __SOUND = SmallIntegerSingletonFactory.getInstance().getAt(433)
+    }
+    return __SOUND
+  }
+  static SOUND=(value) {
+    __SOUND_set = true
+    __SOUND = value
+  }
+  keyDirection { _keyDirection }
+  keyDirection=(value) { _keyDirection = value }
+  displayInfoSingleton { _displayInfoSingleton }
+  displayInfoSingleton=(value) { _displayInfoSingleton = value }
+  firingX { _firingX }
+  firingX=(value) { _firingX = value }
+  firedIndex { _firedIndex }
+  firedIndex=(value) { _firedIndex = value }
+  MAX_FIRE { _MAX_FIRE }
+  MAX_FIRE=(value) { _MAX_FIRE = value }
+  timeDelayHelper { _timeDelayHelper }
+  timeDelayHelper=(value) { _timeDelayHelper = value }
+  secondaryPlayerQueue { _secondaryPlayerQueue }
+  secondaryPlayerQueue=(value) { _secondaryPlayerQueue = value }
+  sound { _sound }
+  sound=(value) { _sound = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_HorizontalScreenPatrolAI() {
+    _keyDirection = 0
+    _displayInfoSingleton = null
+    _firingX = 0
+    _firedIndex = 0
+    _MAX_FIRE = 0
+    _timeDelayHelper = null
+    _secondaryPlayerQueue = null
+    _sound = null
+        _keyDirection = Canvas.LEFT
+        _displayInfoSingleton = DisplayInfoSingleton.getInstance()
+        _firingX = _displayInfoSingleton.getLastHalfWidth()
+        _firedIndex = 0
+        _MAX_FIRE = 28
+        _timeDelayHelper = TimeDelayHelper.new(240)
+        _secondaryPlayerQueue = SecondaryPlayerQueueFactory.getInstance()
+        
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(hashtable, ownerLayerInterface, gameInput) {
+        super(ownerLayerInterface, gameInput)
+        initFields_HorizontalScreenPatrolAI()
+        _sound = hashtable.get(HorizontalScreenPatrolAI.SOUND)
+        if ((_sound == null)) {
+            Fiber.abort(JR.exception("Exception", "No Sound Provided!!"))
+        }
+    }
+    
 
-local HorizontalScreenPatrolAI = {}
-HorizontalScreenPatrolAI.__index = HorizontalScreenPatrolAI
-HorizontalScreenPatrolAI.className = "HorizontalScreenPatrolAI"
-setmetatable(HorizontalScreenPatrolAI, {__index = BasicAI})
+    processAI(allBinaryLayerManager) {
+        super.processKeyAI(_keyDirection)
+        if (_timeDelayHelper.isTimeTNT()) {
+            var layerInterface = this.getOwnerLayerInterface()
+            var currentOwnerLayerX = layerInterface.getXP()
+            if ((currentOwnerLayerX < -layerInterface.getWidth())) {
+                var y = MyRandomFactory.getInstance().getAbsoluteNextIntAllowZero(50)
+                layerInterface.setPosition(((_displayInfoSingleton.getLastWidth() + layerInterface.getWidth()) + 50), y, layerInterface.getZP())
+                _firedIndex = 0
+                _firingX = (_displayInfoSingleton.getLastHalfWidth() + MyRandomFactory.getInstance().getNextInt(_displayInfoSingleton.getLastHalfWidth()))
+                _secondaryPlayerQueue.add(_sound)
+            }
+            if (((currentOwnerLayerX < _firingX) && (currentOwnerLayerX > -layerInterface.getWidth()))) {
+                super.processKeyAI(Canvas.KEY_NUM1)
+                var gameLayerManager = allBinaryLayerManager
+                var FIRE = JR.shr(((gameLayerManager.getGameInfo().getCurrentLevel() + 12)), 2)
+                if ((FIRE > _MAX_FIRE)) {
+                    FIRE = _MAX_FIRE
+                }
+                if ((_firedIndex > FIRE)) {
+                    _firedIndex = 0
+                    _firingX = Integer.MIN_VALUE
+                }
+                _firedIndex = JR.i32(_firedIndex + 1)
+            }
+        }
+    }
+    
 
-function HorizontalScreenPatrolAI:_init_fields()
-    self.keyDirection = Canvas.LEFT
-    self.displayInfoSingleton = DisplayInfoSingleton.getInstance()
-    self.firingX = self.displayInfoSingleton:getLastHalfWidth()
-    self.firedIndex = 0
-    self.MAX_FIRE = 28
-    self.timeDelayHelper = TimeDelayHelper.new(240)
-    self.secondaryPlayerQueue = SecondaryPlayerQueueFactory.getInstance()
-    self.sound = nil
-end
+    nextDirection() {
+    }
+}
 
-
-function HorizontalScreenPatrolAI.new(hashtable, ownerLayerInterface, gameInput)
-    local self = setmetatable(BasicAI.new(ownerLayerInterface, gameInput), HorizontalScreenPatrolAI)
-    self:_init_fields()
-        -- super(...) made self above
-        self.sound = hashtable:get(HorizontalScreenPatrolAI.SOUND)
-        if self.sound == nil then
-            error(java_exception("Exception", "No Sound Provided!!"), 0)
-        end
-    return self
-end
-
-
--- throws Exception
-function HorizontalScreenPatrolAI:processAI(allBinaryLayerManager)
-        BasicAI.processKeyAI(self, self.keyDirection)
-        if self.timeDelayHelper:isTimeTNT() then
-            local layerInterface = self:getOwnerLayerInterface()
-            local currentOwnerLayerX = layerInterface:getXP()
-            if currentOwnerLayerX < -layerInterface:getWidth() then
-                local y = MyRandomFactory.getInstance():getAbsoluteNextIntAllowZero(50)
-                layerInterface:setPosition(self.displayInfoSingleton:getLastWidth() + layerInterface:getWidth() + 50, y, layerInterface:getZP())
-                self.firedIndex = 0
-                self.firingX = self.displayInfoSingleton:getLastHalfWidth() + MyRandomFactory.getInstance():getNextInt(self.displayInfoSingleton:getLastHalfWidth())
-                self.secondaryPlayerQueue:add(self.sound)
-            end
-            if currentOwnerLayerX < self.firingX and currentOwnerLayerX > -layerInterface:getWidth() then
-                BasicAI.processKeyAI(self, Canvas.KEY_NUM1)
-                local gameLayerManager = allBinaryLayerManager
-                local FIRE = (((gameLayerManager:getGameInfo():getCurrentLevel() + 12)) // (1 << (2)))
-                if FIRE > self.MAX_FIRE then
-                    FIRE = self.MAX_FIRE
-                end
-                if self.firedIndex > FIRE then
-                    self.firedIndex = 0
-                    self.firingX = Integer.MIN_VALUE
-                end
-                self.firedIndex = self.firedIndex + 1
-            end
-        end
-end
-
-
-function HorizontalScreenPatrolAI:nextDirection()
-end
-
-HorizontalScreenPatrolAI.SOUND = SmallIntegerSingletonFactory.getInstance():getAt(433)
-
-return HorizontalScreenPatrolAI
+import "../../../../../../javax/microedition/lcdui/Canvas" for Canvas
+import "../../../../../../org/allbinary/game/input/GameInput" for GameInput
+import "../../../../../../org/allbinary/game/layer/AllBinaryGameLayerManager" for AllBinaryGameLayerManager
+import "../../../../../../org/allbinary/game/rand/MyRandomFactory" for MyRandomFactory
+import "../../../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "../../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "../../../../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../../../../org/allbinary/media/audio/PlayerQueue" for PlayerQueue
+import "../../../../../../org/allbinary/media/audio/SecondaryPlayerQueueFactory" for SecondaryPlayerQueueFactory
+import "../../../../../../org/allbinary/media/audio/Sound" for Sound
+import "../../../../../../org/allbinary/time/TimeDelayHelper" for TimeDelayHelper
+import "../../../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "../../../../../../java/lang/Integer" for Integer
 

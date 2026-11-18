@@ -1,69 +1,64 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input.mapping
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input.mapping
 
-local GameKey = require("org.allbinary.game.input.GameKey")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameInputMapping is JObject {
+  name { _name }
+  name=(value) { _name = value }
+  gameKey { _gameKey }
+  gameKey=(value) { _gameKey = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameInputMapping() {
+    _name = null
+    _gameKey = null
+        _name = StringUtil.getInstance().EMPTY_STRING
+        _gameKey = GameKey.NULL_GAME_KEY
+  }
+    
 
-local GameInputMapping = {}
-GameInputMapping.__index = GameInputMapping
-GameInputMapping.className = "GameInputMapping"
+    construct new(name, gameKey) {
+    super()
+    initFields_GameInputMapping()
+        this.setName(name)
+        this.setGameKey(gameKey)
+    }
+    
 
-function GameInputMapping:_init_fields()
-    self.name = StringUtil.getInstance().EMPTY_STRING
-    self.gameKey = GameKey.NULL_GAME_KEY
-end
+    setGameKey(gameKey) {
+        _gameKey = gameKey
+    }
+    
 
+    getGameKey() {
+        return _gameKey
+    }
+    
 
-function GameInputMapping.new(name, gameKey)
-    local self = setmetatable({}, GameInputMapping)
-    self:_init_fields()
-        self:setName(name)
-        self:setGameKey(gameKey)
-    return self
-end
+    setName(name) {
+        _name = name
+    }
+    
 
+    getName() {
+        return _name
+    }
+}
 
-function GameInputMapping:setGameKey(gameKey)
-        self.gameKey = gameKey
-end
-
-
-function GameInputMapping:getGameKey()
-        return self.gameKey
-end
-
-
-function GameInputMapping:setName(name)
-        self.name = name
-end
-
-
-function GameInputMapping:getName()
-        return self.name
-end
-
-return GameInputMapping
+import "../../../../../org/allbinary/game/input/GameKey" for GameKey
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
 

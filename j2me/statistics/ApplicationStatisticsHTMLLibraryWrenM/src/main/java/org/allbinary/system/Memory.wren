@@ -1,45 +1,38 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.system
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.system
 
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//ActualPlatform
+class Memory is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Memory() {
+  }
 
---ActualPlatform
-local Memory = {}
-Memory.__index = Memory
-Memory.className = "Memory"
+  construct new() {
+    super()
+    initFields_Memory()
+  }
+    
 
-function Memory.new()
-    local self = setmetatable({}, Memory)
-    return self
-end
-
-
-function Memory.getInfo()
+    static getInfo() {
         return StringUtil.getInstance().EMPTY_STRING
-end
+    }
+}
 
-return Memory
+import "../../../org/allbinary/logic/string/StringUtil" for StringUtil
 

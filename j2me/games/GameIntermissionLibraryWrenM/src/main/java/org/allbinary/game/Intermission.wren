@@ -1,72 +1,72 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game
 
-local TimeDelayHelper = require("org.allbinary.time.TimeDelayHelper")
-local IntermissionInterface = require("org.allbinary.game.IntermissionInterface")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Intermission is JObject {
+  enabled { _enabled }
+  enabled=(value) { _enabled = value }
+  timeElapsedHelper { _timeElapsedHelper }
+  timeElapsedHelper=(value) { _timeElapsedHelper = value }
+  intermissionEnableListener { _intermissionEnableListener }
+  intermissionEnableListener=(value) { _intermissionEnableListener = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Intermission() {
+    _enabled = false
+    _timeElapsedHelper = null
+    _intermissionEnableListener = null
+        _enabled = false
+        _timeElapsedHelper = TimeDelayHelper.new(0)
+        _intermissionEnableListener = NullIntermissionEnableListener.getInstance()
+  }
+    
 
-local Intermission = {}
-Intermission.__index = Intermission
-Intermission.className = "Intermission"
+    construct new() {
+    super()
+    initFields_Intermission()
+    }
+    
 
-function Intermission:_init_fields()
-    self.enabled = false
-    self.timeElapsedHelper = TimeDelayHelper.new(0)
-    self.intermissionEnableListener = NullIntermissionEnableListener.getInstance()
-end
+    setListener(enableListener) {
+        _intermissionEnableListener = enableListener
+    }
+    
 
+    getTimeDelayHelper() {
+        return _timeElapsedHelper
+    }
+    
 
-function Intermission.new()
-    local self = setmetatable({}, Intermission)
-    self:_init_fields()
-    return self
-end
+    setEnabled(enabled) {
+        _enabled = enabled
+        if (this.isEnabled()) {
+            this.getTimeDelayHelper().setStartTimeTNT()
+        }
+        _intermissionEnableListener.notifyIntermission(enabled)
+    }
+    
 
+    isEnabled() {
+        return _enabled
+    }
+}
 
-function Intermission:setListener(enableListener)
-        self.intermissionEnableListener = enableListener
-end
-
-
-function Intermission:getTimeDelayHelper()
-        return self.timeElapsedHelper
-end
-
-
-function Intermission:setEnabled(enabled)
-        self.enabled = enabled
-        if self:isEnabled() then
-            self:getTimeDelayHelper():setStartTimeTNT()
-        end
-        self.intermissionEnableListener:notifyIntermission(enabled)
-end
-
-
-function Intermission:isEnabled()
-        return self.enabled
-end
-
-return Intermission
+import "../../../org/allbinary/time/TimeDelayHelper" for TimeDelayHelper
+import "./IntermissionInterface" for IntermissionInterface
+import "./NullIntermissionEnableListener" for NullIntermissionEnableListener
+import "./IntermissionEnableListenerInterface" for IntermissionEnableListenerInterface
 

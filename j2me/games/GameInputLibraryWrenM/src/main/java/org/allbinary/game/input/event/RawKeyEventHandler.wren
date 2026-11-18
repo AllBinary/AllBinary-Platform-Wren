@@ -1,154 +1,165 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.input.event
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input.event
 
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local EventStrings = require("org.allbinary.logic.util.event.EventStrings")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RawKeyEventHandler is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = RawKeyEventHandler.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+    static TOTAL_LISTENERS { "Total Listeners: " }
+    static LISTENER_LABEL { " Listener: " }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  eventListenerInterfaceList { _eventListenerInterfaceList }
+  eventListenerInterfaceList=(value) { _eventListenerInterfaceList = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RawKeyEventHandler() {
+    _logUtil = null
+    _eventListenerInterfaceList = null
+        _logUtil = LogUtil.getInstance()
+        
+  }
+    
 
-local RawKeyEventHandler = {}
-RawKeyEventHandler.__index = RawKeyEventHandler
-RawKeyEventHandler.className = "RawKeyEventHandler"
-
-function RawKeyEventHandler:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.eventListenerInterfaceList = nil
-end
-
-
-function RawKeyEventHandler.getInstance()
+    static getInstance() {
         return RawKeyEventHandler.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_RawKeyEventHandler()
+        _eventListenerInterfaceList = BasicArrayListD.new()
+    }
+    
 
-function RawKeyEventHandler.new()
-    local self = setmetatable({}, RawKeyEventHandler)
-    self:_init_fields()
-        self.eventListenerInterfaceList = BasicArrayListD.new()
-    return self
-end
+    removeAllListeners() {
+        _eventListenerInterfaceList = BasicArrayListD.new()
+    }
+    
 
+    addListeners(vector) {
+        var eventListenerInterface = null
+        var size = vector.size()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            eventListenerInterface = vector.get(index)
+            this.addListener(eventListenerInterface)
+            }
+        }
+    }
+    
 
-function RawKeyEventHandler:removeAllListeners()
-        self.eventListenerInterfaceList = BasicArrayListD.new()
-end
+    addListenerSingleThreaded(eventListenerInterface) {
+        if (!_eventListenerInterfaceList.contains(eventListenerInterface)) {
+            _eventListenerInterfaceList.add(eventListenerInterface)
+        }
+    }
+    
 
+    addListener(eventListenerInterface) {
+        if (!_eventListenerInterfaceList.contains(eventListenerInterface)) {
+            _eventListenerInterfaceList.add(eventListenerInterface)
+        }
+    }
+    
 
-function RawKeyEventHandler:addListeners(vector)
-        local eventListenerInterface = nil
-        local size = vector:size()
-        for index = 0, size - 1 do
-            eventListenerInterface = vector:get(index)
-            self:addListener(eventListenerInterface)
-        end
-end
+    removeListenerSingleThreaded(eventListenerInterface) {
+        _eventListenerInterfaceList.remove(eventListenerInterface)
+    }
+    
 
+    removeListener(eventListenerInterface) {
+        _eventListenerInterfaceList.remove(eventListenerInterface)
+    }
+    
 
-function RawKeyEventHandler:addListenerSingleThreaded(eventListenerInterface)
-        if not self.eventListenerInterfaceList:contains(eventListenerInterface) then
-            self.eventListenerInterfaceList:add(eventListenerInterface)
-        end
-end
+    fireEvent(keyCode, deviceId, repeated) {
+        var eventListenerInterface = null
+        var index = 0
+        while ((index < _eventListenerInterfaceList.size())) {
+            var jerror0 = Fiber.new {
+                eventListenerInterface = _eventListenerInterfaceList.get(index)
+                this.process(keyCode, deviceId, repeated, eventListenerInterface)
+            }.try()
+            if (jerror0 != null) {
+                var e = jerror0
+                var commonStrings = CommonStrings.getInstance()
+                _logUtil.put(commonStrings.EXCEPTION, this, EventStrings.getInstance().FIRE_EVENT, e)
+            }
+            index = JR.i32(index + 1)
+        }
+    }
+    
 
+    process(keyCode, deviceId, repeated, eventListenerInterface) {
+        eventListenerInterface.onEventRaw(keyCode, deviceId, repeated)
+    }
+    
 
-function RawKeyEventHandler:addListener(eventListenerInterface)
-        if not self.eventListenerInterfaceList:contains(eventListenerInterface) then
-            self.eventListenerInterfaceList:add(eventListenerInterface)
-        end
-end
+    getEventListenerInterfaceListP() {
+        return _eventListenerInterfaceList
+    }
+    
 
+    toString() {
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append(RawKeyEventHandler.TOTAL_LISTENERS)
+        stringBuffer.appendint(_eventListenerInterfaceList.size())
+        var eventListenerInterface = null
+        var index = 0
+        while ((index < _eventListenerInterfaceList.size())) {
+            var jerror1 = Fiber.new {
+                eventListenerInterface = _eventListenerInterfaceList.get(index)
+                stringBuffer.append(RawKeyEventHandler.LISTENER_LABEL)
+                stringBuffer.append(eventListenerInterface.toString())
+            }.try()
+            if (jerror1 != null) {
+                var e = jerror1
+                var commonStrings = CommonStrings.getInstance()
+                _logUtil.put(commonStrings.EXCEPTION, this, commonStrings.TOSTRING, e)
+            }
+            index = JR.i32(index + 1)
+        }
+        return stringBuffer.toString()
+    }
+}
 
-function RawKeyEventHandler:removeListenerSingleThreaded(eventListenerInterface)
-        self.eventListenerInterfaceList:remove(eventListenerInterface)
-end
-
-
-function RawKeyEventHandler:removeListener(eventListenerInterface)
-        self.eventListenerInterfaceList:remove(eventListenerInterface)
-end
-
-
--- throws Exception
-function RawKeyEventHandler:fireEvent(keyCode, deviceId, repeated)
-        local eventListenerInterface = nil
-        local index = 0
-        while index < self.eventListenerInterfaceList:size() do
-            local try_ok, try_error = pcall(function()
-                eventListenerInterface = self.eventListenerInterfaceList:get(index)
-                self:process(keyCode, deviceId, repeated, eventListenerInterface)
-            end)
-            if not try_ok then
-                local e = try_error
-                local commonStrings = CommonStrings.getInstance()
-                self.logUtil:put(commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-            end
-            index = index + 1
-        end
-end
-
-
--- throws Exception
-function RawKeyEventHandler:process(keyCode, deviceId, repeated, eventListenerInterface)
-        eventListenerInterface:onEventRaw(keyCode, deviceId, repeated)
-end
-
-
-function RawKeyEventHandler:getEventListenerInterfaceListP()
-        return self.eventListenerInterfaceList
-end
-
-
-function RawKeyEventHandler:toString()
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append(RawKeyEventHandler.TOTAL_LISTENERS)
-        stringBuffer:appendint(self.eventListenerInterfaceList:size())
-        local eventListenerInterface = nil
-        local index = 0
-        while index < self.eventListenerInterfaceList:size() do
-            local try_ok, try_error = pcall(function()
-                eventListenerInterface = self.eventListenerInterfaceList:get(index)
-                stringBuffer:append(RawKeyEventHandler.LISTENER_LABEL)
-                stringBuffer:append(tostring(eventListenerInterface))
-            end)
-            if not try_ok then
-                local e = try_error
-                local commonStrings = CommonStrings.getInstance()
-                self.logUtil:put(commonStrings.EXCEPTION, self, commonStrings.TOSTRING, e)
-            end
-            index = index + 1
-        end
-        return tostring(stringBuffer)
-end
-RawKeyEventHandler.__tostring = function(self) return self:toString() end
-
-RawKeyEventHandler.instance = RawKeyEventHandler.new()
-RawKeyEventHandler.TOTAL_LISTENERS = "Total Listeners: "
-RawKeyEventHandler.LISTENER_LABEL = " Listener: "
-
-return RawKeyEventHandler
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./RawKeyEventListener" for RawKeyEventListener
 

@@ -1,49 +1,52 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.image
 
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ImageCacheFactory is JObject {
+    static IMAGE_CACHE {
+    if (__IMAGE_CACHE_set == null) {
+      __IMAGE_CACHE_set = true
+      __IMAGE_CACHE = ImageCache.new()
+    }
+    return __IMAGE_CACHE
+  }
+  static IMAGE_CACHE=(value) {
+    __IMAGE_CACHE_set = true
+    __IMAGE_CACHE = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImageCacheFactory() {
+  }
 
-local ImageCacheFactory = {}
-ImageCacheFactory.__index = ImageCacheFactory
-ImageCacheFactory.className = "ImageCacheFactory"
+  construct new() {
+    super()
+    initFields_ImageCacheFactory()
+  }
+    
 
-function ImageCacheFactory.new()
-    local self = setmetatable({}, ImageCacheFactory)
-    return self
-end
-
-
-function ImageCacheFactory.getInstance()
+    static getInstance() {
         return ImageCacheFactory.IMAGE_CACHE
-end
+    }
+    
 
+    static init() {
+    }
+}
 
-function ImageCacheFactory.init()
-end
-
-ImageCacheFactory.IMAGE_CACHE = ImageCache.new()
-
-return ImageCacheFactory
+import "./ImageCache" for ImageCache
 

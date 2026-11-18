@@ -1,75 +1,82 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable
 
-local DisplayChangeEventHandler = require("org.allbinary.graphics.displayable.event.DisplayChangeEventHandler")
-local DisplayChangeEventListener = require("org.allbinary.graphics.displayable.event.DisplayChangeEventListener")
-local BasicEventHandler = require("org.allbinary.logic.util.event.handler.BasicEventHandler")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameLevelDisplayChangeEventListenersFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = GameLevelDisplayChangeEventListenersFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  list { _list }
+  list=(value) { _list = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameLevelDisplayChangeEventListenersFactory() {
+    _list = null
+        _list = BasicArrayListD.new()
+  }
 
-local GameLevelDisplayChangeEventListenersFactory = {}
-GameLevelDisplayChangeEventListenersFactory.__index = GameLevelDisplayChangeEventListenersFactory
-GameLevelDisplayChangeEventListenersFactory.className = "GameLevelDisplayChangeEventListenersFactory"
+  construct new() {
+    super()
+    initFields_GameLevelDisplayChangeEventListenersFactory()
+  }
+    
 
-function GameLevelDisplayChangeEventListenersFactory:_init_fields()
-    self.list = BasicArrayListD.new()
-end
-
-function GameLevelDisplayChangeEventListenersFactory.new()
-    local self = setmetatable({}, GameLevelDisplayChangeEventListenersFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function GameLevelDisplayChangeEventListenersFactory.getInstance()
+    static getInstance() {
         return GameLevelDisplayChangeEventListenersFactory.instance
-end
+    }
+    
 
+    add(displayChangeEventListener) {
+        _list.add(displayChangeEventListener)
+        DisplayChangeEventHandler.getInstance().addListenerInterface(displayChangeEventListener)
+    }
+    
 
-function GameLevelDisplayChangeEventListenersFactory:add(displayChangeEventListener)
-        self.list:add(displayChangeEventListener)
-        DisplayChangeEventHandler.getInstance():addListenerInterface(displayChangeEventListener)
-end
+    clear() {
+        var displayChangeEventHandler = DisplayChangeEventHandler.getInstance()
+        var displayChangeEventListener = null
+        if (true) {
+            var index = _list.size()
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            displayChangeEventListener = _list.objectArray[index]
+            displayChangeEventHandler.removeListener(displayChangeEventListener)
+            }
+        }
+        _list.clear()
+    }
+}
 
-
-function GameLevelDisplayChangeEventListenersFactory:clear()
-        local displayChangeEventHandler = DisplayChangeEventHandler.getInstance()
-        local displayChangeEventListener = nil
-        do
-            local index = self.list:size()
-            while (function() index = index - 1 return index end)() >= 0 do
-            displayChangeEventListener = self.list.objectArray[index + 1]
-            displayChangeEventHandler:removeListener(displayChangeEventListener)
-            end
-        end
-        self.list:clear()
-end
-
-GameLevelDisplayChangeEventListenersFactory.instance = GameLevelDisplayChangeEventListenersFactory.new()
-
-return GameLevelDisplayChangeEventListenersFactory
+import "../../../../org/allbinary/graphics/displayable/event/DisplayChangeEventHandler" for DisplayChangeEventHandler
+import "../../../../org/allbinary/graphics/displayable/event/DisplayChangeEventListener" for DisplayChangeEventListener
+import "../../../../org/allbinary/logic/util/event/handler/BasicEventHandler" for BasicEventHandler
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
 

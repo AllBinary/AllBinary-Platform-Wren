@@ -1,133 +1,130 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer.pickup
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer.pickup
 
--- local GL = require("javax.microedition.khronos.opengles.GL")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Animation = require("org.allbinary.animation.Animation")
-local NullAnimationFactory = require("org.allbinary.animation.NullAnimationFactory")
-local CollidableAlwaysPickupNeverCollideBehaviorFactory = require("org.allbinary.game.collision.CollidableAlwaysPickupNeverCollideBehaviorFactory")
-local DestroyedLayerProcessor = require("org.allbinary.game.combat.destroy.DestroyedLayerProcessor")
-local BasicGroupFactory = require("org.allbinary.game.identification.BasicGroupFactory")
-local MultiPlayerGameLayer = require("org.allbinary.game.multiplayer.layer.MultiPlayerGameLayer")
-local RemoteInfo = require("org.allbinary.game.multiplayer.layer.RemoteInfo")
-local Rectangle = require("org.allbinary.graphics.Rectangle")
-local OpenGLSurfaceChangedInterface = require("org.allbinary.image.opengles.OpenGLSurfaceChangedInterface")
-local ViewPositionBase = require("org.allbinary.view.ViewPositionBase")
-local PickedUpLayerInterface = require("org.allbinary.game.layer.pickup.PickedUpLayerInterface")
-local PickupableInterface = require("org.allbinary.game.layer.pickup.PickupableInterface")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/game/multiplayer/layer/MultiPlayerGameLayer" for MultiPlayerGameLayer
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PickupLayer is MultiPlayerGameLayer {
+  pickedUpLayerInterfaceFactoryInterface { _pickedUpLayerInterfaceFactoryInterface }
+  pickedUpLayerInterfaceFactoryInterface=(value) { _pickedUpLayerInterfaceFactoryInterface = value }
+  destroyed { _destroyed }
+  destroyed=(value) { _destroyed = value }
+  animationInterface { _animationInterface }
+  animationInterface=(value) { _animationInterface = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PickupLayer() {
+    _pickedUpLayerInterfaceFactoryInterface = null
+    _destroyed = false
+    _animationInterface = null
+        _pickedUpLayerInterfaceFactoryInterface = CountedPickedUpLayerInterfaceFactory.NULL_COUNTED_PICKUP_LAYER_FACTORY
+        _destroyed = false
+        _animationInterface = NullAnimationFactory.getFactoryInstance().getInstance(0)
+  }
+    
 
-local PickupLayer = {}
-PickupLayer.__index = PickupLayer
-PickupLayer.className = "PickupLayer"
-setmetatable(PickupLayer, {__index = MultiPlayerGameLayer})
+    construct new(name, remoteInfo, total, pickedUpLayerInterfaceFactoryInterface, animationInterface, rectangle, viewPosition) {
+        super(remoteInfo, BasicGroupFactory.getInstance().NONE_ARRAY, name, rectangle, viewPosition)
+        initFields_PickupLayer()
+        this.setCollidableInferface(CollidableAlwaysPickupNeverCollideBehaviorFactory.getInstance().createBehavior())
+        this.setLayerWidth(10)
+        this.setLayerHeight(10)
+        this.init(pickedUpLayerInterfaceFactoryInterface, animationInterface)
+    }
+    
 
-function PickupLayer:_init_fields()
-    self.pickedUpLayerInterfaceFactoryInterface = CountedPickedUpLayerInterfaceFactory.NULL_COUNTED_PICKUP_LAYER_FACTORY
-    self.destroyed = false
-    self.animationInterface = NullAnimationFactory.getFactoryInstance():getInstance(0)
-end
+    init(pickedUpLayerInterfaceFactoryInterface, animationInterface) {
+        _pickedUpLayerInterfaceFactoryInterface = pickedUpLayerInterfaceFactoryInterface
+        _animationInterface = animationInterface
+        this.setDestroyed(false)
+    }
+    
 
+    initXYZ(x, y, z) {
+        this.setPosition(x, y, z)
+    }
+    
 
-function PickupLayer.new(name, remoteInfo, total, pickedUpLayerInterfaceFactoryInterface, animationInterface, rectangle, viewPosition)
-    local self = setmetatable(MultiPlayerGameLayer.new(remoteInfo, BasicGroupFactory.getInstance().NONE_ARRAY, name, rectangle, viewPosition), PickupLayer)
-    self:_init_fields()
-        -- super(...) made self above
-        self:setCollidableInferface(CollidableAlwaysPickupNeverCollideBehaviorFactory.getInstance():createBehavior())
-        self:setLayerWidth(10)
-        self:setLayerHeight(10)
-        self:init(pickedUpLayerInterfaceFactoryInterface, animationInterface)
-    return self
-end
+    paint(graphics) {
+        var viewPosition = this.getViewPosition()
+        var viewX = viewPosition.getX()
+        var viewY = viewPosition.getY()
+        _animationInterface.paintXY(graphics, viewX, viewY)
+    }
+    
 
+    paintThreed(graphics) {
+        var viewPosition = this.getViewPosition()
+        var viewX = viewPosition.getX()
+        var viewY = viewPosition.getY()
+        _animationInterface.paintThreedXYZ(graphics, viewX, viewY, 3)
+    }
+    
 
-function PickupLayer:init(pickedUpLayerInterfaceFactoryInterface, animationInterface)
-        self.pickedUpLayerInterfaceFactoryInterface = pickedUpLayerInterfaceFactoryInterface
-        self.animationInterface = animationInterface
-        self:setDestroyed(false)
-end
+    getPickedUpLayerInterfaceFactoryInterface() {
+        return _pickedUpLayerInterfaceFactoryInterface
+    }
+    
 
+    setPickedUp() {
+        this.setDestroyed(true)
+    }
+    
 
-function PickupLayer:initXYZ(x, y, z)
-        self:setPosition(x, y, z)
-end
+    isDestroyed() {
+        return _destroyed
+    }
+    
 
+    setDestroyed(destroyed) {
+        _destroyed = destroyed
+        if (this.isDestroyed()) {
+            DestroyedLayerProcessor.getInstance().add(this)
+        }
+    }
+    
 
-function PickupLayer:paint(graphics)
-        local viewPosition = self:getViewPosition()
-        local viewX = viewPosition:getX()
-        local viewY = viewPosition:getY()
-        self.animationInterface:paintXY(graphics, viewX, viewY)
-end
+    damage(damage, damageType) {
+    }
+    
 
-
-function PickupLayer:paintThreed(graphics)
-        local viewPosition = self:getViewPosition()
-        local viewX = viewPosition:getX()
-        local viewY = viewPosition:getY()
-        self.animationInterface:paintThreedXYZ(graphics, viewX, viewY, 3)
-end
-
-
-function PickupLayer:getPickedUpLayerInterfaceFactoryInterface()
-        return self.pickedUpLayerInterfaceFactoryInterface
-end
-
-
-function PickupLayer:setPickedUp()
-        self:setDestroyed(true)
-end
-
-
-function PickupLayer:isDestroyed()
-        return self.destroyed
-end
-
-
-function PickupLayer:setDestroyed(destroyed)
-        self.destroyed = destroyed
-        if self:isDestroyed() then
-            DestroyedLayerProcessor.getInstance():add(self)
-        end
-end
-
-
-function PickupLayer:damage(damage, damageType)
-end
-
-
-function PickupLayer:getDamage(damageType)
+    getDamage(damageType) {
         return 0
-end
+    }
+    
 
+    set(gl) {
+        var openGLSurfaceChangedInterface = _animationInterface
+        openGLSurfaceChangedInterface.set(gl)
+    }
+}
 
--- throws Exception
-function PickupLayer:set(gl)
-        local openGLSurfaceChangedInterface = self.animationInterface
-        openGLSurfaceChangedInterface:set(gl)
-end
-
-return PickupLayer
+import "../../../../../javax/microedition/khronos/opengles/GL" for GL
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../../org/allbinary/animation/NullAnimationFactory" for NullAnimationFactory
+import "../../../../../org/allbinary/game/collision/CollidableAlwaysPickupNeverCollideBehaviorFactory" for CollidableAlwaysPickupNeverCollideBehaviorFactory
+import "../../../../../org/allbinary/game/combat/destroy/DestroyedLayerProcessor" for DestroyedLayerProcessor
+import "../../../../../org/allbinary/game/identification/BasicGroupFactory" for BasicGroupFactory
+import "../../../../../org/allbinary/game/multiplayer/layer/RemoteInfo" for RemoteInfo
+import "../../../../../org/allbinary/graphics/Rectangle" for Rectangle
+import "../../../../../org/allbinary/image/opengles/OpenGLSurfaceChangedInterface" for OpenGLSurfaceChangedInterface
+import "../../../../../org/allbinary/view/ViewPositionBase" for ViewPositionBase
+import "./PickedUpLayerInterface" for PickedUpLayerInterface
+import "./PickupableInterface" for PickupableInterface
+import "./CountedPickedUpLayerInterfaceFactory" for CountedPickedUpLayerInterfaceFactory
+import "./PickedUpLayerInterfaceFactoryInterface" for PickedUpLayerInterfaceFactoryInterface
 

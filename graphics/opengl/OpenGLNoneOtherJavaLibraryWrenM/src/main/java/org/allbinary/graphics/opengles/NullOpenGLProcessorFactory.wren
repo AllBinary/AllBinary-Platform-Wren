@@ -1,33 +1,34 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.opengles
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.opengles
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NullOpenGLProcessorFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = OpenGLProcessor.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NullOpenGLProcessorFactory() {
+  }
 
-local NullOpenGLProcessorFactory = {}
-NullOpenGLProcessorFactory.__index = NullOpenGLProcessorFactory
-NullOpenGLProcessorFactory.className = "NullOpenGLProcessorFactory"
+  construct new() {
+    super()
+    initFields_NullOpenGLProcessorFactory()
+  }
+    
 
-function NullOpenGLProcessorFactory.new()
-    local self = setmetatable({}, NullOpenGLProcessorFactory)
-    return self
-end
-
-
-function NullOpenGLProcessorFactory.getInstance()
+    static getInstance() {
         return NullOpenGLProcessorFactory.instance
-end
+    }
+}
 
-NullOpenGLProcessorFactory.instance = OpenGLProcessor.new()
-
-return NullOpenGLProcessorFactory
+import "./OpenGLProcessor" for OpenGLProcessor
 

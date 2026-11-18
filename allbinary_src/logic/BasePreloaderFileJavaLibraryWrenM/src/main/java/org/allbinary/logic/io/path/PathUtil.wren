@@ -1,167 +1,170 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.io.path
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.io.path
 
-local FilePathData = require("org.allbinary.logic.io.file.FilePathData")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local StringValidationUtil = require("org.allbinary.logic.string.StringValidationUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//Used to correct user input for paths
+class PathUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = PathUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  abPathData { _abPathData }
+  abPathData=(value) { _abPathData = value }
+  filePathData { _filePathData }
+  filePathData=(value) { _filePathData = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PathUtil() {
+    _abPathData = null
+    _filePathData = null
+        _abPathData = AbPathData.getInstance()
+        _filePathData = FilePathData.getInstance()
+  }
+    
 
---Used to correct user input for paths
-local PathUtil = {}
-PathUtil.__index = PathUtil
-PathUtil.className = "PathUtil"
-
-function PathUtil:_init_fields()
-    self.abPathData = AbPathData.getInstance()
-    self.filePathData = FilePathData.getInstance()
-end
-
-
-function PathUtil.getInstance()
+    static getInstance() {
         return PathUtil.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_PathUtil()
+    }
+    
 
-function PathUtil.new()
-    local self = setmetatable({}, PathUtil)
-    self:_init_fields()
-    return self
-end
+    getExtensionWithAbFilePath(abFilePath) {
+        return _abPathData.getExtension(abFilePath.toString())
+    }
+    
 
+    getExtensionWithAbPath(abPath) {
+        return _abPathData.getExtension(abPath.toString())
+    }
+    
 
-function PathUtil:getExtensionWithAbFilePath(abFilePath)
-        return self.abPathData:getExtension(tostring(abFilePath))
-end
+    getWithoutExtensionWithAbFilePath(abFilePath) {
+        return this.getWithoutExtension(abFilePath.toString())
+    }
+    
 
+    getWithoutExtensionWithAbPath(abPath) {
+        return this.getWithoutExtension(abPath.toString())
+    }
+    
 
-function PathUtil:getExtensionWithAbPath(abPath)
-        return self.abPathData:getExtension(tostring(abPath))
-end
-
-
--- throws Exception
-function PathUtil:getWithoutExtensionWithAbFilePath(abFilePath)
-        return self:getWithoutExtension(tostring(abFilePath))
-end
-
-
--- throws Exception
-function PathUtil:getWithoutExtensionWithAbPath(abPath)
-        return self:getWithoutExtension(tostring(abPath))
-end
-
-
--- throws Exception
-function PathUtil:getWithoutExtension(filePath)
-        local indexOfFileExtensionDelmiter = self.abPathData:getExtensionIndex(filePath)
-        local pathWithoutExtension = filePath
-        if indexOfFileExtensionDelmiter >= 0 then
-            pathWithoutExtension = string.sub(filePath, (0) + 1, indexOfFileExtensionDelmiter)
-        end
+    getWithoutExtension(filePath) {
+        var indexOfFileExtensionDelmiter = _abPathData.getExtensionIndex(filePath)
+        var pathWithoutExtension = filePath
+        if ((indexOfFileExtensionDelmiter >= 0)) {
+            pathWithoutExtension = JR.substring(filePath, 0, indexOfFileExtensionDelmiter)
+        }
         return pathWithoutExtension
-end
+    }
+    
 
-
-function PathUtil:isValid(path)
-        if self:isValidStart(path) then
-            if self:isValidEnd(path) then
+    isValid(path) {
+        if (this.isValidStart(path)) {
+            if (this.isValidEnd(path)) {
                 return true
-            end
-        end
+            }
+        }
         return false
-end
+    }
+    
 
-
-function PathUtil:isValidStart(path)
-        if string.sub(path, (0) + 1, (0) + 1) == self.abPathData.SEPARATORCHAR or string.sub(path, (0) + 1, (0) + 1) == "." then
+    isValidStart(path) {
+        if (((JR.charAt(path, 0) == _abPathData.SEPARATORCHAR) || (JR.charAt(path, 0) == ".".bytes[0]))) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+    
 
-
-function PathUtil:isValidEnd(path)
-        local stringValidationUtil = StringValidationUtil.getInstance()
-        if stringValidationUtil:isEmpty(path) then
+    isValidEnd(path) {
+        var stringValidationUtil = StringValidationUtil.getInstance()
+        if (stringValidationUtil.isEmpty(path)) {
             return false
-        end
-        if string.sub(path, (#path - 1) + 1, (#path - 1) + 1) == self.abPathData.SEPARATORCHAR then
+        }
+        if ((JR.charAt(path, JR.i32(JR.length(path) - 1)) == _abPathData.SEPARATORCHAR)) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+    
 
-
-function PathUtil:adjustStart(path)
-        if not self:isValidStart(path) then
-            path = tostring(self.abPathData.SEPARATOR) .. path
-        end
+    adjustStart(path) {
+        if (!this.isValidStart(path)) {
+            path = JR.str(_abPathData.SEPARATOR) + path
+        }
         return path
-end
+    }
+    
 
-
-function PathUtil:adjustEnd(path)
-        if not self:isValidEnd(path) then
-            path = path .. tostring(self.abPathData.SEPARATOR)
-        end
+    adjustEnd(path) {
+        if (!this.isValidEnd(path)) {
+            path = path + JR.str(_abPathData.SEPARATOR)
+        }
         return path
-end
+    }
+    
 
-
-function PathUtil:adjust(path)
-        local stringValidationUtil = StringValidationUtil.getInstance()
-        if stringValidationUtil:isEmpty(path) then
-            return self.abPathData.SEPARATOR
-        end
-        if ((string.find(path, "\\", 1, true) or 0) - 1) >= 0 then
-            path = path:replace("\\", self.abPathData.SEPARATORCHAR)
-        end
+    adjust(path) {
+        var stringValidationUtil = StringValidationUtil.getInstance()
+        if (stringValidationUtil.isEmpty(path)) {
+            return _abPathData.SEPARATOR
+        }
+        if ((JR.indexOf(path, "\\") >= 0)) {
+            path = JR.replace(path, "\\".bytes[0], _abPathData.SEPARATORCHAR)
+        }
         return path
-end
+    }
+    
 
-
--- throws Exception
-function PathUtil:removeNameFromPath(path)
-        local endIndex = path:lastIndexOf(self.abPathData.SEPARATOR)
-        if endIndex < 0 then
-            endIndex = path:lastIndexOf(self.filePathData.SEPARATORCHAR)
-        end
-        if endIndex < 0 then
+    removeNameFromPath(path) {
+        var endIndex = JR.lastIndexOf(path, _abPathData.SEPARATOR)
+        if ((endIndex < 0)) {
+            endIndex = JR.lastIndexOf(path, _filePathData.SEPARATORCHAR)
+        }
+        if ((endIndex < 0)) {
             return AbPath.createAbPath()
-        end
-        if #path == endIndex + 1 then
-            return self:removeNameFromPath(string.sub(path, (0) + 1, endIndex - 1))
-        else
-            local pathWithoutName = string.sub(path, (0) + 1, endIndex)
+        }
+        if ((JR.length(path) == JR.i32(endIndex + 1))) {
+            return this.removeNameFromPath(JR.substring(path, 0, JR.i32(endIndex - 1)))
+        } else {
+            var pathWithoutName = JR.substring(path, 0, endIndex)
             return AbPath.new(pathWithoutName, StringUtil.getInstance().EMPTY_STRING)
-        end
-end
+        }
+    }
+}
 
-PathUtil.instance = PathUtil.new()
-
-return PathUtil
+import "../../../../../org/allbinary/logic/io/file/FilePathData" for FilePathData
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/logic/string/StringValidationUtil" for StringValidationUtil
+import "./AbPathData" for AbPathData
+import "./AbFilePath" for AbFilePath
+import "./AbPath" for AbPath
 

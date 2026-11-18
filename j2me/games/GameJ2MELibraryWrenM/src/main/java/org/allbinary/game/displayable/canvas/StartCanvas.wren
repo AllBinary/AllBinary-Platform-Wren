@@ -1,764 +1,839 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
--- local Command = require("javax.microedition.lcdui.Command")
--- local CommandListener = require("javax.microedition.lcdui.CommandListener")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Item = require("javax.microedition.lcdui.Item")
-local J2MEUtil = require("org.allbinary.J2MEUtil")
-local Animation = require("org.allbinary.animation.Animation")
-local IndexedAnimationBehavior = require("org.allbinary.animation.IndexedAnimationBehavior")
-local SpecialAnimation = require("org.allbinary.animation.special.SpecialAnimation")
-local GameAdStateFactory = require("org.allbinary.business.advertisement.GameAdStateFactory")
-local BaseGameStatistics = require("org.allbinary.canvas.BaseGameStatistics")
-local CustomGameMenuUtil = require("org.allbinary.canvas.CustomGameMenuUtil")
-local FullScreenUtil = require("org.allbinary.canvas.FullScreenUtil")
-local GameStatisticsFactory = require("org.allbinary.canvas.GameStatisticsFactory")
-local RunnableCanvas = require("org.allbinary.canvas.RunnableCanvas")
-local GameAdState = require("org.allbinary.game.GameAdState")
-local GameCommandsFactory = require("org.allbinary.game.commands.GameCommandsFactory")
-local ChangedGameFeatureListener = require("org.allbinary.game.configuration.event.ChangedGameFeatureListener")
-local Features = require("org.allbinary.game.configuration.feature.Features")
-local GameFeatureFactory = require("org.allbinary.game.configuration.feature.GameFeatureFactory")
-local InputFeatureFactory = require("org.allbinary.game.configuration.feature.InputFeatureFactory")
-local MainFeatureFactory = require("org.allbinary.game.configuration.feature.MainFeatureFactory")
-local BasicBuildGameInitializerFactory = require("org.allbinary.game.init.BasicBuildGameInitializerFactory")
-local GameInitializationUtil = require("org.allbinary.game.init.GameInitializationUtil")
-local GameInputStrings = require("org.allbinary.game.input.GameInputStrings")
-local GameKey = require("org.allbinary.game.input.GameKey")
-local GameKeyFactory = require("org.allbinary.game.input.GameKeyFactory")
-local PlatformInputMappingFactory = require("org.allbinary.game.input.PlatformInputMappingFactory")
-local DownGameKeyEventHandler = require("org.allbinary.game.input.event.DownGameKeyEventHandler")
-local GameKeyEvent = require("org.allbinary.game.input.event.GameKeyEvent")
-local GameKeyEventFactory = require("org.allbinary.game.input.event.GameKeyEventFactory")
-local GameKeyEventHandler = require("org.allbinary.game.input.event.GameKeyEventHandler")
-local UpGameKeyEventHandler = require("org.allbinary.game.input.event.UpGameKeyEventHandler")
-local InputToGameKeyMapping = require("org.allbinary.game.input.mapping.InputToGameKeyMapping")
-local AllBinaryGameLayerManager = require("org.allbinary.game.layer.AllBinaryGameLayerManager")
-local SWTUtil = require("org.allbinary.game.layer.SWTUtil")
-local DemoGameMidlet = require("org.allbinary.game.midlet.DemoGameMidlet")
-local HighScoreCommands = require("org.allbinary.game.score.HighScoreCommands")
-local HighScores = require("org.allbinary.game.score.HighScores")
-local HighScoresFactoryInterface = require("org.allbinary.game.score.HighScoresFactoryInterface")
-local HighScoresHelper = require("org.allbinary.game.score.HighScoresHelper")
-local HighScoresPaintable = require("org.allbinary.game.score.HighScoresPaintable")
-local NullHighScoresSingletonFactory = require("org.allbinary.game.score.NullHighScoresSingletonFactory")
-local GameState = require("org.allbinary.game.state.GameState")
-local GameStateFactory = require("org.allbinary.game.state.GameStateFactory")
-local Rectangle = require("org.allbinary.graphics.Rectangle")
-local ResizableListenerHandler = require("org.allbinary.graphics.ResizableListenerHandler")
-local ProgressCanvas = require("org.allbinary.graphics.canvas.transition.progress.ProgressCanvas")
-local ProgressCanvasFactory = require("org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local MyCommandsFactory = require("org.allbinary.graphics.displayable.command.MyCommandsFactory")
-local DisplayChangeEvent = require("org.allbinary.graphics.displayable.event.DisplayChangeEvent")
-local DisplayChangeEventHandler = require("org.allbinary.graphics.displayable.event.DisplayChangeEventHandler")
-local DisplayChangeEventListener = require("org.allbinary.graphics.displayable.event.DisplayChangeEventListener")
-local FormType = require("org.allbinary.graphics.form.FormType")
-local FormTypeFactory = require("org.allbinary.graphics.form.FormTypeFactory")
-local ScrollSelectionForm = require("org.allbinary.graphics.form.ScrollSelectionForm")
-local CurrentDisplayableFactory = require("org.allbinary.graphics.opengles.CurrentDisplayableFactory")
-local OpenGLFeatureFactory = require("org.allbinary.graphics.opengles.OpenGLFeatureFactory")
-local OpenGLFeatureUtil = require("org.allbinary.graphics.opengles.OpenGLFeatureUtil")
-local OpenGLThreadUtil = require("org.allbinary.graphics.opengles.OpenGLThreadUtil")
-local InitUpdatePaintable = require("org.allbinary.graphics.paint.InitUpdatePaintable")
-local NullPaintable = require("org.allbinary.graphics.paint.NullPaintable")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
-local PaintableInterface = require("org.allbinary.graphics.paint.PaintableInterface")
-local StatePaintable = require("org.allbinary.graphics.paint.StatePaintable")
-local StatePaintableFactory = require("org.allbinary.graphics.paint.StatePaintableFactory")
-local BasicMotionGesturesHandler = require("org.allbinary.input.motion.gesture.observer.BasicMotionGesturesHandler")
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local PreLogUtil = require("org.allbinary.logic.communication.log.PreLogUtil")
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local OperatingSystemFactory = require("org.allbinary.logic.system.os.OperatingSystemFactory")
-local AbeClientInformationInterface = require("org.allbinary.logic.system.security.licensing.AbeClientInformationInterface")
-local InApplicationPurchaseFactory = require("org.allbinary.logic.system.security.licensing.InApplicationPurchaseFactory")
-local LockableFeature = require("org.allbinary.logic.system.security.licensing.LockableFeature")
-local LockableFeatureFactory = require("org.allbinary.logic.system.security.licensing.LockableFeatureFactory")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventStrings = require("org.allbinary.logic.util.event.EventStrings")
-local AllBinaryMediaManager = require("org.allbinary.media.audio.AllBinaryMediaManager")
-local EarlySoundsFactory = require("org.allbinary.media.audio.EarlySoundsFactory")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local TimeDelayHelper = require("org.allbinary.time.TimeDelayHelper")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local GameCanvasRunnableInterface = require("org.allbinary.game.displayable.canvas.GameCanvasRunnableInterface")
-local MenuListener = require("org.allbinary.game.displayable.canvas.MenuListener")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/canvas/RunnableCanvas" for RunnableCanvas
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class StartCanvas is RunnableCanvas {
+    static id { 0 }
+    static BOT_GAME_STATS { "Bot Game Statistics: " }
+  basicColorFactory { _basicColorFactory }
+  basicColorFactory=(value) { _basicColorFactory = value }
+  features { _features }
+  features=(value) { _features = value }
+  openGLFeatureFactory { _openGLFeatureFactory }
+  openGLFeatureFactory=(value) { _openGLFeatureFactory = value }
+  myCommandsFactory { _myCommandsFactory }
+  myCommandsFactory=(value) { _myCommandsFactory = value }
+  gameAdStateFactory { _gameAdStateFactory }
+  gameAdStateFactory=(value) { _gameAdStateFactory = value }
+  gameStateFactory { _gameStateFactory }
+  gameStateFactory=(value) { _gameStateFactory = value }
+  gameInputStrings { _gameInputStrings }
+  gameInputStrings=(value) { _gameInputStrings = value }
+  formUtil { _formUtil }
+  formUtil=(value) { _formUtil = value }
+  basicGameDemoPaintable { _basicGameDemoPaintable }
+  basicGameDemoPaintable=(value) { _basicGameDemoPaintable = value }
+  specialAnimationInterface { _specialAnimationInterface }
+  specialAnimationInterface=(value) { _specialAnimationInterface = value }
+  paintedSpecialAnimationInterface { _paintedSpecialAnimationInterface }
+  paintedSpecialAnimationInterface=(value) { _paintedSpecialAnimationInterface = value }
+  fullScreenUtil { _fullScreenUtil }
+  fullScreenUtil=(value) { _fullScreenUtil = value }
+  highScoresHelper { _highScoresHelper }
+  highScoresHelper=(value) { _highScoresHelper = value }
+  realHighScoresPaintable { _realHighScoresPaintable }
+  realHighScoresPaintable=(value) { _realHighScoresPaintable = value }
+  highScoresPaintable { _highScoresPaintable }
+  highScoresPaintable=(value) { _highScoresPaintable = value }
+  state { _state }
+  state=(value) { _state = value }
+  timeDelayHelper { _timeDelayHelper }
+  timeDelayHelper=(value) { _timeDelayHelper = value }
+  highScoresFactoryInterface { _highScoresFactoryInterface }
+  highScoresFactoryInterface=(value) { _highScoresFactoryInterface = value }
+  menuInputProcessor { _menuInputProcessor }
+  menuInputProcessor=(value) { _menuInputProcessor = value }
+  menuForm { _menuForm }
+  menuForm=(value) { _menuForm = value }
+  gameInitializationInterfaceFactoryInterface { _gameInitializationInterfaceFactoryInterface }
+  gameInitializationInterfaceFactoryInterface=(value) { _gameInitializationInterfaceFactoryInterface = value }
+  initialized { _initialized }
+  initialized=(value) { _initialized = value }
+  defaultPaintableInterface { _defaultPaintableInterface }
+  defaultPaintableInterface=(value) { _defaultPaintableInterface = value }
+  paintableInterface { _paintableInterface }
+  paintableInterface=(value) { _paintableInterface = value }
+  overlayPaintable { _overlayPaintable }
+  overlayPaintable=(value) { _overlayPaintable = value }
+  tempWait { _tempWait }
+  tempWait=(value) { _tempWait = value }
+  inputToGameKeyMapping { _inputToGameKeyMapping }
+  inputToGameKeyMapping=(value) { _inputToGameKeyMapping = value }
+  gameRunnable { _gameRunnable }
+  gameRunnable=(value) { _gameRunnable = value }
+  progressPaintable { _progressPaintable }
+  progressPaintable=(value) { _progressPaintable = value }
+  isSingleKeyRepeatableProcessing { _isSingleKeyRepeatableProcessing }
+  isSingleKeyRepeatableProcessing=(value) { _isSingleKeyRepeatableProcessing = value }
+  NONE { _NONE }
+  NONE=(value) { _NONE = value }
+  gameKeyEventFactory { _gameKeyEventFactory }
+  gameKeyEventFactory=(value) { _gameKeyEventFactory = value }
+  SET_STATE { _SET_STATE }
+  SET_STATE=(value) { _SET_STATE = value }
+  baseGameStatistics { _baseGameStatistics }
+  baseGameStatistics=(value) { _baseGameStatistics = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_StartCanvas() {
+    _basicColorFactory = null
+    _features = null
+    _openGLFeatureFactory = null
+    _myCommandsFactory = null
+    _gameAdStateFactory = null
+    _gameStateFactory = null
+    _gameInputStrings = null
+    _formUtil = null
+    _basicGameDemoPaintable = null
+    _specialAnimationInterface = null
+    _paintedSpecialAnimationInterface = null
+    _fullScreenUtil = null
+    _highScoresHelper = null
+    _realHighScoresPaintable = null
+    _highScoresPaintable = null
+    _state = 0
+    _timeDelayHelper = null
+    _highScoresFactoryInterface = null
+    _menuInputProcessor = null
+    _menuForm = null
+    _gameInitializationInterfaceFactoryInterface = null
+    _initialized = false
+    _defaultPaintableInterface = null
+    _paintableInterface = null
+    _overlayPaintable = null
+    _tempWait = 0
+    _inputToGameKeyMapping = null
+    _gameRunnable = null
+    _progressPaintable = null
+    _isSingleKeyRepeatableProcessing = false
+    _NONE = null
+    _gameKeyEventFactory = null
+    _SET_STATE = null
+    _baseGameStatistics = null
+        _basicColorFactory = BasicColorFactory.getInstance()
+        _features = Features.getInstance()
+        _openGLFeatureFactory = OpenGLFeatureFactory.getInstance()
+        _myCommandsFactory = MyCommandsFactory.getInstance()
+        _gameAdStateFactory = GameAdStateFactory.getInstance()
+        _gameStateFactory = GameStateFactory.getInstance()
+        _gameInputStrings = GameInputStrings.getInstance()
+        _formUtil = FormUtil.getInstance()
+        _basicGameDemoPaintable = StatePaintableFactory.getInstance()
+        _specialAnimationInterface = SpecialAnimation.getInstance()
+        _paintedSpecialAnimationInterface = SpecialAnimation.getInstance()
+        _fullScreenUtil = FullScreenUtil.getInstance()
+        _highScoresHelper = HighScoresHelper.new()
+        _realHighScoresPaintable = HighScoresPaintable.new()
+        _highScoresPaintable = NullPaintable.getInstance()
+        _state = 0
+        _timeDelayHelper = TimeDelayHelper.new(6000)
+        
+        _menuInputProcessor = NoMenuInputProcessor.getInstance()
+        _menuForm = ScrollSelectionForm.getNullScrollSelectionForm()
+        
+        _initialized = false
+        _defaultPaintableInterface = NullPaintable.getInstance()
+        _paintableInterface = NullPaintable.getInstance()
+        
+        _tempWait = NullWaitGameRunnable.getInstance().WAIT
+        _inputToGameKeyMapping = PlatformInputMappingFactory.getInstance().getPersistentInputMappingInstance().getInputMapping()
+        _gameRunnable = NullWaitGameRunnable.getInstance()
+        _progressPaintable = ProgressCanvasFactory.getLazyInstance()
+        _isSingleKeyRepeatableProcessing = _features.isFeature(InputFeatureFactory.getInstance().SINGLE_KEY_REPEAT_PRESS)
+        _NONE = GameKeyFactory.getInstance().NONE
+        _gameKeyEventFactory = GameKeyEventFactory.getInstance()
+        _SET_STATE = "setState"
+        _baseGameStatistics = GameStatisticsFactory.getInstance()
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(abeClientInformation, commandListener, highScoresFactoryInterface, paintable, overlayPaintable, gameInitializationInterfaceFactoryInterface, isContinue) {
+        super(commandListener, CurrentDisplayableFactory.getInstance().DEFAULT_CHILD_NAME_LIST, true)
+        initFields_StartCanvas()
+        this.setWait(NullWaitGameRunnable.getInstance().WAIT)
+        _gameInitializationInterfaceFactoryInterface = gameInitializationInterfaceFactoryInterface
+        GameInitializationUtil.getInstance().initDemo(abeClientInformation, this, gameInitializationInterfaceFactoryInterface)
+        ResizableListenerHandler.getInstance().fireEvent(false)
+        _overlayPaintable = overlayPaintable
+        _highScoresFactoryInterface = highScoresFactoryInterface
+        this.setDefaultPaintableInterface(paintable)
+        this.setPaintableInterface(this.getDefaultPaintableInterface())
+        if (isContinue) {
+            this.addCommand(GameCommandsFactory.getInstance().CONTINUE_COMMAND)
+        }
+        if (ChangedGameFeatureListener.getInstance().isChangedFeature(GameFeatureFactory.getInstance().SOUND)) {
+            this.mediaInit()
+        }
+        DisplayChangeEventHandler.getInstance().addListenerInterface(this)
+    }
+    
 
-local StartCanvas = {}
-StartCanvas.__index = StartCanvas
-StartCanvas.className = "StartCanvas"
-setmetatable(StartCanvas, {__index = RunnableCanvas})
+    onEvent(eventObject) {
+        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, this)
+    }
+    
 
-function StartCanvas:_init_fields()
-    self.basicColorFactory = BasicColorFactory.getInstance()
-    self.features = Features.getInstance()
-    self.openGLFeatureFactory = OpenGLFeatureFactory.getInstance()
-    self.myCommandsFactory = MyCommandsFactory.getInstance()
-    self.gameAdStateFactory = GameAdStateFactory.getInstance()
-    self.gameStateFactory = GameStateFactory.getInstance()
-    self.gameInputStrings = GameInputStrings.getInstance()
-    self.formUtil = FormUtil.getInstance()
-    self.basicGameDemoPaintable = StatePaintableFactory.getInstance()
-    self.specialAnimationInterface = SpecialAnimation.getInstance()
-    self.paintedSpecialAnimationInterface = SpecialAnimation.getInstance()
-    self.fullScreenUtil = FullScreenUtil.getInstance()
-    self.highScoresHelper = HighScoresHelper.new()
-    self.realHighScoresPaintable = HighScoresPaintable.new()
-    self.highScoresPaintable = NullPaintable.getInstance()
-    self.state = 0
-    self.timeDelayHelper = TimeDelayHelper.new(6000)
-    self.highScoresFactoryInterface = nil
-    self.menuInputProcessor = NoMenuInputProcessor.getInstance()
-    self.menuForm = ScrollSelectionForm.getNullScrollSelectionForm()
-    self.gameInitializationInterfaceFactoryInterface = nil
-    self.initialized = false
-    self.defaultPaintableInterface = NullPaintable.getInstance()
-    self.paintableInterface = NullPaintable.getInstance()
-    self.overlayPaintable = nil
-    self.tempWait = NullWaitGameRunnable.getInstance().WAIT
-    self.inputToGameKeyMapping = PlatformInputMappingFactory.getInstance():getPersistentInputMappingInstance():getInputMapping()
-    self.gameRunnable = NullWaitGameRunnable.getInstance()
-    self.progressPaintable = ProgressCanvasFactory.getLazyInstance()
-    self.isSingleKeyRepeatableProcessing = self.features:isFeature(InputFeatureFactory.getInstance().SINGLE_KEY_REPEAT_PRESS)
-    self.NONE = GameKeyFactory.getInstance().NONE
-    self.gameKeyEventFactory = GameKeyEventFactory.getInstance()
-    self.SET_STATE = "setState"
-    self.baseGameStatistics = GameStatisticsFactory.getInstance()
-end
+    onDisplayChangeEvent(displayChangeEvent) {
+        var jerror0 = Fiber.new {
+            var scrollSelectionForm = this.getMenuForm()
+            if ((scrollSelectionForm != null)) {
+                var formType = FormTypeFactory.getInstance().getFormType()
+                var rectangle = _formUtil.createFormRectangle()
+                scrollSelectionForm.init(rectangle, formType)
+            }
+            _overlayPaintable.init()
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            this.logUtil.put(this.commonStrings.EXCEPTION, this, this.canvasStrings.ON_DISPLAY_CHANGE_EVENT, e)
+        }
+    }
+    
 
-
-function StartCanvas.new(abeClientInformation, commandListener, highScoresFactoryInterface, paintable, overlayPaintable, gameInitializationInterfaceFactoryInterface, isContinue)
-    local self = setmetatable(RunnableCanvas.new(commandListener, CurrentDisplayableFactory.getInstance().DEFAULT_CHILD_NAME_LIST, true), StartCanvas)
-    self:_init_fields()
-        -- super(...) made self above
-        self:setWait(NullWaitGameRunnable.getInstance().WAIT)
-        self.gameInitializationInterfaceFactoryInterface = gameInitializationInterfaceFactoryInterface
-        GameInitializationUtil.getInstance():initDemo(abeClientInformation, self, gameInitializationInterfaceFactoryInterface)
-        ResizableListenerHandler.getInstance():fireEvent(false)
-        self.overlayPaintable = overlayPaintable
-        self.highScoresFactoryInterface = highScoresFactoryInterface
-        self:setDefaultPaintableInterface(paintable)
-        self:setPaintableInterface(self:getDefaultPaintableInterface())
-        if isContinue then
-            self:addCommand(GameCommandsFactory.getInstance().CONTINUE_COMMAND)
-        end
-        if ChangedGameFeatureListener.getInstance():isChangedFeature(GameFeatureFactory.getInstance().SOUND) then
-            self:mediaInit()
-        end
-        DisplayChangeEventHandler.getInstance():addListenerInterface(self)
-    return self
-end
-
-
-function StartCanvas:onEvent(eventObject)
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-end
-
-
-function StartCanvas:onDisplayChangeEvent(displayChangeEvent)
-        local try_ok, try_error = pcall(function()
-            local scrollSelectionForm = self:getMenuForm()
-            if scrollSelectionForm ~= nil then
-                local formType = FormTypeFactory.getInstance():getFormType()
-                local rectangle = self.formUtil:createFormRectangle()
-                scrollSelectionForm:init(rectangle, formType)
-            end
-            self.overlayPaintable:init()
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.canvasStrings.ON_DISPLAY_CHANGE_EVENT, e)
-        end
-end
-
-
-function StartCanvas:getCustomCommands()
-        local gameCommandsFactory = GameCommandsFactory.getInstance()
-        if J2MEUtil.isHTML() then
-            local commandArray = {gameCommandsFactory.START_COMMAND, HighScoreCommands.getInstance().DISPLAY, GameInputMappingCanvas.DISPLAY, gameCommandsFactory.DISPLAY_ABOUT}
+    getCustomCommands() {
+        var gameCommandsFactory = GameCommandsFactory.getInstance()
+        if (J2MEUtil.isHTML()) {
+            var commandArray = [gameCommandsFactory.START_COMMAND, HighScoreCommands.getInstance().DISPLAY, GameInputMappingCanvas.DISPLAY, gameCommandsFactory.DISPLAY_ABOUT]
             return commandArray
-        else
-            local commandList = BasicArrayListD.new()
-            commandList:add(gameCommandsFactory.START_COMMAND)
-            local inApplicationPurchaseFactory = InApplicationPurchaseFactory.getInstance()
-            if inApplicationPurchaseFactory:isEnabled() then
-                local list = LockableFeatureFactory.getInstance():getList()
-                if list:size() > 0 and not inApplicationPurchaseFactory:isPurchased(list:get(0)) then
-                    commandList:add(gameCommandsFactory.BUY_COMMAND)
-                end
-            end
-            commandList:add(HighScoreCommands.getInstance().DISPLAY)
-            local try_ok, try_error = pcall(function()
-                local isOverScan = OperatingSystemFactory.getInstance():getOperatingSystemInstance():isOverScan()
-                if SWTUtil.isSWT then
-                    commandList:add(GameInputMappingCanvas.DISPLAY)
-                elseif not isOverScan then
-                    commandList:add(gameCommandsFactory.DISPLAY_OPTIONS)
-                    commandList:add(gameCommandsFactory.DISPLAY_LOAD_FORM)
-                    commandList:add(GameInputMappingCanvas.DISPLAY)
-                end
-            end)
-            if not try_ok then
-                local e = try_error
-            end
-            commandList:add(gameCommandsFactory.DISPLAY_ABOUT)
-            local commandArray = commandList:toArray()
+        } else {
+            var commandList = BasicArrayListD.new()
+            commandList.add(gameCommandsFactory.START_COMMAND)
+            var inApplicationPurchaseFactory = InApplicationPurchaseFactory.getInstance()
+            if (inApplicationPurchaseFactory.isEnabled()) {
+                var list = LockableFeatureFactory.getInstance().getList()
+                if (((list.size() > 0) && !inApplicationPurchaseFactory.isPurchased(list.get(0)))) {
+                    commandList.add(gameCommandsFactory.BUY_COMMAND)
+                }
+            }
+            commandList.add(HighScoreCommands.getInstance().DISPLAY)
+            var jerror1 = Fiber.new {
+                var isOverScan = OperatingSystemFactory.getInstance().getOperatingSystemInstance().isOverScan()
+                if (SWTUtil.isSWT) {
+                    commandList.add(GameInputMappingCanvas.DISPLAY)
+                } else if (!isOverScan) {
+                    commandList.add(gameCommandsFactory.DISPLAY_OPTIONS)
+                    commandList.add(gameCommandsFactory.DISPLAY_LOAD_FORM)
+                    commandList.add(GameInputMappingCanvas.DISPLAY)
+                }
+            }.try()
+            if (jerror1 != null) {
+                var e = jerror1
+            }
+            commandList.add(gameCommandsFactory.DISPLAY_ABOUT)
+            var commandArray = commandList.toArray()
             return commandArray
-        end
-end
+        }
+    }
+    
 
+    initCommands(cmdListener) {
+        this.removeAllCommands()
+        var commandArray = this.getCustomCommands()
+        var size = commandArray.count
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            this.addCommand(commandArray[index])
+            }
+        }
+        CustomGameMenuUtil.add(this)
+        this.setCommandListener(cmdListener)
+    }
+    
 
-function StartCanvas:initCommands(cmdListener)
-        self:removeAllCommands()
-        local commandArray = self:getCustomCommands()
-        local size = (commandArray.n or #commandArray)
-        for index = 0, size - 1 do
-            self:addCommand(commandArray[index + 1])
-        end
-        CustomGameMenuUtil.add(self)
-        self:setCommandListener(cmdListener)
-end
+    initPostPaint() {
+    }
+    
 
-
--- throws Exception
-function StartCanvas:initPostPaint()
-end
-
-
--- throws Exception
-function StartCanvas:mediaInit()
+    mediaInit() {
         AllBinaryMediaManager.init(EarlySoundsFactory.getInstance())
-end
+    }
+    
 
+    itemStateChanged(item) {
+        ForcedLogUtil.log(this.commonStrings.NOT_IMPLEMENTED, this)
+    }
+    
 
-function StartCanvas:itemStateChanged(item)
-        ForcedLogUtil.log(self.commonStrings.NOT_IMPLEMENTED, self)
-end
+    initMenu() {
+        this.close()
+        this.open()
+    }
+    
 
+    open() {
+        BasicMotionGesturesHandler.getInstance().addListenerInterface(this.getMenuInputProcessor())
+        GameKeyEventHandler.getInstance().addListener(this.getMenuInputProcessor())
+    }
+    
 
--- throws Exception
-function StartCanvas:initMenu()
-        self:close()
-        self:open()
-end
+    close() {
+        BasicMotionGesturesHandler.getInstance().removeListener(this.getMenuInputProcessor())
+        GameKeyEventHandler.getInstance().removeListener(this.getMenuInputProcessor())
+    }
+    
 
-
-function StartCanvas:open()
-        BasicMotionGesturesHandler.getInstance():addListenerInterface(self:getMenuInputProcessor())
-        GameKeyEventHandler.getInstance():addListener(self:getMenuInputProcessor())
-end
-
-
-function StartCanvas:close()
-        BasicMotionGesturesHandler.getInstance():removeListener(self:getMenuInputProcessor())
-        GameKeyEventHandler.getInstance():removeListener(self:getMenuInputProcessor())
-end
-
-
-function StartCanvas:getSourceId()
+    getSourceId() {
         return StartCanvas.id
-end
+    }
+    
 
+    keyPressed(keyCode) {
+        this.keyPressedByDevice(keyCode, 0)
+    }
+    
 
-function StartCanvas:keyPressed(keyCode)
-        self:keyPressedByDevice(keyCode, 0)
-end
+    keyReleased(keyCode) {
+        this.keyReleasedByDevice(keyCode, 0)
+    }
+    
 
+    keyRepeated(keyCode) {
+        this.keyRepeatedByDevice(keyCode, 0)
+    }
+    
 
-function StartCanvas:keyReleased(keyCode)
-        self:keyReleasedByDevice(keyCode, 0)
-end
+    keyPressedByDevice(keyCode, deviceId) {
+        this.addGameKeyEvent(keyCode, false)
+    }
+    
 
+    keyReleasedByDevice(keyCode, deviceId) {
+        this.removeGameKeyEvent(keyCode, false)
+    }
+    
 
-function StartCanvas:keyRepeated(keyCode)
-        self:keyRepeatedByDevice(keyCode, 0)
-end
+    keyRepeatedByDevice(keyCode, deviceId) {
+        if (_isSingleKeyRepeatableProcessing) {
+            this.addGameKeyEvent(keyCode, true)
+        }
+    }
+    
 
+    addGameKeyEvent(keyCode, repeated) {
+        var jerror2 = Fiber.new {
+            var gameKey = _inputToGameKeyMapping.getInstanceForCanvas(this, keyCode)
+            if ((gameKey != _NONE)) {
+                var gameKeyEvent = _gameKeyEventFactory.getInstanceForInput(this, gameKey)
+                DownGameKeyEventHandler.getInstance().fireEvent(gameKeyEvent)
+            } else {
+                this.logUtil.putF(StringMaker.new().append(_gameInputStrings.NO_KEY).appendint(keyCode).toString(), this, _gameInputStrings.ADD_KEY_EVENT)
+            }
+        }.try()
+        if (jerror2 != null) {
+            var e = jerror2
+            this.logUtil.put("Key Event Error", this, _gameInputStrings.ADD_KEY_EVENT, e)
+        }
+    }
+    
 
-function StartCanvas:keyPressedByDevice(keyCode, deviceId)
-        self:addGameKeyEvent(keyCode, false)
-end
+    removeGameKeyEvent(keyCode, repeated) {
+        var jerror3 = Fiber.new {
+            var gameKey = _inputToGameKeyMapping.getInstanceForCanvas(this, keyCode)
+            if ((gameKey != _NONE)) {
+                var gameKeyEvent = _gameKeyEventFactory.getInstanceForInput(this, gameKey)
+                UpGameKeyEventHandler.getInstance().fireEvent(gameKeyEvent)
+            } else {
+                this.logUtil.putF(StringMaker.new().append(_gameInputStrings.NO_KEY).appendint(keyCode).toString(), this, _gameInputStrings.REMOVE_KEY_EVENT)
+            }
+        }.try()
+        if (jerror3 != null) {
+            var e = jerror3
+            this.logUtil.put("Key Event Error", this, _gameInputStrings.REMOVE_KEY_EVENT, e)
+        }
+    }
+    
 
+    pause() {
+        this.close()
+        this.setPaused(true)
+    }
+    
 
-function StartCanvas:keyReleasedByDevice(keyCode, deviceId)
-        self:removeGameKeyEvent(keyCode, false)
-end
+    unPause() {
+        this.open()
+        this.setPaused(false)
+    }
+    
 
-
-function StartCanvas:keyRepeatedByDevice(keyCode, deviceId)
-        if self.isSingleKeyRepeatableProcessing then
-            self:addGameKeyEvent(keyCode, true)
-        end
-end
-
-
-function StartCanvas:addGameKeyEvent(keyCode, repeated)
-        local try_ok, try_error = pcall(function()
-            local gameKey = self.inputToGameKeyMapping:getInstanceForCanvas(self, keyCode)
-            if gameKey ~= self.NONE then
-                local gameKeyEvent = self.gameKeyEventFactory:getInstanceForInput(self, gameKey)
-                DownGameKeyEventHandler.getInstance():fireEvent(gameKeyEvent)
-            else
-                self.logUtil:putF(tostring(StringMaker.new():append(self.gameInputStrings.NO_KEY):appendint(keyCode)), self, self.gameInputStrings.ADD_KEY_EVENT)
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put("Key Event Error", self, self.gameInputStrings.ADD_KEY_EVENT, e)
-        end
-end
-
-
-function StartCanvas:removeGameKeyEvent(keyCode, repeated)
-        local try_ok, try_error = pcall(function()
-            local gameKey = self.inputToGameKeyMapping:getInstanceForCanvas(self, keyCode)
-            if gameKey ~= self.NONE then
-                local gameKeyEvent = self.gameKeyEventFactory:getInstanceForInput(self, gameKey)
-                UpGameKeyEventHandler.getInstance():fireEvent(gameKeyEvent)
-            else
-                self.logUtil:putF(tostring(StringMaker.new():append(self.gameInputStrings.NO_KEY):appendint(keyCode)), self, self.gameInputStrings.REMOVE_KEY_EVENT)
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put("Key Event Error", self, self.gameInputStrings.REMOVE_KEY_EVENT, e)
-        end
-end
-
-
-function StartCanvas:pause()
-        self:close()
-        self:setPaused(true)
-end
-
-
-function StartCanvas:unPause()
-        self:open()
-        self:setPaused(false)
-end
-
-
-function StartCanvas:isPausable()
-        if CurrentDisplayableFactory.getInstance():getUsedRunnable() == NullWaitGameRunnable.getInstance() then
+    isPausable() {
+        if ((CurrentDisplayableFactory.getInstance().getUsedRunnable() == NullWaitGameRunnable.getInstance())) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+    
 
-
-function StartCanvas:isGameOver()
-        self.logUtil:putF(tostring(StringMaker.new():append(self.commonStrings.NOT_IMPLEMENTED):append(" since not a game")), self, "isGameOver")
+    isGameOver() {
+        this.logUtil.putF(StringMaker.new().append(this.commonStrings.NOT_IMPLEMENTED).append(" since not a game").toString(), this, "isGameOver")
         return false
-end
+    }
+    
 
+    setLoadStateHashtable(hashtable) {
+        this.logUtil.putF("Trying to continue a demo lol - only continue a game canvas not the demo", this, "setLoadStateHashtable")
+    }
+    
 
--- throws Exception
-function StartCanvas:setLoadStateHashtable(hashtable)
-        self.logUtil:putF("Trying to continue a demo lol - only continue a game canvas not the demo", self, "setLoadStateHashtable")
-end
+    getLoadStateHashtable() {
+        this.logUtil.putF("Trying to continue a demo lol - only continue a game canvas not the demo", this, "getLoadStateHashtable")
+        return this.stdUtil.NULL_TABLE
+    }
+    
 
+    getCurrentStateHashtable() {
+        this.logUtil.putF("Trying to save the AI lol", this, "getCurrentStateHashtable")
+        return this.stdUtil.NULL_TABLE
+    }
+    
 
--- throws Exception
-function StartCanvas:getLoadStateHashtable()
-        self.logUtil:putF("Trying to continue a demo lol - only continue a game canvas not the demo", self, "getLoadStateHashtable")
-        return self.stdUtil.NULL_TABLE
-end
+    setHighScoreSubmitted(isNotUsed) {
+    }
+    
 
+    paint(graphics) {
+        _paintableInterface.paint(graphics)
+        _paintedSpecialAnimationInterface.paintXY(graphics, 0, 0)
+        _highScoresPaintable.paint(graphics)
+        this.getBasicGameDemoPaintable().paint(graphics)
+        _overlayPaintable.paint(graphics)
+        _progressPaintable.paint(graphics)
+    }
+    
 
--- throws Exception
-function StartCanvas:getCurrentStateHashtable()
-        self.logUtil:putF("Trying to save the AI lol", self, "getCurrentStateHashtable")
-        return self.stdUtil.NULL_TABLE
-end
+    paintThreed(graphics) {
+        _paintableInterface.paintThreed(graphics)
+        _paintedSpecialAnimationInterface.paintThreedXYZ(graphics, 0, 0, 0)
+    }
+    
 
+    processGameOver() {
+        this.logUtil.putF("Not Implemented since not a game", this, "setGameOver")
+    }
+    
 
-function StartCanvas:setHighScoreSubmitted(isNotUsed)
-end
-
-
-function StartCanvas:paint(graphics)
-        self.paintableInterface:paint(graphics)
-        self.paintedSpecialAnimationInterface:paintXY(graphics, 0, 0)
-        self.highScoresPaintable:paint(graphics)
-        self:getBasicGameDemoPaintable():paint(graphics)
-        self.overlayPaintable:paint(graphics)
-        self.progressPaintable:paint(graphics)
-end
-
-
-function StartCanvas:paintThreed(graphics)
-        self.paintableInterface:paintThreed(graphics)
-        self.paintedSpecialAnimationInterface:paintThreedXYZ(graphics, 0, 0, 0)
-end
-
-
-function StartCanvas:processGameOver()
-        self.logUtil:putF("Not Implemented since not a game", self, "setGameOver")
-end
-
-
-function StartCanvas:demoStateChange()
-        local newState = self.state + 1
-        if newState > 2 then
+    demoStateChange() {
+        var newState = JR.i32(_state + 1)
+        if ((newState > 2)) {
             newState = 0
-        elseif newState == 2 then
-            if not self.highScoresHelper:isAnyHighScores() then
+        } else if ((newState == 2)) {
+            if (!_highScoresHelper.isAnyHighScores()) {
                 newState = 0
-            else
-                local highScores = self.highScoresHelper:getNextHighScores()
-                if highScores == NullHighScoresSingletonFactory.getInstance() then
+            } else {
+                var highScores = _highScoresHelper.getNextHighScores()
+                if ((highScores == NullHighScoresSingletonFactory.getInstance())) {
                     newState = 0
-                else
-                    self:getRealHighScoresPaintable():setHighScores(highScores)
-                end
-            end
-        end
-        self:setState(newState)
-        self:updateDemoState()
-end
+                } else {
+                    this.getRealHighScoresPaintable().setHighScores(highScores)
+                }
+            }
+        }
+        this.setState(newState)
+        this.updateDemoState()
+    }
+    
 
+    updateDemoState() {
+        PreLogUtil.put(SmallIntegerSingletonFactory.getInstance().createInstance(_state).toString(), this, _SET_STATE)
+        this.getBasicGameDemoPaintable().setState(_state)
+        if ((_state == 0)) {
+            _highScoresPaintable = NullPaintable.getInstance()
+            _paintedSpecialAnimationInterface = this.getSpecialAnimationInterface()
+            this.getSpecialAnimationInterface().reset()
+        } else if ((_state == 1)) {
+            _paintedSpecialAnimationInterface = SpecialAnimation.getInstance()
+        } else if ((_state == 2)) {
+            _highScoresPaintable = this.getRealHighScoresPaintable()
+        }
+        var gameAdState = _gameAdStateFactory.getCurrentInstance()
+        gameAdState.processPageAdState()
+    }
+    
 
-function StartCanvas:updateDemoState()
-        PreLogUtil.put(tostring(SmallIntegerSingletonFactory.getInstance():createInstance(self.state)), self, self.SET_STATE)
-        self:getBasicGameDemoPaintable():setState(self.state)
-        if self.state == 0 then
-            self.highScoresPaintable = NullPaintable.getInstance()
-            self.paintedSpecialAnimationInterface = self:getSpecialAnimationInterface()
-            self:getSpecialAnimationInterface():reset()
-        elseif self.state == 1 then
-            self.paintedSpecialAnimationInterface = SpecialAnimation.getInstance()
-        elseif self.state == 2 then
-            self.highScoresPaintable = self:getRealHighScoresPaintable()
-        end
-        local gameAdState = self.gameAdStateFactory:getCurrentInstance()
-        gameAdState:processPageAdState()
-end
+    getNextRandom() {
+        Fiber.abort(JR.exception("Exception", this.commonStrings.NOT_IMPLEMENTED))
+    }
+    
 
+    createGameLayerManager(randomValue) {
+        Fiber.abort(JR.exception("Exception", this.commonStrings.NOT_IMPLEMENTED))
+    }
+    
 
--- throws Exception
-function StartCanvas:getNextRandom()
-        error(java_exception("Exception", self.commonStrings.NOT_IMPLEMENTED), 0)
-end
+    createRunnable(randomLevel) {
+        Fiber.abort(JR.exception("Exception", this.commonStrings.NOT_IMPLEMENTED))
+    }
+    
 
+    createCanvas() {
+        _highScoresPaintable = NullPaintable.getInstance()
+        var randomLevel = this.getNextRandom()
+    }
+    
 
--- throws Exception
-function StartCanvas:createGameLayerManager(randomValue)
-        error(java_exception("Exception", self.commonStrings.NOT_IMPLEMENTED), 0)
-end
+    start() {
+    }
+    
 
+    preDemoProcess() {
+        _overlayPaintable.update()
+    }
+    
 
--- throws Exception
-function StartCanvas:createRunnable(randomLevel)
-        error(java_exception("Exception", self.commonStrings.NOT_IMPLEMENTED), 0)
-end
+    process() {
+        this.getMenuInputProcessor().processInputList()
+        this.preDemoProcess()
+        if ((_state == 0)) {
+            var indexedAnimationBehavior = this.getSpecialAnimationInterface().getAnimationBehavior()
+            if ((indexedAnimationBehavior.loopIndex < 1)) {
+                _timeDelayHelper.setStartTimeTNT()
+            }
+            var demoGameMidlet = this.getCustomCommandListener()
+        }
+    }
+    
 
+    startDemoGame() {
+    }
+    
 
--- throws Exception
-function StartCanvas:createCanvas()
-        self.highScoresPaintable = NullPaintable.getInstance()
-        local randomLevel = self:getNextRandom()
-end
+    processGame() {
+        _gameRunnable.run()
+        _specialAnimationInterface.nextFrame()
+        this.process()
+    }
+    
 
+    run() {
+        this.logUtil.putF(this.commonStrings.START_RUNNABLE, this, this.commonStrings.RUN)
+        var jerror4 = Fiber.new {
+            var progressCanvas = ProgressCanvasFactory.getInstance()
+            progressCanvas.addNormalPortion(50, "Demo Thread")
+            this.setCurrentThread()
+            this.setRunning(true)
+            if (_features.isFeature(MainFeatureFactory.getInstance().LOAD_ONDEMAND)) {
+                progressCanvas.end()
+            } else {
+                progressCanvas.addNormalPortion(50, "Demo Thread Running")
+            }
+            _fullScreenUtil.initOnRun(this, this.getCustomCommandListener())
+            this.initMenu()
+            this.initPostPaint()
+            this.updateDemoState()
+            if (_features.isDefault(_openGLFeatureFactory.OPENGL_AS_GAME_THREAD)) {
+                OpenGLThreadUtil.getInstance().onResume()
+            }
+            if ((_features.isDefault(_openGLFeatureFactory.OPENGL_AS_GAME_THREAD) || J2MEUtil.isHTML())) {
+            } else {
+                while (this.isRunning()) {
+                    this.loopTimeHelper.setStartTimeTNT()
+                    this.processGame()
+                    this.processLoopSleep()
+                }
+                this.end()
+            }
+        }.try()
+        if (jerror4 != null) {
+            var e = jerror4
+            this.logUtil.put(this.commonStrings.EXCEPTION, this, this.commonStrings.RUN, e)
+        }
+        this.logUtil.putF(this.commonStrings.END_RUNNABLE, this, this.commonStrings.RUN)
+    }
+    
 
--- throws Exception
-function StartCanvas:start()
-end
+    setRunning(running) {
+        super.setRunning(running)
+        var jerror5 = Fiber.new {
+            if ((((_features.isDefault(_openGLFeatureFactory.OPENGL) || J2MEUtil.isHTML())) && !running)) {
+                var currentDisplayableFactory = CurrentDisplayableFactory.getInstance()
+                currentDisplayableFactory.clearRunnable()
+                this.end()
+            }
+        }.try()
+        if (jerror5 != null) {
+            var e = jerror5
+            this.logUtil.put(this.commonStrings.EXCEPTION, this, this.SET_RUNNING, e)
+        }
+    }
+    
 
+    end() {
+        var progressCanvas = ProgressCanvasFactory.getInstance()
+        _baseGameStatistics.add(StringMaker.new().append(StartCanvas.BOT_GAME_STATS).append(_baseGameStatistics.toString()).append(CommonSeps.getInstance().NEW_LINE).toString())
+        _baseGameStatistics.init()
+        if (_features.isFeature(MainFeatureFactory.getInstance().LOAD_ONDEMAND)) {
+            progressCanvas.start()
+        }
+        this.logUtil.putF("Demo End", this, this.commonStrings.RUN)
+        this.close()
+        DisplayChangeEventHandler.getInstance().removeListener(this)
+    }
+    
 
-function StartCanvas:preDemoProcess()
-        self.overlayPaintable:update()
-end
+    setGameState(gameState) {
+    }
+    
 
+    getGameState() {
+        return _gameStateFactory.PLAYING_GAME_STATE
+    }
+    
 
--- throws Exception
-function StartCanvas:process()
-        self:getMenuInputProcessor():processInputList()
-        self:preDemoProcess()
-        if self.state == 0 then
-            local indexedAnimationBehavior = self:getSpecialAnimationInterface():getAnimationBehavior()
-            if indexedAnimationBehavior.loopIndex < 1 then
-                self.timeDelayHelper:setStartTimeTNT()
-            end
-            local demoGameMidlet = self:getCustomCommandListener()
-        end
-end
+    getState() {
+        return _state
+    }
+    
 
+    setState(state) {
+        _state = state
+    }
+    
 
--- throws Exception
-function StartCanvas:startDemoGame()
-end
-
-
--- throws Exception
-function StartCanvas:processGame()
-        self.gameRunnable:run()
-        self.specialAnimationInterface:nextFrame()
-        self:process()
-end
-
-
-function StartCanvas:run()
-        self.logUtil:putF(self.commonStrings.START_RUNNABLE, self, self.commonStrings.RUN)
-        local try_ok, try_error = pcall(function()
-            local progressCanvas = ProgressCanvasFactory.getInstance()
-            progressCanvas:addNormalPortion(50, "Demo Thread")
-            self:setCurrentThread()
-            self:setRunning(true)
-            if self.features:isFeature(MainFeatureFactory.getInstance().LOAD_ONDEMAND) then
-                progressCanvas:end_()
-            else
-                progressCanvas:addNormalPortion(50, "Demo Thread Running")
-            end
-            self.fullScreenUtil:initOnRun(self, self:getCustomCommandListener())
-            self:initMenu()
-            self:initPostPaint()
-            self:updateDemoState()
-            if self.features:isDefault(self.openGLFeatureFactory.OPENGL_AS_GAME_THREAD) then
-                OpenGLThreadUtil.getInstance():onResume()
-            end
-            if self.features:isDefault(self.openGLFeatureFactory.OPENGL_AS_GAME_THREAD) or J2MEUtil.isHTML() then
-            else
-                while self:isRunning() do
-                    self.loopTimeHelper:setStartTimeTNT()
-                    self:processGame()
-                    self:processLoopSleep()
-                end
-                self:end_()
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.commonStrings.RUN, e)
-        end
-        self.logUtil:putF(self.commonStrings.END_RUNNABLE, self, self.commonStrings.RUN)
-end
-
-
-function StartCanvas:setRunning(running)
-        RunnableCanvas.setRunning(self, running)
-        local try_ok, try_error = pcall(function()
-            if (self.features:isDefault(self.openGLFeatureFactory.OPENGL) or J2MEUtil.isHTML()) and not running then
-                local currentDisplayableFactory = CurrentDisplayableFactory.getInstance()
-                currentDisplayableFactory:clearRunnable()
-                self:end_()
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.SET_RUNNING, e)
-        end
-end
-
-
--- throws Exception
-function StartCanvas:end_()
-        local progressCanvas = ProgressCanvasFactory.getInstance()
-        self.baseGameStatistics:add(tostring(StringMaker.new():append(StartCanvas.BOT_GAME_STATS):append(tostring(self.baseGameStatistics)):append(CommonSeps.getInstance().NEW_LINE)))
-        self.baseGameStatistics:init()
-        if self.features:isFeature(MainFeatureFactory.getInstance().LOAD_ONDEMAND) then
-            progressCanvas:start()
-        end
-        self.logUtil:putF("Demo End", self, self.commonStrings.RUN)
-        self:close()
-        DisplayChangeEventHandler.getInstance():removeListener(self)
-end
-
-
-function StartCanvas:setGameState(gameState)
-end
-
-
-function StartCanvas:getGameState()
-        return self.gameStateFactory.PLAYING_GAME_STATE
-end
-
-
-function StartCanvas:getState()
-        return self.state
-end
-
-
-function StartCanvas:setState(state)
-        self.state = state
-end
-
-
-function StartCanvas:isHighScoreSubmitted()
-        self.logUtil:putF("Wow the AI got a high score!", self, "isHighScoreSubmitted")
+    isHighScoreSubmitted() {
+        this.logUtil.putF("Wow the AI got a high score!", this, "isHighScoreSubmitted")
         return false
-end
+    }
+    
 
+    getRealHighScoresPaintable() {
+        return _realHighScoresPaintable
+    }
+    
 
-function StartCanvas:getRealHighScoresPaintable()
-        return self.realHighScoresPaintable
-end
+    setSpecialAnimationInterface(specialAnimationInterface) {
+        specialAnimationInterface.setFrame(0)
+        _specialAnimationInterface = specialAnimationInterface
+    }
+    
 
+    getSpecialAnimationInterface() {
+        return _specialAnimationInterface
+    }
+    
 
-function StartCanvas:setSpecialAnimationInterface(specialAnimationInterface)
-        specialAnimationInterface:setFrame(0)
-        self.specialAnimationInterface = specialAnimationInterface
-end
+    setPaintableInterface(paintableInterface) {
+        _paintableInterface = paintableInterface
+    }
+    
 
+    getPaintableInterface() {
+        return _paintableInterface
+    }
+    
 
-function StartCanvas:getSpecialAnimationInterface()
-        return self.specialAnimationInterface
-end
+    setDefaultPaintableInterface(defaultPaintableInterface) {
+        _defaultPaintableInterface = defaultPaintableInterface
+    }
+    
 
+    getDefaultPaintableInterface() {
+        return _defaultPaintableInterface
+    }
+    
 
-function StartCanvas:setPaintableInterface(paintableInterface)
-        self.paintableInterface = paintableInterface
-end
+    getHighScoresFactoryInterface() {
+        return _highScoresFactoryInterface
+    }
+    
 
+    setMenuInputProcessor(menuInputProcessor) {
+        _menuInputProcessor = menuInputProcessor
+    }
+    
 
-function StartCanvas:getPaintableInterface()
-        return self.paintableInterface
-end
+    getMenuInputProcessor() {
+        return _menuInputProcessor
+    }
+    
 
+    getMenuForm() {
+        return _menuForm
+    }
+    
 
-function StartCanvas:setDefaultPaintableInterface(defaultPaintableInterface)
-        self.defaultPaintableInterface = defaultPaintableInterface
-end
+    setMenuForm(menuForm) {
+        _menuForm = menuForm
+    }
+    
 
+    isInitialized() {
+        return _initialized
+    }
+    
 
-function StartCanvas:getDefaultPaintableInterface()
-        return self.defaultPaintableInterface
-end
+    getOverlayPaintable() {
+        return _overlayPaintable
+    }
+    
 
+    setBasicGameDemoPaintable(basicGameDemoPaintable) {
+        _basicGameDemoPaintable = basicGameDemoPaintable
+    }
+    
 
-function StartCanvas:getHighScoresFactoryInterface()
-        return self.highScoresFactoryInterface
-end
+    getBasicGameDemoPaintable() {
+        return _basicGameDemoPaintable
+    }
+    
 
+    setTempWait(tempWait) {
+        _tempWait = tempWait
+    }
+    
 
-function StartCanvas:setMenuInputProcessor(menuInputProcessor)
-        self.menuInputProcessor = menuInputProcessor
-end
+    getTempWait() {
+        return _tempWait
+    }
+    
 
+    isSingleThread() {
+        return (OpenGLFeatureUtil.getInstance().isAnyThreed() || SWTUtil.isSWT)
+    }
+    
 
-function StartCanvas:getMenuInputProcessor()
-        return self.menuInputProcessor
-end
-
-
-function StartCanvas:getMenuForm()
-        return self.menuForm
-end
-
-
-function StartCanvas:setMenuForm(menuForm)
-        self.menuForm = menuForm
-end
-
-
-function StartCanvas:isInitialized()
-        return self.initialized
-end
-
-
-function StartCanvas:getOverlayPaintable()
-        return self.overlayPaintable
-end
-
-
-function StartCanvas:setBasicGameDemoPaintable(basicGameDemoPaintable)
-        self.basicGameDemoPaintable = basicGameDemoPaintable
-end
-
-
-function StartCanvas:getBasicGameDemoPaintable()
-        return self.basicGameDemoPaintable
-end
-
-
-function StartCanvas:setTempWait(tempWait)
-        self.tempWait = tempWait
-end
-
-
-function StartCanvas:getTempWait()
-        return self.tempWait
-end
-
-
-function StartCanvas:isSingleThread()
-        return OpenGLFeatureUtil.getInstance():isAnyThreed() or SWTUtil.isSWT
-end
-
-
-function StartCanvas:isRunningInAnotherThread()
-        local features = Features.getInstance()
-        local openGLFeatureFactory = OpenGLFeatureFactory.getInstance()
-        if features:isDefault(openGLFeatureFactory.OPENGL_AS_GAME_THREAD) then
+    isRunningInAnotherThread() {
+        var features = Features.getInstance()
+        var openGLFeatureFactory = OpenGLFeatureFactory.getInstance()
+        if (features.isDefault(openGLFeatureFactory.OPENGL_AS_GAME_THREAD)) {
             return true
-        else
-            return self:isRunning()
-        end
-end
+        } else {
+            return this.isRunning()
+        }
+    }
+    
 
+    getGameInitializationInterfaceFactoryInterface() {
+        return _gameInitializationInterfaceFactoryInterface
+    }
+    
 
-function StartCanvas:getGameInitializationInterfaceFactoryInterface()
-        return self.gameInitializationInterfaceFactoryInterface
-end
+    getTitle() {
+        return super.getTitle()
+    }
+    
 
+    isPaused() {
+        return super.isPaused()
+    }
+    
 
-function StartCanvas:getTitle()
-        return RunnableCanvas.getTitle(self)
-end
+    getType() {
+        return super.getType()
+    }
+}
 
-
-function StartCanvas:isPaused()
-        return RunnableCanvas.isPaused(self)
-end
-
-
-function StartCanvas:getType()
-        return RunnableCanvas.getType(self)
-end
-
-StartCanvas.id = 0
-StartCanvas.BOT_GAME_STATS = "Bot Game Statistics: "
-
-return StartCanvas
+import "../../../../../javax/microedition/lcdui/Command" for Command
+import "../../../../../javax/microedition/lcdui/CommandListener" for CommandListener
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../javax/microedition/lcdui/Item" for Item
+import "../../../../../org/allbinary/J2MEUtil" for J2MEUtil
+import "../../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../../org/allbinary/animation/IndexedAnimationBehavior" for IndexedAnimationBehavior
+import "../../../../../org/allbinary/animation/special/SpecialAnimation" for SpecialAnimation
+import "../../../../../org/allbinary/business/advertisement/GameAdStateFactory" for GameAdStateFactory
+import "../../../../../org/allbinary/canvas/BaseGameStatistics" for BaseGameStatistics
+import "../../../../../org/allbinary/canvas/CustomGameMenuUtil" for CustomGameMenuUtil
+import "../../../../../org/allbinary/canvas/FullScreenUtil" for FullScreenUtil
+import "../../../../../org/allbinary/canvas/GameStatisticsFactory" for GameStatisticsFactory
+import "../../../../../org/allbinary/game/GameAdState" for GameAdState
+import "../../../../../org/allbinary/game/commands/GameCommandsFactory" for GameCommandsFactory
+import "../../../../../org/allbinary/game/configuration/event/ChangedGameFeatureListener" for ChangedGameFeatureListener
+import "../../../../../org/allbinary/game/configuration/feature/Features" for Features
+import "../../../../../org/allbinary/game/configuration/feature/GameFeatureFactory" for GameFeatureFactory
+import "../../../../../org/allbinary/game/configuration/feature/InputFeatureFactory" for InputFeatureFactory
+import "../../../../../org/allbinary/game/configuration/feature/MainFeatureFactory" for MainFeatureFactory
+import "../../../../../org/allbinary/game/init/BasicBuildGameInitializerFactory" for BasicBuildGameInitializerFactory
+import "../../../../../org/allbinary/game/init/GameInitializationUtil" for GameInitializationUtil
+import "../../../../../org/allbinary/game/input/GameInputStrings" for GameInputStrings
+import "../../../../../org/allbinary/game/input/GameKey" for GameKey
+import "../../../../../org/allbinary/game/input/GameKeyFactory" for GameKeyFactory
+import "../../../../../org/allbinary/game/input/PlatformInputMappingFactory" for PlatformInputMappingFactory
+import "../../../../../org/allbinary/game/input/event/DownGameKeyEventHandler" for DownGameKeyEventHandler
+import "../../../../../org/allbinary/game/input/event/GameKeyEvent" for GameKeyEvent
+import "../../../../../org/allbinary/game/input/event/GameKeyEventFactory" for GameKeyEventFactory
+import "../../../../../org/allbinary/game/input/event/GameKeyEventHandler" for GameKeyEventHandler
+import "../../../../../org/allbinary/game/input/event/UpGameKeyEventHandler" for UpGameKeyEventHandler
+import "../../../../../org/allbinary/game/input/mapping/InputToGameKeyMapping" for InputToGameKeyMapping
+import "../../../../../org/allbinary/game/layer/AllBinaryGameLayerManager" for AllBinaryGameLayerManager
+import "../../../../../org/allbinary/game/layer/SWTUtil" for SWTUtil
+import "../../../../../org/allbinary/game/midlet/DemoGameMidlet" for DemoGameMidlet
+import "../../../../../org/allbinary/game/score/HighScoreCommands" for HighScoreCommands
+import "../../../../../org/allbinary/game/score/HighScores" for HighScores
+import "../../../../../org/allbinary/game/score/HighScoresFactoryInterface" for HighScoresFactoryInterface
+import "../../../../../org/allbinary/game/score/HighScoresHelper" for HighScoresHelper
+import "../../../../../org/allbinary/game/score/HighScoresPaintable" for HighScoresPaintable
+import "../../../../../org/allbinary/game/score/NullHighScoresSingletonFactory" for NullHighScoresSingletonFactory
+import "../../../../../org/allbinary/game/state/GameState" for GameState
+import "../../../../../org/allbinary/game/state/GameStateFactory" for GameStateFactory
+import "../../../../../org/allbinary/graphics/Rectangle" for Rectangle
+import "../../../../../org/allbinary/graphics/ResizableListenerHandler" for ResizableListenerHandler
+import "../../../../../org/allbinary/graphics/canvas/transition/progress/ProgressCanvas" for ProgressCanvas
+import "../../../../../org/allbinary/graphics/canvas/transition/progress/ProgressCanvasFactory" for ProgressCanvasFactory
+import "../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../org/allbinary/graphics/displayable/command/MyCommandsFactory" for MyCommandsFactory
+import "../../../../../org/allbinary/graphics/displayable/event/DisplayChangeEvent" for DisplayChangeEvent
+import "../../../../../org/allbinary/graphics/displayable/event/DisplayChangeEventHandler" for DisplayChangeEventHandler
+import "../../../../../org/allbinary/graphics/displayable/event/DisplayChangeEventListener" for DisplayChangeEventListener
+import "../../../../../org/allbinary/graphics/form/FormType" for FormType
+import "../../../../../org/allbinary/graphics/form/FormTypeFactory" for FormTypeFactory
+import "../../../../../org/allbinary/graphics/form/ScrollSelectionForm" for ScrollSelectionForm
+import "../../../../../org/allbinary/graphics/opengles/CurrentDisplayableFactory" for CurrentDisplayableFactory
+import "../../../../../org/allbinary/graphics/opengles/OpenGLFeatureFactory" for OpenGLFeatureFactory
+import "../../../../../org/allbinary/graphics/opengles/OpenGLFeatureUtil" for OpenGLFeatureUtil
+import "../../../../../org/allbinary/graphics/opengles/OpenGLThreadUtil" for OpenGLThreadUtil
+import "../../../../../org/allbinary/graphics/paint/InitUpdatePaintable" for InitUpdatePaintable
+import "../../../../../org/allbinary/graphics/paint/NullPaintable" for NullPaintable
+import "../../../../../org/allbinary/graphics/paint/Paintable" for Paintable
+import "../../../../../org/allbinary/graphics/paint/PaintableInterface" for PaintableInterface
+import "../../../../../org/allbinary/graphics/paint/StatePaintable" for StatePaintable
+import "../../../../../org/allbinary/graphics/paint/StatePaintableFactory" for StatePaintableFactory
+import "../../../../../org/allbinary/input/motion/gesture/observer/BasicMotionGesturesHandler" for BasicMotionGesturesHandler
+import "../../../../../org/allbinary/logic/communication/log/ForcedLogUtil" for ForcedLogUtil
+import "../../../../../org/allbinary/logic/communication/log/PreLogUtil" for PreLogUtil
+import "../../../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/system/os/OperatingSystemFactory" for OperatingSystemFactory
+import "../../../../../org/allbinary/logic/system/security/licensing/AbeClientInformationInterface" for AbeClientInformationInterface
+import "../../../../../org/allbinary/logic/system/security/licensing/InApplicationPurchaseFactory" for InApplicationPurchaseFactory
+import "../../../../../org/allbinary/logic/system/security/licensing/LockableFeature" for LockableFeature
+import "../../../../../org/allbinary/logic/system/security/licensing/LockableFeatureFactory" for LockableFeatureFactory
+import "../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
+import "../../../../../org/allbinary/media/audio/AllBinaryMediaManager" for AllBinaryMediaManager
+import "../../../../../org/allbinary/media/audio/EarlySoundsFactory" for EarlySoundsFactory
+import "../../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../../../org/allbinary/time/TimeDelayHelper" for TimeDelayHelper
+import "../../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./GameCanvasRunnableInterface" for GameCanvasRunnableInterface
+import "./MenuListener" for MenuListener
+import "./FormUtil" for FormUtil
+import "./NoMenuInputProcessor" for NoMenuInputProcessor
+import "./BasicMenuInputProcessor" for BasicMenuInputProcessor
+import "./NullWaitGameRunnable" for NullWaitGameRunnable
+import "./GameRunnable" for GameRunnable
+import "./GameInputMappingCanvas" for GameInputMappingCanvas
 

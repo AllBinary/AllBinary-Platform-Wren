@@ -1,161 +1,146 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.io.file
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.io.file
 
--- local FilenameFilter = require("java.io.FilenameFilter")
--- local IOException = require("java.io.IOException")
--- local URI = require("java.net.URI")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AbFileInterface is JObject {
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    canRead() {
+        Fiber.abort(JR.exception("AbstractMethodError", "canRead"))
+    }
+    
 
--- Java interface
-local AbFileInterface = {}
-AbFileInterface.__index = AbFileInterface
-AbFileInterface.className = "AbFileInterface"
+    canWrite() {
+        Fiber.abort(JR.exception("AbstractMethodError", "canWrite"))
+    }
+    
 
+    createNewFile() {
+        Fiber.abort(JR.exception("AbstractMethodError", "createNewFile"))
+    }
+    
 
-function AbFileInterface:canRead()
-    error("abstract method canRead")
-end
+    delete() {
+        Fiber.abort(JR.exception("AbstractMethodError", "delete"))
+    }
+    
 
+    deleteOnExit() {
+        Fiber.abort(JR.exception("AbstractMethodError", "deleteOnExit"))
+    }
+    
 
-function AbFileInterface:canWrite()
-    error("abstract method canWrite")
-end
+    exists() {
+        Fiber.abort(JR.exception("AbstractMethodError", "exists"))
+    }
+    
 
+    getAbsolutePath() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getAbsolutePath"))
+    }
+    
 
--- throws IOException
-function AbFileInterface:createNewFile()
-    error("abstract method createNewFile")
-end
+    getCanonicalPath() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getCanonicalPath"))
+    }
+    
 
+    getParent() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getParent"))
+    }
+    
 
--- throws IOException
-function AbFileInterface:delete()
-    error("abstract method delete")
-end
+    getPath() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getPath"))
+    }
+    
 
+    isAbsolute() {
+        Fiber.abort(JR.exception("AbstractMethodError", "isAbsolute"))
+    }
+    
 
-function AbFileInterface:deleteOnExit()
-    error("abstract method deleteOnExit")
-end
+    isDirectory() {
+        Fiber.abort(JR.exception("AbstractMethodError", "isDirectory"))
+    }
+    
 
+    isFile() {
+        Fiber.abort(JR.exception("AbstractMethodError", "isFile"))
+    }
+    
 
-function AbFileInterface:exists()
-    error("abstract method exists")
-end
+    isHidden() {
+        Fiber.abort(JR.exception("AbstractMethodError", "isHidden"))
+    }
+    
 
+    lastModified() {
+        Fiber.abort(JR.exception("AbstractMethodError", "lastModified"))
+    }
+    
 
-function AbFileInterface:getAbsolutePath()
-    error("abstract method getAbsolutePath")
-end
+    length() {
+        Fiber.abort(JR.exception("AbstractMethodError", "length"))
+    }
+    
 
+    list() {
+        Fiber.abort(JR.exception("AbstractMethodError", "list"))
+    }
+    
 
--- throws IOException
-function AbFileInterface:getCanonicalPath()
-    error("abstract method getCanonicalPath")
-end
+    listWithFilter(filter) {
+        Fiber.abort(JR.exception("AbstractMethodError", "listWithFilter"))
+    }
+    
 
+    mkdir() {
+        Fiber.abort(JR.exception("AbstractMethodError", "mkdir"))
+    }
+    
 
-function AbFileInterface:getParent()
-    error("abstract method getParent")
-end
+    mkdirs() {
+        Fiber.abort(JR.exception("AbstractMethodError", "mkdirs"))
+    }
+    
 
+    setLastModified(time) {
+        Fiber.abort(JR.exception("AbstractMethodError", "setLastModified"))
+    }
+    
 
-function AbFileInterface:getPath()
-    error("abstract method getPath")
-end
+    setReadOnly() {
+        Fiber.abort(JR.exception("AbstractMethodError", "setReadOnly"))
+    }
+    
 
+    toString() {
+        Fiber.abort(JR.exception("AbstractMethodError", "toString"))
+    }
+    
 
-function AbFileInterface:isAbsolute()
-    error("abstract method isAbsolute")
-end
+    toURI() {
+        Fiber.abort(JR.exception("AbstractMethodError", "toURI"))
+    }
+}
 
-
-function AbFileInterface:isDirectory()
-    error("abstract method isDirectory")
-end
-
-
-function AbFileInterface:isFile()
-    error("abstract method isFile")
-end
-
-
-function AbFileInterface:isHidden()
-    error("abstract method isHidden")
-end
-
-
-function AbFileInterface:lastModified()
-    error("abstract method lastModified")
-end
-
-
-function AbFileInterface:length()
-    error("abstract method length")
-end
-
-
-function AbFileInterface:list()
-    error("abstract method list")
-end
-
-
-function AbFileInterface:listWithFilter(filter)
-    error("abstract method listWithFilter")
-end
-
-
-function AbFileInterface:mkdir()
-    error("abstract method mkdir")
-end
-
-
-function AbFileInterface:mkdirs()
-    error("abstract method mkdirs")
-end
-
-
-function AbFileInterface:setLastModified(time)
-    error("abstract method setLastModified")
-end
-
-
-function AbFileInterface:setReadOnly()
-    error("abstract method setReadOnly")
-end
-
-
-function AbFileInterface:toString()
-    error("abstract method toString")
-end
-AbFileInterface.__tostring = function(self) return self:toString() end
-
-
-function AbFileInterface:toURI()
-    error("abstract method toURI")
-end
-
-return AbFileInterface
+import "../../../../../java/io/FilenameFilter" for FilenameFilter
+import "../../../../../java/io/IOException" for IOException
+import "../../../../../java/net/URI" for URI
 

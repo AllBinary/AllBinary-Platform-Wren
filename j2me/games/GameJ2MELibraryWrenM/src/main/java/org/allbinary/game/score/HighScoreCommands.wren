@@ -1,54 +1,61 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.score
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.score
 
--- local Command = require("javax.microedition.lcdui.Command")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class HighScoreCommands is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = HighScoreCommands.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  DISPLAY { _DISPLAY }
+  DISPLAY=(value) { _DISPLAY = value }
+  PERSONAL { _PERSONAL }
+  PERSONAL=(value) { _PERSONAL = value }
+  WORLD { _WORLD }
+  WORLD=(value) { _WORLD = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_HighScoreCommands() {
+    _DISPLAY = null
+    _PERSONAL = null
+    _WORLD = null
+        _DISPLAY = Command.new("Scores", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
+        _PERSONAL = Command.new("Personal", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
+        _WORLD = Command.new("World", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
+  }
 
-local HighScoreCommands = {}
-HighScoreCommands.__index = HighScoreCommands
-HighScoreCommands.className = "HighScoreCommands"
+  construct new() {
+    super()
+    initFields_HighScoreCommands()
+  }
+    
 
-function HighScoreCommands:_init_fields()
-    self.DISPLAY = Command.new("Scores", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
-    self.PERSONAL = Command.new("Personal", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
-    self.WORLD = Command.new("World", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
-end
-
-function HighScoreCommands.new()
-    local self = setmetatable({}, HighScoreCommands)
-    self:_init_fields()
-    return self
-end
-
-
-function HighScoreCommands.getInstance()
+    static getInstance() {
         return HighScoreCommands.instance
-end
+    }
+}
 
-HighScoreCommands.instance = HighScoreCommands.new()
-
-return HighScoreCommands
+import "../../../../javax/microedition/lcdui/Command" for Command
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
 

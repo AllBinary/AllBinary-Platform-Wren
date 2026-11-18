@@ -1,58 +1,61 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.displayable.screen
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.displayable.screen
 
--- local Displayable = require("javax.microedition.lcdui.Displayable")
-local J2MEUtil = require("org.allbinary.J2MEUtil")
-local Processor = require("org.allbinary.canvas.Processor")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ScreenRepaintProcessorFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ScreenRepaintProcessorFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ScreenRepaintProcessorFactory() {
+  }
+    
 
-local ScreenRepaintProcessorFactory = {}
-ScreenRepaintProcessorFactory.__index = ScreenRepaintProcessorFactory
-ScreenRepaintProcessorFactory.className = "ScreenRepaintProcessorFactory"
-
-
-function ScreenRepaintProcessorFactory.getInstance()
+    static getInstance() {
         return ScreenRepaintProcessorFactory.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_ScreenRepaintProcessorFactory()
+    }
+    
 
-function ScreenRepaintProcessorFactory.new()
-    local self = setmetatable({}, ScreenRepaintProcessorFactory)
-    return self
-end
-
-
-function ScreenRepaintProcessorFactory:create(displayable)
-        if not J2MEUtil.isJ2ME() then
+    create(displayable) {
+        if (!J2MEUtil.isJ2ME()) {
             return ScreenRepaintProcessor.new(displayable)
-        else
+        } else {
             return Processor.getInstance()
-        end
-end
+        }
+    }
+}
 
-ScreenRepaintProcessorFactory.instance = ScreenRepaintProcessorFactory.new()
-
-return ScreenRepaintProcessorFactory
+import "../../../../../javax/microedition/lcdui/Displayable" for Displayable
+import "../../../../../org/allbinary/J2MEUtil" for J2MEUtil
+import "../../../../../org/allbinary/canvas/Processor" for Processor
+import "./ScreenRepaintProcessor" for ScreenRepaintProcessor
 

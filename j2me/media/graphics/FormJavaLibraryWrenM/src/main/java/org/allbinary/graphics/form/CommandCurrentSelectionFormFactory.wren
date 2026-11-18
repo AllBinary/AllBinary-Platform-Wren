@@ -1,55 +1,51 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form
 
-local Features = require("org.allbinary.game.configuration.feature.Features")
-local TouchFeatureFactory = require("org.allbinary.game.configuration.feature.TouchFeatureFactory")
-local Rectangle = require("org.allbinary.graphics.Rectangle")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local ABCustomItem = require("org.allbinary.graphics.form.item.ABCustomItem")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CommandCurrentSelectionFormFactory is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CommandCurrentSelectionFormFactory() {
+  }
 
-local CommandCurrentSelectionFormFactory = {}
-CommandCurrentSelectionFormFactory.__index = CommandCurrentSelectionFormFactory
-CommandCurrentSelectionFormFactory.className = "CommandCurrentSelectionFormFactory"
+  construct new() {
+    super()
+    initFields_CommandCurrentSelectionFormFactory()
+  }
+    
 
-function CommandCurrentSelectionFormFactory.new()
-    local self = setmetatable({}, CommandCurrentSelectionFormFactory)
-    return self
-end
-
-
--- throws Exception
-function CommandCurrentSelectionFormFactory.getInstance(title, items, rectangle, formType, border, moveForSmallScreen, backgroundBasicColor, foregroundBasicColor)
-        if Features.getInstance():isFeature(TouchFeatureFactory.getInstance().TOUCH_ENABLED) then
-            local scrollSelectionForm = CommandCurrentSelectionForm.new(title, items, border, moveForSmallScreen, backgroundBasicColor, foregroundBasicColor)
-            scrollSelectionForm:init(rectangle, formType)
+    static getInstance(title, items, rectangle, formType, border, moveForSmallScreen, backgroundBasicColor, foregroundBasicColor) {
+        if (Features.getInstance().isFeature(TouchFeatureFactory.getInstance().TOUCH_ENABLED)) {
+            var scrollSelectionForm = CommandCurrentSelectionForm.new(title, items, border, moveForSmallScreen, backgroundBasicColor, foregroundBasicColor)
+            scrollSelectionForm.init(rectangle, formType)
             return scrollSelectionForm
-        else
+        } else {
             return ScrollSelectionFormNoneFactory.getInstance()
-        end
-end
+        }
+    }
+}
 
-return CommandCurrentSelectionFormFactory
+import "../../../../org/allbinary/game/configuration/feature/Features" for Features
+import "../../../../org/allbinary/game/configuration/feature/TouchFeatureFactory" for TouchFeatureFactory
+import "../../../../org/allbinary/graphics/Rectangle" for Rectangle
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/graphics/form/item/ABCustomItem" for ABCustomItem
+import "./ScrollSelectionFormNoneFactory" for ScrollSelectionFormNoneFactory
+import "./CommandCurrentSelectionForm" for CommandCurrentSelectionForm
+import "./ScrollSelectionForm" for ScrollSelectionForm
+import "./FormType" for FormType
 

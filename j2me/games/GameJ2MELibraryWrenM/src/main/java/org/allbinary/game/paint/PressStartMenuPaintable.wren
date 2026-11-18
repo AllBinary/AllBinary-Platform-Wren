@@ -1,107 +1,128 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.paint
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.paint
 
--- local Font = require("javax.microedition.lcdui.Font")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local AppletUtil = require("org.allbinary.AppletUtil")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
-local MyFontProcessor = require("org.allbinary.graphics.font.MyFontProcessor")
-local UpdateMyFontInterface = require("org.allbinary.graphics.font.UpdateMyFontInterface")
-local UpdateMyFontProcessor = require("org.allbinary.graphics.font.UpdateMyFontProcessor")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
-local TouchScreenFactory = require("org.allbinary.input.motion.button.TouchScreenFactory")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local TimeDelayHelper = require("org.allbinary.time.TimeDelayHelper")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/graphics/paint/Paintable" for Paintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PressStartMenuPaintable is Paintable {
+  displayInfo { _displayInfo }
+  displayInfo=(value) { _displayInfo = value }
+  PRESS_START { _PRESS_START }
+  PRESS_START=(value) { _PRESS_START = value }
+  KEY_START { _KEY_START }
+  KEY_START=(value) { _KEY_START = value }
+  MENU_START { _MENU_START }
+  MENU_START=(value) { _MENU_START = value }
+  myFontProcessor { _myFontProcessor }
+  myFontProcessor=(value) { _myFontProcessor = value }
+  startString { _startString }
+  startString=(value) { _startString = value }
+  timeDelayHelper { _timeDelayHelper }
+  timeDelayHelper=(value) { _timeDelayHelper = value }
+  flash { _flash }
+  flash=(value) { _flash = value }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
+  beginWidth { _beginWidth }
+  beginWidth=(value) { _beginWidth = value }
+  line { _line }
+  line=(value) { _line = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PressStartMenuPaintable() {
+    _displayInfo = null
+    _PRESS_START = null
+    _KEY_START = null
+    _MENU_START = null
+    _myFontProcessor = null
+    _startString = null
+    _timeDelayHelper = null
+    _flash = false
+    _anchor = 0
+    _beginWidth = 0
+    _line = 0
+        _displayInfo = DisplayInfoSingleton.getInstance()
+        _PRESS_START = "Press Screen To Start"
+        _KEY_START = "Press or Click F2 To Begin"
+        _MENU_START = "Press Start From The Menu To Begin"
+        _myFontProcessor = UpdateMyFontProcessor.new(this)
+        _startString = StringUtil.getInstance().EMPTY_STRING
+        _timeDelayHelper = TimeDelayHelper.new(1100)
+        _flash = false
+        _anchor = Anchor.TOP_LEFT
+        _beginWidth = 0
+        _line = 0
+  }
+    
 
-local PressStartMenuPaintable = {}
-PressStartMenuPaintable.__index = PressStartMenuPaintable
-PressStartMenuPaintable.className = "PressStartMenuPaintable"
-setmetatable(PressStartMenuPaintable, {__index = Paintable})
+    construct new() {
+    super()
+    initFields_PressStartMenuPaintable()
+        if (TouchScreenFactory.getInstance().isTouch()) {
+            _startString = _PRESS_START
+        } else if (AppletUtil.isAppletLoader(this)) {
+            _startString = _KEY_START
+        } else {
+            _startString = _MENU_START
+        }
+    }
+    
 
-function PressStartMenuPaintable:_init_fields()
-    self.displayInfo = DisplayInfoSingleton.getInstance()
-    self.PRESS_START = "Press Screen To Start"
-    self.KEY_START = "Press or Click F2 To Begin"
-    self.MENU_START = "Press Start From The Menu To Begin"
-    self.myFontProcessor = UpdateMyFontProcessor.new(self)
-    self.startString = StringUtil.getInstance().EMPTY_STRING
-    self.timeDelayHelper = TimeDelayHelper.new(1100)
-    self.flash = false
-    self.anchor = Anchor.TOP_LEFT
-    self.beginWidth = 0
-    self.line = 0
-end
+    updateMeasurement(graphics) {
+        var font = graphics.getFont()
+        _beginWidth = (JR.shr(graphics.getFont().stringWidth(_startString), 1))
+        _line = (((4 * MyFontProcessor.defaultCharWidth(font))) + (JR.shr(font.getHeight(), 1)))
+        _myFontProcessor = MyFontProcessor.getInstance()
+    }
+    
 
+    paint(graphics) {
+        if (_timeDelayHelper.isTimeTNT()) {
+            if (this.isFlash()) {
+                this.setFlash(false)
+            } else {
+                this.setFlash(true)
+            }
+        }
+        if (this.isFlash()) {
+            _myFontProcessor.process(graphics)
+            graphics.drawString(_startString, (_displayInfo.getLastHalfWidth() - _beginWidth), (_displayInfo.getLastHeight() - _line), _anchor)
+        }
+    }
+    
 
-function PressStartMenuPaintable.new()
-    local self = setmetatable(Paintable.new(), PressStartMenuPaintable)
-    self:_init_fields()
-        if TouchScreenFactory.getInstance():isTouch() then
-            self.startString = self.PRESS_START
-        elseif AppletUtil.isAppletLoader(self) then
-            self.startString = self.KEY_START
-        else
-            self.startString = self.MENU_START
-        end
-    return self
-end
+    setFlash(flash) {
+        _flash = flash
+    }
+    
 
+    isFlash() {
+        return _flash
+    }
+}
 
-function PressStartMenuPaintable:updateMeasurement(graphics)
-        local font = graphics:getFont()
-        self.beginWidth = (((graphics:getFont():stringWidth(self.startString)) // (1 << (1))))
-        self.line = (4 * MyFontProcessor.defaultCharWidth(font)) + (((font:getHeight()) // (1 << (1))))
-        self.myFontProcessor = MyFontProcessor.getInstance()
-end
-
-
-function PressStartMenuPaintable:paint(graphics)
-        if self.timeDelayHelper:isTimeTNT() then
-            if self:isFlash() then
-                self:setFlash(false)
-            else
-                self:setFlash(true)
-            end
-        end
-        if self:isFlash() then
-            self.myFontProcessor:process(graphics)
-            graphics:drawString(self.startString, self.displayInfo:getLastHalfWidth() - self.beginWidth, self.displayInfo:getLastHeight() - self.line, self.anchor)
-        end
-end
-
-
-function PressStartMenuPaintable:setFlash(flash)
-        self.flash = flash
-end
-
-
-function PressStartMenuPaintable:isFlash()
-        return self.flash
-end
-
-return PressStartMenuPaintable
+import "../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/AppletUtil" for AppletUtil
+import "../../../../org/allbinary/graphics/Anchor" for Anchor
+import "../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "../../../../org/allbinary/graphics/font/MyFontProcessor" for MyFontProcessor
+import "../../../../org/allbinary/graphics/font/UpdateMyFontInterface" for UpdateMyFontInterface
+import "../../../../org/allbinary/graphics/font/UpdateMyFontProcessor" for UpdateMyFontProcessor
+import "../../../../org/allbinary/input/motion/button/TouchScreenFactory" for TouchScreenFactory
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/time/TimeDelayHelper" for TimeDelayHelper
 

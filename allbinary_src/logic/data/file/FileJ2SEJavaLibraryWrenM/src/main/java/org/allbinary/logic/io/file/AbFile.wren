@@ -1,323 +1,312 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.io.file
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.io.file
 
--- local File = require("java.io.File")
--- local FileFilter = require("java.io.FileFilter")
--- local FilenameFilter = require("java.io.FilenameFilter")
--- local IOException = require("java.io.IOException")
--- local URI = require("java.net.URI")
-local TsUtil = require("org.allbinary.TsUtil")
-local AbPath = require("org.allbinary.logic.io.path.AbPath")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local AbFileInterface = require("org.allbinary.logic.io.file.AbFileInterface")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AbFile is JObject {
+    static NULL_FILE {
+    if (__NULL_FILE_set == null) {
+      __NULL_FILE_set = true
+      __NULL_FILE = AbFile.createAbFileFromRawPath(StringUtil.getInstance().EMPTY_STRING)
+    }
+    return __NULL_FILE
+  }
+  static NULL_FILE=(value) {
+    __NULL_FILE_set = true
+    __NULL_FILE = value
+  }
+  file { _file }
+  file=(value) { _file = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AbFile() {
+    _file = null
+        
+  }
+    
 
-local AbFile = {}
-AbFile.__index = AbFile
-AbFile.className = "AbFile"
+    static createAbFileWithChild(file, childPathName) {
+        return AbFile.new(File.new(file.getFile(), childPathName))
+    }
+    
 
-function AbFile:_init_fields()
-    self.file = nil
-end
+    static createAbFile(filePath) {
+        return AbFile.new(File.new(AbPath.new(filePath, StringUtil.getInstance().EMPTY_STRING).toFileSystemString()))
+    }
+    
 
+    static createAbFilePathAndName(filePath, fileName) {
+        return AbFile.new(File.new(AbPath.new(filePath, StringUtil.getInstance().EMPTY_STRING).toFileSystemString(), fileName))
+    }
+    
 
--- throws Exception
-function AbFile.createAbFileWithChild(file, childPathName)
-        return AbFile.new(File.new(file:getFile(), childPathName))
-end
+    static createAbFileFromAbPath(abPath) {
+        return AbFile.new(File.new(abPath.toFileSystemString()))
+    }
+    
 
-
--- throws Exception
-function AbFile.createAbFile(filePath)
-        return AbFile.new(File.new(AbPath.new(filePath, StringUtil.getInstance().EMPTY_STRING):toFileSystemString()))
-end
-
-
--- throws Exception
-function AbFile.createAbFilePathAndName(filePath, fileName)
-        return AbFile.new(File.new(AbPath.new(filePath, StringUtil.getInstance().EMPTY_STRING):toFileSystemString(), fileName))
-end
-
-
-function AbFile.createAbFileFromAbPath(abPath)
-        return AbFile.new(File.new(abPath:toFileSystemString()))
-end
-
-
-function AbFile.createAbFileFromRawPath(filePath)
+    static createAbFileFromRawPath(filePath) {
         return AbFile.new(File.new(filePath))
-end
-
-
-function AbFile.new(file)
-    local self = setmetatable({}, AbFile)
-    self:_init_fields()
-        self.file = file
-    return self
-end
-
-
-function AbFile:getFile()
-        return self.file
-end
-
-
-function AbFile:getName()
-        return self.file:getName()
-end
-
-
-function AbFile:getParent()
-        return self.file:getParent()
-end
-
-
-function AbFile:getParentFile()
-        return self.file:getParentFile()
-end
-
-
-function AbFile:getPath()
-        return self.file:getPath()
-end
-
-
-function AbFile:isAbsolute()
-        return self.file:isAbsolute()
-end
-
-
-function AbFile:getAbsolutePath()
-        return self.file:getAbsolutePath()
-end
-
-
-function AbFile:getAbsoluteFile()
-        return self.file:getAbsoluteFile()
-end
-
-
--- throws IOException
-function AbFile:getCanonicalPath()
-        return self.file:getCanonicalPath()
-end
-
-
--- throws IOException
-function AbFile:getCanonicalFile()
-        return self.file:getCanonicalFile()
-end
-
-
-function AbFile:toURI()
-        return self.file:toURI()
-end
-
-
-function AbFile:canRead()
-        return self.file:canRead()
-end
-
-
-function AbFile:canWrite()
-        return self.file:canWrite()
-end
-
-
-function AbFile:exists()
-        return self.file:exists()
-end
-
-
-function AbFile:isDirectory()
-        return self.file:isDirectory()
-end
-
-
-function AbFile:isFile()
-        return self.file:isFile()
-end
-
-
-function AbFile:isHidden()
-        return self.file:isHidden()
-end
-
-
-function AbFile:lastModified()
-        return self.file:lastModified()
-end
-
-
-function AbFile:length()
-        return self.file:length()
-end
-
-
--- throws IOException
-function AbFile:createNewFile()
-        return self.file:createNewFile()
-end
-
-
--- throws IOException
-function AbFile:delete()
-        return self.file:delete()
-end
-
-
-function AbFile:deleteOnExit()
-        self.file:deleteOnExit()
-end
-
-
-function AbFile:list()
-        return self.file:list()
-end
-
-
-function AbFile:listWithFilter(filter)
-        return self.file:list(filter)
-end
-
-
-function AbFile:listFiles()
-        return self.file:listFiles()
-end
-
-
-function AbFile:listFilesFileNameFilter(filter)
-        return self.file:listFiles(filter)
-end
-
-
-function AbFile:listFilesFileFilter(filter)
-        return self.file:listFiles(filter)
-end
-
-
-function AbFile:mkdir()
-        return self.file:mkdir()
-end
-
-
-function AbFile:mkdirs()
-        return self.file:mkdirs()
-end
-
-
-function AbFile:renameTo(dest)
-        return self.file:renameTo(dest:getFile())
-end
-
-
-function AbFile:setLastModified(time)
-        return self.file:setLastModified(time)
-end
-
-
-function AbFile:setReadOnly()
-        return self.file:setReadOnly()
-end
-
-
-function AbFile:setWritable(writable, ownerOnly)
-        return self.file:setExecutable(writable, ownerOnly)
-end
-
-
--- Java overloaded method: Lua keeps the last definition
-function AbFile:setWritable(writable)
-        return self.file:setWritable(writable)
-end
-
-
-function AbFile:setReadable(readable, ownerOnly)
-        return self.file:setReadable(readable, ownerOnly)
-end
-
-
--- Java overloaded method: Lua keeps the last definition
-function AbFile:setReadable(readable)
-        return self.file:setReadable(readable)
-end
-
-
-function AbFile:setExecutable(executable, ownerOnly)
-        return self.file:setExecutable(executable, ownerOnly)
-end
-
-
--- Java overloaded method: Lua keeps the last definition
-function AbFile:setExecutable(executable)
-        return self.file:setExecutable(executable)
-end
-
-
-function AbFile:canExecute()
-        return self.file:canExecute()
-end
-
-
-function AbFile:getTotalSpace()
-        return self.file:getTotalSpace()
-end
-
-
-function AbFile:getFreeSpace()
-        return self.file:getFreeSpace()
-end
-
-
-function AbFile:getUsableSpace()
-        return self.file:getUsableSpace()
-end
-
-
-function AbFile:compareTo(pathname)
-        return self.file:compareTo(pathname)
-end
-
-
-function AbFile:equals(obj)
-        return TsUtil.getInstance():equalsNotstring(self.file, obj)
-end
-AbFile.__eq = function(self, other) return self:equals(other) end
-
-
-function AbFile:hashCode()
-        return self.file:hashCode()
-end
-
-
-function AbFile:toString()
-        return tostring(self.file)
-end
-AbFile.__tostring = function(self) return self:toString() end
-
-AbFile.NULL_FILE = AbFile.createAbFileFromRawPath(StringUtil.getInstance().EMPTY_STRING)
-
-return AbFile
+    }
+    
+
+    construct new(file) {
+    super()
+    initFields_AbFile()
+        _file = file
+    }
+    
+
+    getFile() {
+        return _file
+    }
+    
+
+    getName() {
+        return _file.getName()
+    }
+    
+
+    getParent() {
+        return _file.getParent()
+    }
+    
+
+    getParentFile() {
+        return _file.getParentFile()
+    }
+    
+
+    getPath() {
+        return _file.getPath()
+    }
+    
+
+    isAbsolute() {
+        return _file.isAbsolute()
+    }
+    
+
+    getAbsolutePath() {
+        return _file.getAbsolutePath()
+    }
+    
+
+    getAbsoluteFile() {
+        return _file.getAbsoluteFile()
+    }
+    
+
+    getCanonicalPath() {
+        return _file.getCanonicalPath()
+    }
+    
+
+    getCanonicalFile() {
+        return _file.getCanonicalFile()
+    }
+    
+
+    toURI() {
+        return _file.toURI()
+    }
+    
+
+    canRead() {
+        return _file.canRead()
+    }
+    
+
+    canWrite() {
+        return _file.canWrite()
+    }
+    
+
+    exists() {
+        return _file.exists()
+    }
+    
+
+    isDirectory() {
+        return _file.isDirectory()
+    }
+    
+
+    isFile() {
+        return _file.isFile()
+    }
+    
+
+    isHidden() {
+        return _file.isHidden()
+    }
+    
+
+    lastModified() {
+        return _file.lastModified()
+    }
+    
+
+    length() {
+        return _file.length()
+    }
+    
+
+    createNewFile() {
+        return _file.createNewFile()
+    }
+    
+
+    delete() {
+        return _file.delete()
+    }
+    
+
+    deleteOnExit() {
+        _file.deleteOnExit()
+    }
+    
+
+    list() {
+        return _file.list()
+    }
+    
+
+    listWithFilter(filter) {
+        return _file.list(filter)
+    }
+    
+
+    listFiles() {
+        return _file.listFiles()
+    }
+    
+
+    listFilesFileNameFilter(filter) {
+        return _file.listFiles(filter)
+    }
+    
+
+    listFilesFileFilter(filter) {
+        return _file.listFiles(filter)
+    }
+    
+
+    mkdir() {
+        return _file.mkdir()
+    }
+    
+
+    mkdirs() {
+        return _file.mkdirs()
+    }
+    
+
+    renameTo(dest) {
+        return _file.renameTo(dest.getFile())
+    }
+    
+
+    setLastModified(time) {
+        return _file.setLastModified(time)
+    }
+    
+
+    setReadOnly() {
+        return _file.setReadOnly()
+    }
+    
+
+    setWritable(writable, ownerOnly) {
+        return _file.setExecutable(writable, ownerOnly)
+    }
+    
+
+    setWritable(writable) {
+        return _file.setWritable(writable)
+    }
+    
+
+    setReadable(readable, ownerOnly) {
+        return _file.setReadable(readable, ownerOnly)
+    }
+    
+
+    setReadable(readable) {
+        return _file.setReadable(readable)
+    }
+    
+
+    setExecutable(executable, ownerOnly) {
+        return _file.setExecutable(executable, ownerOnly)
+    }
+    
+
+    setExecutable(executable) {
+        return _file.setExecutable(executable)
+    }
+    
+
+    canExecute() {
+        return _file.canExecute()
+    }
+    
+
+    getTotalSpace() {
+        return _file.getTotalSpace()
+    }
+    
+
+    getFreeSpace() {
+        return _file.getFreeSpace()
+    }
+    
+
+    getUsableSpace() {
+        return _file.getUsableSpace()
+    }
+    
+
+    compareTo(pathname) {
+        return _file.compareTo(pathname)
+    }
+    
+
+    equals(obj) {
+        return TsUtil.getInstance().equalsNotstring(_file, obj)
+    }
+    
+
+    hashCode() {
+        return _file.hashCode()
+    }
+    
+
+    toString() {
+        return _file.toString()
+    }
+}
+
+import "../../../../../java/io/File" for File
+import "../../../../../java/io/FileFilter" for FileFilter
+import "../../../../../java/io/FilenameFilter" for FilenameFilter
+import "../../../../../java/io/IOException" for IOException
+import "../../../../../java/net/URI" for URI
+import "../../../../../org/allbinary/TsUtil" for TsUtil
+import "../../../../../org/allbinary/logic/io/path/AbPath" for AbPath
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "./AbFileInterface" for AbFileInterface
 

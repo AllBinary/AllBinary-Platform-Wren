@@ -1,122 +1,138 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2002 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.displayable.screen
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2002 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.displayable.screen
 
--- local Command = require("javax.microedition.lcdui.Command")
--- local CommandListener = require("javax.microedition.lcdui.CommandListener")
--- local Form = require("javax.microedition.lcdui.Form")
--- local NullCommandListener = require("javax.microedition.lcdui.NullCommandListener")
-local Processor = require("org.allbinary.canvas.Processor")
-local MenuListener = require("org.allbinary.game.displayable.canvas.MenuListener")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local MyCommandInterface = require("org.allbinary.graphics.displayable.command.MyCommandInterface")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local StdUtil = require("org.allbinary.logic.StdUtil")
-local ABStack = require("org.allbinary.util.ABStack")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../javax/microedition/lcdui/Form" for Form
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CommandForm is Form {
+    static NULL_COMMAND_FORM {
+    if (__NULL_COMMAND_FORM_set == null) {
+      __NULL_COMMAND_FORM_set = true
+      __NULL_COMMAND_FORM = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __NULL_COMMAND_FORM
+  }
+  static NULL_COMMAND_FORM=(value) {
+    __NULL_COMMAND_FORM_set = true
+    __NULL_COMMAND_FORM = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  repaintProcessor { _repaintProcessor }
+  repaintProcessor=(value) { _repaintProcessor = value }
+  commandStack { _commandStack }
+  commandStack=(value) { _commandStack = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CommandForm() {
+    _logUtil = null
+    _commonStrings = null
+    _repaintProcessor = null
+    _commandStack = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        _repaintProcessor = ScreenRepaintProcessorFactory.getInstance().create(this)
+        
+  }
+    
 
-local CommandForm = {}
-CommandForm.__index = CommandForm
-CommandForm.className = "CommandForm"
-setmetatable(CommandForm, {__index = Form})
-
-function CommandForm:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.repaintProcessor = ScreenRepaintProcessorFactory.getInstance():create(self)
-    self.commandStack = nil
-end
-
-
-function CommandForm.getNullCommandForm()
-        if CommandForm.NULL_COMMAND_FORM == NullUtil.getInstance().NULL_OBJECT then
+    static getNullCommandForm() {
+        if ((CommandForm.NULL_COMMAND_FORM == NullUtil.getInstance().NULL_OBJECT)) {
             CommandForm.NULL_COMMAND_FORM = CommandForm.new(NullCommandListener.NULL_COMMAND_LISTENER, StringUtil.getInstance().EMPTY_STRING, BasicColorFactory.getInstance().BLACK, BasicColorFactory.getInstance().WHITE)
-        end
+        }
         return CommandForm.NULL_COMMAND_FORM
-end
+    }
+    
 
+    construct new(commandListener, formTitle, backgrounBasicColor, foregroundBasicColor) {
+        super(formTitle)
+        initFields_CommandForm()
+        _commandStack = StdUtil.getInstance().createStack()
+        var jerror0 = Fiber.new {
+            _repaintProcessor.process()
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            _logUtil.put(_commonStrings.EXCEPTION, this, _commonStrings.CONSTRUCTOR, e)
+        }
+    }
+    
 
-function CommandForm.new(commandListener, formTitle, backgrounBasicColor, foregroundBasicColor)
-    local self = setmetatable(Form.new(formTitle), CommandForm)
-    self:_init_fields()
-        -- super(...) made self above
-        self.commandStack = StdUtil.getInstance():createStack()
-        local try_ok, try_error = pcall(function()
-            self.repaintProcessor:process()
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.commonStrings.CONSTRUCTOR, e)
-        end
-    return self
-end
+    initCommands(cmdListener) {
+    }
+    
 
+    open() {
+        _logUtil.putF(_commonStrings.START, this, "open")
+    }
+    
 
-function CommandForm:initCommands(cmdListener)
-end
+    close() {
+        _logUtil.putF(_commonStrings.START, this, _commonStrings.CLOSE)
+    }
+    
 
+    update() {
+        _repaintProcessor.process()
+    }
+    
 
-function CommandForm:open()
-        self.logUtil:putF(self.commonStrings.START, self, "open")
-end
-
-
--- throws Exception
-function CommandForm:close()
-        self.logUtil:putF(self.commonStrings.START, self, self.commonStrings.CLOSE)
-end
-
-
--- throws Exception
-function CommandForm:update()
-        self.repaintProcessor:process()
-end
-
-
-function CommandForm:getSourceId()
+    getSourceId() {
         return 0
-end
+    }
+    
 
+    addCommand(command) {
+        _commandStack.push(command)
+        super.addCommand(command)
+    }
+    
 
-function CommandForm:addCommand(command)
-        self.commandStack:push(command)
-        Form.addCommand(self, command)
-end
+    removeAllCommands() {
+        var size = _commandStack.size()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            super.removeCommand(_commandStack.pop())
+            }
+        }
+    }
+}
 
-
-function CommandForm:removeAllCommands()
-        local size = self.commandStack:size()
-        for index = 0, size - 1 do
-            Form.removeCommand(self, self.commandStack:pop())
-        end
-end
-
-CommandForm.NULL_COMMAND_FORM = NullUtil.getInstance().NULL_OBJECT
-
-return CommandForm
+import "../../../../../javax/microedition/lcdui/Command" for Command
+import "../../../../../javax/microedition/lcdui/CommandListener" for CommandListener
+import "../../../../../javax/microedition/lcdui/NullCommandListener" for NullCommandListener
+import "../../../../../org/allbinary/canvas/Processor" for Processor
+import "../../../../../org/allbinary/game/displayable/canvas/MenuListener" for MenuListener
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../org/allbinary/graphics/displayable/command/MyCommandInterface" for MyCommandInterface
+import "../../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../org/allbinary/logic/StdUtil" for StdUtil
+import "../../../../../org/allbinary/util/ABStack" for ABStack
+import "./ScreenRepaintProcessorFactory" for ScreenRepaintProcessorFactory
 

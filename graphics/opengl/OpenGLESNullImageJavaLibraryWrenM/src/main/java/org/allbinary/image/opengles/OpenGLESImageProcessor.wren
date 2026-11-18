@@ -1,62 +1,64 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.image.opengles
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.image.opengles
 
--- local GL10 = require("javax.microedition.khronos.opengles.GL10")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class OpenGLESImageProcessor is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = OpenGLESImageProcessor.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_OpenGLESImageProcessor() {
+  }
 
-local OpenGLESImageProcessor = {}
-OpenGLESImageProcessor.__index = OpenGLESImageProcessor
-OpenGLESImageProcessor.className = "OpenGLESImageProcessor"
+  construct new() {
+    super()
+    initFields_OpenGLESImageProcessor()
+  }
+    
 
-function OpenGLESImageProcessor.new()
-    local self = setmetatable({}, OpenGLESImageProcessor)
-    return self
-end
-
-
-function OpenGLESImageProcessor.getInstance()
+    static getInstance() {
         return OpenGLESImageProcessor.instance
-end
+    }
+    
 
+    translate(gl, translateX, translateY) {
+    }
+    
 
-function OpenGLESImageProcessor:translate(gl, translateX, translateY)
-end
+    rotate(gl, angle) {
+    }
+    
 
+    scale(gl, scaleX, scaleY) {
+    }
+    
 
-function OpenGLESImageProcessor:rotate(gl, angle)
-end
+    colorMask(gl, red, green, blue, alpha) {
+    }
+}
 
-
-function OpenGLESImageProcessor:scale(gl, scaleX, scaleY)
-end
-
-
-function OpenGLESImageProcessor:colorMask(gl, red, green, blue, alpha)
-end
-
-OpenGLESImageProcessor.instance = OpenGLESImageProcessor.new()
-
-return OpenGLESImageProcessor
+import "../../../../javax/microedition/khronos/opengles/GL10" for GL10
 

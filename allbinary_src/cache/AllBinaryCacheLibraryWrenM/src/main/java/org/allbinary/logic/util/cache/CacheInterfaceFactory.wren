@@ -1,58 +1,40 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2007 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.logic.util.cache
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2007 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.util.cache
 
+import "../../../../../allbinary_java" for JObject, JException, JR
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class CacheInterfaceFactory is JObject {
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_CacheInterfaceFactory() {
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new() {
+    super()
+    initFields_CacheInterfaceFactory()
+    }
+    
 
-local CacheInterfaceFactory = {}
-CacheInterfaceFactory.__index = CacheInterfaceFactory
-CacheInterfaceFactory.className = "CacheInterfaceFactory"
+    static getInstance(cacheType, cachePolicy) {
+        Fiber.abort(JR.exception("Exception", "No such " + cacheType.toString()))
+    }
+}
 
-
-function CacheInterfaceFactory.new()
-    local self = setmetatable({}, CacheInterfaceFactory)
-    return self
-end
-
-
--- throws Exception
-function CacheInterfaceFactory.getInstance(cacheType, cachePolicy)
-        error(java_exception("Exception", "No such " .. tostring(cacheType)), 0)
-end
-
-return CacheInterfaceFactory
+import "./CacheInterface" for CacheInterface
+import "./CacheType" for CacheType
+import "./CachePolicy" for CachePolicy
 

@@ -1,149 +1,143 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.life
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.life
 
-local LifeInterface = require("org.allbinary.game.ag.life.LifeInterface")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class Life is JObject {
+    static NO_LIFE {
+    if (__NO_LIFE_set == null) {
+      __NO_LIFE_set = true
+      __NO_LIFE = Life.createLife()
+    }
+    return __NO_LIFE
+  }
+  static NO_LIFE=(value) {
+    __NO_LIFE_set = true
+    __NO_LIFE = value
+  }
+  lives { _lives }
+  lives=(value) { _lives = value }
+  startLives { _startLives }
+  startLives=(value) { _startLives = value }
+  maxlives { _maxlives }
+  maxlives=(value) { _maxlives = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_Life() {
+    _lives = 0
+    _startLives = 0
+    _maxlives = 0
+        
+        
+        
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    static createLife() {
+        var jerror0 = Fiber.new {
+            return Life.new(JR.i16(0), JR.i16(0))
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            Fiber.abort(JR.exception("RuntimeException", ""))
+        }
+    }
+    
 
-local Life = {}
-Life.__index = Life
-Life.className = "Life"
+    construct new(lives, maxlives) {
+    super()
+    initFields_Life()
+        _maxlives = maxlives
+        if ((lives > _maxlives)) {
+            Fiber.abort(JR.exception("Exception", "To Many Lives"))
+        }
+        _lives = lives
+        _startLives = lives
+    }
+    
 
-function Life:_init_fields()
-    self.lives = nil
-    self.startLives = nil
-    self.maxlives = nil
-end
+    get() {
+        return _lives
+    }
+    
 
+    set(lives) {
+        _lives = lives
+    }
+    
 
-function Life.createLife()
-        local try_ok, try_error = pcall(function()
-            return Life.new(0, 0)
-        end)
-        if not try_ok then
-            local e = try_error
-            error(java_exception("RuntimeException"), 0)
-        end
-end
+    reset() {
+        _lives = _startLives
+    }
+    
 
+    add(lives) {
+        if (!this.reachedLimit()) {
+            if ((JR.i32(_lives + lives) <= JR.i32(this.getMaxlives()))) {
+                _lives = JR.i16((JR.i32(_lives + lives)))
+            } else {
+                _lives = this.getMaxlives()
+            }
+        }
+    }
+    
 
-function Life.new(lives, maxlives)
-    local self = setmetatable({}, Life)
-    self:_init_fields()
-        self.maxlives = maxlives
-        if lives > self.maxlives then
-            error(java_exception("Exception", "To Many Lives"), 0)
-        end
-        self.lives = lives
-        self.startLives = lives
-    return self
-end
-
-
-function Life:get()
-        return self.lives
-end
-
-
-function Life:set(lives)
-        self.lives = lives
-end
-
-
-function Life:reset()
-        self.lives = self.startLives
-end
-
-
-function Life:add(lives)
-        if not self:reachedLimit() then
-            if self.lives + lives <= self:getMaxlives() then
-                self.lives = (self.lives + lives)
-            else
-                self.lives = self:getMaxlives()
-            end
-        end
-end
-
-
-function Life:isAlive()
-        if self.lives <= 0 then
+    isAlive() {
+        if ((JR.i32(_lives) <= 0)) {
             return false
-        else
+        } else {
             return true
-        end
-end
+        }
+    }
+    
 
+    getMaxlives() {
+        return _maxlives
+    }
+    
 
-function Life:getMaxlives()
-        return self.maxlives
-end
-
-
-function Life:reachedLimit()
-        if self.lives > self.maxlives or self.lives < 0 then
+    reachedLimit() {
+        if (((_lives > _maxlives) || (JR.i32(_lives) < 0))) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+    
 
+    deaths(lives) {
+        if (!this.reachedLimit()) {
+            if ((JR.i32(_lives - lives) >= 0)) {
+                _lives = JR.i16((JR.i32(_lives - lives)))
+            } else {
+                _lives = 0
+            }
+        }
+    }
+    
 
-function Life:deaths(lives)
-        if not self:reachedLimit() then
-            if self.lives - lives >= 0 then
-                self.lives = (self.lives - lives)
-            else
-                self.lives = 0
-            end
-        end
-end
+    getStartLives() {
+        return _startLives
+    }
+    
 
+    setStartLives(startLives) {
+        _startLives = startLives
+    }
+}
 
-function Life:getStartLives()
-        return self.startLives
-end
-
-
-function Life:setStartLives(startLives)
-        self.startLives = startLives
-end
-
-Life.NO_LIFE = Life.createLife()
-
-return Life
+import "./LifeInterface" for LifeInterface
 

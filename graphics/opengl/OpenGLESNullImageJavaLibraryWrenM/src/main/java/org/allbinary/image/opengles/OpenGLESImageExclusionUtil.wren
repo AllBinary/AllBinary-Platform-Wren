@@ -1,58 +1,59 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.image.opengles
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.image.opengles
 
--- local Image = require("javax.microedition.lcdui.Image")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class OpenGLESImageExclusionUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = OpenGLESImageExclusionUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  list { _list }
+  list=(value) { _list = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_OpenGLESImageExclusionUtil() {
+    _list = null
+        _list = BasicArrayListD.new()
+  }
 
-local OpenGLESImageExclusionUtil = {}
-OpenGLESImageExclusionUtil.__index = OpenGLESImageExclusionUtil
-OpenGLESImageExclusionUtil.className = "OpenGLESImageExclusionUtil"
+  construct new() {
+    super()
+    initFields_OpenGLESImageExclusionUtil()
+  }
+    
 
-function OpenGLESImageExclusionUtil:_init_fields()
-    self.list = BasicArrayListD.new()
-end
-
-function OpenGLESImageExclusionUtil.new()
-    local self = setmetatable({}, OpenGLESImageExclusionUtil)
-    self:_init_fields()
-    return self
-end
-
-
-function OpenGLESImageExclusionUtil.getInstance()
+    static getInstance() {
         return OpenGLESImageExclusionUtil.instance
-end
+    }
+    
 
-
-function OpenGLESImageExclusionUtil:isCustomScaling(image)
+    isCustomScaling(image) {
         return false
-end
+    }
+}
 
-OpenGLESImageExclusionUtil.instance = OpenGLESImageExclusionUtil.new()
-
-return OpenGLESImageExclusionUtil
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
 

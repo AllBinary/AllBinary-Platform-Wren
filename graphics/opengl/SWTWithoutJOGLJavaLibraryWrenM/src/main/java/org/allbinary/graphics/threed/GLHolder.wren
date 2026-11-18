@@ -1,56 +1,48 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.threed
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.threed
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GLHolder is JObject {
+  isCreated { _isCreated }
+  isCreated=(value) { _isCreated = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GLHolder() {
+    _isCreated = false
+        _isCreated = true
+  }
+    
 
-local GLHolder = {}
-GLHolder.__index = GLHolder
-GLHolder.className = "GLHolder"
+    construct new() {
+    super()
+    initFields_GLHolder()
+    }
+    
 
-function GLHolder:_init_fields()
-    self.isCreated = true
-end
+    runOnSurfaceCreated(renderer) {
+    }
+    
 
+    runOnSurfaceChanged(renderer, width, height) {
+    }
+    
 
-function GLHolder.new()
-    local self = setmetatable({}, GLHolder)
-    self:_init_fields()
-    return self
-end
+    run(renderer) {
+    }
+}
 
-
-function GLHolder:runOnSurfaceCreated(renderer)
-end
-
-
-function GLHolder:runOnSurfaceChanged(renderer, width, height)
-end
-
-
-function GLHolder:run(renderer)
-end
-
-return GLHolder
 

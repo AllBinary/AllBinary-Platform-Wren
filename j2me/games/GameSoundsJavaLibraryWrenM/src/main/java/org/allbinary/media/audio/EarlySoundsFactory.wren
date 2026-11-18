@@ -1,65 +1,68 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.media.audio
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media.audio
 
-local BaseSoundsFactory = require("org.allbinary.media.audio.BaseSoundsFactory")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./BaseSoundsFactory" for BaseSoundsFactory
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class EarlySoundsFactory is BaseSoundsFactory {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = EarlySoundsFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_EarlySoundsFactory() {
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  construct new() {
+    super()
+    initFields_EarlySoundsFactory()
+  }
+    
 
-local EarlySoundsFactory = {}
-EarlySoundsFactory.__index = EarlySoundsFactory
-EarlySoundsFactory.className = "EarlySoundsFactory"
-setmetatable(EarlySoundsFactory, {__index = BaseSoundsFactory})
-
-function EarlySoundsFactory.new()
-    local self = setmetatable(BaseSoundsFactory.new(), EarlySoundsFactory)
-    return self
-end
-
-
--- throws Exception
-function EarlySoundsFactory:getSoundInterfaceArray()
-        local soundInterfaceArray = java_new_array(nil, 2)
-        local index = 0
-        soundInterfaceArray[(function() local value = index index = value + 1 return value end)() + 1] = SelectSound.getInstance()
-        soundInterfaceArray[(function() local value = index index = value + 1 return value end)() + 1] = ErrorSound.getInstance()
+    getSoundInterfaceArray() {
+        var soundInterfaceArray = List.filled(2, null)
+        var index = 0
+        soundInterfaceArray[Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call()] = SelectSound.getInstance()
+        soundInterfaceArray[Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call()] = ErrorSound.getInstance()
         return soundInterfaceArray
-end
+    }
+    
 
-
-function EarlySoundsFactory.getInstance()
+    static getInstance() {
         return EarlySoundsFactory.instance
-end
+    }
+}
 
-EarlySoundsFactory.instance = EarlySoundsFactory.new()
-
-return EarlySoundsFactory
+import "./Sound" for Sound
+import "./SelectSound" for SelectSound
+import "./ErrorSound" for ErrorSound
 

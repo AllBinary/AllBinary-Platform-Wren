@@ -1,101 +1,97 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Image = require("javax.microedition.lcdui.Image")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local SpecialAnimationInterface = require("org.allbinary.animation.special.SpecialAnimationInterface")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
-local GameTickTimeDelayHelperFactory = require("org.allbinary.time.GameTickTimeDelayHelperFactory")
-local TimeDelayHelper = require("org.allbinary.time.TimeDelayHelper")
-local ImageArrayAnimation = require("org.allbinary.animation.image.ImageArrayAnimation")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./ImageArrayAnimation" for ImageArrayAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ImageArraySpecialAnimation is ImageArrayAnimation {
+  timeDelayHelper { _timeDelayHelper }
+  timeDelayHelper=(value) { _timeDelayHelper = value }
+  loopCount { _loopCount }
+  loopCount=(value) { _loopCount = value }
+  loopCountTotal { _loopCountTotal }
+  loopCountTotal=(value) { _loopCountTotal = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImageArraySpecialAnimation() {
+    _timeDelayHelper = null
+    _loopCount = 0
+    _loopCountTotal = 0
+        _timeDelayHelper = TimeDelayHelper.new(270)
+        _loopCount = 0
+        _loopCountTotal = 1
+  }
+    
 
-local ImageArraySpecialAnimation = {}
-ImageArraySpecialAnimation.__index = ImageArraySpecialAnimation
-ImageArraySpecialAnimation.className = "ImageArraySpecialAnimation"
-setmetatable(ImageArraySpecialAnimation, {__index = ImageArrayAnimation})
+    construct new(imageArray, animationBehavior) {
+        super(imageArray, animationBehavior)
+        initFields_ImageArraySpecialAnimation()
+        this.reset()
+    }
+    
 
-function ImageArraySpecialAnimation:_init_fields()
-    self.timeDelayHelper = TimeDelayHelper.new(270)
-    self.loopCount = 0
-    self.loopCountTotal = 1
-end
+    getLoopCount() {
+        return _loopCount
+    }
+    
 
+    setLastFrame() {
+        this.circularIndexUtil.setIndex((this.circularIndexUtil.getSize() - 1))
+    }
+    
 
-function ImageArraySpecialAnimation.new(imageArray, animationBehavior)
-    local self = setmetatable(ImageArrayAnimation.new(imageArray, animationBehavior), ImageArraySpecialAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self:reset()
-    return self
-end
+    reset() {
+        this.setFrame((this.getSize() - 1))
+        _loopCount = 0
+    }
+    
 
+    nextFrame() {
+        if ((this.getFrame() > 0)) {
+            if (_timeDelayHelper.isTime(GameTickTimeDelayHelperFactory.getInstance().startTime)) {
+                this.previousFrame()
+                if ((this.getFrame() == 0)) {
+                    _loopCount = JR.i32(_loopCount + 1)
+                }
+            }
+        }
+    }
+    
 
-function ImageArraySpecialAnimation:getLoopCount()
-        return self.loopCount
-end
-
-
-function ImageArraySpecialAnimation:setLastFrame()
-        self.circularIndexUtil:setIndex(self.circularIndexUtil:getSize() - 1)
-end
-
-
-function ImageArraySpecialAnimation:reset()
-        self:setFrame(self:getSize() - 1)
-        self.loopCount = 0
-end
-
-
-function ImageArraySpecialAnimation:nextFrame()
-        if self:getFrame() > 0 then
-            if self.timeDelayHelper:isTime(GameTickTimeDelayHelperFactory.getInstance().startTime) then
-                self:previousFrame()
-                if self:getFrame() == 0 then
-                    self.loopCount = self.loopCount + 1
-                end
-            end
-        end
-end
-
-
-function ImageArraySpecialAnimation:isComplete()
-        if self.loopCount < self.loopCountTotal or self:getFrame() ~= 0 then
+    isComplete() {
+        if (((_loopCount < _loopCountTotal) || (this.getFrame() != 0))) {
             return false
-        else
+        } else {
             return true
-        end
-end
+        }
+    }
+    
 
-
-function ImageArraySpecialAnimation:paintXY(graphics, x, y)
-        x = DisplayInfoSingleton.getInstance():getLastHalfWidth() - (((self:getImage(self.circularIndexUtil:getIndex()):getWidth()) // (1 << (1))))
+    paintXY(graphics, x, y) {
+        x = (DisplayInfoSingleton.getInstance().getLastHalfWidth() - (JR.shr(this.getImage(this.circularIndexUtil.getIndex()).getWidth(), 1)))
         y = 5
-        ImageArrayAnimation.paintXY(self, graphics, x, y)
-end
+        super.paintXY(graphics, x, y)
+    }
+}
 
-return ImageArraySpecialAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/animation/special/SpecialAnimationInterface" for SpecialAnimationInterface
+import "../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "../../../../org/allbinary/time/GameTickTimeDelayHelperFactory" for GameTickTimeDelayHelperFactory
+import "../../../../org/allbinary/time/TimeDelayHelper" for TimeDelayHelper
 

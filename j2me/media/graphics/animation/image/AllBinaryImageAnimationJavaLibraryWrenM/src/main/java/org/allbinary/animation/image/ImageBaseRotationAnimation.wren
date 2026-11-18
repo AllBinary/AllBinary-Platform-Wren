@@ -1,104 +1,94 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Image = require("javax.microedition.lcdui.Image")
-local DisposalUtil = require("org.allbinary.DisposalUtil")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local RotationAnimation = require("org.allbinary.animation.RotationAnimation")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
-local AngleInfo = require("org.allbinary.math.AngleInfo")
-local CircularIndexUtil = require("org.allbinary.util.CircularIndexUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/animation/RotationAnimation" for RotationAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ImageBaseRotationAnimation is RotationAnimation {
+  image { _image }
+  image=(value) { _image = value }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImageBaseRotationAnimation() {
+    _image = null
+    _anchor = 0
+        
+        _anchor = Anchor.TOP_LEFT
+  }
+    
 
-local ImageBaseRotationAnimation = {}
-ImageBaseRotationAnimation.__index = ImageBaseRotationAnimation
-ImageBaseRotationAnimation.className = "ImageBaseRotationAnimation"
-setmetatable(ImageBaseRotationAnimation, {__index = RotationAnimation})
+    construct new(image, angleInfo, totalAngle, animationBehavior) {
+        super(angleInfo, CircularIndexUtil.createInstance((totalAngle / angleInfo.getAngleIncrementInfo().getAngleIncrement())), animationBehavior)
+        initFields_ImageBaseRotationAnimation()
+        _image = image
+    }
+    
 
-function ImageBaseRotationAnimation:_init_fields()
-    self.image = nil
-    self.anchor = Anchor.TOP_LEFT
-end
+    getAnimationSize() {
+        return this.getSize()
+    }
+    
 
+    setSequence(sequence) {
+    }
+    
 
-function ImageBaseRotationAnimation.new(image, angleInfo, totalAngle, animationBehavior)
-    local self = setmetatable(RotationAnimation.new(angleInfo, CircularIndexUtil.createInstance(totalAngle / angleInfo:getAngleIncrementInfo():getAngleIncrement()), animationBehavior), ImageBaseRotationAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.image = image
-    return self
-end
-
-
--- throws Exception
-function ImageBaseRotationAnimation:getAnimationSize()
-        return self:getSize()
-end
-
-
-function ImageBaseRotationAnimation:setSequence(sequence)
-end
-
-
-function ImageBaseRotationAnimation:getSequence()
+    getSequence() {
         return PrimitiveIntUtil.getArrayInstance()
-end
+    }
+    
 
+    paintXY(graphics, x, y) {
+        graphics.drawImage(_image, x, y, _anchor)
+    }
+    
 
-function ImageBaseRotationAnimation:paintXY(graphics, x, y)
-        graphics:drawImage(self.image, x, y, self.anchor)
-end
+    getImage() {
+        return _image
+    }
+    
 
+    getWidth() {
+        return _image.getWidth()
+    }
+    
 
-function ImageBaseRotationAnimation:getImage()
-        return self.image
-end
+    getHeight() {
+        return _image.getHeight()
+    }
+    
 
+    close() {
+        DisposalUtil.getInstance().disposeImage(_image)
+    }
+    
 
-function ImageBaseRotationAnimation:getWidth()
-        return self.image:getWidth()
-end
+    finalize() {
+        DisposalUtil.getInstance().disposeImage(_image)
+    }
+}
 
-
-function ImageBaseRotationAnimation:getHeight()
-        return self.image:getHeight()
-end
-
-
--- throws Exception
-function ImageBaseRotationAnimation:close()
-        DisposalUtil.getInstance():disposeImage(self.image)
-end
-
-
--- throws Throwable
-function ImageBaseRotationAnimation:finalize()
-        DisposalUtil.getInstance():disposeImage(self.image)
-end
-
-return ImageBaseRotationAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/DisposalUtil" for DisposalUtil
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/graphics/Anchor" for Anchor
+import "../../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
+import "../../../../org/allbinary/math/AngleInfo" for AngleInfo
+import "../../../../org/allbinary/util/CircularIndexUtil" for CircularIndexUtil
 

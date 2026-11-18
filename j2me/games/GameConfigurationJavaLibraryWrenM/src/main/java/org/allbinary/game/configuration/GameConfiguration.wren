@@ -1,153 +1,169 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration
 
-local GameFeatureEvent = require("org.allbinary.game.configuration.event.GameFeatureEvent")
-local GameFeatureEventHandler = require("org.allbinary.game.configuration.event.GameFeatureEventHandler")
-local BooleanFactory = require("org.allbinary.logic.java.bool.BooleanFactory")
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameConfiguration is JObject {
+    static MIN_VALUE {
+    if (__MIN_VALUE_set == null) {
+      __MIN_VALUE_set = true
+      __MIN_VALUE = Integer.MIN_VALUE
+    }
+    return __MIN_VALUE
+  }
+  static MIN_VALUE=(value) {
+    __MIN_VALUE_set = true
+    __MIN_VALUE = value
+  }
+  name { _name }
+  name=(value) { _name = value }
+  defaultValue { _defaultValue }
+  defaultValue=(value) { _defaultValue = value }
+  value { _value }
+  value=(value) { _value = value }
+  minValue { _minValue }
+  minValue=(value) { _minValue = value }
+  maxValue { _maxValue }
+  maxValue=(value) { _maxValue = value }
+  modifiable { _modifiable }
+  modifiable=(value) { _modifiable = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameConfiguration() {
+    _name = null
+    _defaultValue = null
+    _value = null
+    _minValue = null
+    _maxValue = null
+    _modifiable = null
+        _name = StringUtil.getInstance().EMPTY_STRING
+        _defaultValue = SmallIntegerSingletonFactory.getInstance().getAt(0)
+        _value = GameConfiguration.MIN_VALUE
+        _minValue = _defaultValue
+        _maxValue = _defaultValue
+        _modifiable = BooleanFactory.getInstance().TRUE
+  }
+    
 
-local GameConfiguration = {}
-GameConfiguration.__index = GameConfiguration
-GameConfiguration.className = "GameConfiguration"
+    construct new(name, defaultValue, minValue, maxValue) {
+    super()
+    initFields_GameConfiguration()
+        this.setName(name)
+        this.setDefaultValue(defaultValue)
+        _value = this.getDefaultValue()
+        this.setMinValue(minValue)
+        this.setMaxValue(maxValue)
+        GameConfigurationSingleton.getInstance().getHashtable().put(this.getName(), this)
+    }
+    
 
-function GameConfiguration:_init_fields()
-    self.name = StringUtil.getInstance().EMPTY_STRING
-    self.defaultValue = SmallIntegerSingletonFactory.getInstance():getAt(0)
-    self.value = GameConfiguration.MIN_VALUE
-    self.minValue = self.defaultValue
-    self.maxValue = self.defaultValue
-    self.modifiable = BooleanFactory.getInstance().TRUE
-end
+    setValue(value) {
+        if ((_value != value)) {
+            var oldValue = _value
+            _value = value
+            GameFeatureEventHandler.getInstance().fireEvent(GameFeatureEvent.new(this, StringMaker.new().append(_name).append(" value: from: ").appendint(JR.i32(oldValue.intValue())).append(" to ").appendint(JR.i32(_value.intValue())).toString()))
+        }
+    }
+    
 
+    getValue() {
+        return _value
+    }
+    
 
-function GameConfiguration.new(name, defaultValue, minValue, maxValue)
-    local self = setmetatable({}, GameConfiguration)
-    self:_init_fields()
-        self:setName(name)
-        self:setDefaultValue(defaultValue)
-        self.value = self:getDefaultValue()
-        self:setMinValue(minValue)
-        self:setMaxValue(maxValue)
-        GameConfigurationSingleton.getInstance():getHashtable():put(self:getName(), self)
-    return self
-end
+    setMaxValue(maxValue) {
+        _maxValue = maxValue
+    }
+    
 
+    getMaxValue() {
+        return _maxValue
+    }
+    
 
--- throws Exception
-function GameConfiguration:setValue(value)
-        if self.value ~= value then
-            local oldValue = self.value
-            self.value = value
-            GameFeatureEventHandler.getInstance():fireEvent(GameFeatureEvent.new(self, tostring(StringMaker.new():append(self.name):append(" value: from: "):appendint(java_int(math.tointeger(oldValue // 1))):append(" to "):appendint(java_int(math.tointeger(self.value // 1))))))
-        end
-end
+    setMinValue(minValue) {
+        _minValue = minValue
+    }
+    
 
+    getMinValue() {
+        return _minValue
+    }
+    
 
-function GameConfiguration:getValue()
-        return self.value
-end
+    setName(name) {
+        _name = name
+    }
+    
 
+    getName() {
+        return _name
+    }
+    
 
-function GameConfiguration:setMaxValue(maxValue)
-        self.maxValue = maxValue
-end
+    setDefaultValue(defaultValue) {
+        _defaultValue = defaultValue
+    }
+    
 
+    getDefaultValue() {
+        return _defaultValue
+    }
+    
 
-function GameConfiguration:getMaxValue()
-        return self.maxValue
-end
+    setDefault() {
+        this.setValue(this.getDefaultValue())
+    }
+    
 
+    toString() {
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append("Name: ")
+        stringBuffer.append(_name)
+        stringBuffer.append(" Min: ")
+        stringBuffer.appendint(JR.i32(this.getMinValue().intValue()))
+        stringBuffer.append(" Max: ")
+        stringBuffer.appendint(JR.i32(this.getMaxValue().intValue()))
+        stringBuffer.append(" Value: ")
+        stringBuffer.appendint(JR.i32(this.getValue().intValue()))
+        stringBuffer.append(" Default: ")
+        stringBuffer.appendint(JR.i32(this.getDefaultValue().intValue()))
+        stringBuffer.append(" Modifiable: ")
+        stringBuffer.appendboolean(this.isModifiable().booleanValue())
+        return stringBuffer.toString()
+    }
+    
 
-function GameConfiguration:setMinValue(minValue)
-        self.minValue = minValue
-end
+    setModifiable(modifiable) {
+        _modifiable = modifiable
+    }
+    
 
+    isModifiable() {
+        return _modifiable
+    }
+}
 
-function GameConfiguration:getMinValue()
-        return self.minValue
-end
-
-
-function GameConfiguration:setName(name)
-        self.name = name
-end
-
-
-function GameConfiguration:getName()
-        return self.name
-end
-
-
-function GameConfiguration:setDefaultValue(defaultValue)
-        self.defaultValue = defaultValue
-end
-
-
-function GameConfiguration:getDefaultValue()
-        return self.defaultValue
-end
-
-
--- throws Exception
-function GameConfiguration:setDefault()
-        self:setValue(self:getDefaultValue())
-end
-
-
-function GameConfiguration:toString()
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append("Name: ")
-        stringBuffer:append(self.name)
-        stringBuffer:append(" Min: ")
-        stringBuffer:appendint(java_int(math.tointeger(self:getMinValue() // 1)))
-        stringBuffer:append(" Max: ")
-        stringBuffer:appendint(java_int(math.tointeger(self:getMaxValue() // 1)))
-        stringBuffer:append(" Value: ")
-        stringBuffer:appendint(java_int(math.tointeger(self:getValue() // 1)))
-        stringBuffer:append(" Default: ")
-        stringBuffer:appendint(java_int(math.tointeger(self:getDefaultValue() // 1)))
-        stringBuffer:append(" Modifiable: ")
-        stringBuffer:appendboolean(self:isModifiable())
-        return tostring(stringBuffer)
-end
-GameConfiguration.__tostring = function(self) return self:toString() end
-
-
-function GameConfiguration:setModifiable(modifiable)
-        self.modifiable = modifiable
-end
-
-
-function GameConfiguration:isModifiable()
-        return self.modifiable
-end
-
-GameConfiguration.MIN_VALUE = Integer.MIN_VALUE
-
-return GameConfiguration
+import "../../../../org/allbinary/game/configuration/event/GameFeatureEvent" for GameFeatureEvent
+import "../../../../org/allbinary/game/configuration/event/GameFeatureEventHandler" for GameFeatureEventHandler
+import "../../../../org/allbinary/logic/java/bool/BooleanFactory" for BooleanFactory
+import "../../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../java/lang/Integer" for Integer
+import "../../../../java/lang/Boolean" for Boolean
+import "./GameConfigurationSingleton" for GameConfigurationSingleton
 

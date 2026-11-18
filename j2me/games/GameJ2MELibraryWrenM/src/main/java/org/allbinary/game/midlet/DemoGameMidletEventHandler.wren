@@ -1,57 +1,59 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.midlet
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.midlet
 
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventListenerInterface = require("org.allbinary.logic.util.event.EventListenerInterface")
-local BasicEventHandler = require("org.allbinary.logic.util.event.handler.BasicEventHandler")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/logic/util/event/handler/BasicEventHandler" for BasicEventHandler
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class DemoGameMidletEventHandler is BasicEventHandler {
+    static gameKeyEventHandler {
+    if (__gameKeyEventHandler_set == null) {
+      __gameKeyEventHandler_set = true
+      __gameKeyEventHandler = DemoGameMidletEventHandler.new()
+    }
+    return __gameKeyEventHandler
+  }
+  static gameKeyEventHandler=(value) {
+    __gameKeyEventHandler_set = true
+    __gameKeyEventHandler = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_DemoGameMidletEventHandler() {
+  }
+    
 
-local DemoGameMidletEventHandler = {}
-DemoGameMidletEventHandler.__index = DemoGameMidletEventHandler
-DemoGameMidletEventHandler.className = "DemoGameMidletEventHandler"
-setmetatable(DemoGameMidletEventHandler, {__index = BasicEventHandler})
+    construct new() {
+    super()
+    initFields_DemoGameMidletEventHandler()
+    }
+    
 
-
-function DemoGameMidletEventHandler.new()
-    local self = setmetatable(BasicEventHandler.new(), DemoGameMidletEventHandler)
-    return self
-end
-
-
-function DemoGameMidletEventHandler.getInstance()
+    static getInstance() {
         return DemoGameMidletEventHandler.gameKeyEventHandler
-end
+    }
+    
 
+    process(eventObject, eventListenerInterface) {
+        var demoGameMidletEventListener = eventListenerInterface
+        demoGameMidletEventListener.onDemoGameMidletEvent(eventObject)
+    }
+}
 
--- throws Exception
-function DemoGameMidletEventHandler:process(eventObject, eventListenerInterface)
-        local demoGameMidletEventListener = eventListenerInterface
-        demoGameMidletEventListener:onDemoGameMidletEvent(eventObject)
-end
-
-DemoGameMidletEventHandler.gameKeyEventHandler = DemoGameMidletEventHandler.new()
-
-return DemoGameMidletEventHandler
+import "../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../org/allbinary/logic/util/event/EventListenerInterface" for EventListenerInterface
+import "./DemoGameMidletEventListener" for DemoGameMidletEventListener
+import "./DemoGameMidletEvent" for DemoGameMidletEvent
 

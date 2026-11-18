@@ -1,51 +1,52 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.media.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media.image
 
--- local Image = require("javax.microedition.lcdui.Image")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ImageCompleteUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ImageCompleteUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImageCompleteUtil() {
+  }
 
-local ImageCompleteUtil = {}
-ImageCompleteUtil.__index = ImageCompleteUtil
-ImageCompleteUtil.className = "ImageCompleteUtil"
+  construct new() {
+    super()
+    initFields_ImageCompleteUtil()
+  }
+    
 
-function ImageCompleteUtil.new()
-    local self = setmetatable({}, ImageCompleteUtil)
-    return self
-end
-
-
-function ImageCompleteUtil.getInstance()
+    static getInstance() {
         return ImageCompleteUtil.instance
-end
+    }
+    
 
+    waitForImage(image, name) {
+    }
+}
 
--- throws Exception
-function ImageCompleteUtil:waitForImage(image, name)
-end
-
-ImageCompleteUtil.instance = ImageCompleteUtil.new()
-
-return ImageCompleteUtil
+import "../../../../javax/microedition/lcdui/Image" for Image
 

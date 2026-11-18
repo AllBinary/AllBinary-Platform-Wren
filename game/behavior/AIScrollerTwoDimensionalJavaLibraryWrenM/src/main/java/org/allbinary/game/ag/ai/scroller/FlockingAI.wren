@@ -1,108 +1,108 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.ai.scroller
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.ai.scroller
 
--- local Canvas = require("javax.microedition.lcdui.Canvas")
-local BasicAI = require("org.allbinary.game.ai.BasicAI")
-local BasicGroupFactory = require("org.allbinary.game.identification.BasicGroupFactory")
-local GameInput = require("org.allbinary.game.input.GameInput")
-local GroupLayerManagerListener = require("org.allbinary.game.layer.identification.GroupLayerManagerListener")
-local WeaponLayer = require("org.allbinary.game.layer.weapon.WeaponLayer")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local MathUtil = require("org.allbinary.logic.math.MathUtil")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/game/ai/BasicAI" for BasicAI
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class FlockingAI is BasicAI {
+  allowedDistance { _allowedDistance }
+  allowedDistance=(value) { _allowedDistance = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_FlockingAI() {
+    _allowedDistance = 0
+        
+  }
+    
 
-local FlockingAI = {}
-FlockingAI.__index = FlockingAI
-FlockingAI.className = "FlockingAI"
-setmetatable(FlockingAI, {__index = BasicAI})
+    construct new(hashtable, ownerLayerInterface, gameInput) {
+        super(ownerLayerInterface, gameInput)
+        initFields_FlockingAI()
+        var allowedDistance = hashtable.get(BasePatrolAI.MAX_DISTANCE)
+        _allowedDistance = allowedDistance.intValue()
+    }
+    
 
-function FlockingAI:_init_fields()
-    self.allowedDistance = nil
-end
-
-
-function FlockingAI.new(hashtable, ownerLayerInterface, gameInput)
-    local self = setmetatable(BasicAI.new(ownerLayerInterface, gameInput), FlockingAI)
-    self:_init_fields()
-        -- super(...) made self above
-        local allowedDistance = hashtable:get(BasePatrolAI.MAX_DISTANCE)
-        self.allowedDistance = math.tointeger(allowedDistance // 1)
-    return self
-end
-
-
--- throws Exception
-function FlockingAI:processAI(allBinaryLayerManager)
-        local maxDistance = 0
-        local farAllbinaryLayer = AllBinaryLayer.NULL_ALLBINARY_LAYER
-        local groupLayerManagerListener = GroupLayerManagerListener.getInstance()
-        local list = groupLayerManagerListener:getList(BasicGroupFactory.getInstance().ENEMY)
-        local size = list:size()
-        local allBinaryLayer = nil
-        local ownerLayerInterface = nil
-        for index = 0, size - 1 do
-            allBinaryLayer = list:get(index)
-            if allBinaryLayer:getType() ~= WeaponLayer.getStaticType() then
-                local distance = self:getXYDistance(allBinaryLayer)
-                if distance > maxDistance then
+    processAI(allBinaryLayerManager) {
+        var maxDistance = 0
+        var farAllbinaryLayer = AllBinaryLayer.NULL_ALLBINARY_LAYER
+        var groupLayerManagerListener = GroupLayerManagerListener.getInstance()
+        var list = groupLayerManagerListener.getList(BasicGroupFactory.getInstance().ENEMY)
+        var size = list.size()
+        var allBinaryLayer = null
+        var ownerLayerInterface = null
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            allBinaryLayer = list.get(index)
+            if ((allBinaryLayer.getType() != WeaponLayer.getStaticType())) {
+                var distance = this.getXYDistance(allBinaryLayer)
+                if ((distance > maxDistance)) {
                     maxDistance = distance
                     farAllbinaryLayer = allBinaryLayer
-                    if distance > self.allowedDistance then
+                    if ((distance > _allowedDistance)) {
                         break
-                    end
-                end
-            end
-        end
-        if maxDistance > self.allowedDistance then
-            if farAllbinaryLayer ~= AllBinaryLayer.NULL_ALLBINARY_LAYER then
-                ownerLayerInterface = self:getOwnerLayerInterface()
-                if farAllbinaryLayer:getXP() < ownerLayerInterface:getXP() then
-                    self:processKeyAI(Canvas.LEFT)
-                elseif farAllbinaryLayer:getXP() > ownerLayerInterface:getXP() then
-                    self:processKeyAI(Canvas.RIGHT)
-                elseif farAllbinaryLayer:getYP() > ownerLayerInterface:getYP() then
-                    self:processKeyAI(Canvas.UP)
-                elseif farAllbinaryLayer:getYP() < ownerLayerInterface:getYP() then
-                    self:processKeyAI(Canvas.DOWN)
-                end
-            end
-        end
-end
+                    }
+                }
+            }
+            }
+        }
+        if ((maxDistance > _allowedDistance)) {
+            if ((farAllbinaryLayer != AllBinaryLayer.NULL_ALLBINARY_LAYER)) {
+                ownerLayerInterface = this.getOwnerLayerInterface()
+                if ((farAllbinaryLayer.getXP() < ownerLayerInterface.getXP())) {
+                    this.processKeyAI(Canvas.LEFT)
+                } else if ((farAllbinaryLayer.getXP() > ownerLayerInterface.getXP())) {
+                    this.processKeyAI(Canvas.RIGHT)
+                } else if ((farAllbinaryLayer.getYP() > ownerLayerInterface.getYP())) {
+                    this.processKeyAI(Canvas.UP)
+                } else if ((farAllbinaryLayer.getYP() < ownerLayerInterface.getYP())) {
+                    this.processKeyAI(Canvas.DOWN)
+                }
+            }
+        }
+    }
+    
 
-
-function FlockingAI:getXYDistance(allBinaryLayer)
-        local ownerLayerInterface = self:getOwnerLayerInterface()
-        local xTotalDistance = (allBinaryLayer:getXP() + allBinaryLayer:getHalfWidth()) - (ownerLayerInterface:getXP() + ownerLayerInterface:getHalfWidth())
-        local yTotalDistance = (allBinaryLayer:getYP() + allBinaryLayer:getHalfHeight()) - (ownerLayerInterface:getYP() + ownerLayerInterface:getHalfHeight())
-        local mathUtil = MathUtil.getInstance()
-        local totalDistance = mathUtil:abs(xTotalDistance) + mathUtil:abs(yTotalDistance)
+    getXYDistance(allBinaryLayer) {
+        var ownerLayerInterface = this.getOwnerLayerInterface()
+        var xTotalDistance = (((allBinaryLayer.getXP() + allBinaryLayer.getHalfWidth())) - ((ownerLayerInterface.getXP() + ownerLayerInterface.getHalfWidth())))
+        var yTotalDistance = (((allBinaryLayer.getYP() + allBinaryLayer.getHalfHeight())) - ((ownerLayerInterface.getYP() + ownerLayerInterface.getHalfHeight())))
+        var mathUtil = MathUtil.getInstance()
+        var totalDistance = (mathUtil.abs(xTotalDistance) + mathUtil.abs(yTotalDistance))
         return totalDistance
-end
+    }
+}
 
-return FlockingAI
+import "../../../../../../javax/microedition/lcdui/Canvas" for Canvas
+import "../../../../../../org/allbinary/game/identification/BasicGroupFactory" for BasicGroupFactory
+import "../../../../../../org/allbinary/game/input/GameInput" for GameInput
+import "../../../../../../org/allbinary/game/layer/identification/GroupLayerManagerListener" for GroupLayerManagerListener
+import "../../../../../../org/allbinary/game/layer/weapon/WeaponLayer" for WeaponLayer
+import "../../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "../../../../../../org/allbinary/logic/math/MathUtil" for MathUtil
+import "../../../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "../../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../../java/lang/Integer" for Integer
+import "./BasePatrolAI" for BasePatrolAI
 

@@ -1,53 +1,46 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.combat.destroy.event
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.combat.destroy.event
 
-local AllBinaryGameCanvas = require("org.allbinary.game.displayable.canvas.AllBinaryGameCanvas")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local AllBinaryEventObjectFactoryInterface = require("org.allbinary.logic.util.event.AllBinaryEventObjectFactoryInterface")
+import "../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class DestroyEventFactory is JObject {
+  combatGameCanvas { _combatGameCanvas }
+  combatGameCanvas=(value) { _combatGameCanvas = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_DestroyEventFactory() {
+    _combatGameCanvas = null
+        
+  }
+    
 
-local DestroyEventFactory = {}
-DestroyEventFactory.__index = DestroyEventFactory
-DestroyEventFactory.className = "DestroyEventFactory"
+    construct new(combatGameCanvas) {
+    super()
+    initFields_DestroyEventFactory()
+        _combatGameCanvas = combatGameCanvas
+    }
+    
 
-function DestroyEventFactory:_init_fields()
-    self.combatGameCanvas = nil
-end
+    getInstance() {
+        return DestroyedEvent.new(_combatGameCanvas)
+    }
+}
 
-
-function DestroyEventFactory.new(combatGameCanvas)
-    local self = setmetatable({}, DestroyEventFactory)
-    self:_init_fields()
-        self.combatGameCanvas = combatGameCanvas
-    return self
-end
-
-
-function DestroyEventFactory:getInstance()
-        return DestroyedEvent.new(self.combatGameCanvas)
-end
-
-return DestroyEventFactory
+import "../../../../../../org/allbinary/game/displayable/canvas/AllBinaryGameCanvas" for AllBinaryGameCanvas
+import "../../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../../../org/allbinary/logic/util/event/AllBinaryEventObjectFactoryInterface" for AllBinaryEventObjectFactoryInterface
+import "./DestroyedEvent" for DestroyedEvent
 

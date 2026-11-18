@@ -1,66 +1,66 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.opengles.shader
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.opengles.shader
 
--- local EGLConfig = require("javax.microedition.khronos.egl.EGLConfig")
--- local GL10 = require("javax.microedition.khronos.opengles.GL10")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local ShaderUpdater = require("org.allbinary.graphics.opengles.shader.ShaderUpdater")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./ShaderUpdater" for ShaderUpdater
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CompositeShaderUpdater is ShaderUpdater {
+    static instanceC {
+    if (__instanceC_set == null) {
+      __instanceC_set = true
+      __instanceC = CompositeShaderUpdater.new(StringUtil.getInstance().getArrayInstance(), StringUtil.getInstance().getArrayInstance(), StringUtil.getInstance().getArrayInstance(), NullUtil.getInstance().NULL_INT_ARRAY)
+    }
+    return __instanceC
+  }
+  static instanceC=(value) {
+    __instanceC_set = true
+    __instanceC = value
+  }
+  commonSeps { _commonSeps }
+  commonSeps=(value) { _commonSeps = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CompositeShaderUpdater() {
+    _commonSeps = null
+        _commonSeps = CommonSeps.getInstance()
+  }
+    
 
-local CompositeShaderUpdater = {}
-CompositeShaderUpdater.__index = CompositeShaderUpdater
-CompositeShaderUpdater.className = "CompositeShaderUpdater"
-setmetatable(CompositeShaderUpdater, {__index = ShaderUpdater})
-
-function CompositeShaderUpdater:_init_fields()
-    self.commonSeps = CommonSeps.getInstance()
-end
-
-
-function CompositeShaderUpdater.getInstance()
+    static getInstance() {
         return CompositeShaderUpdater.instanceC
-end
+    }
+    
 
+    construct new(uniformBlockArray, uniformArray, attributeArray, attributeHandleArray) {
+    super()
+    initFields_CompositeShaderUpdater()
+    }
+    
 
-function CompositeShaderUpdater.new(uniformBlockArray, uniformArray, attributeArray, attributeHandleArray)
-    local self = setmetatable(ShaderUpdater.new(), CompositeShaderUpdater)
-    self:_init_fields()
-    return self
-end
+    onSurfaceCreated(gl, eglConfig, programHandle) {
+    }
+    
 
+    onSurfaceDestroyed(gl) {
+    }
+}
 
-function CompositeShaderUpdater:onSurfaceCreated(gl, eglConfig, programHandle)
-end
-
-
-function CompositeShaderUpdater:onSurfaceDestroyed(gl)
-end
-
-CompositeShaderUpdater.instanceC = CompositeShaderUpdater.new(StringUtil.getInstance():getArrayInstance(), StringUtil.getInstance():getArrayInstance(), StringUtil.getInstance():getArrayInstance(), NullUtil.getInstance().NULL_INT_ARRAY)
-
-return CompositeShaderUpdater
+import "../../../../../javax/microedition/khronos/egl/EGLConfig" for EGLConfig
+import "../../../../../javax/microedition/khronos/opengles/GL10" for GL10
+import "../../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/string/CommonSeps" for CommonSeps
 

@@ -1,96 +1,101 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.hud.basic.time
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.hud.basic.time
 
--- local Font = require("javax.microedition.lcdui.Font")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicHud = require("org.allbinary.game.graphics.hud.BasicHud")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local MyFontProcessor = require("org.allbinary.graphics.font.MyFontProcessor")
-local PrimitiveLongSingleton = require("org.allbinary.logic.math.PrimitiveLongSingleton")
+import "../../../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../../../org/allbinary/game/graphics/hud/BasicHud" for BasicHud
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class TimeHudWidget is BasicHud {
+  TIME_STRING { _TIME_STRING }
+  TIME_STRING=(value) { _TIME_STRING = value }
+  TIME_CHAR_ARRAY { _TIME_CHAR_ARRAY }
+  TIME_CHAR_ARRAY=(value) { _TIME_CHAR_ARRAY = value }
+  offset { _offset }
+  offset=(value) { _offset = value }
+  string { _string }
+  string=(value) { _string = value }
+  totalDigits { _totalDigits }
+  totalDigits=(value) { _totalDigits = value }
+  timer { _timer }
+  timer=(value) { _timer = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TimeHudWidget() {
+    _TIME_STRING = null
+    _TIME_CHAR_ARRAY = null
+    _offset = 0
+    _string = null
+    _totalDigits = 0
+    _timer = null
+        _TIME_STRING = "Time "
+        _TIME_CHAR_ARRAY = ["T".bytes[0], "i".bytes[0], "m".bytes[0], "e".bytes[0], " ".bytes[0]]
+        _offset = 0
+        _string = PrimitiveLongSingleton.getInstance().ZERO
+        _totalDigits = 1
+        
+  }
+    
 
-local TimeHudWidget = {}
-TimeHudWidget.__index = TimeHudWidget
-TimeHudWidget.className = "TimeHudWidget"
-setmetatable(TimeHudWidget, {__index = BasicHud})
-
-function TimeHudWidget:_init_fields()
-    self.TIME_STRING = "Time "
-    self.TIME_CHAR_ARRAY = {"T", "i", "m", "e", " "}
-    self.offset = 0
-    self.string = PrimitiveLongSingleton.getInstance().ZERO
-    self.totalDigits = 1
-    self.timer = nil
-end
-
-
--- throws Exception
-function TimeHudWidget.getInstance(location, direction, basicColor, timer)
+    static getInstance(location, direction, basicColor, timer) {
         return TimeHudWidget.new(location, direction, 2, basicColor, timer)
-end
+    }
+    
 
+    construct new(location, direction, bufferZone, basicColor, timer) {
+        super(location, direction, bufferZone, basicColor)
+        initFields_TimeHudWidget()
+        _timer = timer
+        this.set()
+        this.updateMaxHeight = 14
+    }
+    
 
-function TimeHudWidget.new(location, direction, bufferZone, basicColor, timer)
-    local self = setmetatable(BasicHud.new(location, direction, bufferZone, basicColor), TimeHudWidget)
-    self:_init_fields()
-        -- super(...) made self above
-        self.timer = timer
-        self:set()
-        self.updateMaxHeight = 14
-    return self
-end
+    updateMeasurement(graphics) {
+        var font = graphics.getFont()
+        this.updateMaxWidth = (font.getSize() * 5)
+        _offset = (font.stringWidth(_TIME_STRING) + MyFontProcessor.defaultStringWidth(font, 3))
+        super.updateMeasurement(graphics)
+    }
+    
 
+    update() {
+        _timer.update()
+        this.set()
+    }
+    
 
-function TimeHudWidget:updateMeasurement(graphics)
-        local font = graphics:getFont()
-        self.updateMaxWidth = font:getSize() * 5
-        self.offset = font:stringWidth(self.TIME_STRING) + MyFontProcessor.defaultStringWidth(font, 3)
-        BasicHud.updateMeasurement(self, graphics)
-end
+    set() {
+        _string = _timer.getTimeChars()
+        _totalDigits = _timer.getCurrentTotalDigits()
+    }
+    
 
+    getTimer() {
+        return _timer
+    }
+    
 
-function TimeHudWidget:update()
-        self.timer:update()
-        self:set()
-end
+    paint(graphics) {
+        super.paintDX(graphics, _TIME_CHAR_ARRAY, 0, _TIME_CHAR_ARRAY.count, _string, 0, _totalDigits, _offset)
+    }
+}
 
-
-function TimeHudWidget:set()
-        self.string = self.timer:getTimeChars()
-        self.totalDigits = self.timer:getCurrentTotalDigits()
-end
-
-
-function TimeHudWidget:getTimer()
-        return self.timer
-end
-
-
-function TimeHudWidget:paint(graphics)
-        BasicHud.paintDX(self, graphics, self.TIME_CHAR_ARRAY, 0, (self.TIME_CHAR_ARRAY.n or #self.TIME_CHAR_ARRAY), self.string, 0, self.totalDigits, self.offset)
-end
-
-return TimeHudWidget
+import "../../../../../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../../../../org/allbinary/graphics/font/MyFontProcessor" for MyFontProcessor
+import "../../../../../../../../org/allbinary/logic/math/PrimitiveLongSingleton" for PrimitiveLongSingleton
+import "./HudTimer" for HudTimer
 

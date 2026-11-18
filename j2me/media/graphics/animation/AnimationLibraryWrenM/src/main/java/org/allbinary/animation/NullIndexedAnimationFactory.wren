@@ -1,79 +1,83 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
-local ScaleProperties = require("org.allbinary.media.ScaleProperties")
-local AnimationInterfaceFactoryInterface = require("org.allbinary.animation.AnimationInterfaceFactoryInterface")
-local ProceduralAnimationInterfaceFactoryInterface = require("org.allbinary.animation.ProceduralAnimationInterfaceFactoryInterface")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class NullIndexedAnimationFactory is JObject {
+    static NULL_INDEXED_ANIMATION_ARRAY {
+    if (__NULL_INDEXED_ANIMATION_ARRAY_set == null) {
+      __NULL_INDEXED_ANIMATION_ARRAY_set = true
+      __NULL_INDEXED_ANIMATION_ARRAY = List.filled(0, null)
+    }
+    return __NULL_INDEXED_ANIMATION_ARRAY
+  }
+  static NULL_INDEXED_ANIMATION_ARRAY=(value) {
+    __NULL_INDEXED_ANIMATION_ARRAY_set = true
+    __NULL_INDEXED_ANIMATION_ARRAY = value
+  }
+    static NULL_INDEXED_ANIMATION_FACTORY {
+    if (__NULL_INDEXED_ANIMATION_FACTORY_set == null) {
+      __NULL_INDEXED_ANIMATION_FACTORY_set = true
+      __NULL_INDEXED_ANIMATION_FACTORY = NullIndexedAnimationFactory.new()
+    }
+    return __NULL_INDEXED_ANIMATION_FACTORY
+  }
+  static NULL_INDEXED_ANIMATION_FACTORY=(value) {
+    __NULL_INDEXED_ANIMATION_FACTORY_set = true
+    __NULL_INDEXED_ANIMATION_FACTORY = value
+  }
+  NULL_ANIMATION { _NULL_ANIMATION }
+  NULL_ANIMATION=(value) { _NULL_ANIMATION = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_NullIndexedAnimationFactory() {
+    _NULL_ANIMATION = null
+        _NULL_ANIMATION = NullIndexedAnimationInner.new()
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new() {
+    super()
+    initFields_NullIndexedAnimationFactory()
+    }
+    
 
-local NullIndexedAnimationFactory = {}
-NullIndexedAnimationFactory.__index = NullIndexedAnimationFactory
-NullIndexedAnimationFactory.className = "NullIndexedAnimationFactory"
-
-function NullIndexedAnimationFactory:_init_fields()
-    self.NULL_ANIMATION = NullIndexedAnimationInner.new()
-end
-
-
-function NullIndexedAnimationFactory.new()
-    local self = setmetatable({}, NullIndexedAnimationFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function NullIndexedAnimationFactory.getFactoryInstance()
+    static getFactoryInstance() {
         return NullIndexedAnimationFactory.NULL_INDEXED_ANIMATION_FACTORY
-end
+    }
+    
 
+    getInstance(instanceId) {
+        return _NULL_ANIMATION
+    }
+    
 
--- throws Exception
-function NullIndexedAnimationFactory:getInstance(instanceId)
-        return self.NULL_ANIMATION
-end
+    getInstanceAnimation(animationInterface) {
+        return _NULL_ANIMATION
+    }
+    
 
+    setInitialScale(scaleProperties) {
+    }
+}
 
--- throws Exception
-function NullIndexedAnimationFactory:getInstanceAnimation(animationInterface)
-        return self.NULL_ANIMATION
-end
-
-
-function NullIndexedAnimationFactory:setInitialScale(scaleProperties)
-end
-
-NullIndexedAnimationFactory.NULL_INDEXED_ANIMATION_ARRAY = java_new_array(nil, 0)
-NullIndexedAnimationFactory.NULL_INDEXED_ANIMATION_FACTORY = NullIndexedAnimationFactory.new()
-
-return NullIndexedAnimationFactory
+import "../../../org/allbinary/media/ScaleProperties" for ScaleProperties
+import "./AnimationInterfaceFactoryInterface" for AnimationInterfaceFactoryInterface
+import "./ProceduralAnimationInterfaceFactoryInterface" for ProceduralAnimationInterfaceFactoryInterface
+import "./IndexedAnimation" for IndexedAnimation
+import "./NullIndexedAnimationInner" for NullIndexedAnimationInner
+import "./Animation" for Animation
 

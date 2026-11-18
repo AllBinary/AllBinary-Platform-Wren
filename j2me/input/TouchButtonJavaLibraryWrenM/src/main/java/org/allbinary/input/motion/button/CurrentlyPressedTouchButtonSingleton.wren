@@ -1,83 +1,85 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.button
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.button
 
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CurrentlyPressedTouchButtonSingleton is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = CurrentlyPressedTouchButtonSingleton.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  list { _list }
+  list=(value) { _list = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CurrentlyPressedTouchButtonSingleton() {
+    _list = null
+        _list = BasicArrayListD.new()
+  }
+    
 
-local CurrentlyPressedTouchButtonSingleton = {}
-CurrentlyPressedTouchButtonSingleton.__index = CurrentlyPressedTouchButtonSingleton
-CurrentlyPressedTouchButtonSingleton.className = "CurrentlyPressedTouchButtonSingleton"
-
-function CurrentlyPressedTouchButtonSingleton:_init_fields()
-    self.list = BasicArrayListD.new()
-end
-
-
-function CurrentlyPressedTouchButtonSingleton.getInstance()
+    static getInstance() {
         return CurrentlyPressedTouchButtonSingleton.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_CurrentlyPressedTouchButtonSingleton()
+    }
+    
 
-function CurrentlyPressedTouchButtonSingleton.new()
-    local self = setmetatable({}, CurrentlyPressedTouchButtonSingleton)
-    self:_init_fields()
-    return self
-end
+    size() {
+        return _list.size()
+    }
+    
 
+    removeAt(index) {
+        return _list.removeAt(index)
+    }
+    
 
-function CurrentlyPressedTouchButtonSingleton:size()
-        return self.list:size()
-end
+    remove(touchButtonInput) {
+        return _list.remove(touchButtonInput)
+    }
+    
 
+    get(index) {
+        return _list.objectArray[index]
+    }
+    
 
-function CurrentlyPressedTouchButtonSingleton:removeAt(index)
-        return self.list:removeAt(index)
-end
+    contains(touchButtonInput) {
+        return _list.contains(touchButtonInput)
+    }
+    
 
+    add(touchButtonInput) {
+        _list.add(touchButtonInput)
+    }
+}
 
-function CurrentlyPressedTouchButtonSingleton:remove(touchButtonInput)
-        return self.list:remove(touchButtonInput)
-end
-
-
-function CurrentlyPressedTouchButtonSingleton:get(index)
-        return self.list.objectArray[index + 1]
-end
-
-
-function CurrentlyPressedTouchButtonSingleton:contains(touchButtonInput)
-        return self.list:contains(touchButtonInput)
-end
-
-
-function CurrentlyPressedTouchButtonSingleton:add(touchButtonInput)
-        self.list:add(touchButtonInput)
-end
-
-CurrentlyPressedTouchButtonSingleton.instance = CurrentlyPressedTouchButtonSingleton.new()
-
-return CurrentlyPressedTouchButtonSingleton
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./TouchButtonInput" for TouchButtonInput
 

@@ -1,59 +1,60 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.terrain
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.terrain
 
-local Angle = require("org.allbinary.math.Angle")
-local AngleFactory = require("org.allbinary.math.AngleFactory")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BasicTerrainInfo is JObject {
+    static NULL_BASIC_TERRAIN_INFO {
+    if (__NULL_BASIC_TERRAIN_INFO_set == null) {
+      __NULL_BASIC_TERRAIN_INFO_set = true
+      __NULL_BASIC_TERRAIN_INFO = BasicTerrainInfo.new(AngleFactory.getInstance().NOT_ANGLE)
+    }
+    return __NULL_BASIC_TERRAIN_INFO
+  }
+  static NULL_BASIC_TERRAIN_INFO=(value) {
+    __NULL_BASIC_TERRAIN_INFO_set = true
+    __NULL_BASIC_TERRAIN_INFO = value
+  }
+  angle { _angle }
+  angle=(value) { _angle = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BasicTerrainInfo() {
+    _angle = null
+        
+  }
+    
 
-local BasicTerrainInfo = {}
-BasicTerrainInfo.__index = BasicTerrainInfo
-BasicTerrainInfo.className = "BasicTerrainInfo"
+    construct new(angle) {
+    super()
+    initFields_BasicTerrainInfo()
+        _angle = angle
+    }
+    
 
-function BasicTerrainInfo:_init_fields()
-    self.angle = nil
-end
+    getAngle() {
+        return _angle
+    }
+    
 
+    setAngle(angle) {
+        _angle = angle
+    }
+}
 
-function BasicTerrainInfo.new(angle)
-    local self = setmetatable({}, BasicTerrainInfo)
-    self:_init_fields()
-        self.angle = angle
-    return self
-end
-
-
-function BasicTerrainInfo:getAngle()
-        return self.angle
-end
-
-
-function BasicTerrainInfo:setAngle(angle)
-        self.angle = angle
-end
-
-BasicTerrainInfo.NULL_BASIC_TERRAIN_INFO = BasicTerrainInfo.new(AngleFactory.getInstance().NOT_ANGLE)
-
-return BasicTerrainInfo
+import "../../../../org/allbinary/math/Angle" for Angle
+import "../../../../org/allbinary/math/AngleFactory" for AngleFactory
 

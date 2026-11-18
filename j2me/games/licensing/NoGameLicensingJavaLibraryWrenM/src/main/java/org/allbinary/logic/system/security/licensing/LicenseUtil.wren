@@ -1,64 +1,66 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.system.security.licensing
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.system.security.licensing
 
--- local CommandListener = require("javax.microedition.lcdui.CommandListener")
+import "../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LicenseUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = LicenseUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LicenseUtil() {
+  }
 
-local LicenseUtil = {}
-LicenseUtil.__index = LicenseUtil
-LicenseUtil.className = "LicenseUtil"
+  construct new() {
+    super()
+    initFields_LicenseUtil()
+  }
+    
 
-function LicenseUtil.new()
-    local self = setmetatable({}, LicenseUtil)
-    return self
-end
-
-
-function LicenseUtil.getInstance()
+    static getInstance() {
         return LicenseUtil.instance
-end
+    }
+    
 
+    init() {
+    }
+    
 
-function LicenseUtil:init()
-end
-
-
-function LicenseUtil:isRunning()
+    isRunning() {
         return false
-end
+    }
+    
 
+    setRunning(running) {
+    }
+    
 
-function LicenseUtil:setRunning(running)
-end
+    shouldWait(commandListener) {
+        return this.isRunning()
+    }
+}
 
-
-function LicenseUtil:shouldWait(commandListener)
-        return self:isRunning()
-end
-
-LicenseUtil.instance = LicenseUtil.new()
-
-return LicenseUtil
+import "../../../../../../javax/microedition/lcdui/CommandListener" for CommandListener
 

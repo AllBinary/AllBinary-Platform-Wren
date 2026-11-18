@@ -1,135 +1,134 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
-local Direction = require("org.allbinary.direction.Direction")
-local DirectionUtil = require("org.allbinary.direction.DirectionUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local Angle = require("org.allbinary.math.Angle")
-local AngleInfo = require("org.allbinary.math.AngleInfo")
-local FrameUtil = require("org.allbinary.math.FrameUtil")
-local CircularIndexUtil = require("org.allbinary.util.CircularIndexUtil")
-local IndexedAnimation = require("org.allbinary.animation.IndexedAnimation")
-local RotationAnimationInterface = require("org.allbinary.animation.RotationAnimationInterface")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./IndexedAnimation" for IndexedAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RotationAnimation is IndexedAnimation {
+  frameUtil { _frameUtil }
+  frameUtil=(value) { _frameUtil = value }
+  directionUtil { _directionUtil }
+  directionUtil=(value) { _directionUtil = value }
+  angleInfo { _angleInfo }
+  angleInfo=(value) { _angleInfo = value }
+  circularIndexUtil { _circularIndexUtil }
+  circularIndexUtil=(value) { _circularIndexUtil = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RotationAnimation() {
+    _frameUtil = null
+    _directionUtil = null
+    _angleInfo = null
+    _circularIndexUtil = null
+        _frameUtil = FrameUtil.getInstance()
+        _directionUtil = DirectionUtil.getInstance()
+        
+        
+  }
+    
 
-local RotationAnimation = {}
-RotationAnimation.__index = RotationAnimation
-RotationAnimation.className = "RotationAnimation"
-setmetatable(RotationAnimation, {__index = IndexedAnimation})
+    construct new(angleInfo, circularIndexUtil, animationBehavior) {
+        super(animationBehavior)
+        initFields_RotationAnimation()
+        _angleInfo = angleInfo
+        _circularIndexUtil = circularIndexUtil
+    }
+    
 
-function RotationAnimation:_init_fields()
-    self.frameUtil = FrameUtil.getInstance()
-    self.directionUtil = DirectionUtil.getInstance()
-    self.angleInfo = nil
-    self.circularIndexUtil = nil
-end
+    nextRotationX() {
+    }
+    
 
+    previousRotationX() {
+    }
+    
 
-function RotationAnimation.new(angleInfo, circularIndexUtil, animationBehavior)
-    local self = setmetatable(IndexedAnimation.new(animationBehavior), RotationAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.angleInfo = angleInfo
-        self.circularIndexUtil = circularIndexUtil
-    return self
-end
+    nextRotation() {
+        _angleInfo.adjustAngle(_circularIndexUtil.next())
+    }
+    
 
+    previousRotation() {
+        _angleInfo.adjustAngle(_circularIndexUtil.previous())
+    }
+    
 
-function RotationAnimation:nextRotationX()
-end
+    nextRotationZ() {
+    }
+    
 
+    previousRotationZ() {
+    }
+    
 
-function RotationAnimation:previousRotationX()
-end
+    setFrame(index) {
+        _circularIndexUtil.setIndex(index)
+        var newFrame = _circularIndexUtil.getIndex()
+        _angleInfo.adjustAngle(newFrame)
+    }
+    
 
+    setFrameByDirection(direction) {
+        var angle = _directionUtil.getFrameAngle(direction)
+        this.adjustFrameToAngle(angle)
+    }
+    
 
-function RotationAnimation:nextRotation()
-        self.angleInfo:adjustAngle(self.circularIndexUtil:next())
-end
+    setFrameToAngle(angle) {
+        this.adjustFrameToAngle(angle)
+    }
+    
 
+    adjustFrameToAngle(angle) {
+        this.adjustFrame(angle.getValue())
+    }
+    
 
-function RotationAnimation:previousRotation()
-        self.angleInfo:adjustAngle(self.circularIndexUtil:previous())
-end
+    adjustFrame(angle) {
+        this.setFrame(_frameUtil.getFrameForAngle(angle, JR.i32(_angleInfo.getAngleIncrementInfo().getAngleIncrement())))
+    }
+    
 
+    getFrame() {
+        return _circularIndexUtil.getIndex()
+    }
+    
 
-function RotationAnimation:nextRotationZ()
-end
+    getSize() {
+        return _circularIndexUtil.getSize()
+    }
+    
 
+    getAngleInfoP() {
+        return _angleInfo
+    }
+    
 
-function RotationAnimation:previousRotationZ()
-end
+    toString() {
+        return StringMaker.new().append(super.toString()).append("circularIndexUtil: ").append(_circularIndexUtil.toString()).append("angleInfo: ").append(_angleInfo.toString()).toString()
+    }
+}
 
-
-function RotationAnimation:setFrame(index)
-        self.circularIndexUtil:setIndex(index)
-        local newFrame = self.circularIndexUtil:getIndex()
-        self.angleInfo:adjustAngle(newFrame)
-end
-
-
-function RotationAnimation:setFrameByDirection(direction)
-        local angle = self.directionUtil:getFrameAngle(direction)
-        self:adjustFrameToAngle(angle)
-end
-
-
-function RotationAnimation:setFrameToAngle(angle)
-        self:adjustFrameToAngle(angle)
-end
-
-
-function RotationAnimation:adjustFrameToAngle(angle)
-        self:adjustFrame(angle:getValue())
-end
-
-
-function RotationAnimation:adjustFrame(angle)
-        self:setFrame(self.frameUtil:getFrameForAngle(angle, java_int(self.angleInfo:getAngleIncrementInfo():getAngleIncrement())))
-end
-
-
-function RotationAnimation:getFrame()
-        return self.circularIndexUtil:getIndex()
-end
-
-
-function RotationAnimation:getSize()
-        return self.circularIndexUtil:getSize()
-end
-
-
-function RotationAnimation:getAngleInfoP()
-        return self.angleInfo
-end
-
-
-function RotationAnimation:toString()
-        return tostring(StringMaker.new():append(tostring(IndexedAnimation)):append("circularIndexUtil: "):append(tostring(self.circularIndexUtil)):append("angleInfo: "):append(tostring(self.angleInfo)))
-end
-RotationAnimation.__tostring = function(self) return self:toString() end
-
-return RotationAnimation
+import "../../../org/allbinary/direction/Direction" for Direction
+import "../../../org/allbinary/direction/DirectionUtil" for DirectionUtil
+import "../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../org/allbinary/math/Angle" for Angle
+import "../../../org/allbinary/math/AngleInfo" for AngleInfo
+import "../../../org/allbinary/math/FrameUtil" for FrameUtil
+import "../../../org/allbinary/util/CircularIndexUtil" for CircularIndexUtil
+import "./RotationAnimationInterface" for RotationAnimationInterface
+import "./AnimationBehavior" for AnimationBehavior
 

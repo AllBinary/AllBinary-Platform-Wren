@@ -1,131 +1,119 @@
--- Generated Code Do Not Modify
--- package javax.microedition.lcdui
+// Generated Code Do Not Modify
+// package javax.microedition.lcdui
 
--- local Stack = require("java.util.Stack")
-local Canvas = require("javax.microedition.lcdui.Canvas")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./Canvas" for Canvas
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class NullCanvas is Canvas {
+    static NULL_CANVAS {
+    if (__NULL_CANVAS_set == null) {
+      __NULL_CANVAS_set = true
+      __NULL_CANVAS = NullCanvas.new()
+    }
+    return __NULL_CANVAS
+  }
+  static NULL_CANVAS=(value) {
+    __NULL_CANVAS_set = true
+    __NULL_CANVAS = value
+  }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_NullCanvas() {
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new() {
+    super()
+    initFields_NullCanvas()
+    }
+    
 
-local NullCanvas = {}
-NullCanvas.__index = NullCanvas
-NullCanvas.className = "NullCanvas"
-setmetatable(NullCanvas, {__index = Canvas})
+    setFullScreenMode(mode) {
+    }
+    
 
+    sizeChanged(w, h) {
+    }
+    
 
-function NullCanvas.new()
-    local self = setmetatable(Canvas.new(), NullCanvas)
-    return self
-end
+    getCommandStack() {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+    
 
+    isCommand(command) {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+    
 
-function NullCanvas:setFullScreenMode(mode)
-end
+    addCommand(command) {
+    }
+    
 
+    removeCommand(command) {
+    }
+    
 
-function NullCanvas:sizeChanged(w, h)
-end
+    removeAllCommands() {
+    }
+    
 
+    setCommandListener(l) {
+    }
+    
 
-function NullCanvas:getCommandStack()
-        error(java_exception("RuntimeException"), 0)
-end
+    getCustomCommandListener() {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+    
 
+    isPaused() {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+    
 
-function NullCanvas:isCommand(command)
-        error(java_exception("RuntimeException"), 0)
-end
+    removePauseCommand() {
+    }
+    
 
+    pause() {
+    }
+    
 
-function NullCanvas:addCommand(command)
-end
+    unPause() {
+    }
+    
 
+    process() {
+    }
+    
 
-function NullCanvas:removeCommand(command)
-end
+    paint(graphics) {
+    }
+    
 
+    destroy() {
+    }
+    
 
-function NullCanvas:removeAllCommands()
-end
+    setPaused(isPaused) {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+    
 
+    pointerDragged(x, y) {
+    }
+    
 
-function NullCanvas:setCommandListener(l)
-end
+    pointerPressed(x, y) {
+    }
+    
 
+    pointerReleased(x, y) {
+    }
+}
 
-function NullCanvas:getCustomCommandListener()
-        error(java_exception("RuntimeException"), 0)
-end
-
-
-function NullCanvas:isPaused()
-        error(java_exception("RuntimeException"), 0)
-end
-
-
-function NullCanvas:removePauseCommand()
-end
-
-
-function NullCanvas:pause()
-end
-
-
-function NullCanvas:unPause()
-end
-
-
--- throws Exception
-function NullCanvas:process()
-end
-
-
-function NullCanvas:paint(graphics)
-end
-
-
-function NullCanvas:destroy()
-end
-
-
-function NullCanvas:setPaused(isPaused)
-        error(java_exception("RuntimeException"), 0)
-end
-
-
-function NullCanvas:pointerDragged(x, y)
-end
-
-
-function NullCanvas:pointerPressed(x, y)
-end
-
-
-function NullCanvas:pointerReleased(x, y)
-end
-
-NullCanvas.NULL_CANVAS = NullCanvas.new()
-
-return NullCanvas
+import "../../../java/util/Stack" for Stack
+import "./Command" for Command
+import "./CommandListener" for CommandListener
+import "./Graphics" for Graphics
 

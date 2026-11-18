@@ -1,42 +1,41 @@
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
--- local Canvas = require("javax.microedition.lcdui.Canvas")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../javax/microedition/lcdui/Canvas" for Canvas
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//Temp should not be in any build
+class NullDisplayable is Canvas {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = NullDisplayable.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NullDisplayable() {
+  }
+    
 
---Temp should not be in any build
-local NullDisplayable = {}
-NullDisplayable.__index = NullDisplayable
-NullDisplayable.className = "NullDisplayable"
-setmetatable(NullDisplayable, {__index = Canvas})
-
-
-function NullDisplayable.getInstance()
+    static getInstance() {
         return NullDisplayable.SINGLETON
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_NullDisplayable()
+    }
+    
 
-function NullDisplayable.new()
-    local self = setmetatable(Canvas.new(), NullDisplayable)
-    return self
-end
+    paint(graphics) {
+    }
+}
 
-
-function NullDisplayable:paint(graphics)
-end
-
-NullDisplayable.SINGLETON = NullDisplayable.new()
-
-return NullDisplayable
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
 

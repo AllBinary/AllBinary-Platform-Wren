@@ -1,70 +1,68 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.io.file
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.io.file
 
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class FileFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = FileFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_FileFactory() {
+  }
 
-local FileFactory = {}
-FileFactory.__index = FileFactory
-FileFactory.className = "FileFactory"
+  construct new() {
+    super()
+    initFields_FileFactory()
+  }
+    
 
-function FileFactory.new()
-    local self = setmetatable({}, FileFactory)
-    return self
-end
-
-
-function FileFactory.getInstance()
+    static getInstance() {
         return FileFactory.instance
-end
+    }
+    
 
-
--- throws Exception
--- Java overloaded method: Lua keeps the last definition
-function FileFactory:getInstance(filePath)
+    getInstance(filePath) {
         return AbFile.createAbFileFromRawPath(filePath)
-end
+    }
+    
 
-
--- throws Exception
--- Java overloaded method: Lua keeps the last definition
-function FileFactory:getInstance(file, childFilePath)
+    getInstance(file, childFilePath) {
         return AbFile.createAbFileWithChild(file, childFilePath)
-end
+    }
+    
 
-
--- throws Exception
-function FileFactory:isFile(path)
-        local file = AbFile.createAbFile(path)
-        if file:exists() then
+    isFile(path) {
+        var file = AbFile.createAbFile(path)
+        if (file.exists()) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+}
 
-FileFactory.instance = FileFactory.new()
-
-return FileFactory
+import "./AbFile" for AbFile
 

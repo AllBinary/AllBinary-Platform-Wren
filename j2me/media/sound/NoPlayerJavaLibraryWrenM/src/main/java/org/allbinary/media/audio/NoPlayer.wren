@@ -1,72 +1,66 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.media.audio
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media.audio
 
--- local Control = require("javax.microedition.media.Control")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local BasicPlayer = require("org.allbinary.media.audio.BasicPlayer")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./BasicPlayer" for BasicPlayer
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class NoPlayer is BasicPlayer {
+    static NO_PLAYER {
+    if (__NO_PLAYER_set == null) {
+      __NO_PLAYER_set = true
+      __NO_PLAYER = NoPlayer.new()
+    }
+    return __NO_PLAYER
+  }
+  static NO_PLAYER=(value) {
+    __NO_PLAYER_set = true
+    __NO_PLAYER = value
+  }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_NoPlayer() {
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new() {
+    super()
+    initFields_NoPlayer()
+    }
+    
 
-local NoPlayer = {}
-NoPlayer.__index = NoPlayer
-NoPlayer.className = "NoPlayer"
-setmetatable(NoPlayer, {__index = BasicPlayer})
+    close() {
+    }
+    
 
-
-function NoPlayer.new()
-    local self = setmetatable(BasicPlayer.new(), NoPlayer)
-    return self
-end
-
-
-function NoPlayer:close()
-end
-
-
-function NoPlayer:getContentType()
+    getContentType() {
         return StringUtil.getInstance().NULL_STRING
-end
+    }
+    
 
-
-function NoPlayer:getControl(controlType)
+    getControl(controlType) {
         return NullControl.new()
-end
+    }
+    
 
+    getControls() {
+        return List.filled(0, null)
+    }
+}
 
-function NoPlayer:getControls()
-        return java_new_array(nil, 0)
-end
-
-NoPlayer.NO_PLAYER = NoPlayer.new()
-
-return NoPlayer
+import "../../../../javax/microedition/media/Control" for Control
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "./NullControl" for NullControl
 

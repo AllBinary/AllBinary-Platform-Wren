@@ -1,50 +1,52 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.content
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.content
 
--- local Command = require("javax.microedition.lcdui.Command")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NotificationUtil is JObject {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = NotificationUtil.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NotificationUtil() {
+  }
 
-local NotificationUtil = {}
-NotificationUtil.__index = NotificationUtil
-NotificationUtil.className = "NotificationUtil"
+  construct new() {
+    super()
+    initFields_NotificationUtil()
+  }
+    
 
-function NotificationUtil.new()
-    local self = setmetatable({}, NotificationUtil)
-    return self
-end
-
-
-function NotificationUtil.getInstance()
+    static getInstance() {
         return NotificationUtil.SINGLETON
-end
+    }
+    
 
+    notify(command, resource, message) {
+    }
+}
 
-function NotificationUtil:notify(command, resource, message)
-end
-
-NotificationUtil.SINGLETON = NotificationUtil.new()
-
-return NotificationUtil
+import "../../../javax/microedition/lcdui/Command" for Command
 

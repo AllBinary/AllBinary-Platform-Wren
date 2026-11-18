@@ -1,48 +1,50 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.java
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.java
 
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PrimitiveArrayToString is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PrimitiveArrayToString() {
+  }
 
-local PrimitiveArrayToString = {}
-PrimitiveArrayToString.__index = PrimitiveArrayToString
-PrimitiveArrayToString.className = "PrimitiveArrayToString"
+  construct new() {
+    super()
+    initFields_PrimitiveArrayToString()
+  }
+    
 
-function PrimitiveArrayToString.new()
-    local self = setmetatable({}, PrimitiveArrayToString)
-    return self
-end
+    static toString(floats) {
+        var stringBuffer = StringMaker.new()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < floats.count))) break
+            stringBuffer.appendfloat(floats[index])
+            }
+        }
+        return stringBuffer.toString()
+    }
+}
 
-
-function PrimitiveArrayToString.toString(floats)
-        local stringBuffer = StringMaker.new()
-        for index = 0, (floats.n or #floats) - 1 do
-            stringBuffer:appendfloat(floats[index + 1])
-        end
-        return tostring(stringBuffer)
-end
-
-return PrimitiveArrayToString
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
 

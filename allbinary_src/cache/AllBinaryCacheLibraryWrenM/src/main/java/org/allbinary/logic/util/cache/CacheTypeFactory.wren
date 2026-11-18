@@ -1,42 +1,51 @@
--- Generated Code Do Not Modify
--- package org.allbinary.logic.util.cache
+// Generated Code Do Not Modify
+// package org.allbinary.logic.util.cache
 
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CacheTypeFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = CacheTypeFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  NO_CACHE { _NO_CACHE }
+  NO_CACHE=(value) { _NO_CACHE = value }
+  CACHE { _CACHE }
+  CACHE=(value) { _CACHE = value }
+  SET { _SET }
+  SET=(value) { _SET = value }
+  CACHE_VECTOR { _CACHE_VECTOR }
+  CACHE_VECTOR=(value) { _CACHE_VECTOR = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CacheTypeFactory() {
+    _NO_CACHE = null
+    _CACHE = null
+    _SET = null
+    _CACHE_VECTOR = null
+        _NO_CACHE = CacheType.new(StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING)
+        _CACHE = CacheType.new(StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING)
+        _SET = CacheType.new(StringUtil.getInstance().EMPTY_STRING, "Set")
+        _CACHE_VECTOR = CacheType.new(StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING)
+  }
 
-local CacheTypeFactory = {}
-CacheTypeFactory.__index = CacheTypeFactory
-CacheTypeFactory.className = "CacheTypeFactory"
+  construct new() {
+    super()
+    initFields_CacheTypeFactory()
+  }
+    
 
-function CacheTypeFactory:_init_fields()
-    self.NO_CACHE = CacheType.new(StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING)
-    self.CACHE = CacheType.new(StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING)
-    self.SET = CacheType.new(StringUtil.getInstance().EMPTY_STRING, "Set")
-    self.CACHE_VECTOR = CacheType.new(StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING)
-end
-
-function CacheTypeFactory.new()
-    local self = setmetatable({}, CacheTypeFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function CacheTypeFactory.getInstance()
+    static getInstance() {
         return CacheTypeFactory.instance
-end
+    }
+}
 
-CacheTypeFactory.instance = CacheTypeFactory.new()
-
-return CacheTypeFactory
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "./CacheType" for CacheType
 

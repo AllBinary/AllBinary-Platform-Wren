@@ -1,137 +1,175 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input
 
-local AnalogLocationInputFactory = require("org.allbinary.game.input.analog.AnalogLocationInputFactory")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class LocalPlayerInputIdFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = LocalPlayerInputIdFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  MAX_NUMBER_OF_PLAYERS { _MAX_NUMBER_OF_PLAYERS }
+  MAX_NUMBER_OF_PLAYERS=(value) { _MAX_NUMBER_OF_PLAYERS = value }
+  MAX_FAST_DEVICEID { _MAX_FAST_DEVICEID }
+  MAX_FAST_DEVICEID=(value) { _MAX_FAST_DEVICEID = value }
+  deviceIdToplayerId { _deviceIdToplayerId }
+  deviceIdToplayerId=(value) { _deviceIdToplayerId = value }
+  playerIdToDeviceId { _playerIdToDeviceId }
+  playerIdToDeviceId=(value) { _playerIdToDeviceId = value }
+  playersInPlay { _playersInPlay }
+  playersInPlay=(value) { _playersInPlay = value }
+  totalDevicesMapped { _totalDevicesMapped }
+  totalDevicesMapped=(value) { _totalDevicesMapped = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_LocalPlayerInputIdFactory() {
+    _logUtil = null
+    _MAX_NUMBER_OF_PLAYERS = 0
+    _MAX_FAST_DEVICEID = 0
+    _deviceIdToplayerId = null
+    _playerIdToDeviceId = null
+    _playersInPlay = null
+    _totalDevicesMapped = 0
+        _logUtil = LogUtil.getInstance()
+        _MAX_NUMBER_OF_PLAYERS = 6
+        _MAX_FAST_DEVICEID = 65
+        _deviceIdToplayerId = List.filled(_MAX_FAST_DEVICEID, 0)
+        _playerIdToDeviceId = List.filled(_MAX_NUMBER_OF_PLAYERS, 0)
+        _playersInPlay = List.filled(_MAX_NUMBER_OF_PLAYERS, false)
+        _totalDevicesMapped = 0
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new() {
+    super()
+    initFields_LocalPlayerInputIdFactory()
+        if (true) {
+            var index = JR.i32(_deviceIdToplayerId.count - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            _deviceIdToplayerId[index] = -1
+            }
+        }
+    }
+    
 
-local LocalPlayerInputIdFactory = {}
-LocalPlayerInputIdFactory.__index = LocalPlayerInputIdFactory
-LocalPlayerInputIdFactory.className = "LocalPlayerInputIdFactory"
-
-function LocalPlayerInputIdFactory:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.MAX_NUMBER_OF_PLAYERS = 6
-    self.MAX_FAST_DEVICEID = 65
-    self.deviceIdToplayerId = java_new_array(0, self.MAX_FAST_DEVICEID)
-    self.playerIdToDeviceId = java_new_array(0, self.MAX_NUMBER_OF_PLAYERS)
-    self.playersInPlay = java_new_array(false, self.MAX_NUMBER_OF_PLAYERS)
-    self.totalDevicesMapped = 0
-end
-
-
-function LocalPlayerInputIdFactory.new()
-    local self = setmetatable({}, LocalPlayerInputIdFactory)
-    self:_init_fields()
-        for index = (self.deviceIdToplayerId.n or #self.deviceIdToplayerId) - 1, 0, -1 do
-            self.deviceIdToplayerId[index + 1] = -1
-        end
-    return self
-end
-
-
-function LocalPlayerInputIdFactory.getInstance()
+    static getInstance() {
         return LocalPlayerInputIdFactory.instance
-end
+    }
+    
 
+    getDeviceId(playerInputId) {
+        return _playerIdToDeviceId[playerInputId]
+    }
+    
 
-function LocalPlayerInputIdFactory:getDeviceId(playerInputId)
-        return self.playerIdToDeviceId[playerInputId + 1]
-end
-
-
-function LocalPlayerInputIdFactory:getPlayerForDevice(deviceId)
-        local index = 0
-        if deviceId < self.MAX_FAST_DEVICEID then
-            local playerInputId = self.deviceIdToplayerId[deviceId + 1]
-            if playerInputId ~= -1 then
+    getPlayerForDevice(deviceId) {
+        var index = 0
+        if ((deviceId < _MAX_FAST_DEVICEID)) {
+            var playerInputId = _deviceIdToplayerId[deviceId]
+            if ((playerInputId != -1)) {
                 return playerInputId
-            end
-        else
-            for index = self.totalDevicesMapped - 1, 0, -1 do
-                if self.playerIdToDeviceId[index + 1] == deviceId then
+            }
+        } else {
+            if (true) {
+                index = JR.i32(_totalDevicesMapped - 1)
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        index = JR.i32(index - 1)
+                    }
+                    jfirst = false
+                    if (!((index >= 0))) break
+                if ((_playerIdToDeviceId[index] == deviceId)) {
                     return index
-                end
-            end
-        end
-        index = self.totalDevicesMapped
-        if deviceId < self.MAX_FAST_DEVICEID then
-            self.deviceIdToplayerId[deviceId + 1] = index
-        else
-            self.logUtil:putF(tostring(StringMaker.new():append("Added DeviceId: "):appendint(deviceId):append(" beyond fast Id list")), self, "getPlayerForDevice")
-        end
-        self.playerIdToDeviceId[index + 1] = deviceId
-        AnalogLocationInputFactory.getInstance():addPlayer(self.totalDevicesMapped)
-        self.totalDevicesMapped = self.totalDevicesMapped + 1
-        self.logUtil:putF(tostring(StringMaker.new():append("Added DeviceId: "):appendint(deviceId):append(" at: "):appendint(index):append(" Total: "):appendint(self.totalDevicesMapped)), self, "getPlayerForDevice")
+                }
+                }
+            }
+        }
+        index = _totalDevicesMapped
+        if ((deviceId < _MAX_FAST_DEVICEID)) {
+            _deviceIdToplayerId[deviceId] = index
+        } else {
+            _logUtil.putF(StringMaker.new().append("Added DeviceId: ").appendint(deviceId).append(" beyond fast Id list").toString(), this, "getPlayerForDevice")
+        }
+        _playerIdToDeviceId[index] = deviceId
+        AnalogLocationInputFactory.getInstance().addPlayer(_totalDevicesMapped)
+        _totalDevicesMapped = JR.i32(_totalDevicesMapped + 1)
+        _logUtil.putF(StringMaker.new().append("Added DeviceId: ").appendint(deviceId).append(" at: ").appendint(index).append(" Total: ").appendint(_totalDevicesMapped).toString(), this, "getPlayerForDevice")
         return index
-end
+    }
+    
 
-
-function LocalPlayerInputIdFactory:getTotalDevicesInPlay()
-        local total = 0
-        for index = self.totalDevicesMapped - 1, 0, -1 do
-            if self.playersInPlay[index + 1] == true then
-                total = total + 1
-            end
-        end
+    getTotalDevicesInPlay() {
+        var total = 0
+        if (true) {
+            var index = JR.i32(_totalDevicesMapped - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            if ((_playersInPlay[index] == true)) {
+                total = JR.i32(total + 1)
+            }
+            }
+        }
         return total
-end
+    }
+    
 
+    isPlayerInPlay(playerInputId) {
+        return _playersInPlay[playerInputId]
+    }
+    
 
-function LocalPlayerInputIdFactory:isPlayerInPlay(playerInputId)
-        return self.playersInPlay[playerInputId + 1]
-end
+    setPlayerInPlay(playerInputId) {
+        _logUtil.putF(StringMaker.new().append("Setting PlayerInPlay with playerInputId: ").appendint(playerInputId).toString(), this, "setPlayerInPlay")
+        _playersInPlay[playerInputId] = true
+    }
+    
 
+    setPlayerOutOfPlay(playerInputId) {
+        _logUtil.putF(StringMaker.new().append("Setting PlayerOutOfPlay with playerInputId: ").appendint(playerInputId).toString(), this, "setPlayerOutOfPlay")
+        _playersInPlay[playerInputId] = false
+    }
+    
 
-function LocalPlayerInputIdFactory:setPlayerInPlay(playerInputId)
-        self.logUtil:putF(tostring(StringMaker.new():append("Setting PlayerInPlay with playerInputId: "):appendint(playerInputId)), self, "setPlayerInPlay")
-        self.playersInPlay[playerInputId + 1] = true
-end
+    getPlayersInPlay() {
+        return _playersInPlay
+    }
+}
 
-
-function LocalPlayerInputIdFactory:setPlayerOutOfPlay(playerInputId)
-        self.logUtil:putF(tostring(StringMaker.new():append("Setting PlayerOutOfPlay with playerInputId: "):appendint(playerInputId)), self, "setPlayerOutOfPlay")
-        self.playersInPlay[playerInputId + 1] = false
-end
-
-
-function LocalPlayerInputIdFactory:getPlayersInPlay()
-        return self.playersInPlay
-end
-
-LocalPlayerInputIdFactory.instance = LocalPlayerInputIdFactory.new()
-
-return LocalPlayerInputIdFactory
+import "../../../../org/allbinary/game/input/analog/AnalogLocationInputFactory" for AnalogLocationInputFactory
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
 

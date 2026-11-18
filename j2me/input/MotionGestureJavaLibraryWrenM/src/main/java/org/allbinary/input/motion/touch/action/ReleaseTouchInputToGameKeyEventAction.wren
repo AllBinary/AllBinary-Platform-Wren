@@ -1,77 +1,76 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.touch.action
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.touch.action
 
-local GameKey = require("org.allbinary.game.input.GameKey")
-local GameKeyFactory = require("org.allbinary.game.input.GameKeyFactory")
-local PlatformInputMappingFactory = require("org.allbinary.game.input.PlatformInputMappingFactory")
-local GameKeyEventFactory = require("org.allbinary.game.input.event.GameKeyEventFactory")
-local GameKeyCompleteMotionGestureInputEvent = require("org.allbinary.game.input.motion.action.GameKeyCompleteMotionGestureInputEvent")
-local TouchMotionGestureFactory = require("org.allbinary.input.motion.gesture.TouchMotionGestureFactory")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/game/input/motion/action/GameKeyCompleteMotionGestureInputEvent" for GameKeyCompleteMotionGestureInputEvent
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ReleaseTouchInputToGameKeyEventAction is GameKeyCompleteMotionGestureInputEvent {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  NONE { _NONE }
+  NONE=(value) { _NONE = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ReleaseTouchInputToGameKeyEventAction() {
+    _NONE = null
+        _NONE = GameKeyFactory.getInstance().NONE
+  }
+    
 
-local ReleaseTouchInputToGameKeyEventAction = {}
-ReleaseTouchInputToGameKeyEventAction.__index = ReleaseTouchInputToGameKeyEventAction
-ReleaseTouchInputToGameKeyEventAction.className = "ReleaseTouchInputToGameKeyEventAction"
-setmetatable(ReleaseTouchInputToGameKeyEventAction, {__index = GameKeyCompleteMotionGestureInputEvent})
-
-function ReleaseTouchInputToGameKeyEventAction:_init_fields()
-    self.NONE = GameKeyFactory.getInstance().NONE
-end
-
-
-function ReleaseTouchInputToGameKeyEventAction.getInstance()
-        if ReleaseTouchInputToGameKeyEventAction.instance == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((ReleaseTouchInputToGameKeyEventAction.instance == NullUtil.getInstance().NULL_OBJECT)) {
             ReleaseTouchInputToGameKeyEventAction.instance = ReleaseTouchInputToGameKeyEventAction.new()
-        end
+        }
         return ReleaseTouchInputToGameKeyEventAction.instance
-end
+    }
+    
 
+    construct new() {
+        super("Release Action", TouchMotionGestureFactory.getInstance().RELEASED, PlatformInputMappingFactory.getInstance().getPersistentInputMappingInstance().getInputMapping())
+        initFields_ReleaseTouchInputToGameKeyEventAction()
+        var jerror0 = Fiber.new {
+            this.setGameKey(_NONE)
+            this.setGameKeyEvent(GameKeyEventFactory.getInstance().getInstanceForInput(this, _NONE))
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            this.logUtil.put(commonStrings.EXCEPTION, this, commonStrings.CONSTRUCTOR, e)
+        }
+    }
+    
 
-function ReleaseTouchInputToGameKeyEventAction.new()
-    local self = setmetatable(GameKeyCompleteMotionGestureInputEvent.new("Release Action", TouchMotionGestureFactory.getInstance().RELEASED, PlatformInputMappingFactory.getInstance():getPersistentInputMappingInstance():getInputMapping()), ReleaseTouchInputToGameKeyEventAction)
-    self:_init_fields()
-        -- super(...) made self above
-        local try_ok, try_error = pcall(function()
-            self:setGameKey(self.NONE)
-            self:setGameKeyEvent(GameKeyEventFactory.getInstance():getInstanceForInput(self, self.NONE))
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, commonStrings.CONSTRUCTOR, e)
-        end
-    return self
-end
+    update() {
+    }
+}
 
-
-function ReleaseTouchInputToGameKeyEventAction:update()
-end
-
-ReleaseTouchInputToGameKeyEventAction.instance = NullUtil.getInstance().NULL_OBJECT
-
-return ReleaseTouchInputToGameKeyEventAction
+import "../../../../../../org/allbinary/game/input/GameKey" for GameKey
+import "../../../../../../org/allbinary/game/input/GameKeyFactory" for GameKeyFactory
+import "../../../../../../org/allbinary/game/input/PlatformInputMappingFactory" for PlatformInputMappingFactory
+import "../../../../../../org/allbinary/game/input/event/GameKeyEventFactory" for GameKeyEventFactory
+import "../../../../../../org/allbinary/input/motion/gesture/TouchMotionGestureFactory" for TouchMotionGestureFactory
+import "../../../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../../../org/allbinary/string/CommonStrings" for CommonStrings
 

@@ -1,83 +1,83 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.life
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.life
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Health = require("org.allbinary.game.health.Health")
-local HealthBarAnimation = require("org.allbinary.game.health.HealthBarAnimation")
-local HealthBarTwodAnimation = require("org.allbinary.game.health.HealthBarTwodAnimation")
-local HealthInterface = require("org.allbinary.game.health.HealthInterface")
-local HealthListenerInterface = require("org.allbinary.game.health.HealthListenerInterface")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/graphics/paint/Paintable" for Paintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class HealthIncludingLifeBar is Paintable {
+  animationInterface { _animationInterface }
+  animationInterface=(value) { _animationInterface = value }
+  life { _life }
+  life=(value) { _life = value }
+  healthInterface { _healthInterface }
+  healthInterface=(value) { _healthInterface = value }
+  allbinaryLayer { _allbinaryLayer }
+  allbinaryLayer=(value) { _allbinaryLayer = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_HealthIncludingLifeBar() {
+    _animationInterface = null
+    _life = null
+    _healthInterface = null
+    _allbinaryLayer = null
+        
+        
+        
+        
+  }
+    
 
-local HealthIncludingLifeBar = {}
-HealthIncludingLifeBar.__index = HealthIncludingLifeBar
-HealthIncludingLifeBar.className = "HealthIncludingLifeBar"
-setmetatable(HealthIncludingLifeBar, {__index = Paintable})
-
-function HealthIncludingLifeBar:_init_fields()
-    self.animationInterface = nil
-    self.life = nil
-    self.healthInterface = nil
-    self.allbinaryLayer = nil
-end
-
-
--- throws Exception
-function HealthIncludingLifeBar.createHealthIncludingLifeBar(layerInterface, life, healthInterface, location, direction)
+    static createHealthIncludingLifeBar(layerInterface, life, healthInterface, location, direction) {
         return HealthIncludingLifeBar.new(layerInterface, life, healthInterface, HealthBarTwodAnimation.new(layerInterface, location), direction)
-end
+    }
+    
 
+    construct new(layerInterface, life, healthInterface, animationInterface, direction) {
+    super()
+    initFields_HealthIncludingLifeBar()
+        _allbinaryLayer = layerInterface
+        _animationInterface = animationInterface
+        _life = life
+        _healthInterface = healthInterface
+        _healthInterface.addListener(this)
+        this.onHealthChange()
+    }
+    
 
-function HealthIncludingLifeBar.new(layerInterface, life, healthInterface, animationInterface, direction)
-    local self = setmetatable(Paintable.new(), HealthIncludingLifeBar)
-    self:_init_fields()
-        self.allbinaryLayer = layerInterface
-        self.animationInterface = animationInterface
-        self.life = life
-        self.healthInterface = healthInterface
-        self.healthInterface:addListener(self)
-        self:onHealthChange()
-    return self
-end
+    onHealthChange() {
+        _animationInterface.onHealthChange((((((_healthInterface.getHealth() + ((_healthInterface.getMaxHealth() * _life.get())))) * _allbinaryLayer.getWidth())) / ((_healthInterface.getMaxHealth() + ((_healthInterface.getMaxHealth() * _life.getStartLives()))))))
+    }
+    
 
+    paint(graphics) {
+        _animationInterface.paintXY(graphics, 0, 0)
+    }
+    
 
-function HealthIncludingLifeBar:onHealthChange()
-        self.animationInterface:onHealthChange(((self.healthInterface:getHealth() + (self.healthInterface:getMaxHealth() * self.life:get())) * self.allbinaryLayer:getWidth()) / (self.healthInterface:getMaxHealth() + (self.healthInterface:getMaxHealth() * self.life:getStartLives())))
-end
+    paintThreed(graphics) {
+        _animationInterface.paintThreedXYZ(graphics, 0, 0, 0)
+    }
+}
 
-
-function HealthIncludingLifeBar:paint(graphics)
-        self.animationInterface:paintXY(graphics, 0, 0)
-end
-
-
-function HealthIncludingLifeBar:paintThreed(graphics)
-        self.animationInterface:paintThreedXYZ(graphics, 0, 0, 0)
-end
-
-return HealthIncludingLifeBar
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../org/allbinary/game/health/Health" for Health
+import "../../../../../org/allbinary/game/health/HealthBarAnimation" for HealthBarAnimation
+import "../../../../../org/allbinary/game/health/HealthBarTwodAnimation" for HealthBarTwodAnimation
+import "../../../../../org/allbinary/game/health/HealthInterface" for HealthInterface
+import "../../../../../org/allbinary/game/health/HealthListenerInterface" for HealthListenerInterface
+import "../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "./Life" for Life
 

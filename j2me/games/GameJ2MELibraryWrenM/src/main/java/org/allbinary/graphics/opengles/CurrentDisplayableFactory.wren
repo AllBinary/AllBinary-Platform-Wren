@@ -1,186 +1,217 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.opengles
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.opengles
 
--- local Displayable = require("javax.microedition.lcdui.Displayable")
-local J2MEUtil = require("org.allbinary.J2MEUtil")
-local Features = require("org.allbinary.game.configuration.feature.Features")
-local AllBinaryGameCanvas = require("org.allbinary.game.displayable.canvas.AllBinaryGameCanvas")
-local DemoCanvas = require("org.allbinary.game.displayable.canvas.DemoCanvas")
-local GameInputMappingCanvas = require("org.allbinary.game.displayable.canvas.GameInputMappingCanvas")
-local GameInputMappingInstructionsCanvas = require("org.allbinary.game.displayable.canvas.GameInputMappingInstructionsCanvas")
-local GameRunnable = require("org.allbinary.game.displayable.canvas.GameRunnable")
-local NullDisplayable = require("org.allbinary.game.displayable.canvas.NullDisplayable")
-local NullWaitGameRunnable = require("org.allbinary.game.displayable.canvas.NullWaitGameRunnable")
-local SWTUtil = require("org.allbinary.game.layer.SWTUtil")
-local HighScoresCanvas = require("org.allbinary.game.score.displayable.HighScoresCanvas")
-local GraphicsStrings = require("org.allbinary.graphics.GraphicsStrings")
-local CanvasStrings = require("org.allbinary.graphics.displayable.CanvasStrings")
-local MyCanvas = require("org.allbinary.graphics.displayable.MyCanvas")
-local PreLogUtil = require("org.allbinary.logic.communication.log.PreLogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local NullRunnable = require("org.allbinary.thread.NullRunnable")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_instanceof(object, class)
-    local metatable = getmetatable(object)
-    while metatable do
-        if metatable == class then return true end
-        local parent = getmetatable(metatable)
-        metatable = parent and parent.__index
-    end
-    return false
-end
+class CurrentDisplayableFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = CurrentDisplayableFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  canvasStrings { _canvasStrings }
+  canvasStrings=(value) { _canvasStrings = value }
+  stringUtil { _stringUtil }
+  stringUtil=(value) { _stringUtil = value }
+  SET_DISPLAYABLE { _SET_DISPLAYABLE }
+  SET_DISPLAYABLE=(value) { _SET_DISPLAYABLE = value }
+  SET_RUNNABLE { _SET_RUNNABLE }
+  SET_RUNNABLE=(value) { _SET_RUNNABLE = value }
+  CLEAR_RUNNABLE { _CLEAR_RUNNABLE }
+  CLEAR_RUNNABLE=(value) { _CLEAR_RUNNABLE = value }
+  SET_USED_RUNNABLE { _SET_USED_RUNNABLE }
+  SET_USED_RUNNABLE=(value) { _SET_USED_RUNNABLE = value }
+  RUNNABLE { _RUNNABLE }
+  RUNNABLE=(value) { _RUNNABLE = value }
+  RUNNABLE_WAS_ALREADY_IN_USE { _RUNNABLE_WAS_ALREADY_IN_USE }
+  RUNNABLE_WAS_ALREADY_IN_USE=(value) { _RUNNABLE_WAS_ALREADY_IN_USE = value }
+  DEFAULT_CHILD_NAME_LIST { _DEFAULT_CHILD_NAME_LIST }
+  DEFAULT_CHILD_NAME_LIST=(value) { _DEFAULT_CHILD_NAME_LIST = value }
+  displayable { _displayable }
+  displayable=(value) { _displayable = value }
+  openGlReadydisplayable { _openGlReadydisplayable }
+  openGlReadydisplayable=(value) { _openGlReadydisplayable = value }
+  runnable { _runnable }
+  runnable=(value) { _runnable = value }
+  usedRunnable { _usedRunnable }
+  usedRunnable=(value) { _usedRunnable = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_CurrentDisplayableFactory() {
+    _commonStrings = null
+    _canvasStrings = null
+    _stringUtil = null
+    _SET_DISPLAYABLE = null
+    _SET_RUNNABLE = null
+    _CLEAR_RUNNABLE = null
+    _SET_USED_RUNNABLE = null
+    _RUNNABLE = null
+    _RUNNABLE_WAS_ALREADY_IN_USE = null
+    _DEFAULT_CHILD_NAME_LIST = null
+    _displayable = null
+    _openGlReadydisplayable = null
+    _runnable = null
+    _usedRunnable = null
+        _commonStrings = CommonStrings.getInstance()
+        _canvasStrings = CanvasStrings.getInstance()
+        _stringUtil = StringUtil.getInstance()
+        _SET_DISPLAYABLE = "setDisplayable"
+        _SET_RUNNABLE = "setRunnable"
+        _CLEAR_RUNNABLE = "clearRunnable"
+        _SET_USED_RUNNABLE = "setUsedRunnable"
+        _RUNNABLE = "Runnable: "
+        _RUNNABLE_WAS_ALREADY_IN_USE = "Runnable was already in use: "
+        _DEFAULT_CHILD_NAME_LIST = BasicArrayListD.new()
+        _displayable = NullDisplayable.getInstance()
+        _openGlReadydisplayable = NullDisplayable.getInstance()
+        _runnable = NullWaitGameRunnable.getInstance()
+        _usedRunnable = NullWaitGameRunnable.getInstance()
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local CurrentDisplayableFactory = {}
-CurrentDisplayableFactory.__index = CurrentDisplayableFactory
-CurrentDisplayableFactory.className = "CurrentDisplayableFactory"
-
-function CurrentDisplayableFactory:_init_fields()
-    self.commonStrings = CommonStrings.getInstance()
-    self.canvasStrings = CanvasStrings.getInstance()
-    self.stringUtil = StringUtil.getInstance()
-    self.SET_DISPLAYABLE = "setDisplayable"
-    self.SET_RUNNABLE = "setRunnable"
-    self.CLEAR_RUNNABLE = "clearRunnable"
-    self.SET_USED_RUNNABLE = "setUsedRunnable"
-    self.RUNNABLE = "Runnable: "
-    self.RUNNABLE_WAS_ALREADY_IN_USE = "Runnable was already in use: "
-    self.DEFAULT_CHILD_NAME_LIST = BasicArrayListD.new()
-    self.displayable = NullDisplayable.getInstance()
-    self.openGlReadydisplayable = NullDisplayable.getInstance()
-    self.runnable = NullWaitGameRunnable.getInstance()
-    self.usedRunnable = NullWaitGameRunnable.getInstance()
-end
-
-
-function CurrentDisplayableFactory.getInstance()
+    static getInstance() {
         return CurrentDisplayableFactory.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_CurrentDisplayableFactory()
+        _DEFAULT_CHILD_NAME_LIST.add(_canvasStrings.ABOUT)
+        _DEFAULT_CHILD_NAME_LIST.add(_canvasStrings.OPTIONS)
+        _DEFAULT_CHILD_NAME_LIST.add(GameInputMappingCanvas.NAME)
+        _DEFAULT_CHILD_NAME_LIST.add(GameInputMappingInstructionsCanvas.NAME)
+        _DEFAULT_CHILD_NAME_LIST.add(HighScoresCanvas.NAME)
+    }
+    
 
-function CurrentDisplayableFactory.new()
-    local self = setmetatable({}, CurrentDisplayableFactory)
-    self:_init_fields()
-        self.DEFAULT_CHILD_NAME_LIST:add(self.canvasStrings.ABOUT)
-        self.DEFAULT_CHILD_NAME_LIST:add(self.canvasStrings.OPTIONS)
-        self.DEFAULT_CHILD_NAME_LIST:add(GameInputMappingCanvas.NAME)
-        self.DEFAULT_CHILD_NAME_LIST:add(GameInputMappingInstructionsCanvas.NAME)
-        self.DEFAULT_CHILD_NAME_LIST:add(HighScoresCanvas.NAME)
-    return self
-end
-
-
-function CurrentDisplayableFactory:setMyCanvas(displayable)
-        if java_instanceof(self.displayable, MyCanvas) then
-            if displayable:hasChild(self.displayable) then
-                PreLogUtil.put(tostring(StringMaker.new():append("Child Displayable is already set for: "):append(self.stringUtil:toString(displayable))), self, self.SET_DISPLAYABLE)
+    setMyCanvas(displayable) {
+        if ((_displayable is MyCanvas)) {
+            if (displayable.hasChild(_displayable)) {
+                PreLogUtil.put(StringMaker.new().append("Child Displayable is already set for: ").append(_stringUtil.toString(displayable)).toString(), this, _SET_DISPLAYABLE)
                 return
-            end
-        end
-        self:setDisplayable(displayable)
-end
+            }
+        }
+        this.setDisplayable(displayable)
+    }
+    
 
+    setDisplayable(displayable) {
+        _displayable = displayable
+        this.setOpenGlReadydisplayable(displayable)
+    }
+    
 
-function CurrentDisplayableFactory:setDisplayable(displayable)
-        self.displayable = displayable
-        self:setOpenGlReadydisplayable(displayable)
-end
+    setOpenGlReadydisplayable(openGlReadydisplayable) {
+        _openGlReadydisplayable = openGlReadydisplayable
+        this.update()
+    }
+    
 
+    getOpenGlReadydisplayable() {
+        return _openGlReadydisplayable
+    }
+    
 
-function CurrentDisplayableFactory:setOpenGlReadydisplayable(openGlReadydisplayable)
-        self.openGlReadydisplayable = openGlReadydisplayable
-        self:update()
-end
+    setRunnable(runnable) {
+        PreLogUtil.put(StringMaker.new().append(_RUNNABLE).append(_stringUtil.toString(runnable)).toString(), this, _SET_RUNNABLE)
+        _runnable = runnable
+        if ((_usedRunnable != _runnable)) {
+            this.update()
+        } else {
+            PreLogUtil.put(StringMaker.new().append(_RUNNABLE_WAS_ALREADY_IN_USE).append(_stringUtil.toString(runnable)).toString(), this, _SET_RUNNABLE)
+        }
+    }
+    
 
+    clearRunnable() {
+        PreLogUtil.put(StringMaker.new().append(_RUNNABLE).append(_stringUtil.toString(NullRunnable.getInstance())).toString(), this, _CLEAR_RUNNABLE)
+        this.setUsedRunnable(NullWaitGameRunnable.getInstance())
+    }
+    
 
-function CurrentDisplayableFactory:getOpenGlReadydisplayable()
-        return self.openGlReadydisplayable
-end
+    update() {
+        if (true) {
+            var commonSeps = CommonSeps.getInstance()
+            var features = Features.getInstance()
+            var stringMaker = StringMaker.new()
+            stringMaker.append(_stringUtil.toString(_openGlReadydisplayable))
+            if ((SWTUtil.isSWT && !features.isDefault(OpenGLFeatureFactory.getInstance().OPENGL))) {
+                PreLogUtil.put(stringMaker.append(commonSeps.SPACE).append(SWTUtil.SWT).append(commonSeps.SPACE).append(_RUNNABLE).append(_stringUtil.toString(NullRunnable.getInstance())).toString(), this, _commonStrings.UPDATE)
+                this.setUsedRunnable(NullWaitGameRunnable.getInstance())
+            } else if (J2MEUtil.isHTML()) {
+                PreLogUtil.put(stringMaker.append(commonSeps.SPACE).append(GraphicsStrings.getInstance().HTML).append(commonSeps.SPACE).append(_RUNNABLE).append(_stringUtil.toString(_runnable)).toString(), this, _commonStrings.UPDATE)
+                this.setUsedRunnable(_runnable)
+            } else if ((((_openGlReadydisplayable is DemoCanvas) || (_openGlReadydisplayable is AllBinaryGameCanvas)) || features.isDefault(OpenGLFeatureFactory.getInstance().OPENGL))) {
+                PreLogUtil.put(stringMaker.append(commonSeps.SPACE).append(OpenGLFeatureFactory.getInstance().OPENGL.toString()).append(commonSeps.SPACE).append(_RUNNABLE).append(_stringUtil.toString(_runnable)).toString(), this, _commonStrings.UPDATE)
+                this.setUsedRunnable(_runnable)
+            } else {
+                PreLogUtil.put(stringMaker.append(_RUNNABLE).append(_stringUtil.toString(NullRunnable.getInstance())).toString(), this, _commonStrings.UPDATE)
+                this.setUsedRunnable(NullWaitGameRunnable.getInstance())
+            }
+        }
+    }
+    
 
+    getDisplayable() {
+        return _displayable
+    }
+    
 
-function CurrentDisplayableFactory:setRunnable(runnable)
-        PreLogUtil.put(tostring(StringMaker.new():append(self.RUNNABLE):append(self.stringUtil:toString(runnable))), self, self.SET_RUNNABLE)
-        self.runnable = runnable
-        if self.usedRunnable ~= self.runnable then
-            self:update()
-        else
-            PreLogUtil.put(tostring(StringMaker.new():append(self.RUNNABLE_WAS_ALREADY_IN_USE):append(self.stringUtil:toString(runnable))), self, self.SET_RUNNABLE)
-        end
-end
+    getUsedRunnable() {
+        return _usedRunnable
+    }
+    
 
+    setUsedRunnable(usedRunnable) {
+        PreLogUtil.put(StringMaker.new().append(_RUNNABLE).append(_stringUtil.toString(_runnable)).append(CommonSeps.getInstance().COLON_SEP).append(_stringUtil.toString(usedRunnable)).toString(), this, _SET_USED_RUNNABLE)
+        _usedRunnable = usedRunnable
+    }
+}
 
-function CurrentDisplayableFactory:clearRunnable()
-        PreLogUtil.put(tostring(StringMaker.new():append(self.RUNNABLE):append(self.stringUtil:toString(NullRunnable.getInstance()))), self, self.CLEAR_RUNNABLE)
-        self:setUsedRunnable(NullWaitGameRunnable.getInstance())
-end
-
-
-function CurrentDisplayableFactory:update()
-        do -- synchronized (self)
-            local commonSeps = CommonSeps.getInstance()
-            local features = Features.getInstance()
-            local stringMaker = StringMaker.new()
-            stringMaker:append(self.stringUtil:toString(self.openGlReadydisplayable))
-            if SWTUtil.isSWT and not features:isDefault(OpenGLFeatureFactory.getInstance().OPENGL) then
-                PreLogUtil.put(tostring(stringMaker:append(commonSeps.SPACE):append(SWTUtil.SWT):append(commonSeps.SPACE):append(self.RUNNABLE):append(self.stringUtil:toString(NullRunnable.getInstance()))), self, self.commonStrings.UPDATE)
-                self:setUsedRunnable(NullWaitGameRunnable.getInstance())
-            elseif J2MEUtil.isHTML() then
-                PreLogUtil.put(tostring(stringMaker:append(commonSeps.SPACE):append(GraphicsStrings.getInstance().HTML):append(commonSeps.SPACE):append(self.RUNNABLE):append(self.stringUtil:toString(self.runnable))), self, self.commonStrings.UPDATE)
-                self:setUsedRunnable(self.runnable)
-            elseif java_instanceof(self.openGlReadydisplayable, DemoCanvas) or java_instanceof(self.openGlReadydisplayable, AllBinaryGameCanvas) or features:isDefault(OpenGLFeatureFactory.getInstance().OPENGL) then
-                PreLogUtil.put(tostring(stringMaker:append(commonSeps.SPACE):append(tostring(OpenGLFeatureFactory.getInstance().OPENGL)):append(commonSeps.SPACE):append(self.RUNNABLE):append(self.stringUtil:toString(self.runnable))), self, self.commonStrings.UPDATE)
-                self:setUsedRunnable(self.runnable)
-            else
-                PreLogUtil.put(tostring(stringMaker:append(self.RUNNABLE):append(self.stringUtil:toString(NullRunnable.getInstance()))), self, self.commonStrings.UPDATE)
-                self:setUsedRunnable(NullWaitGameRunnable.getInstance())
-            end
-        end
-end
-
-
-function CurrentDisplayableFactory:getDisplayable()
-        return self.displayable
-end
-
-
-function CurrentDisplayableFactory:getUsedRunnable()
-        return self.usedRunnable
-end
-
-
-function CurrentDisplayableFactory:setUsedRunnable(usedRunnable)
-        PreLogUtil.put(tostring(StringMaker.new():append(self.RUNNABLE):append(self.stringUtil:toString(self.runnable)):append(CommonSeps.getInstance().COLON_SEP):append(self.stringUtil:toString(usedRunnable))), self, self.SET_USED_RUNNABLE)
-        self.usedRunnable = usedRunnable
-end
-
-CurrentDisplayableFactory.instance = CurrentDisplayableFactory.new()
-
-return CurrentDisplayableFactory
+import "../../../../javax/microedition/lcdui/Displayable" for Displayable
+import "../../../../org/allbinary/J2MEUtil" for J2MEUtil
+import "../../../../org/allbinary/game/configuration/feature/Features" for Features
+import "../../../../org/allbinary/game/displayable/canvas/AllBinaryGameCanvas" for AllBinaryGameCanvas
+import "../../../../org/allbinary/game/displayable/canvas/DemoCanvas" for DemoCanvas
+import "../../../../org/allbinary/game/displayable/canvas/GameInputMappingCanvas" for GameInputMappingCanvas
+import "../../../../org/allbinary/game/displayable/canvas/GameInputMappingInstructionsCanvas" for GameInputMappingInstructionsCanvas
+import "../../../../org/allbinary/game/displayable/canvas/GameRunnable" for GameRunnable
+import "../../../../org/allbinary/game/displayable/canvas/NullDisplayable" for NullDisplayable
+import "../../../../org/allbinary/game/displayable/canvas/NullWaitGameRunnable" for NullWaitGameRunnable
+import "../../../../org/allbinary/game/layer/SWTUtil" for SWTUtil
+import "../../../../org/allbinary/game/score/displayable/HighScoresCanvas" for HighScoresCanvas
+import "../../../../org/allbinary/graphics/GraphicsStrings" for GraphicsStrings
+import "../../../../org/allbinary/graphics/displayable/CanvasStrings" for CanvasStrings
+import "../../../../org/allbinary/graphics/displayable/MyCanvas" for MyCanvas
+import "../../../../org/allbinary/logic/communication/log/PreLogUtil" for PreLogUtil
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../org/allbinary/thread/NullRunnable" for NullRunnable
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./OpenGLFeatureFactory" for OpenGLFeatureFactory
 

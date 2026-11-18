@@ -1,103 +1,142 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
-local GPoint = require("org.allbinary.graphics.GPoint")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class VectorAnimationUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = VectorAnimationUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_VectorAnimationUtil() {
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local VectorAnimationUtil = {}
-VectorAnimationUtil.__index = VectorAnimationUtil
-VectorAnimationUtil.className = "VectorAnimationUtil"
-
-
-function VectorAnimationUtil.getInstance()
+    static getInstance() {
         return VectorAnimationUtil.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_VectorAnimationUtil()
+    }
+    
 
-function VectorAnimationUtil.new()
-    local self = setmetatable({}, VectorAnimationUtil)
-    return self
-end
-
-
-function VectorAnimationUtil:toAnimationArrayFromListOfPointListWithPointsPerFrame(vector, pointsPerFrame)
-        local size = vector:size()
-        local points = java_new_array(0, size, pointsPerFrame, 2)
-        local nextBasicArrayList = nil
-        local framePoints = nil
-        for index = 0, size - 1 do
-            nextBasicArrayList = vector.objectArray[index + 1]
-            framePoints = self:toFrameArrayFromPointBasicArrayList(nextBasicArrayList)
-            for pointIndex = 0, (framePoints.n or #framePoints) - 1 do
-                points[index + 1][pointIndex + 1][1] = framePoints[pointIndex + 1][1]
-                points[index + 1][pointIndex + 1][2] = framePoints[pointIndex + 1][2]
-            end
-        end
+    toAnimationArrayFromListOfPointListWithPointsPerFrame(vector, pointsPerFrame) {
+        var size = vector.size()
+        var points = JR.listOf(size, Fn.new { JR.listOf(pointsPerFrame, Fn.new { List.filled(2, 0) }) })
+        var nextBasicArrayList = null
+        var framePoints = null
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            nextBasicArrayList = vector.objectArray[index]
+            framePoints = this.toFrameArrayFromPointBasicArrayList(nextBasicArrayList)
+            if (true) {
+                var pointIndex = 0
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        pointIndex = JR.i32(pointIndex + 1)
+                    }
+                    jfirst = false
+                    if (!((pointIndex < framePoints.count))) break
+                points[index][pointIndex][0] = framePoints[pointIndex][0]
+                points[index][pointIndex][1] = framePoints[pointIndex][1]
+                }
+            }
+            }
+        }
         return points
-end
+    }
+    
 
-
-function VectorAnimationUtil:toAnimationArrayFromListOfPointList(vector)
-        local size = vector:size()
-        local points = java_new_array(0, size, 0, 0)
-        local nextBasicArrayList = nil
-        local framePoints = nil
-        for index = 0, size - 1 do
-            nextBasicArrayList = vector.objectArray[index + 1]
-            framePoints = self:toFrameArrayFromPointBasicArrayList(nextBasicArrayList)
-            points[index + 1] = java_new_array(0, (framePoints.n or #framePoints), 2)
-            for pointIndex = 0, (framePoints.n or #framePoints) - 1 do
-                points[index + 1][pointIndex + 1][1] = framePoints[pointIndex + 1][1]
-                points[index + 1][pointIndex + 1][2] = framePoints[pointIndex + 1][2]
-            end
-        end
+    toAnimationArrayFromListOfPointList(vector) {
+        var size = vector.size()
+        var points = JR.listOf(size, Fn.new { JR.listOf(0, Fn.new { List.filled(0, 0) }) })
+        var nextBasicArrayList = null
+        var framePoints = null
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            nextBasicArrayList = vector.objectArray[index]
+            framePoints = this.toFrameArrayFromPointBasicArrayList(nextBasicArrayList)
+            points[index] = JR.listOf(framePoints.count, Fn.new { List.filled(2, 0) })
+            if (true) {
+                var pointIndex = 0
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        pointIndex = JR.i32(pointIndex + 1)
+                    }
+                    jfirst = false
+                    if (!((pointIndex < framePoints.count))) break
+                points[index][pointIndex][0] = framePoints[pointIndex][0]
+                points[index][pointIndex][1] = framePoints[pointIndex][1]
+                }
+            }
+            }
+        }
         return points
-end
+    }
+    
 
-
-function VectorAnimationUtil:toFrameArrayFromPointBasicArrayList(list)
-        local points = java_new_array(0, list:size(), 2)
-        local size = list:size()
-        for index = 0, size - 1 do
-            local nextPoint = list.objectArray[index + 1]
-            points[index + 1][1] = nextPoint:getX()
-            points[index + 1][2] = nextPoint:getY()
-        end
+    toFrameArrayFromPointBasicArrayList(list) {
+        var points = JR.listOf(list.size(), Fn.new { List.filled(2, 0) })
+        var size = list.size()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            var nextPoint = list.objectArray[index]
+            points[index][0] = nextPoint.getX()
+            points[index][1] = nextPoint.getY()
+            }
+        }
         return points
-end
+    }
+}
 
-VectorAnimationUtil.instance = VectorAnimationUtil.new()
-
-return VectorAnimationUtil
+import "../../../org/allbinary/graphics/GPoint" for GPoint
+import "../../../org/allbinary/util/BasicArrayList" for BasicArrayList
 

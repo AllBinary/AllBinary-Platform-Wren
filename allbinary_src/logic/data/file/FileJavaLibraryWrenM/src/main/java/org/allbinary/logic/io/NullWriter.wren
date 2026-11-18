@@ -1,76 +1,74 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
--- 
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
--- 
--- Created By: Travis Berthelot 
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.io
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ * 
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ * 
+ * Created By: Travis Berthelot 
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.io
 
--- local IOException = require("java.io.IOException")
--- local Writer = require("java.io.Writer")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../java/io/Writer" for Writer
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NullWriter is Writer {
+    static NULL_WRITER {
+    if (__NULL_WRITER_set == null) {
+      __NULL_WRITER_set = true
+      __NULL_WRITER = NullWriter.new()
+    }
+    return __NULL_WRITER
+  }
+  static NULL_WRITER=(value) {
+    __NULL_WRITER_set = true
+    __NULL_WRITER = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NullWriter() {
+  }
 
-local NullWriter = {}
-NullWriter.__index = NullWriter
-NullWriter.className = "NullWriter"
-setmetatable(NullWriter, {__index = Writer})
+  construct new() {
+    super()
+    initFields_NullWriter()
+  }
+    
 
-function NullWriter.new()
-    local self = setmetatable(Writer.new(), NullWriter)
-    return self
-end
+    write(jp1) {
+    }
 
+    write_jo1(c) {
+    }
+    
 
--- throws IOException
-function NullWriter:write(c)
-end
+    write(jp1, jp2, jp3) {
+    }
 
+    write_jo1(cbuf, off, len) {
+    }
+    
 
--- throws IOException
--- Java overloaded method: Lua keeps the last definition
-function NullWriter:write(cbuf, off, len)
-end
+    write_jo2(str) {
+    }
+    
 
+    write_jo2(str, off, len) {
+    }
+    
 
--- throws IOException
--- Java overloaded method: Lua keeps the last definition
-function NullWriter:write(str)
-end
+    flush() {
+    }
+    
 
+    close() {
+    }
+}
 
--- throws IOException
--- Java overloaded method: Lua keeps the last definition
-function NullWriter:write(str, off, len)
-end
-
-
--- throws IOException
-function NullWriter:flush()
-end
-
-
--- throws IOException
-function NullWriter:close()
-end
-
-NullWriter.NULL_WRITER = NullWriter.new()
-
-return NullWriter
+import "../../../../java/io/IOException" for IOException
 

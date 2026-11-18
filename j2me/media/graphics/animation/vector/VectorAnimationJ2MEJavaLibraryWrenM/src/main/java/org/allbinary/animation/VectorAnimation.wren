@@ -1,214 +1,210 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local NullImage = require("javax.microedition.lcdui.NullImage")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
-local CircularIndexUtil = require("org.allbinary.util.CircularIndexUtil")
-local IndexedAnimation = require("org.allbinary.animation.IndexedAnimation")
-local VectorAnimationInterface = require("org.allbinary.animation.VectorAnimationInterface")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./IndexedAnimation" for IndexedAnimation
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class VectorAnimation is IndexedAnimation {
+  currentPoints { _currentPoints }
+  currentPoints=(value) { _currentPoints = value }
+  circularIndexUtil { _circularIndexUtil }
+  circularIndexUtil=(value) { _circularIndexUtil = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_VectorAnimation() {
+    _currentPoints = null
+    _circularIndexUtil = null
+        _currentPoints = NullUtil.getInstance().NULL_INT_ARRAY_ARRAY_ARRAY
+        _circularIndexUtil = CircularIndexUtil.createInstance(0)
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local VectorAnimation = {}
-VectorAnimation.__index = VectorAnimation
-VectorAnimation.className = "VectorAnimation"
-setmetatable(VectorAnimation, {__index = IndexedAnimation})
-
-function VectorAnimation:_init_fields()
-    self.currentPoints = NullUtil.getInstance().NULL_INT_ARRAY_ARRAY_ARRAY
-    self.circularIndexUtil = CircularIndexUtil.createInstance(0)
-end
-
-
-function VectorAnimation.createVectorAnimation(currentPoints2, basicColor, animationBehavior)
-        local currentPoints = java_new_array(0, 1, (currentPoints2.n or #currentPoints2), 2)
-        local size = (currentPoints2.n or #currentPoints2)
-        for index = 0, size - 1 do
-            currentPoints[1][index + 1][1] = currentPoints2[index + 1][1]
-            currentPoints[1][index + 1][2] = currentPoints2[index + 1][2]
-        end
+    static createVectorAnimation(currentPoints2, basicColor, animationBehavior) {
+        var currentPoints = JR.listOf(1, Fn.new { JR.listOf(currentPoints2.count, Fn.new { List.filled(2, 0) }) })
+        var size = currentPoints2.count
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            currentPoints[0][index][0] = currentPoints2[index][0]
+            currentPoints[0][index][1] = currentPoints2[index][1]
+            }
+        }
         return VectorAnimation.new(currentPoints, basicColor, animationBehavior)
-end
+    }
+    
 
+    construct new(currentPoints, basicColor, animationBehavior) {
+        super(animationBehavior)
+        initFields_VectorAnimation()
+        this.setPoints(currentPoints)
+        this.setBasicColorP(basicColor)
+    }
+    
 
-function VectorAnimation.new(currentPoints, basicColor, animationBehavior)
-    local self = setmetatable(IndexedAnimation.new(animationBehavior), VectorAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self:setPoints(currentPoints)
-        self:setBasicColorP(basicColor)
-    return self
-end
-
-
-function VectorAnimation:setBasicColorP(basicColor)
-        local changed = false
-        if self:getBasicColorP() == nil or math.tointeger(self:getBasicColorP() // 1) ~= math.tointeger(basicColor // 1) then
+    setBasicColorP(basicColor) {
+        var changed = false
+        if (((this.getBasicColorP() == null) || (this.getBasicColorP().intValue() != basicColor.intValue()))) {
             changed = true
-        end
-        IndexedAnimation.setBasicColorP(self, basicColor)
-        if changed then
-            self:updateModifiers()
-        end
-end
+        }
+        super.setBasicColorP(basicColor)
+        if (changed) {
+            this.updateModifiers()
+        }
+    }
+    
 
-
-function VectorAnimation:changeBasicColor(basicColor)
-        local changed = false
-        if self:getChangeBasicColor() == nil or math.tointeger(self:getChangeBasicColor() // 1) ~= math.tointeger(basicColor // 1) then
+    changeBasicColor(basicColor) {
+        var changed = false
+        if (((this.getChangeBasicColor() == null) || (this.getChangeBasicColor().intValue() != basicColor.intValue()))) {
             changed = true
-        end
-        IndexedAnimation.changeBasicColor(self, basicColor)
-        if changed then
-            self:updateModifiers()
-        end
-end
+        }
+        super.changeBasicColor(basicColor)
+        if (changed) {
+            this.updateModifiers()
+        }
+    }
+    
 
-
-function VectorAnimation:setAlpha(alpha)
-        local changed = false
-        if self.alphaP ~= alpha then
+    setAlpha(alpha) {
+        var changed = false
+        if ((this.alphaP != alpha)) {
             changed = true
-        end
-        IndexedAnimation.setAlpha(self, alpha)
-        if changed then
-            self:updateModifiers()
-        end
-end
+        }
+        super.setAlpha(alpha)
+        if (changed) {
+            this.updateModifiers()
+        }
+    }
+    
 
+    setScale(scaleX, scaleY) {
+    }
+    
 
-function VectorAnimation:setScale(scaleX, scaleY)
-end
+    setMaxScale(maxScaleX, maxScaleY) {
+    }
+    
 
+    updateModifiers() {
+    }
+    
 
-function VectorAnimation:setMaxScale(maxScaleX, maxScaleY)
-end
+    getAnimationSize() {
+        return this.getSize()
+    }
+    
 
+    getSize() {
+        return _currentPoints.count
+    }
+    
 
-function VectorAnimation:updateModifiers()
-end
+    setSequence(sequence) {
+    }
+    
 
-
--- throws Exception
-function VectorAnimation:getAnimationSize()
-        return self:getSize()
-end
-
-
-function VectorAnimation:getSize()
-        return (self.currentPoints.n or #self.currentPoints)
-end
-
-
-function VectorAnimation:setSequence(sequence)
-end
-
-
-function VectorAnimation:getSequence()
+    getSequence() {
         return PrimitiveIntUtil.getArrayInstance()
-end
+    }
+    
 
+    nextFrame() {
+        _circularIndexUtil.next()
+    }
+    
 
-function VectorAnimation:nextFrame()
-        self.circularIndexUtil:next()
-end
+    previousFrame() {
+        _circularIndexUtil.previous()
+    }
+    
 
+    paintVectors(graphics, x, y) {
+        var jerror0 = Fiber.new {
+            var nextPointX = 0
+            var nextPointY = 0
+            var nextPoint = null
+            var point = null
+            var currentPointsFrame = _currentPoints[_circularIndexUtil.getIndex()]
+            var size = currentPointsFrame.count
+            var index = JR.i32(size - 2)
+            while ((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0)) {
+                nextPoint = currentPointsFrame[index]
+                point = currentPointsFrame[JR.i32(index + 1)]
+                nextPointX = nextPoint[0]
+                nextPointY = nextPoint[1]
+                if ((nextPointX != 1000)) {
+                    graphics.drawLine(JR.i32(point[0] + x), JR.i32(point[1] + y), JR.i32(nextPointX + x), JR.i32(nextPointY + y))
+                } else {
+                    index = JR.i32(index - 1)
+                }
+            }
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            this.logUtil.put(this.commonStrings.EXCEPTION, this, "paintVectors", e)
+        }
+    }
+    
 
-function VectorAnimation:previousFrame()
-        self.circularIndexUtil:previous()
-end
+    paintXY(graphics, x, y) {
+        this.basicSetColorUtil.setBasicColorP(graphics, this.basicColor)
+        this.paintVectors(graphics, x, y)
+    }
+    
 
+    getFrame() {
+        return _circularIndexUtil.getIndex()
+    }
+    
 
-function VectorAnimation:paintVectors(graphics, x, y)
-        local try_ok, try_error = pcall(function()
-            local nextPointX = 0
-            local nextPointY = 0
-            local nextPoint = nil
-            local point = nil
-            local currentPointsFrame = self.currentPoints[self.circularIndexUtil:getIndex() + 1]
-            local size = (currentPointsFrame.n or #currentPointsFrame)
-            local index = size - 2
-            while (function() index = index - 1 return index end)() >= 0 do
-                nextPoint = currentPointsFrame[index + 1]
-                point = currentPointsFrame[index + 1 + 1]
-                nextPointX = nextPoint[1]
-                nextPointY = nextPoint[2]
-                if nextPointX ~= 1000 then
-                    graphics:drawLine(point[1] + x, point[2] + y, nextPointX + x, nextPointY + y)
-                else
-                    index = index - 1
-                end
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, "paintVectors", e)
-        end
-end
+    setFrame(index) {
+        _circularIndexUtil.setIndex(index)
+    }
+    
 
+    getPoints(frame) {
+        return _currentPoints[frame]
+    }
+    
 
-function VectorAnimation:paintXY(graphics, x, y)
-        self.basicSetColorUtil:setBasicColorP(graphics, self.basicColor)
-        self:paintVectors(graphics, x, y)
-end
+    setPoints(currentPoints) {
+        _currentPoints = currentPoints
+        _circularIndexUtil = CircularIndexUtil.createInstance(currentPoints.count)
+    }
+    
 
+    getBasicColorP() {
+        return super.getBasicColorP()
+    }
+}
 
-function VectorAnimation:getFrame()
-        return self.circularIndexUtil:getIndex()
-end
-
-
-function VectorAnimation:setFrame(index)
-        self.circularIndexUtil:setIndex(index)
-end
-
-
-function VectorAnimation:getPoints(frame)
-        return self.currentPoints[frame + 1]
-end
-
-
-function VectorAnimation:setPoints(currentPoints)
-        self.currentPoints = currentPoints
-        self.circularIndexUtil = CircularIndexUtil.createInstance((currentPoints.n or #currentPoints))
-end
-
-
-function VectorAnimation:getBasicColorP()
-        return IndexedAnimation.getBasicColorP(self)
-end
-
-return VectorAnimation
+import "../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
+import "../../../org/allbinary/util/CircularIndexUtil" for CircularIndexUtil
+import "./VectorAnimationInterface" for VectorAnimationInterface
+import "./AnimationBehavior" for AnimationBehavior
 

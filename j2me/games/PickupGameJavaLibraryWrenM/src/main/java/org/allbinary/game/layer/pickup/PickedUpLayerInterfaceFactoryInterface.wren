@@ -1,51 +1,41 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer.pickup
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer.pickup
 
-local Animation = require("org.allbinary.animation.Animation")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PickedUpLayerInterfaceFactoryInterface is JObject {
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    getPickedUpLayerType() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getPickedUpLayerType"))
+    }
+    
 
--- Java interface
-local PickedUpLayerInterfaceFactoryInterface = {}
-PickedUpLayerInterfaceFactoryInterface.__index = PickedUpLayerInterfaceFactoryInterface
-PickedUpLayerInterfaceFactoryInterface.className = "PickedUpLayerInterfaceFactoryInterface"
+    getIconLayer() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getIconLayer"))
+    }
+    
 
+    getAnimationInterface() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getAnimationInterface"))
+    }
+}
 
-function PickedUpLayerInterfaceFactoryInterface:getPickedUpLayerType()
-    error("abstract method getPickedUpLayerType")
-end
-
-
-function PickedUpLayerInterfaceFactoryInterface:getIconLayer()
-    error("abstract method getIconLayer")
-end
-
-
-function PickedUpLayerInterfaceFactoryInterface:getAnimationInterface()
-    error("abstract method getAnimationInterface")
-end
-
-return PickedUpLayerInterfaceFactoryInterface
+import "../../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "./PickedUpLayerType" for PickedUpLayerType
 

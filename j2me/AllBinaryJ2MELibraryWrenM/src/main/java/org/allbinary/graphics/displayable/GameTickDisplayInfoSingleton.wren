@@ -1,82 +1,96 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.displayable
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.displayable
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameTickDisplayInfoSingleton is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = GameTickDisplayInfoSingleton.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  displayInfoSingleton { _displayInfoSingleton }
+  displayInfoSingleton=(value) { _displayInfoSingleton = value }
+  lastWidth { _lastWidth }
+  lastWidth=(value) { _lastWidth = value }
+  lastHeight { _lastHeight }
+  lastHeight=(value) { _lastHeight = value }
+  lastHalfWidth { _lastHalfWidth }
+  lastHalfWidth=(value) { _lastHalfWidth = value }
+  lastHalfHeight { _lastHalfHeight }
+  lastHalfHeight=(value) { _lastHalfHeight = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameTickDisplayInfoSingleton() {
+    _displayInfoSingleton = null
+    _lastWidth = 0
+    _lastHeight = 0
+    _lastHalfWidth = 0
+    _lastHalfHeight = 0
+        _displayInfoSingleton = DisplayInfoSingleton.getInstance()
+        _lastWidth = _displayInfoSingleton.getLastWidth()
+        _lastHeight = _displayInfoSingleton.getLastHeight()
+        _lastHalfWidth = _displayInfoSingleton.getLastHalfWidth()
+        _lastHalfHeight = _displayInfoSingleton.getLastHalfHeight()
+  }
 
-local GameTickDisplayInfoSingleton = {}
-GameTickDisplayInfoSingleton.__index = GameTickDisplayInfoSingleton
-GameTickDisplayInfoSingleton.className = "GameTickDisplayInfoSingleton"
+  construct new() {
+    super()
+    initFields_GameTickDisplayInfoSingleton()
+  }
+    
 
-function GameTickDisplayInfoSingleton:_init_fields()
-    self.displayInfoSingleton = DisplayInfoSingleton.getInstance()
-    self.lastWidth = self.displayInfoSingleton:getLastWidth()
-    self.lastHeight = self.displayInfoSingleton:getLastHeight()
-    self.lastHalfWidth = self.displayInfoSingleton:getLastHalfWidth()
-    self.lastHalfHeight = self.displayInfoSingleton:getLastHalfHeight()
-end
-
-function GameTickDisplayInfoSingleton.new()
-    local self = setmetatable({}, GameTickDisplayInfoSingleton)
-    self:_init_fields()
-    return self
-end
-
-
-function GameTickDisplayInfoSingleton.getInstance()
+    static getInstance() {
         return GameTickDisplayInfoSingleton.instance
-end
+    }
+    
 
+    update() {
+        _lastWidth = _displayInfoSingleton.getLastWidth()
+        _lastHeight = _displayInfoSingleton.getLastHeight()
+        _lastHalfWidth = _displayInfoSingleton.getLastHalfWidth()
+        _lastHalfHeight = _displayInfoSingleton.getLastHalfHeight()
+    }
+    
 
-function GameTickDisplayInfoSingleton:update()
-        self.lastWidth = self.displayInfoSingleton:getLastWidth()
-        self.lastHeight = self.displayInfoSingleton:getLastHeight()
-        self.lastHalfWidth = self.displayInfoSingleton:getLastHalfWidth()
-        self.lastHalfHeight = self.displayInfoSingleton:getLastHalfHeight()
-end
+    getLastWidth() {
+        return _lastWidth
+    }
+    
 
+    getLastHeight() {
+        return _lastHeight
+    }
+    
 
-function GameTickDisplayInfoSingleton:getLastWidth()
-        return self.lastWidth
-end
+    getLastHalfWidth() {
+        return _lastHalfWidth
+    }
+    
 
+    getLastHalfHeight() {
+        return _lastHalfHeight
+    }
+}
 
-function GameTickDisplayInfoSingleton:getLastHeight()
-        return self.lastHeight
-end
-
-
-function GameTickDisplayInfoSingleton:getLastHalfWidth()
-        return self.lastHalfWidth
-end
-
-
-function GameTickDisplayInfoSingleton:getLastHalfHeight()
-        return self.lastHalfHeight
-end
-
-GameTickDisplayInfoSingleton.instance = GameTickDisplayInfoSingleton.new()
-
-return GameTickDisplayInfoSingleton
+import "./DisplayInfoSingleton" for DisplayInfoSingleton
 

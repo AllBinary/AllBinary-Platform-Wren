@@ -1,75 +1,79 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.midlet
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.midlet
 
-local ProgressCanvasFactory = require("org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory")
-local MyCommandsFactory = require("org.allbinary.graphics.displayable.command.MyCommandsFactory")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
--- java.lang.Runnable has no Lua module
-local Runnable = {}
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class DemoRunnable is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  demoGameMidlet { _demoGameMidlet }
+  demoGameMidlet=(value) { _demoGameMidlet = value }
+  startDemoGameMidletEvent { _startDemoGameMidletEvent }
+  startDemoGameMidletEvent=(value) { _startDemoGameMidletEvent = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_DemoRunnable() {
+    _logUtil = null
+    _commonStrings = null
+    _demoGameMidlet = null
+    _startDemoGameMidletEvent = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        
+        
+  }
+    
 
-local DemoRunnable = {}
-DemoRunnable.__index = DemoRunnable
-DemoRunnable.className = "DemoRunnable"
+    construct new(demoGameMidlet) {
+    super()
+    initFields_DemoRunnable()
+        _demoGameMidlet = demoGameMidlet
+        _startDemoGameMidletEvent = DemoGameMidletEvent.new(_demoGameMidlet, DemoGameMidletStateFactory.getInstance().START_DEMO)
+    }
+    
 
-function DemoRunnable:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.demoGameMidlet = nil
-    self.startDemoGameMidletEvent = nil
-end
+    run() {
+        var jerror0 = Fiber.new {
+            _logUtil.putF(StringMaker.new().append(CommonLabels.getInstance().START_LABEL).append("GameCanvasRunnableInterface").toString(), this, _commonStrings.RUN)
+            _demoGameMidlet.commandAction(MyCommandsFactory.getInstance().SET_DISPLAYABLE, ProgressCanvasFactory.getInstance())
+            _demoGameMidlet.setGameCanvasRunnableInterface(_demoGameMidlet.createDemoGameCanvasRunnableInterface())
+            _demoGameMidlet.demoSetup()
+            DemoGameMidletEventHandler.getInstance().fireEvent(_startDemoGameMidletEvent)
+            _demoGameMidlet.startGameCanvasRunnableInterface()
+            _demoGameMidlet.postDemoSetup()
+            _logUtil.putF(_commonStrings.END_RUNNABLE, this, _commonStrings.RUN)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            _logUtil.put(_commonStrings.EXCEPTION, this, _commonStrings.RUN, e)
+        }
+    }
+}
 
-
-function DemoRunnable.new(demoGameMidlet)
-    local self = setmetatable({}, DemoRunnable)
-    self:_init_fields()
-        self.demoGameMidlet = demoGameMidlet
-        self.startDemoGameMidletEvent = DemoGameMidletEvent.new(self.demoGameMidlet, DemoGameMidletStateFactory.getInstance().START_DEMO)
-    return self
-end
-
-
-function DemoRunnable:run()
-        local try_ok, try_error = pcall(function()
-            self.logUtil:putF(tostring(StringMaker.new():append(CommonLabels.getInstance().START_LABEL):append("GameCanvasRunnableInterface")), self, self.commonStrings.RUN)
-            self.demoGameMidlet:commandAction(MyCommandsFactory.getInstance().SET_DISPLAYABLE, ProgressCanvasFactory.getInstance())
-            self.demoGameMidlet:setGameCanvasRunnableInterface(self.demoGameMidlet:createDemoGameCanvasRunnableInterface())
-            self.demoGameMidlet:demoSetup()
-            DemoGameMidletEventHandler.getInstance():fireEvent(self.startDemoGameMidletEvent)
-            self.demoGameMidlet:startGameCanvasRunnableInterface()
-            self.demoGameMidlet:postDemoSetup()
-            self.logUtil:putF(self.commonStrings.END_RUNNABLE, self, self.commonStrings.RUN)
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.commonStrings.RUN, e)
-        end
-end
-
-return DemoRunnable
+import "../../../../org/allbinary/graphics/canvas/transition/progress/ProgressCanvasFactory" for ProgressCanvasFactory
+import "../../../../org/allbinary/graphics/displayable/command/MyCommandsFactory" for MyCommandsFactory
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/string/CommonLabels" for CommonLabels
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../java/lang/Runnable" for Runnable
+import "./DemoGameMidlet" for DemoGameMidlet
+import "./DemoGameMidletEvent" for DemoGameMidletEvent
+import "./DemoGameMidletStateFactory" for DemoGameMidletStateFactory
+import "./DemoGameMidletEventHandler" for DemoGameMidletEventHandler
 

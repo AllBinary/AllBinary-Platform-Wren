@@ -1,52 +1,53 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.platform.opengles
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.platform.opengles
 
--- local GL10 = require("javax.microedition.khronos.opengles.GL10")
--- local Image = require("javax.microedition.lcdui.Image")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PlatformTextureBaseFactory is JObject {
+    static NULL_PLATFORM_TEXTURE_BASE_FACTORY {
+    if (__NULL_PLATFORM_TEXTURE_BASE_FACTORY_set == null) {
+      __NULL_PLATFORM_TEXTURE_BASE_FACTORY_set = true
+      __NULL_PLATFORM_TEXTURE_BASE_FACTORY = PlatformTextureBaseFactory.new()
+    }
+    return __NULL_PLATFORM_TEXTURE_BASE_FACTORY
+  }
+  static NULL_PLATFORM_TEXTURE_BASE_FACTORY=(value) {
+    __NULL_PLATFORM_TEXTURE_BASE_FACTORY_set = true
+    __NULL_PLATFORM_TEXTURE_BASE_FACTORY = value
+  }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PlatformTextureBaseFactory() {
+    _commonStrings = null
+        _commonStrings = CommonStrings.getInstance()
+  }
 
-local PlatformTextureBaseFactory = {}
-PlatformTextureBaseFactory.__index = PlatformTextureBaseFactory
-PlatformTextureBaseFactory.className = "PlatformTextureBaseFactory"
+  construct new() {
+    super()
+    initFields_PlatformTextureBaseFactory()
+  }
+    
 
-function PlatformTextureBaseFactory:_init_fields()
-    self.commonStrings = CommonStrings.getInstance()
-end
+    load(gl, target, level, image, border, flip) {
+    }
+}
 
-function PlatformTextureBaseFactory.new()
-    local self = setmetatable({}, PlatformTextureBaseFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function PlatformTextureBaseFactory:load(gl, target, level, image, border, flip)
-end
-
-PlatformTextureBaseFactory.NULL_PLATFORM_TEXTURE_BASE_FACTORY = PlatformTextureBaseFactory.new()
-
-return PlatformTextureBaseFactory
+import "../../../../javax/microedition/khronos/opengles/GL10" for GL10
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
 

@@ -1,59 +1,63 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.opengles.shader
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.opengles.shader
 
--- local EGLConfig = require("javax.microedition.khronos.egl.EGLConfig")
--- local GL10 = require("javax.microedition.khronos.opengles.GL10")
-local RendererStrings = require("org.allbinary.graphics.opengles.renderer.RendererStrings")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ShaderUpdater is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ShaderUpdater.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  rendererStrings { _rendererStrings }
+  rendererStrings=(value) { _rendererStrings = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ShaderUpdater() {
+    _commonStrings = null
+    _rendererStrings = null
+        _commonStrings = CommonStrings.getInstance()
+        _rendererStrings = RendererStrings.getInstance()
+  }
 
-local ShaderUpdater = {}
-ShaderUpdater.__index = ShaderUpdater
-ShaderUpdater.className = "ShaderUpdater"
+  construct new() {
+    super()
+    initFields_ShaderUpdater()
+  }
+    
 
-function ShaderUpdater:_init_fields()
-    self.commonStrings = CommonStrings.getInstance()
-    self.rendererStrings = RendererStrings.getInstance()
-end
-
-function ShaderUpdater.new()
-    local self = setmetatable({}, ShaderUpdater)
-    self:_init_fields()
-    return self
-end
-
-
-function ShaderUpdater.getInstance()
+    static getInstance() {
         return ShaderUpdater.instance
-end
+    }
+    
 
+    onSurfaceCreated(gl, eglConfig) {
+    }
+}
 
-function ShaderUpdater:onSurfaceCreated(gl, eglConfig)
-end
-
-ShaderUpdater.instance = ShaderUpdater.new()
-
-return ShaderUpdater
+import "../../../../../javax/microedition/khronos/egl/EGLConfig" for EGLConfig
+import "../../../../../javax/microedition/khronos/opengles/GL10" for GL10
+import "../../../../../org/allbinary/graphics/opengles/renderer/RendererStrings" for RendererStrings
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
 

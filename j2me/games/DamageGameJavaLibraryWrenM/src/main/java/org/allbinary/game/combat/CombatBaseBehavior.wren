@@ -1,72 +1,79 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.combat
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.combat
 
-local DamageableBaseBehavior = require("org.allbinary.game.combat.damage.DamageableBaseBehavior")
-local DestroyableBaseBehavior = require("org.allbinary.game.combat.destroy.DestroyableBaseBehavior")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CombatBaseBehavior is JObject {
+    static NULL_COMBAT_BEHAVIOR {
+    if (__NULL_COMBAT_BEHAVIOR_set == null) {
+      __NULL_COMBAT_BEHAVIOR_set = true
+      __NULL_COMBAT_BEHAVIOR = CombatBaseBehavior.new(DamageableBaseBehavior.getInstance(), DestroyableBaseBehavior.getInstance())
+    }
+    return __NULL_COMBAT_BEHAVIOR
+  }
+  static NULL_COMBAT_BEHAVIOR=(value) {
+    __NULL_COMBAT_BEHAVIOR_set = true
+    __NULL_COMBAT_BEHAVIOR = value
+  }
+  damageableBaseBehavior { _damageableBaseBehavior }
+  damageableBaseBehavior=(value) { _damageableBaseBehavior = value }
+  destroyableBaseBehavior { _destroyableBaseBehavior }
+  destroyableBaseBehavior=(value) { _destroyableBaseBehavior = value }
+  readyForExplosion { _readyForExplosion }
+  readyForExplosion=(value) { _readyForExplosion = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CombatBaseBehavior() {
+    _damageableBaseBehavior = null
+    _destroyableBaseBehavior = null
+    _readyForExplosion = false
+        
+        
+        _readyForExplosion = false
+  }
+    
 
-local CombatBaseBehavior = {}
-CombatBaseBehavior.__index = CombatBaseBehavior
-CombatBaseBehavior.className = "CombatBaseBehavior"
+    construct new(damageableBaseBehavior, destroyableBaseBehavior) {
+    super()
+    initFields_CombatBaseBehavior()
+        _damageableBaseBehavior = damageableBaseBehavior
+        _destroyableBaseBehavior = destroyableBaseBehavior
+    }
+    
 
-function CombatBaseBehavior:_init_fields()
-    self.damageableBaseBehavior = nil
-    self.destroyableBaseBehavior = nil
-    self.readyForExplosion = false
-end
+    getDamageableBaseBehavior() {
+        return _damageableBaseBehavior
+    }
+    
 
+    getDestroyableBaseBehavior() {
+        return _destroyableBaseBehavior
+    }
+    
 
-function CombatBaseBehavior.new(damageableBaseBehavior, destroyableBaseBehavior)
-    local self = setmetatable({}, CombatBaseBehavior)
-    self:_init_fields()
-        self.damageableBaseBehavior = damageableBaseBehavior
-        self.destroyableBaseBehavior = destroyableBaseBehavior
-    return self
-end
+    isReadyForExplosion() {
+        return _readyForExplosion
+    }
+    
 
+    setReadyForExplosion(readyForExplosion) {
+        _readyForExplosion = readyForExplosion
+    }
+}
 
-function CombatBaseBehavior:getDamageableBaseBehavior()
-        return self.damageableBaseBehavior
-end
-
-
-function CombatBaseBehavior:getDestroyableBaseBehavior()
-        return self.destroyableBaseBehavior
-end
-
-
-function CombatBaseBehavior:isReadyForExplosion()
-        return self.readyForExplosion
-end
-
-
-function CombatBaseBehavior:setReadyForExplosion(readyForExplosion)
-        self.readyForExplosion = readyForExplosion
-end
-
-CombatBaseBehavior.NULL_COMBAT_BEHAVIOR = CombatBaseBehavior.new(DamageableBaseBehavior.getInstance(), DestroyableBaseBehavior.getInstance())
-
-return CombatBaseBehavior
+import "../../../../org/allbinary/game/combat/damage/DamageableBaseBehavior" for DamageableBaseBehavior
+import "../../../../org/allbinary/game/combat/destroy/DestroyableBaseBehavior" for DestroyableBaseBehavior
 

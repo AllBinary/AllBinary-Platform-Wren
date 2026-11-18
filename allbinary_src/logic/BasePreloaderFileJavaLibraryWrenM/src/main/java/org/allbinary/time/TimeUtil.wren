@@ -1,86 +1,99 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.time
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.time
 
--- local Calendar = require("java.util.Calendar")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class TimeUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = TimeUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+    static calendar {
+    if (__calendar_set == null) {
+      __calendar_set = true
+      __calendar = Calendar.getInstance()
+    }
+    return __calendar
+  }
+  static calendar=(value) {
+    __calendar_set = true
+    __calendar = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TimeUtil() {
+  }
 
-local TimeUtil = {}
-TimeUtil.__index = TimeUtil
-TimeUtil.className = "TimeUtil"
+  construct new() {
+    super()
+    initFields_TimeUtil()
+  }
+    
 
-function TimeUtil.new()
-    local self = setmetatable({}, TimeUtil)
-    return self
-end
-
-
-function TimeUtil.getInstance()
+    static getInstance() {
         return TimeUtil.instance
-end
+    }
+    
 
+    setCalendar(calendar, yearString, monthString, dayString, hourString) {
+        var year = yearString.intValue()
+        var month = monthString.intValue()
+        var day = dayString.intValue()
+        var hour = hourString.intValue()
+        calendar.set(year, month, day, hour, 0)
+    }
+    
 
-function TimeUtil:setCalendar(calendar, yearString, monthString, dayString, hourString)
-        local year = math.tointeger(yearString // 1)
-        local month = math.tointeger(monthString // 1)
-        local day = math.tointeger(dayString // 1)
-        local hour = math.tointeger(hourString // 1)
-        calendar:set(year, month, day, hour, 0)
-end
+    setCalendarWithTime(calendar, yearString, monthString, dayString, hourString, minuteString, secondString) {
+        var year = yearString.intValue()
+        var month = monthString.intValue()
+        var day = dayString.intValue()
+        var hour = hourString.intValue()
+        var minute = minuteString.intValue()
+        var second = secondString.intValue()
+        calendar.set(year, month, day, hour, minute, second)
+    }
+    
 
+    setExpirationCalendar(calendar, yearsString, monthsString, daysString, hoursString, minutesString, secondsString) {
+        var year = (calendar.get(Calendar.YEAR) + yearsString.intValue())
+        var month = (calendar.get(Calendar.MONTH) + monthsString.intValue())
+        var day = (calendar.get(Calendar.DAY_OF_MONTH) + daysString.intValue())
+        var hour = (calendar.get(Calendar.HOUR) + hoursString.intValue())
+        var minute = (calendar.get(Calendar.MINUTE) + minutesString.intValue())
+        var second = (calendar.get(Calendar.SECOND) + secondsString.intValue())
+        calendar.set(year, month, day, hour, minute, second)
+    }
+    
 
-function TimeUtil:setCalendarWithTime(calendar, yearString, monthString, dayString, hourString, minuteString, secondString)
-        local year = math.tointeger(yearString // 1)
-        local month = math.tointeger(monthString // 1)
-        local day = math.tointeger(dayString // 1)
-        local hour = math.tointeger(hourString // 1)
-        local minute = math.tointeger(minuteString // 1)
-        local second = math.tointeger(secondString // 1)
-        calendar:set(year, month, day, hour, minute, second)
-end
+    getTotalTime(yearString, monthString, dayString, hourString, minuteString, secondString) {
+        var time = TimeUtil.calendar.getTimeInMillis()
+        this.setExpirationCalendar(TimeUtil.calendar, yearString, monthString, dayString, hourString, minuteString, secondString)
+        var timeDelta = TimeUtil.calendar.getTimeInMillis()
+        return JR.i32(timeDelta - time)
+    }
+}
 
-
-function TimeUtil:setExpirationCalendar(calendar, yearsString, monthsString, daysString, hoursString, minutesString, secondsString)
-        local year = calendar:get(Calendar.YEAR) + math.tointeger(yearsString // 1)
-        local month = calendar:get(Calendar.MONTH) + math.tointeger(monthsString // 1)
-        local day = calendar:get(Calendar.DAY_OF_MONTH) + math.tointeger(daysString // 1)
-        local hour = calendar:get(Calendar.HOUR) + math.tointeger(hoursString // 1)
-        local minute = calendar:get(Calendar.MINUTE) + math.tointeger(minutesString // 1)
-        local second = calendar:get(Calendar.SECOND) + math.tointeger(secondsString // 1)
-        calendar:set(year, month, day, hour, minute, second)
-end
-
-
-function TimeUtil:getTotalTime(yearString, monthString, dayString, hourString, minuteString, secondString)
-        local time = TimeUtil.calendar:getTimeInMillis()
-        self:setExpirationCalendar(TimeUtil.calendar, yearString, monthString, dayString, hourString, minuteString, secondString)
-        local timeDelta = TimeUtil.calendar:getTimeInMillis()
-        return timeDelta - time
-end
-
-TimeUtil.instance = TimeUtil.new()
-TimeUtil.calendar = Calendar.getInstance()
-
-return TimeUtil
+import "../../../java/util/Calendar" for Calendar
+import "../../../java/lang/Integer" for Integer
 

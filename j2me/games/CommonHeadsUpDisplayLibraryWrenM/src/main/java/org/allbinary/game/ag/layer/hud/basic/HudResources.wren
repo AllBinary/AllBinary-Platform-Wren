@@ -1,52 +1,56 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.hud.basic
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.hud.basic
 
+import "../../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class HudResources is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = HudResources.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  RESOURCE_LIFE { _RESOURCE_LIFE }
+  RESOURCE_LIFE=(value) { _RESOURCE_LIFE = value }
+  RESOURCE_HEALTH { _RESOURCE_HEALTH }
+  RESOURCE_HEALTH=(value) { _RESOURCE_HEALTH = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_HudResources() {
+    _RESOURCE_LIFE = null
+    _RESOURCE_HEALTH = null
+        _RESOURCE_LIFE = "/hud_life_10_by_10.png"
+        _RESOURCE_HEALTH = "/hud_health_10_by_10.png"
+  }
+    
 
-local HudResources = {}
-HudResources.__index = HudResources
-HudResources.className = "HudResources"
-
-function HudResources:_init_fields()
-    self.RESOURCE_LIFE = "/hud_life_10_by_10.png"
-    self.RESOURCE_HEALTH = "/hud_health_10_by_10.png"
-end
-
-
-function HudResources.getInstance()
+    static getInstance() {
         return HudResources.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_HudResources()
+    }
+}
 
-function HudResources.new()
-    local self = setmetatable({}, HudResources)
-    self:_init_fields()
-    return self
-end
-
-HudResources.instance = HudResources.new()
-
-return HudResources
 

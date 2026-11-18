@@ -1,101 +1,108 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
--- local Font = require("javax.microedition.lcdui.Font")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local GameStatisticsFactory = require("org.allbinary.canvas.GameStatisticsFactory")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
-local MyFontProcessor = require("org.allbinary.graphics.font.MyFontProcessor")
-local UpdateMyFontInterface = require("org.allbinary.graphics.font.UpdateMyFontInterface")
-local UpdateMyFontProcessor = require("org.allbinary.graphics.font.UpdateMyFontProcessor")
-local InitUpdatePaintable = require("org.allbinary.graphics.paint.InitUpdatePaintable")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/graphics/paint/InitUpdatePaintable" for InitUpdatePaintable
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class GamePerformanceInitUpdatePaintable is InitUpdatePaintable {
+  halfHeight { _halfHeight }
+  halfHeight=(value) { _halfHeight = value }
+  yArray { _yArray }
+  yArray=(value) { _yArray = value }
+  myFontProcessor { _myFontProcessor }
+  myFontProcessor=(value) { _myFontProcessor = value }
+  baseRefreshHelperCharArray { _baseRefreshHelperCharArray }
+  baseRefreshHelperCharArray=(value) { _baseRefreshHelperCharArray = value }
+  defaultStringWidth { _defaultStringWidth }
+  defaultStringWidth=(value) { _defaultStringWidth = value }
+  RED { _RED }
+  RED=(value) { _RED = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_GamePerformanceInitUpdatePaintable() {
+    _halfHeight = 0
+    _yArray = null
+    _myFontProcessor = null
+    _baseRefreshHelperCharArray = null
+    _defaultStringWidth = 0
+    _RED = 0
+        _halfHeight = DisplayInfoSingleton.getInstance().getLastHalfHeight()
+        _yArray = [JR.i32(_halfHeight + 30), JR.i32(_halfHeight + 30), JR.i32(JR.i32(_halfHeight + 30) + 15), JR.i32(JR.i32(_halfHeight + 30) + 15), JR.i32(JR.i32(_halfHeight + 30) + 30), JR.i32(JR.i32(_halfHeight + 30) + 30), JR.i32(JR.i32(_halfHeight + 30) + 45), JR.i32(JR.i32(_halfHeight + 30) + 45)]
+        _myFontProcessor = UpdateMyFontProcessor.new(this)
+        _baseRefreshHelperCharArray = JR.listOf(0, Fn.new { List.filled(0, 0) })
+        _defaultStringWidth = 0
+        _RED = BasicColorFactory.getInstance().RED.intValue()
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  construct new() {
+    super()
+    initFields_GamePerformanceInitUpdatePaintable()
+  }
+    
 
-local GamePerformanceInitUpdatePaintable = {}
-GamePerformanceInitUpdatePaintable.__index = GamePerformanceInitUpdatePaintable
-GamePerformanceInitUpdatePaintable.className = "GamePerformanceInitUpdatePaintable"
-setmetatable(GamePerformanceInitUpdatePaintable, {__index = InitUpdatePaintable})
+    updateMeasurement(graphics) {
+        var font = graphics.getFont()
+        _defaultStringWidth = MyFontProcessor.defaultStringWidth(font, 2)
+        _myFontProcessor = MyFontProcessor.getInstance()
+    }
+    
 
-function GamePerformanceInitUpdatePaintable:_init_fields()
-    self.halfHeight = DisplayInfoSingleton.getInstance():getLastHalfHeight()
-    self.yArray = {self.halfHeight + 30, self.halfHeight + 30, self.halfHeight + 30 + 15, self.halfHeight + 30 + 15, self.halfHeight + 30 + 30, self.halfHeight + 30 + 30, self.halfHeight + 30 + 45, self.halfHeight + 30 + 45}
-    self.myFontProcessor = UpdateMyFontProcessor.new(self)
-    self.baseRefreshHelperCharArray = java_new_array("\0", 0, 0)
-    self.defaultStringWidth = 0
-    self.RED = math.tointeger(BasicColorFactory.getInstance().RED // 1)
-end
+    init() {
+    }
+    
 
-function GamePerformanceInitUpdatePaintable.new()
-    local self = setmetatable(InitUpdatePaintable.new(), GamePerformanceInitUpdatePaintable)
-    self:_init_fields()
-    return self
-end
+    update() {
+        _baseRefreshHelperCharArray = GameStatisticsFactory.getInstance().to2DCharArray()
+    }
+    
 
+    paint(graphics) {
+        _myFontProcessor.process(graphics)
+        graphics.setColor(_RED)
+        var charArray = null
+        var charArray2 = null
+        var size2 = 0
+        var size3 = 0
+        var size = JR.i32(_baseRefreshHelperCharArray.count - 2)
+        if (true) {
+            var index = size
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 2)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            charArray = _baseRefreshHelperCharArray[index]
+            charArray2 = _baseRefreshHelperCharArray[JR.i32(index + 1)]
+            size2 = charArray.count
+            size3 = charArray2.count
+            graphics.drawChars(charArray, 0, size2, 0, _yArray[index], 0)
+            graphics.drawChars(charArray2, 0, size3, JR.i32(size2 * _defaultStringWidth), _yArray[JR.i32(index + 1)], 0)
+            }
+        }
+    }
+}
 
-function GamePerformanceInitUpdatePaintable:updateMeasurement(graphics)
-        local font = graphics:getFont()
-        self.defaultStringWidth = MyFontProcessor.defaultStringWidth(font, 2)
-        self.myFontProcessor = MyFontProcessor.getInstance()
-end
-
-
-function GamePerformanceInitUpdatePaintable:init()
-end
-
-
-function GamePerformanceInitUpdatePaintable:update()
-        self.baseRefreshHelperCharArray = GameStatisticsFactory.getInstance():to2DCharArray()
-end
-
-
-function GamePerformanceInitUpdatePaintable:paint(graphics)
-        self.myFontProcessor:process(graphics)
-        graphics:setColor(self.RED)
-        local charArray = nil
-        local charArray2 = nil
-        local size2 = 0
-        local size3 = 0
-        local size = (self.baseRefreshHelperCharArray.n or #self.baseRefreshHelperCharArray) - 2
-        for index = size, 0, -2 do
-            charArray = self.baseRefreshHelperCharArray[index + 1]
-            charArray2 = self.baseRefreshHelperCharArray[index + 1 + 1]
-            size2 = (charArray.n or #charArray)
-            size3 = (charArray2.n or #charArray2)
-            graphics:drawChars(charArray, 0, size2, 0, self.yArray[index + 1], 0)
-            graphics:drawChars(charArray2, 0, size3, size2 * self.defaultStringWidth, self.yArray[index + 1 + 1], 0)
-        end
-end
-
-return GamePerformanceInitUpdatePaintable
+import "../../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../org/allbinary/canvas/GameStatisticsFactory" for GameStatisticsFactory
+import "../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "../../../../../org/allbinary/graphics/font/MyFontProcessor" for MyFontProcessor
+import "../../../../../org/allbinary/graphics/font/UpdateMyFontInterface" for UpdateMyFontInterface
+import "../../../../../org/allbinary/graphics/font/UpdateMyFontProcessor" for UpdateMyFontProcessor
 

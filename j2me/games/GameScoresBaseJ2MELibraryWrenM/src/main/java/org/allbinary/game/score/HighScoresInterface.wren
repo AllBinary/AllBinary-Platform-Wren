@@ -1,56 +1,45 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.score
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.score
 
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class HighScoresInterface is JObject {
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    getList() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getList"))
+    }
+    
 
--- Java interface
-local HighScoresInterface = {}
-HighScoresInterface.__index = HighScoresInterface
-HighScoresInterface.className = "HighScoresInterface"
+    addHighScore(newHighScore) {
+        Fiber.abort(JR.exception("AbstractMethodError", "addHighScore"))
+    }
+    
 
+    getTotal() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getTotal"))
+    }
+    
 
-function HighScoresInterface:getList()
-    error("abstract method getList")
-end
+    isBestScore(newHighScore) {
+        Fiber.abort(JR.exception("AbstractMethodError", "isBestScore"))
+    }
+}
 
-
-function HighScoresInterface:addHighScore(newHighScore)
-    error("abstract method addHighScore")
-end
-
-
-function HighScoresInterface:getTotal()
-    error("abstract method getTotal")
-end
-
-
--- throws Exception
-function HighScoresInterface:isBestScore(newHighScore)
-    error("abstract method isBestScore")
-end
-
-return HighScoresInterface
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "./HighScore" for HighScore
 

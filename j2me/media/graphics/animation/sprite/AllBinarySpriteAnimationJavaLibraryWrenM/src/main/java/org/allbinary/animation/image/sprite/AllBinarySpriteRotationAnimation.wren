@@ -1,89 +1,79 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image.sprite
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image.sprite
 
--- local Image = require("javax.microedition.lcdui.Image")
--- local Sprite = require("javax.microedition.lcdui.game.Sprite")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local Direction = require("org.allbinary.direction.Direction")
-local Angle = require("org.allbinary.math.Angle")
-local AngleFactory = require("org.allbinary.math.AngleFactory")
-local AngleInfo = require("org.allbinary.math.AngleInfo")
-local HackRotationSpriteIndexedAnimation = require("org.allbinary.animation.image.sprite.HackRotationSpriteIndexedAnimation")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./HackRotationSpriteIndexedAnimation" for HackRotationSpriteIndexedAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AllBinarySpriteRotationAnimation is HackRotationSpriteIndexedAnimation {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AllBinarySpriteRotationAnimation() {
+  }
+    
 
-local AllBinarySpriteRotationAnimation = {}
-AllBinarySpriteRotationAnimation.__index = AllBinarySpriteRotationAnimation
-AllBinarySpriteRotationAnimation.className = "AllBinarySpriteRotationAnimation"
-setmetatable(AllBinarySpriteRotationAnimation, {__index = HackRotationSpriteIndexedAnimation})
+    construct new(sprite, image, animationBehavior) {
+        super(sprite, image, AngleInfo.getInstance(JR.i16(((AngleFactory.getInstance().TOTAL_ANGLE / sprite.getRawFrameCount())))), animationBehavior)
+        this.angleInfo.adjustAngle(this.sprite.getFrame())
+    }
+    
 
+    nextRotation() {
+        this.sprite.nextFrame()
+        this.angleInfo.adjustAngle(this.sprite.getFrame())
+    }
+    
 
-function AllBinarySpriteRotationAnimation.new(sprite, image, animationBehavior)
-    local self = setmetatable(HackRotationSpriteIndexedAnimation.new(sprite, image, AngleInfo.getInstance(java_int((AngleFactory.getInstance().TOTAL_ANGLE / sprite:getRawFrameCount()))), animationBehavior), AllBinarySpriteRotationAnimation)
-        -- super(...) made self above
-        self.angleInfo:adjustAngle(self.sprite:getFrame())
-    return self
-end
+    previousRotation() {
+        this.sprite.prevFrame()
+        this.angleInfo.adjustAngle(this.sprite.getFrame())
+    }
+    
 
+    setFrameByDirection(direction) {
+        var angle = this.directionUtil.getFrameAngle(direction)
+        this.adjustFrameToAngle(angle)
+    }
+    
 
-function AllBinarySpriteRotationAnimation:nextRotation()
-        self.sprite:nextFrame()
-        self.angleInfo:adjustAngle(self.sprite:getFrame())
-end
+    setFrameToAngle(angle) {
+        this.adjustFrameToAngle(angle)
+    }
+    
 
+    setFrame(index) {
+        this.sprite.setFrame(index)
+        this.angleInfo.adjustAngle(this.getFrame())
+    }
+    
 
-function AllBinarySpriteRotationAnimation:previousRotation()
-        self.sprite:prevFrame()
-        self.angleInfo:adjustAngle(self.sprite:getFrame())
-end
+    adjustFrameToAngle(angle) {
+        this.adjustFrame(angle.getValue())
+    }
+    
 
+    adjustFrame(angle) {
+        this.setFrame(this.frameUtil.getFrameForAngle(angle, JR.i32(this.angleInfo.getAngleIncrementInfo().getAngleIncrement())))
+    }
+}
 
-function AllBinarySpriteRotationAnimation:setFrameByDirection(direction)
-        local angle = self.directionUtil:getFrameAngle(direction)
-        self:adjustFrameToAngle(angle)
-end
-
-
-function AllBinarySpriteRotationAnimation:setFrameToAngle(angle)
-        self:adjustFrameToAngle(angle)
-end
-
-
-function AllBinarySpriteRotationAnimation:setFrame(index)
-        self.sprite:setFrame(index)
-        self.angleInfo:adjustAngle(self:getFrame())
-end
-
-
-function AllBinarySpriteRotationAnimation:adjustFrameToAngle(angle)
-        self:adjustFrame(angle:getValue())
-end
-
-
-function AllBinarySpriteRotationAnimation:adjustFrame(angle)
-        self:setFrame(self.frameUtil:getFrameForAngle(angle, java_int(self.angleInfo:getAngleIncrementInfo():getAngleIncrement())))
-end
-
-return AllBinarySpriteRotationAnimation
+import "../../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../../javax/microedition/lcdui/game/Sprite" for Sprite
+import "../../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../../org/allbinary/direction/Direction" for Direction
+import "../../../../../org/allbinary/math/Angle" for Angle
+import "../../../../../org/allbinary/math/AngleFactory" for AngleFactory
+import "../../../../../org/allbinary/math/AngleInfo" for AngleInfo
 

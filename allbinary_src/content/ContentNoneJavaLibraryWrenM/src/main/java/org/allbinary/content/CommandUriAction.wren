@@ -1,60 +1,61 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.content
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.content
 
--- local Command = require("javax.microedition.lcdui.Command")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CommandUriAction is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = CommandUriAction.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CommandUriAction() {
+    _logUtil = null
+        _logUtil = LogUtil.getInstance()
+  }
 
-local CommandUriAction = {}
-CommandUriAction.__index = CommandUriAction
-CommandUriAction.className = "CommandUriAction"
+  construct new() {
+    super()
+    initFields_CommandUriAction()
+  }
+    
 
-function CommandUriAction:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-end
-
-function CommandUriAction.new()
-    local self = setmetatable({}, CommandUriAction)
-    self:_init_fields()
-    return self
-end
-
-
-function CommandUriAction.getInstance()
+    static getInstance() {
         return CommandUriAction.instance
-end
+    }
+    
 
+    add(command, url) {
+    }
+    
 
-function CommandUriAction:add(command, url)
-end
+    process(command) {
+    }
+}
 
-
-function CommandUriAction:process(command)
-end
-
-CommandUriAction.instance = CommandUriAction.new()
-
-return CommandUriAction
+import "../../../javax/microedition/lcdui/Command" for Command
+import "../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
 

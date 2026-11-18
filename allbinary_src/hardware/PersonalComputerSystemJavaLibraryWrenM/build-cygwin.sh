@@ -45,20 +45,154 @@ count=0
 # Each module is imported in its own fiber so every module is checked. A module of a dependency's optional dependency
 # (not transitive like Java, such as TsUtil) can be missing: only that is allowed.
 modules="$object_dir/modules.txt"
-echo "var jerror = null" > "$check"
-while IFS= read -r file; do
-    module="${file#"$source_dir"/}"
-    echo "./${module%.wren}" >> "$modules"
-    # A one line block is an expression so the import statement needs its own line
-    printf 'jerror = Fiber.new {\n  import "./%s"\n}.try()\n' "${module%.wren}" >> "$check"
-    echo "if (jerror != null) System.print(\"jcheck error: %(jerror)\")" >> "$check"
-    count=$((count + 1))
-done < <(find "$source_dir" -type f -name '*.wren' | sort)
-echo "System.print(\"Wren compiled: $artifact\")" >> "$check"
-echo "Wren modules: $count"
+# A module imports its superclass at the top and its other imports at the end, so a module that is loaded while its
+# superclass module is still at its top import gets no superclass (Screen loads Displayable, whose end imports load
+# Form, which extends Screen). Superclass modules are imported first (ordered by "superclass module" pairs). The pairs
+# cover the whole tree (runtime, dependencies, and this project): a dependency's chain such as Displayable, Screen and
+# NullScreen loads the wrong way round when a project module reaches Screen first. A dependency module that is the
+# superclass of another module is preloaded in that order (its errors are not this project's), and this project's
+# modules are checked.
+own="$object_dir/own-modules.txt"
+(cd "$source_dir" && find . -type f -name '*.wren' | sed 's#^\./##; s#\.wren$##' | sort) > "$own"
+edges="$object_dir/superclass-edges.txt"
+parents="$object_dir/superclass-modules.txt"
+perl -e '
+    use strict; use File::Find; use File::Spec;
+    my ($root, $edges, $parents) = @ARGV;
+    my (%parent, @pairs, @classes);
+    find({ no_chdir => 1, wanted => sub {
+        my $file = $File::Find::name;
+        return unless $file =~ /\.wren$/ && -f $file;
+        (my $module = File::Spec->abs2rel($file, $root)) =~ s/\.wren$//;
+        $module =~ s#\\#/#g;
+        return if $module =~ /^jcheck_/;
+        push @pairs, "$module $module";
+        open(my $in, "<", $file) or return;
+        my @lines = <$in>; close($in);
+        my ($class) = map { /^class (\w+) is \w+/ ? ($1) : () } @lines;
+        my ($super) = map { /^class \w+ is (\w+)/ ? ($1) : () } @lines;
+        return unless defined $super;
+        foreach my $line (@lines) {
+            next unless $line =~ /^import "([^"]*)" for (.*)$/;
+            my ($path, $names) = ($1, $2);
+            next unless grep { $_ eq $super } map { s/^\s+|\s+$//gr } split(/,/, $names);
+            my @parts;
+            foreach my $part (split(/\//, ((File::Spec->abs2rel($File::Find::dir, $root) =~ s#\\#/#gr) . "/" . $path))) {
+                next if $part eq "." || $part eq "";
+                if ($part eq "..") { pop @parts; } else { push @parts, $part; }
+            }
+            my $superModule = join("/", @parts);
+            if (-f "$root/$superModule.wren") {
+                push @pairs, "$superModule $module";
+                push @classes, "$class $module $superModule";
+                $parent{$superModule} = 1;
+            }
+            last;
+        }
+    }}, $root);
+    open(my $out, ">", $edges) or die; print $out "$_\n" foreach @pairs; close($out);
+    open($out, ">", $parents) or die; print $out "$_\n" foreach sort keys %parent; close($out);
+    # The order: superclass modules with the most descendants first (a superclass always has more descendants than its
+    # subclass, so this is also superclass first), then every other module. Superclass first alone is not enough: a
+    # module loaded early can reach Screen through its end imports before Displayable is loaded.
+    my (%children, %all, %count);
+    foreach my $pair (@pairs) {
+        my ($super, $module) = split(/ /, $pair);
+        $all{$module} = 1;
+        push @{$children{$super}}, $module if $super ne $module;
+    }
+    my $descendants;
+    $descendants = sub {
+        my ($module, $seen) = @_;
+        return $count{$module} if exists $count{$module};
+        return 0 if $seen->{$module}++;
+        my $total = 0;
+        $total += 1 + $descendants->($_, $seen) foreach @{$children{$module} || []};
+        return $count{$module} = $total;
+    };
+    $descendants->($_, {}) foreach keys %parent;
+    open($out, ">", $ARGV[3]) or die;
+    print $out "$_\n" foreach sort { $count{$b} <=> $count{$a} || $a cmp $b } keys %parent;
+    print $out "$_\n" foreach sort grep { !$parent{$_} } keys %all;
+    close($out);
+    open($out, ">", $ARGV[4]) or die; print $out "$_\n" foreach @classes; close($out);
+' "$short_tree" "$edges" "$parents" "$object_dir/module-order.txt" "$object_dir/classes.txt"
+order="$object_dir/module-order.txt"
+classes="$object_dir/classes.txt"
+echo "Wren preloaded superclass modules: $(awk -v own="$own" 'BEGIN { while ((getline line < own) > 0) { isOwn[line] = 1 } } !isOwn[$0]' "$parents" | wc -l)"
 
-output="$("$compiler" "${compiler_flags[@]}" "$check" 2>&1)"
-status=$?
+# Writes the check for the current order. A one line block is an expression so each import statement needs its own line.
+# A preloaded module's error is printed as "jpreload error" (not a problem of this project) so a retry can see it.
+writeCheck() {
+    echo "var jerror = null" > "$check"
+    : > "$modules"
+    awk -v own="$own" -v parents="$parents" -v modules="$modules" '
+        BEGIN {
+            while ((getline line < own) > 0) { isOwn[line] = 1 }
+            while ((getline line < parents) > 0) { isParent[line] = 1 }
+        }
+        isOwn[$0] {
+            print "./" $0 > modules
+            printf "jerror = Fiber.new {\n  import \"./%s\"\n}.try()\n", $0
+            print "if (jerror != null) System.print(\"jcheck error: %(jerror)\")"
+            next
+        }
+        isParent[$0] {
+            printf "jerror = Fiber.new {\n  import \"./%s\"\n}.try()\n", $0
+            print "if (jerror != null) System.print(\"jpreload error: %(jerror)\")"
+        }
+    ' "$order" >> "$check"
+    echo "System.print(\"Wren compiled: $artifact\")" >> "$check"
+}
+
+# No fixed order covers every cycle of end imports (a module loaded early can reach Screen before Displayable is loaded,
+# whatever is first). When a class can not inherit, its superclass chain (root first) moves to the front and the check
+# runs again. A class is moved once: when it can not inherit again (its superclass module can be missing, such as a class
+# of an optional dependency that is not in the tree) it is passed over for the next class that could not inherit. A class
+# whose chain was moved for another class is still moved to the front for itself, since later moves go before it.
+moved="$object_dir/moved-modules.txt"
+picked="$object_dir/moved-classes.txt"
+: > "$moved"
+: > "$picked"
+attempt=0
+while :; do
+    attempt=$((attempt + 1))
+    writeCheck
+    output="$("$compiler" "${compiler_flags[@]}" "$check" 2>&1)"
+    status=$?
+    [ "$attempt" -ge 20 ] && break
+    chain=""
+    failedClass=""
+    while IFS= read -r candidate; do
+        candidateChain="$(awk -v failed="$candidate" '
+            { moduleOf[$1] = $2; superOf[$2] = $3 }
+            END {
+                module = superOf[moduleOf[failed]]
+                while (module != "" && !(module in seen)) {
+                    seen[module] = 1
+                    chain = module (chain == "" ? "" : "\n" chain)
+                    module = superOf[module]
+                }
+                print chain
+            }
+        ' "$classes")"
+        [ -z "$candidateChain" ] && continue
+        grep -qxF "$candidate" "$picked" && continue
+        if [ -n "$(echo "$candidateChain" | grep -vxF -f "$moved")" ] || [ ! -s "$moved" ] || [ "$(head -n "$(echo "$candidateChain" | wc -l)" "$order")" != "$candidateChain" ]; then
+            chain="$candidateChain"
+            failedClass="$candidate"
+            break
+        fi
+    done < <(echo "$output" | sed -n "s/.*Class '\([A-Za-z0-9_]*\)' cannot inherit from a non-class object.*/\1/p" | awk '!seen[$0]++')
+    [ -z "$chain" ] && break
+    echo "$chain" >> "$moved"
+    echo "$failedClass" >> "$picked"
+    { echo "$chain"; grep -vxF -f <(echo "$chain") "$order"; } > "$order.next"
+    mv "$order.next" "$order"
+    echo "Wren check order: $failedClass could not inherit, moved its superclass chain first (attempt $attempt)"
+done
+count="$(wc -l < "$modules")"
+echo "Wren modules: $count"
 echo "$output"
 # Problems: compile errors, and run errors except a missing module that is not one of this project's modules
 problems="$(echo "$output" | grep -E 'Error at|Could not compile|jcheck error:' | while IFS= read -r line; do

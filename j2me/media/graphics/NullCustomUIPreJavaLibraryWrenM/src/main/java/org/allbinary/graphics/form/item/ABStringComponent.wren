@@ -1,45 +1,45 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form.item
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form.item
 
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ABStringComponent is JObject {
+    static NULL_STRING_COMPONENT {
+    if (__NULL_STRING_COMPONENT_set == null) {
+      __NULL_STRING_COMPONENT_set = true
+      __NULL_STRING_COMPONENT = ABStringComponent.new(BasicColorFactory.getInstance().BLACK, BasicColorFactory.getInstance().WHITE)
+    }
+    return __NULL_STRING_COMPONENT
+  }
+  static NULL_STRING_COMPONENT=(value) {
+    __NULL_STRING_COMPONENT_set = true
+    __NULL_STRING_COMPONENT = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ABStringComponent() {
+  }
+    
 
-local ABStringComponent = {}
-ABStringComponent.__index = ABStringComponent
-ABStringComponent.className = "ABStringComponent"
-
-
-function ABStringComponent:getBackgroundBasicColor()
+    getBackgroundBasicColor() {
         return BasicColorFactory.getInstance().WHITE
-end
+    }
+    
 
+    construct new(backgroundBasicColor, foregroundBasicColor) {
+    super()
+    initFields_ABStringComponent()
+    }
+    
 
-function ABStringComponent.new(backgroundBasicColor, foregroundBasicColor)
-    local self = setmetatable({}, ABStringComponent)
-    return self
-end
-
-
-function ABStringComponent:getForegroundBasicColor()
+    getForegroundBasicColor() {
         return BasicColorFactory.getInstance().WHITE
-end
+    }
+    
 
+    setForegroundBasicColor(foregroundBasicColor) {
+    }
+}
 
-function ABStringComponent:setForegroundBasicColor(foregroundBasicColor)
-end
-
-ABStringComponent.NULL_STRING_COMPONENT = ABStringComponent.new(BasicColorFactory.getInstance().BLACK, BasicColorFactory.getInstance().WHITE)
-
-return ABStringComponent
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
 

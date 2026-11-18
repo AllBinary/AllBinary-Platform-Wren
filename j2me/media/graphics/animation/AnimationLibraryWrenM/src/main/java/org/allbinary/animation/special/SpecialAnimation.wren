@@ -1,79 +1,78 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.special
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.special
 
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local IndexedAnimation = require("org.allbinary.animation.IndexedAnimation")
-local IndexedAnimationBehavior = require("org.allbinary.animation.IndexedAnimationBehavior")
-local SpecialAnimationInterface = require("org.allbinary.animation.special.SpecialAnimationInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/animation/IndexedAnimation" for IndexedAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class SpecialAnimation is IndexedAnimation {
+    static NULL_SPECIAL_ANIMATION {
+    if (__NULL_SPECIAL_ANIMATION_set == null) {
+      __NULL_SPECIAL_ANIMATION_set = true
+      __NULL_SPECIAL_ANIMATION = SpecialAnimation.new(IndexedAnimationBehavior.new(1, 250))
+    }
+    return __NULL_SPECIAL_ANIMATION
+  }
+  static NULL_SPECIAL_ANIMATION=(value) {
+    __NULL_SPECIAL_ANIMATION_set = true
+    __NULL_SPECIAL_ANIMATION = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_SpecialAnimation() {
+  }
+    
 
-local SpecialAnimation = {}
-SpecialAnimation.__index = SpecialAnimation
-SpecialAnimation.className = "SpecialAnimation"
-setmetatable(SpecialAnimation, {__index = IndexedAnimation})
-
-
-function SpecialAnimation.getInstance()
+    static getInstance() {
         return SpecialAnimation.NULL_SPECIAL_ANIMATION
-end
+    }
+    
 
+    construct new(animationBehavior) {
+        super(animationBehavior)
+    }
+    
 
-function SpecialAnimation.new(animationBehavior)
-    local self = setmetatable(IndexedAnimation.new(animationBehavior), SpecialAnimation)
-        -- super(...) made self above
-    return self
-end
+    nextFrame() {
+        var indexedAnimationBehavior = (this.animationBehaviorP)
+        indexedAnimationBehavior.loopIndex = JR.i32(indexedAnimationBehavior.loopIndex + 1)
+    }
+    
 
+    setLastFrame() {
+    }
+    
 
-function SpecialAnimation:nextFrame()
-        local indexedAnimationBehavior = (self.animationBehaviorP)
-        indexedAnimationBehavior.loopIndex = indexedAnimationBehavior.loopIndex + 1
-end
-
-
-function SpecialAnimation:setLastFrame()
-end
-
-
-function SpecialAnimation:isComplete()
+    isComplete() {
         return false
-end
+    }
+    
 
+    open() {
+    }
+    
 
-function SpecialAnimation:open()
-end
+    close() {
+    }
+    
 
+    process() {
+    }
+}
 
-function SpecialAnimation:close()
-end
-
-
-function SpecialAnimation:process()
-end
-
-SpecialAnimation.NULL_SPECIAL_ANIMATION = SpecialAnimation.new(IndexedAnimationBehavior.new(1, 250))
-
-return SpecialAnimation
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/animation/IndexedAnimationBehavior" for IndexedAnimationBehavior
+import "./SpecialAnimationInterface" for SpecialAnimationInterface
 

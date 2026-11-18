@@ -1,108 +1,102 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2026 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.logic.io.file
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2026 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.io.file
 
--- local InputStream = require("java.io.InputStream")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+//J2MEForJ2ME
+class AbFileSystem is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = AbFileSystem.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_AbFileSystem() {
+    _logUtil = null
+    _commonStrings = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  construct new() {
+    super()
+    initFields_AbFileSystem()
+  }
+    
 
---J2MEForJ2ME
-local AbFileSystem = {}
-AbFileSystem.__index = AbFileSystem
-AbFileSystem.className = "AbFileSystem"
-
-function AbFileSystem:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-end
-
-function AbFileSystem.new()
-    local self = setmetatable({}, AbFileSystem)
-    self:_init_fields()
-    return self
-end
-
-
-function AbFileSystem.getInstance()
+    static getInstance() {
         return AbFileSystem.instance
-end
+    }
+    
 
-
-function AbFileSystem:isDirectoryOrFile(path)
+    isDirectoryOrFile(path) {
         return false
-end
+    }
+    
 
-
-function AbFileSystem:isDirectory(path)
+    isDirectory(path) {
         return false
-end
+    }
+    
 
+    getFilesAsStringArrayForPath(currentDirPath) {
+        return StringUtil.getInstance().getArrayInstance()
+    }
+    
 
-function AbFileSystem:getFilesAsStringArrayForPath(currentDirPath)
-        return StringUtil.getInstance():getArrayInstance()
-end
+    readAsString(fileName) {
+        var bytes = List.filled(1000000, 0)
+        return this.readAsString(fileName, bytes)
+    }
+    
 
-
-function AbFileSystem:readAsString(fileName)
-        local bytes = java_new_array(0, 1000000)
-        return self:readAsString(fileName, bytes)
-end
-
-
--- Java overloaded method: Lua keeps the last definition
-function AbFileSystem:readAsString(fileName, bytes)
+    readAsString(fileName, bytes) {
         return StringUtil.getInstance().EMPTY_STRING
-end
+    }
+    
 
-
-function AbFileSystem:close(closeable)
-        local try_ok, try_error = pcall(function()
-            if closeable ~= nil then
-                local inputStream = (closeable)
-                inputStream:close()
-            end
+    close(closeable) {
+        var jerror0 = Fiber.new {
+            if ((closeable != null)) {
+                var inputStream = (closeable)
+                inputStream.close()
+            }
             return true
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.commonStrings.CLOSE, e)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            _logUtil.put(_commonStrings.EXCEPTION, this, _commonStrings.CLOSE, e)
             return false
-        end
-end
+        }
+    }
+}
 
-AbFileSystem.instance = AbFileSystem.new()
-
-return AbFileSystem
+import "../../../../../java/io/InputStream" for InputStream
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
 

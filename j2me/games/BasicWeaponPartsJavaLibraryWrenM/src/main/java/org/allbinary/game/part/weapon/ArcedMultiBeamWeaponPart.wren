@@ -1,74 +1,78 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.part.weapon
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.part.weapon
 
-local Animation = require("org.allbinary.animation.Animation")
-local WeaponProperties = require("org.allbinary.game.combat.weapon.WeaponProperties")
-local WeaponLayer = require("org.allbinary.game.layer.weapon.WeaponLayer")
-local WeaponLayerCircularPool = require("org.allbinary.game.layer.weapon.WeaponLayerCircularPool")
-local ScoreableInterface = require("org.allbinary.game.score.ScoreableInterface")
-local RelativeRelationship = require("org.allbinary.graphics.RelativeRelationship")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local AngleFactory = require("org.allbinary.math.AngleFactory")
-local BasicWeaponPart = require("org.allbinary.game.part.weapon.BasicWeaponPart")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./BasicWeaponPart" for BasicWeaponPart
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ArcedMultiBeamWeaponPart is BasicWeaponPart {
+  weaponLayerCircularStaticPool { _weaponLayerCircularStaticPool }
+  weaponLayerCircularStaticPool=(value) { _weaponLayerCircularStaticPool = value }
+  total { _total }
+  total=(value) { _total = value }
+  TOTAL_ANGLE { _TOTAL_ANGLE }
+  TOTAL_ANGLE=(value) { _TOTAL_ANGLE = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ArcedMultiBeamWeaponPart() {
+    _weaponLayerCircularStaticPool = null
+    _total = 0
+    _TOTAL_ANGLE = 0
+        
+        
+        _TOTAL_ANGLE = JR.i32(AngleFactory.getInstance().TOTAL_ANGLE)
+  }
+    
 
-local ArcedMultiBeamWeaponPart = {}
-ArcedMultiBeamWeaponPart.__index = ArcedMultiBeamWeaponPart
-ArcedMultiBeamWeaponPart.className = "ArcedMultiBeamWeaponPart"
-setmetatable(ArcedMultiBeamWeaponPart, {__index = BasicWeaponPart})
+    construct new(animationInterface, sourceLayerInterface, weaponLayerCircularStaticPool, total, weaponProperties, scoreableInterface, relativeRelationship) {
+        super(animationInterface, sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
+        initFields_ArcedMultiBeamWeaponPart()
+        _total = total
+        _weaponLayerCircularStaticPool = weaponLayerCircularStaticPool
+    }
+    
 
-function ArcedMultiBeamWeaponPart:_init_fields()
-    self.weaponLayerCircularStaticPool = nil
-    self.total = nil
-    self.TOTAL_ANGLE = java_int(AngleFactory.getInstance().TOTAL_ANGLE)
-end
+    processScore(allbinaryLayerManager, angle, otherAngle, weaponProperties, scoreableInterface) {
+        var increment = JR.i16((JR.idiv((JR.i32(_total - 1)), _TOTAL_ANGLE)))
+        var minAngle = JR.i16((JR.i32(JR.i32(angle) - (JR.shr((JR.i32(JR.i32(increment) * _total)), 1)))))
+        var next = 0
+        var weaponLayer = null
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < _total))) break
+            weaponLayer = _weaponLayerCircularStaticPool.getInstanceWeaponLayer(this.getOwnerLayerInterface(), this.relativeRelationship.getX(), this.relativeRelationship.getY(), 0, (JR.i32(minAngle + increment)), JR.i32(otherAngle), weaponProperties, scoreableInterface)
+            allbinaryLayerManager.append(weaponLayer)
+            next = JR.i32(next + JR.i32(increment))
+            }
+        }
+    }
+}
 
-
-function ArcedMultiBeamWeaponPart.new(animationInterface, sourceLayerInterface, weaponLayerCircularStaticPool, total, weaponProperties, scoreableInterface, relativeRelationship)
-    local self = setmetatable(BasicWeaponPart.new(animationInterface, sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship), ArcedMultiBeamWeaponPart)
-    self:_init_fields()
-        -- super(...) made self above
-        self.total = total
-        self.weaponLayerCircularStaticPool = weaponLayerCircularStaticPool
-    return self
-end
-
-
--- throws Exception
-function ArcedMultiBeamWeaponPart:processScore(allbinaryLayerManager, angle, otherAngle, weaponProperties, scoreableInterface)
-        local increment = (java_idiv((self.total - 1), self.TOTAL_ANGLE))
-        local minAngle = (angle - ((((increment * self.total)) // (1 << (1)))))
-        local next = 0
-        local weaponLayer = nil
-        for index = 0, self.total - 1 do
-            weaponLayer = self.weaponLayerCircularStaticPool:getInstanceWeaponLayer(self:getOwnerLayerInterface(), self.relativeRelationship:getX(), self.relativeRelationship:getY(), 0, (minAngle + increment), otherAngle, weaponProperties, scoreableInterface)
-            allbinaryLayerManager:append(weaponLayer)
-            next = next + (increment)
-        end
-end
-
-return ArcedMultiBeamWeaponPart
+import "../../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../../org/allbinary/game/combat/weapon/WeaponProperties" for WeaponProperties
+import "../../../../../org/allbinary/game/layer/weapon/WeaponLayer" for WeaponLayer
+import "../../../../../org/allbinary/game/layer/weapon/WeaponLayerCircularPool" for WeaponLayerCircularPool
+import "../../../../../org/allbinary/game/score/ScoreableInterface" for ScoreableInterface
+import "../../../../../org/allbinary/graphics/RelativeRelationship" for RelativeRelationship
+import "../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "../../../../../org/allbinary/math/AngleFactory" for AngleFactory
 

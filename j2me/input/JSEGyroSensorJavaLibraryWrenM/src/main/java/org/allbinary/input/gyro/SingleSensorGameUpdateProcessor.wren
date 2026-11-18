@@ -1,58 +1,52 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.gyro
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.gyro
 
-local Processor = require("org.allbinary.canvas.Processor")
-local SensorGameUpdateProcessor = require("org.allbinary.input.gyro.SensorGameUpdateProcessor")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./SensorGameUpdateProcessor" for SensorGameUpdateProcessor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class SingleSensorGameUpdateProcessor is SensorGameUpdateProcessor {
+  accelerometerSensorUpdateProcessor { _accelerometerSensorUpdateProcessor }
+  accelerometerSensorUpdateProcessor=(value) { _accelerometerSensorUpdateProcessor = value }
+  gyroSensorUpdateProcessor { _gyroSensorUpdateProcessor }
+  gyroSensorUpdateProcessor=(value) { _gyroSensorUpdateProcessor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_SingleSensorGameUpdateProcessor() {
+    _accelerometerSensorUpdateProcessor = null
+    _gyroSensorUpdateProcessor = null
+        _accelerometerSensorUpdateProcessor = AccelerometerSensorUpdateProcessor.new()
+        _gyroSensorUpdateProcessor = GyroSensorUpdateProcessor.new()
+  }
 
-local SingleSensorGameUpdateProcessor = {}
-SingleSensorGameUpdateProcessor.__index = SingleSensorGameUpdateProcessor
-SingleSensorGameUpdateProcessor.className = "SingleSensorGameUpdateProcessor"
-setmetatable(SingleSensorGameUpdateProcessor, {__index = SensorGameUpdateProcessor})
+  construct new() {
+    super()
+    initFields_SingleSensorGameUpdateProcessor()
+  }
+    
 
-function SingleSensorGameUpdateProcessor:_init_fields()
-    self.accelerometerSensorUpdateProcessor = AccelerometerSensorUpdateProcessor.new()
-    self.gyroSensorUpdateProcessor = GyroSensorUpdateProcessor.new()
-end
+    process(anyType) {
+        this.setNoSensors()
+    }
+    
 
-function SingleSensorGameUpdateProcessor.new()
-    local self = setmetatable(SensorGameUpdateProcessor.new(), SingleSensorGameUpdateProcessor)
-    self:_init_fields()
-    return self
-end
+    sendNotifications(anyType) {
+    }
+}
 
-
--- throws Exception
-function SingleSensorGameUpdateProcessor:process(anyType)
-        self:setNoSensors()
-end
-
-
--- throws Exception
-function SingleSensorGameUpdateProcessor:sendNotifications(anyType)
-end
-
-return SingleSensorGameUpdateProcessor
+import "../../../../org/allbinary/canvas/Processor" for Processor
+import "./AccelerometerSensorUpdateProcessor" for AccelerometerSensorUpdateProcessor
+import "./GyroSensorUpdateProcessor" for GyroSensorUpdateProcessor
 

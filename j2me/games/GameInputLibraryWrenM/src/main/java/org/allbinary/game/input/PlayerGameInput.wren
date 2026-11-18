@@ -1,99 +1,94 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input
 
-local GameKeyEvent = require("org.allbinary.game.input.event.GameKeyEvent")
-local GameKeyEventListenerInterface = require("org.allbinary.game.input.event.GameKeyEventListenerInterface")
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local PreLogUtil = require("org.allbinary.logic.communication.log.PreLogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventStrings = require("org.allbinary.logic.util.event.EventStrings")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local GameInput = require("org.allbinary.game.input.GameInput")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./GameInput" for GameInput
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PlayerGameInput is GameInput {
+  gameInputStrings { _gameInputStrings }
+  gameInputStrings=(value) { _gameInputStrings = value }
+  playerInputId { _playerInputId }
+  playerInputId=(value) { _playerInputId = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PlayerGameInput() {
+    _gameInputStrings = null
+    _playerInputId = 0
+        _gameInputStrings = GameInputStrings.getInstance()
+        
+  }
+    
 
-local PlayerGameInput = {}
-PlayerGameInput.__index = PlayerGameInput
-PlayerGameInput.className = "PlayerGameInput"
-setmetatable(PlayerGameInput, {__index = GameInput})
+    construct new(gameKeyEventList, removalGameKeyEventList, playerInputId) {
+        super(gameKeyEventList, removalGameKeyEventList)
+        initFields_PlayerGameInput()
+        _playerInputId = playerInputId
+    }
+    
 
-function PlayerGameInput:_init_fields()
-    self.gameInputStrings = GameInputStrings.getInstance()
-    self.playerInputId = nil
-end
+    onPressGameKeyEvent(gameKeyEvent) {
+        this.add(gameKeyEvent)
+        this.addForRemoval(gameKeyEvent)
+    }
+    
 
+    onDownGameKeyEvent(gameKeyEvent) {
+        this.add(gameKeyEvent)
+    }
+    
 
-function PlayerGameInput.new(gameKeyEventList, removalGameKeyEventList, playerInputId)
-    local self = setmetatable(GameInput.new(gameKeyEventList, removalGameKeyEventList), PlayerGameInput)
-    self:_init_fields()
-        -- super(...) made self above
-        self.playerInputId = playerInputId
-    return self
-end
+    onDownKeyEvent(gameKeyEvent) {
+        this.add(gameKeyEvent)
+        this.addForRemoval(gameKeyEvent)
+    }
+    
 
+    onDownKey(gameKeyEvent) {
+        PreLogUtil.put(StringMaker.new().append(CommonLabels.getInstance().START_LABEL).append(gameKeyEvent.toString()).toString(), this, _gameInputStrings.ON_DOWN_GAME_KEY)
+    }
+    
 
-function PlayerGameInput:onPressGameKeyEvent(gameKeyEvent)
-        self:add(gameKeyEvent)
-        self:addForRemoval(gameKeyEvent)
-end
+    onUpGameKeyEvent(gameKeyEvent) {
+        this.addForRemoval(gameKeyEvent)
+    }
+    
 
+    onUpKeyEvent(gameKeyEvent) {
+    }
+    
 
-function PlayerGameInput:onDownGameKeyEvent(gameKeyEvent)
-        self:add(gameKeyEvent)
-end
+    onEvent(eventObject) {
+        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, this)
+    }
+    
 
+    getPlayerInputId() {
+        return _playerInputId
+    }
+}
 
-function PlayerGameInput:onDownKeyEvent(gameKeyEvent)
-        self:add(gameKeyEvent)
-        self:addForRemoval(gameKeyEvent)
-end
-
-
-function PlayerGameInput:onDownKey(gameKeyEvent)
-        PreLogUtil.put(tostring(StringMaker.new():append(CommonLabels.getInstance().START_LABEL):append(tostring(gameKeyEvent))), self, self.gameInputStrings.ON_DOWN_GAME_KEY)
-end
-
-
-function PlayerGameInput:onUpGameKeyEvent(gameKeyEvent)
-        self:addForRemoval(gameKeyEvent)
-end
-
-
-function PlayerGameInput:onUpKeyEvent(gameKeyEvent)
-end
-
-
-function PlayerGameInput:onEvent(eventObject)
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-end
-
-
-function PlayerGameInput:getPlayerInputId()
-        return self.playerInputId
-end
-
-return PlayerGameInput
+import "../../../../org/allbinary/game/input/event/GameKeyEvent" for GameKeyEvent
+import "../../../../org/allbinary/game/input/event/GameKeyEventListenerInterface" for GameKeyEventListenerInterface
+import "../../../../org/allbinary/logic/communication/log/ForcedLogUtil" for ForcedLogUtil
+import "../../../../org/allbinary/logic/communication/log/PreLogUtil" for PreLogUtil
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
+import "../../../../org/allbinary/string/CommonLabels" for CommonLabels
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../java/lang/Integer" for Integer
+import "./GameInputStrings" for GameInputStrings
 

@@ -1,86 +1,99 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input
 
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local AllBinarySensorListener = require("org.allbinary.input.AllBinarySensorListener")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AllBinarySensor is JObject {
+    static NULL_ALLBINARY_SENSOR {
+    if (__NULL_ALLBINARY_SENSOR_set == null) {
+      __NULL_ALLBINARY_SENSOR_set = true
+      __NULL_ALLBINARY_SENSOR = AllBinarySensor.new()
+    }
+    return __NULL_ALLBINARY_SENSOR
+  }
+  static NULL_ALLBINARY_SENSOR=(value) {
+    __NULL_ALLBINARY_SENSOR_set = true
+    __NULL_ALLBINARY_SENSOR = value
+  }
+    static max {
+    if (__max_set == null) {
+      __max_set = true
+      __max = 100
+    }
+    return __max
+  }
+  static max=(value) {
+    __max_set = true
+    __max = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AllBinarySensor() {
+    _logUtil = null
+    _commonStrings = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+  }
+    
 
-local AllBinarySensor = {}
-AllBinarySensor.__index = AllBinarySensor
-AllBinarySensor.className = "AllBinarySensor"
+    construct new() {
+    super()
+    initFields_AllBinarySensor()
+    }
+    
 
-function AllBinarySensor:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-end
+    init() {
+    }
+    
 
+    update() {
+    }
+    
 
-function AllBinarySensor.new()
-    local self = setmetatable({}, AllBinarySensor)
-    self:_init_fields()
-    return self
-end
-
-
-function AllBinarySensor:init()
-end
-
-
--- throws Exception
-function AllBinarySensor:update()
-end
-
-
-function AllBinarySensor.setMax(max)
+    static setMax(max) {
         AllBinarySensor.max = max
-end
+    }
+    
 
-
-function AllBinarySensor.getMax()
+    static getMax() {
         return AllBinarySensor.max
-end
+    }
+    
 
-
-function AllBinarySensor:getId()
+    getId() {
         return AllBinarySensor.getMax()
-end
+    }
+    
 
+    shutdown() {
+        _logUtil.putF(_commonStrings.START, this, "shutdown")
+    }
+    
 
-function AllBinarySensor:shutdown()
-        self.logUtil:putF(self.commonStrings.START, self, "shutdown")
-end
+    onSensorChange() {
+        ForcedLogUtil.log(_commonStrings.NOT_IMPLEMENTED, this)
+    }
+}
 
-
-function AllBinarySensor:onSensorChange()
-        ForcedLogUtil.log(self.commonStrings.NOT_IMPLEMENTED, self)
-end
-
-AllBinarySensor.NULL_ALLBINARY_SENSOR = AllBinarySensor.new()
-AllBinarySensor.max = 100
-
-return AllBinarySensor
+import "../../../org/allbinary/logic/communication/log/ForcedLogUtil" for ForcedLogUtil
+import "../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./AllBinarySensorListener" for AllBinarySensorListener
 

@@ -1,135 +1,129 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form.item
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form.item
 
--- local CommandListener = require("javax.microedition.lcdui.CommandListener")
--- local Font = require("javax.microedition.lcdui.Font")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local J2MEUtil = require("org.allbinary.J2MEUtil")
-local GameCommandCanvas = require("org.allbinary.game.displayable.canvas.GameCommandCanvas")
-local Input = require("org.allbinary.game.input.Input")
-local InputFactory = require("org.allbinary.game.input.InputFactory")
-local PlatformKeyFactory = require("org.allbinary.game.input.PlatformKeyFactory")
-local RawKeyEventListener = require("org.allbinary.game.input.event.RawKeyEventListener")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local TextItemVisitor = require("org.allbinary.graphics.form.item.validation.TextItemVisitor")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/game/displayable/canvas/GameCommandCanvas" for GameCommandCanvas
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CustomTextBox is GameCommandCanvas {
+  textFieldItem { _textFieldItem }
+  textFieldItem=(value) { _textFieldItem = value }
+  inputFactory { _inputFactory }
+  inputFactory=(value) { _inputFactory = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CustomTextBox() {
+    _textFieldItem = null
+    _inputFactory = null
+        
+        _inputFactory = InputFactory.getInstance()
+  }
+    
 
-local CustomTextBox = {}
-CustomTextBox.__index = CustomTextBox
-CustomTextBox.className = "CustomTextBox"
-setmetatable(CustomTextBox, {__index = GameCommandCanvas})
+    construct new(cmdListener, label, text, maxSize, constraints, font, backgroundBasicColor, foregroundBasicColor) {
+        super(cmdListener, label, backgroundBasicColor, foregroundBasicColor)
+        initFields_CustomTextBox()
+        var stringUtil = StringUtil.getInstance()
+        var textFieldItem = ABTextFieldItem.new(this, TextItemVisitor.new(), stringUtil.EMPTY_STRING, stringUtil.EMPTY_STRING, maxSize, 0, stringUtil.EMPTY_STRING, font, backgroundBasicColor, foregroundBasicColor)
+        textFieldItem.setString(text)
+        _textFieldItem = textFieldItem
+        this.setTitle(label)
+    }
+    
 
-function CustomTextBox:_init_fields()
-    self.textFieldItem = nil
-    self.inputFactory = InputFactory.getInstance()
-end
+    submit() {
+    }
+    
 
+    onEventRaw(keyCode, deviceId, repeated) {
+        this.logUtil.putF(StringMaker.new().append(this.commonStrings.START).appendint(keyCode).toString(), this, "onEvent")
+        this.keyPressedByDevice(keyCode, deviceId)
+    }
+    
 
-function CustomTextBox.new(cmdListener, label, text, maxSize, constraints, font, backgroundBasicColor, foregroundBasicColor)
-    local self = setmetatable(GameCommandCanvas.new(cmdListener, label, backgroundBasicColor, foregroundBasicColor), CustomTextBox)
-    self:_init_fields()
-        -- super(...) made self above
-        local stringUtil = StringUtil.getInstance()
-        local textFieldItem = ABTextFieldItem.new(self, TextItemVisitor.new(), stringUtil.EMPTY_STRING, stringUtil.EMPTY_STRING, maxSize, 0, stringUtil.EMPTY_STRING, font, backgroundBasicColor, foregroundBasicColor)
-        textFieldItem:setString(text)
-        self.textFieldItem = textFieldItem
-        self:setTitle(label)
-    return self
-end
+    keyPressed(keyCode) {
+        this.keyPressedByDevice(keyCode, 0)
+    }
+    
 
+    keyReleased(keyCode) {
+        this.keyReleasedByDevice(keyCode, 0)
+    }
+    
 
-function CustomTextBox:submit()
-end
+    keyRepeated(keyCode) {
+        this.keyRepeatedByDevice(keyCode, 0)
+    }
+    
 
+    keyPressedByDevice(keyCode, deviceId) {
+        var jerror0 = Fiber.new {
+            this.logUtil.putF(StringMaker.new().append(CommonSeps.getInstance().SPACE).appendint(keyCode).toString(), this, this.gameInputStrings.KEY_PRESSED)
+            var platformKeyFactory = PlatformKeyFactory.getInstance()
+            var input = _inputFactory.getInstanceById(keyCode)
+            if (platformKeyFactory.isSubmission(input)) {
+                this.submit()
+            } else {
+                _textFieldItem.keyPressed(keyCode)
+            }
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            this.logUtil.put(this.commonStrings.EXCEPTION, this, this.gameInputStrings.KEY_PRESSED, e)
+        }
+    }
+    
 
-function CustomTextBox:onEventRaw(keyCode, deviceId, repeated)
-        self.logUtil:putF(tostring(StringMaker.new():append(self.commonStrings.START):appendint(keyCode)), self, "onEvent")
-        self:keyPressedByDevice(keyCode, deviceId)
-end
+    keyReleasedByDevice(keyCode, deviceId) {
+    }
+    
 
+    paint(graphics) {
+        graphics.setColor(this.backgroundColor)
+        graphics.fillRect(0, 0, this.displayInfo.getLastWidth(), this.displayInfo.getLastHeight())
+        graphics.setColor(this.foregroundColor)
+        if (!J2MEUtil.isJ2ME()) {
+            graphics.drawString(this.getTitle(), 8, 1, 0)
+        }
+        this.paintXY(graphics, 8, (graphics.getFont().getHeight() + 2))
+        super.paint(graphics)
+    }
+    
 
-function CustomTextBox:keyPressed(keyCode)
-        self:keyPressedByDevice(keyCode, 0)
-end
+    paintXY(graphics, x, y) {
+        _textFieldItem.paintXY(graphics, x, y)
+    }
+    
 
+    getTextFieldItem() {
+        return _textFieldItem
+    }
+}
 
-function CustomTextBox:keyReleased(keyCode)
-        self:keyReleasedByDevice(keyCode, 0)
-end
-
-
-function CustomTextBox:keyRepeated(keyCode)
-        self:keyRepeatedByDevice(keyCode, 0)
-end
-
-
-function CustomTextBox:keyPressedByDevice(keyCode, deviceId)
-        local try_ok, try_error = pcall(function()
-            self.logUtil:putF(tostring(StringMaker.new():append(CommonSeps.getInstance().SPACE):appendint(keyCode)), self, self.gameInputStrings.KEY_PRESSED)
-            local platformKeyFactory = PlatformKeyFactory.getInstance()
-            local input = self.inputFactory:getInstanceById(keyCode)
-            if platformKeyFactory:isSubmission(input) then
-                self:submit()
-            else
-                self.textFieldItem:keyPressed(keyCode)
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.gameInputStrings.KEY_PRESSED, e)
-        end
-end
-
-
-function CustomTextBox:keyReleasedByDevice(keyCode, deviceId)
-end
-
-
-function CustomTextBox:paint(graphics)
-        graphics:setColor(self.backgroundColor)
-        graphics:fillRect(0, 0, self.displayInfo:getLastWidth(), self.displayInfo:getLastHeight())
-        graphics:setColor(self.foregroundColor)
-        if not J2MEUtil.isJ2ME() then
-            graphics:drawString(self:getTitle(), 8, 1, 0)
-        end
-        self:paintXY(graphics, 8, graphics:getFont():getHeight() + 2)
-        GameCommandCanvas.paint(self, graphics)
-end
-
-
-function CustomTextBox:paintXY(graphics, x, y)
-        self.textFieldItem:paintXY(graphics, x, y)
-end
-
-
-function CustomTextBox:getTextFieldItem()
-        return self.textFieldItem
-end
-
-return CustomTextBox
+import "../../../../../javax/microedition/lcdui/CommandListener" for CommandListener
+import "../../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../org/allbinary/J2MEUtil" for J2MEUtil
+import "../../../../../org/allbinary/game/input/Input" for Input
+import "../../../../../org/allbinary/game/input/InputFactory" for InputFactory
+import "../../../../../org/allbinary/game/input/PlatformKeyFactory" for PlatformKeyFactory
+import "../../../../../org/allbinary/game/input/event/RawKeyEventListener" for RawKeyEventListener
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../org/allbinary/graphics/form/item/validation/TextItemVisitor" for TextItemVisitor
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "./ABTextFieldItem" for ABTextFieldItem
 

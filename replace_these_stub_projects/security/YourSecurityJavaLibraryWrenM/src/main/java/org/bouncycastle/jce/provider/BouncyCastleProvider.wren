@@ -1,37 +1,44 @@
--- Generated Code Do Not Modify
--- package org.bouncycastle.jce.provider
+// Generated Code Do Not Modify
+// package org.bouncycastle.jce.provider
 
--- local Provider = require("java.security.Provider")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../java/security/Provider" for Provider
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BouncyCastleProvider is Provider {
+    static info {
+    if (__info_set == null) {
+      __info_set = true
+      __info = "BouncyCastle Security Provider v1.41"
+    }
+    return __info
+  }
+  static info=(value) {
+    __info_set = true
+    __info = value
+  }
+    static PROVIDER_NAME {
+    if (__PROVIDER_NAME_set == null) {
+      __PROVIDER_NAME_set = true
+      __PROVIDER_NAME = "BC"
+    }
+    return __PROVIDER_NAME
+  }
+  static PROVIDER_NAME=(value) {
+    __PROVIDER_NAME_set = true
+    __PROVIDER_NAME = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BouncyCastleProvider() {
+  }
+    
 
-local BouncyCastleProvider = {}
-BouncyCastleProvider.__index = BouncyCastleProvider
-BouncyCastleProvider.className = "BouncyCastleProvider"
-setmetatable(BouncyCastleProvider, {__index = Provider})
+    construct new() {
+        super(BouncyCastleProvider.PROVIDER_NAME, 1.41, BouncyCastleProvider.info)
+    }
+    
 
+    setParameter(parameterName, parameter) {
+    }
+}
 
-function BouncyCastleProvider.new()
-    local self = setmetatable(Provider.new(BouncyCastleProvider.PROVIDER_NAME, 1.41, BouncyCastleProvider.info), BouncyCastleProvider)
-        -- super(...) made self above
-    return self
-end
-
-
-function BouncyCastleProvider:setParameter(parameterName, parameter)
-end
-
-BouncyCastleProvider.info = "BouncyCastle Security Provider v1.41"
-BouncyCastleProvider.PROVIDER_NAME = "BC"
-
-return BouncyCastleProvider
 

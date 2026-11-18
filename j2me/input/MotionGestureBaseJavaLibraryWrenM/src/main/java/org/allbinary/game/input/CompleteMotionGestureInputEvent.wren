@@ -1,84 +1,80 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input
 
-local MotionGestureInput = require("org.allbinary.input.motion.gesture.MotionGestureInput")
-local TouchMotionGestureFactory = require("org.allbinary.input.motion.gesture.TouchMotionGestureFactory")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local CompleteMotionGestureInputInterface = require("org.allbinary.game.input.CompleteMotionGestureInputInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CompleteMotionGestureInputEvent is AllBinaryEventObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  name { _name }
+  name=(value) { _name = value }
+  motionGestureInput { _motionGestureInput }
+  motionGestureInput=(value) { _motionGestureInput = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CompleteMotionGestureInputEvent() {
+    _logUtil = null
+    _name = null
+    _motionGestureInput = null
+        _logUtil = LogUtil.getInstance()
+        _name = StringUtil.getInstance().EMPTY_STRING
+        _motionGestureInput = TouchMotionGestureFactory.getInstance().NO_MOTION
+  }
+    
 
-local CompleteMotionGestureInputEvent = {}
-CompleteMotionGestureInputEvent.__index = CompleteMotionGestureInputEvent
-CompleteMotionGestureInputEvent.className = "CompleteMotionGestureInputEvent"
-setmetatable(CompleteMotionGestureInputEvent, {__index = AllBinaryEventObject})
+    construct new(name, motionGestureInput) {
+        super(motionGestureInput)
+        initFields_CompleteMotionGestureInputEvent()
+        this.setName(name)
+        var jerror0 = Fiber.new {
+            this.setMotionGestureInput(motionGestureInput)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, "InputToGameKeyEventAction", e)
+        }
+    }
+    
 
-function CompleteMotionGestureInputEvent:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.name = StringUtil.getInstance().EMPTY_STRING
-    self.motionGestureInput = TouchMotionGestureFactory.getInstance().NO_MOTION
-end
+    setName(name) {
+        _name = name
+    }
+    
 
+    getName() {
+        return _name
+    }
+    
 
-function CompleteMotionGestureInputEvent.new(name, motionGestureInput)
-    local self = setmetatable(AllBinaryEventObject.new(motionGestureInput), CompleteMotionGestureInputEvent)
-    self:_init_fields()
-        -- super(...) made self above
-        self:setName(name)
-        local try_ok, try_error = pcall(function()
-            self:setMotionGestureInput(motionGestureInput)
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, "InputToGameKeyEventAction", e)
-        end
-    return self
-end
+    setMotionGestureInput(motionGestureInput) {
+        _motionGestureInput = motionGestureInput
+    }
+    
 
+    getMotionGestureInput() {
+        return _motionGestureInput
+    }
+}
 
-function CompleteMotionGestureInputEvent:setName(name)
-        self.name = name
-end
-
-
-function CompleteMotionGestureInputEvent:getName()
-        return self.name
-end
-
-
-function CompleteMotionGestureInputEvent:setMotionGestureInput(motionGestureInput)
-        self.motionGestureInput = motionGestureInput
-end
-
-
-function CompleteMotionGestureInputEvent:getMotionGestureInput()
-        return self.motionGestureInput
-end
-
-return CompleteMotionGestureInputEvent
+import "../../../../org/allbinary/input/motion/gesture/MotionGestureInput" for MotionGestureInput
+import "../../../../org/allbinary/input/motion/gesture/TouchMotionGestureFactory" for TouchMotionGestureFactory
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./CompleteMotionGestureInputInterface" for CompleteMotionGestureInputInterface
 

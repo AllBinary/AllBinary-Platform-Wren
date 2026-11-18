@@ -1,62 +1,51 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.pickup
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.pickup
 
-local NullAnimationFactory = require("org.allbinary.animation.NullAnimationFactory")
-local CountedPickedUpLayerInterfaceFactory = require("org.allbinary.game.layer.pickup.CountedPickedUpLayerInterfaceFactory")
-local PickupLayer = require("org.allbinary.game.layer.pickup.PickupLayer")
-local RemoteInfo = require("org.allbinary.game.multiplayer.layer.RemoteInfo")
-local TickableInterface = require("org.allbinary.game.tick.TickableInterface")
-local PointFactory = require("org.allbinary.graphics.PointFactory")
-local Rectangle = require("org.allbinary.graphics.Rectangle")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local ViewPosition = require("org.allbinary.view.ViewPosition")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/game/layer/pickup/PickupLayer" for PickupLayer
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class FallingPickupLayer is PickupLayer {
+    static NAME { "FallingPickupLayer" }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_FallingPickupLayer() {
+  }
+    
 
-local FallingPickupLayer = {}
-FallingPickupLayer.__index = FallingPickupLayer
-FallingPickupLayer.className = "FallingPickupLayer"
-setmetatable(FallingPickupLayer, {__index = PickupLayer})
+    construct new(remoteInfo) {
+        super(FallingPickupLayer.NAME, remoteInfo, 0, CountedPickedUpLayerInterfaceFactory.NULL_COUNTED_PICKUP_LAYER_FACTORY, NullAnimationFactory.getFactoryInstance().getInstance(0), Rectangle.new(PointFactory.getInstance().ZERO_ZERO, 0, 0), ViewPosition.getInstanceD())
+    }
+    
 
+    processTick(allBinaryLayerManager) {
+        this.setPosition(this.x, (this.y + 1), this.z)
+    }
+    
 
-function FallingPickupLayer.new(remoteInfo)
-    local self = setmetatable(PickupLayer.new(FallingPickupLayer.NAME, remoteInfo, 0, CountedPickedUpLayerInterfaceFactory.NULL_COUNTED_PICKUP_LAYER_FACTORY, NullAnimationFactory.getFactoryInstance():getInstance(0), Rectangle.new(PointFactory.getInstance().ZERO_ZERO, 0, 0), ViewPosition.getInstanceD()), FallingPickupLayer)
-        -- super(...) made self above
-    return self
-end
-
-
-function FallingPickupLayer:processTick(allBinaryLayerManager)
-        self:setPosition(self.x, self.y + 1, self.z)
-end
-
-
-function FallingPickupLayer:implmentsTickableInterface()
+    implmentsTickableInterface() {
         return true
-end
+    }
+}
 
-FallingPickupLayer.NAME = "FallingPickupLayer"
-
-return FallingPickupLayer
+import "../../../../../../org/allbinary/animation/NullAnimationFactory" for NullAnimationFactory
+import "../../../../../../org/allbinary/game/layer/pickup/CountedPickedUpLayerInterfaceFactory" for CountedPickedUpLayerInterfaceFactory
+import "../../../../../../org/allbinary/game/multiplayer/layer/RemoteInfo" for RemoteInfo
+import "../../../../../../org/allbinary/game/tick/TickableInterface" for TickableInterface
+import "../../../../../../org/allbinary/graphics/PointFactory" for PointFactory
+import "../../../../../../org/allbinary/graphics/Rectangle" for Rectangle
+import "../../../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "../../../../../../org/allbinary/view/ViewPosition" for ViewPosition
 

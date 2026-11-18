@@ -1,210 +1,202 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.media.audio
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media.audio
 
--- local Control = require("javax.microedition.media.Control")
--- local Controllable = require("javax.microedition.media.Controllable")
--- local MediaException = require("javax.microedition.media.MediaException")
--- local Player = require("javax.microedition.media.Player")
--- local PlayerListener = require("javax.microedition.media.PlayerListener")
--- local TimeBase = require("javax.microedition.media.TimeBase")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local GameTickTimeDelayHelper = require("org.allbinary.time.GameTickTimeDelayHelper")
-local GameTickTimeDelayHelperFactory = require("org.allbinary.time.GameTickTimeDelayHelperFactory")
-local TimeDelayHelper = require("org.allbinary.time.TimeDelayHelper")
+import "../../../../allbinary_java" for JObject, JException, JR
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+//BasicPlayerMIDP2
+class PlayerComposite is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  player { _player }
+  player=(value) { _player = value }
+  timeElapsedHelper { _timeElapsedHelper }
+  timeElapsedHelper=(value) { _timeElapsedHelper = value }
+  gameTickTimeDelayHelper { _gameTickTimeDelayHelper }
+  gameTickTimeDelayHelper=(value) { _gameTickTimeDelayHelper = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_PlayerComposite() {
+    _logUtil = null
+    _commonStrings = null
+    _player = null
+    _timeElapsedHelper = null
+    _gameTickTimeDelayHelper = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        
+        _timeElapsedHelper = TimeDelayHelper.new(0)
+        _gameTickTimeDelayHelper = GameTickTimeDelayHelperFactory.getInstance()
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(player, repeatTime) {
+    super()
+    initFields_PlayerComposite()
+        _player = player
+        _timeElapsedHelper.delay = repeatTime
+    }
+    
 
---BasicPlayerMIDP2
-local PlayerComposite = {}
-PlayerComposite.__index = PlayerComposite
-PlayerComposite.className = "PlayerComposite"
+    addPlayerListener(playerListener) {
+        _player.addPlayerListener(playerListener)
+    }
+    
 
-function PlayerComposite:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.player = nil
-    self.timeElapsedHelper = TimeDelayHelper.new(0)
-    self.gameTickTimeDelayHelper = GameTickTimeDelayHelperFactory.getInstance()
-end
+    removePlayerListener(playerListener) {
+        _player.removePlayerListener(playerListener)
+    }
+    
 
+    close() {
+        _player.close()
+    }
+    
 
-function PlayerComposite.new(player, repeatTime)
-    local self = setmetatable({}, PlayerComposite)
-    self:_init_fields()
-        self.player = player
-        self.timeElapsedHelper.delay = repeatTime
-    return self
-end
+    deallocate() {
+        _player.deallocate()
+    }
+    
 
+    getContentType() {
+        return _player.getContentType()
+    }
+    
 
-function PlayerComposite:addPlayerListener(playerListener)
-        self.player:addPlayerListener(playerListener)
-end
+    getDuration() {
+        return _player.getDuration()
+    }
+    
 
+    getMediaTime() {
+        return _player.getMediaTime()
+    }
+    
 
-function PlayerComposite:removePlayerListener(playerListener)
-        self.player:removePlayerListener(playerListener)
-end
+    getTimeBase() {
+        return (_player).getTimeBase()
+    }
+    
 
+    setTimeBase(timeBase) {
+        (_player).setTimeBase(timeBase)
+    }
+    
 
-function PlayerComposite:close()
-        self.player:close()
-end
+    prefetch() {
+        var jerror0 = Fiber.new {
+            _player.prefetch()
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            _logUtil.put(_commonStrings.EXCEPTION, this, "prefetch", e)
+        }
+    }
+    
 
+    realize() {
+        var jerror1 = Fiber.new {
+            _player.realize()
+        }.try()
+        if (jerror1 != null) {
+            var e = jerror1
+            _logUtil.put(_commonStrings.EXCEPTION, this, "realize", e)
+        }
+    }
+    
 
-function PlayerComposite:deallocate()
-        self.player:deallocate()
-end
+    getState() {
+        return _player.getState()
+    }
+    
 
+    setLoopCount(count) {
+        _player.setLoopCount(count)
+    }
+    
 
-function PlayerComposite:getContentType()
-        return self.player:getContentType()
-end
-
-
-function PlayerComposite:getDuration()
-        return self.player:getDuration()
-end
-
-
-function PlayerComposite:getMediaTime()
-        return self.player:getMediaTime()
-end
-
-
-function PlayerComposite:getTimeBase()
-        return (self.player):getTimeBase()
-end
-
-
--- throws MediaException
-function PlayerComposite:setTimeBase(timeBase)
-        (self.player):setTimeBase(timeBase)
-end
-
-
-function PlayerComposite:prefetch()
-        local try_ok, try_error = pcall(function()
-            self.player:prefetch()
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, "prefetch", e)
-        end
-end
-
-
-function PlayerComposite:realize()
-        local try_ok, try_error = pcall(function()
-            self.player:realize()
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, "realize", e)
-        end
-end
-
-
-function PlayerComposite:getState()
-        return self.player:getState()
-end
-
-
-function PlayerComposite:setLoopCount(count)
-        self.player:setLoopCount(count)
-end
-
-
-function PlayerComposite:setMediaTime(now)
-        local try_ok, try_error = pcall(function()
-            return self.player:setMediaTime(now)
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, "setMediaTime", e)
+    setMediaTime(now) {
+        var jerror2 = Fiber.new {
+            return _player.setMediaTime(now)
+        }.try()
+        if (jerror2 != null) {
+            var e = jerror2
+            _logUtil.put(_commonStrings.EXCEPTION, this, "setMediaTime", e)
             return -1
-        end
-end
+        }
+    }
+    
 
+    start() {
+        var jerror3 = Fiber.new {
+            if (_timeElapsedHelper.isTime(_gameTickTimeDelayHelper.startTime)) {
+                _player.start()
+            }
+        }.try()
+        if (jerror3 != null) {
+            var e = jerror3
+            _logUtil.put(_commonStrings.EXCEPTION, this, _commonStrings.START_METHOD_NAME, e)
+        }
+    }
+    
 
-function PlayerComposite:start()
-        local try_ok, try_error = pcall(function()
-            if self.timeElapsedHelper:isTime(self.gameTickTimeDelayHelper.startTime) then
-                self.player:start()
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.commonStrings.START_METHOD_NAME, e)
-        end
-end
+    stop() {
+        var jerror4 = Fiber.new {
+            _player.stop()
+        }.try()
+        if (jerror4 != null) {
+            var e = jerror4
+            _logUtil.put(_commonStrings.EXCEPTION, this, "stop", e)
+        }
+    }
+    
 
+    getControl(controlType) {
+        return _player.getControl(controlType)
+    }
+    
 
-function PlayerComposite:stop()
-        local try_ok, try_error = pcall(function()
-            self.player:stop()
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, "stop", e)
-        end
-end
+    getControls() {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+    
 
+    setVolume(leftVolume, rightVolume) {
+        var controllable2 = (_player)
+        controllable2.setVolume(leftVolume, rightVolume)
+    }
+    
 
-function PlayerComposite:getControl(controlType)
-        return self.player:getControl(controlType)
-end
+    getPlayerP() {
+        return _player
+    }
+}
 
-
-function PlayerComposite:getControls()
-        error(java_exception("RuntimeException"), 0)
-end
-
-
-function PlayerComposite:setVolume(leftVolume, rightVolume)
-        local controllable2 = (self.player)
-        controllable2:setVolume(leftVolume, rightVolume)
-end
-
-
-function PlayerComposite:getPlayerP()
-        return self.player
-end
-
-return PlayerComposite
+import "../../../../javax/microedition/media/Control" for Control
+import "../../../../javax/microedition/media/Controllable" for Controllable
+import "../../../../javax/microedition/media/MediaException" for MediaException
+import "../../../../javax/microedition/media/Player" for Player
+import "../../../../javax/microedition/media/PlayerListener" for PlayerListener
+import "../../../../javax/microedition/media/TimeBase" for TimeBase
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../org/allbinary/time/GameTickTimeDelayHelper" for GameTickTimeDelayHelper
+import "../../../../org/allbinary/time/GameTickTimeDelayHelperFactory" for GameTickTimeDelayHelperFactory
+import "../../../../org/allbinary/time/TimeDelayHelper" for TimeDelayHelper
+import "./TimeBaseInterface" for TimeBaseInterface
+import "./Controllable2" for Controllable2
 

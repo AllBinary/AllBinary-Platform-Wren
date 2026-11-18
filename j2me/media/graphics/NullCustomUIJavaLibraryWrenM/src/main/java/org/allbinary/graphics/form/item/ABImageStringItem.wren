@@ -1,26 +1,17 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form.item
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form.item
 
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ABImageStringItem is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ABImageStringItem() {
+  }
 
-local ABImageStringItem = {}
-ABImageStringItem.__index = ABImageStringItem
-ABImageStringItem.className = "ABImageStringItem"
+  construct new() {
+    super()
+    initFields_ABImageStringItem()
+  }
+}
 
-function ABImageStringItem.new()
-    local self = setmetatable({}, ABImageStringItem)
-    return self
-end
-
-return ABImageStringItem
 

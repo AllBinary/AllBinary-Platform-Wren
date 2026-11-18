@@ -1,105 +1,110 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input.event
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input.event
 
-local PlayerGameInput = require("org.allbinary.game.input.PlayerGameInput")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventListenerInterface = require("org.allbinary.logic.util.event.EventListenerInterface")
-local EventStrings = require("org.allbinary.logic.util.event.EventStrings")
-local BasicEventHandler = require("org.allbinary.logic.util.event.handler.BasicEventHandler")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/logic/util/event/handler/BasicEventHandler" for BasicEventHandler
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PressGameKeyEventHandler is BasicEventHandler {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = PressGameKeyEventHandler.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  list { _list }
+  list=(value) { _list = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PressGameKeyEventHandler() {
+    _list = null
+        _list = BasicArrayListD.new()
+  }
+    
 
-local PressGameKeyEventHandler = {}
-PressGameKeyEventHandler.__index = PressGameKeyEventHandler
-PressGameKeyEventHandler.className = "PressGameKeyEventHandler"
-setmetatable(PressGameKeyEventHandler, {__index = BasicEventHandler})
-
-function PressGameKeyEventHandler:_init_fields()
-    self.list = BasicArrayListD.new()
-end
-
-
-function PressGameKeyEventHandler.getInstance()
+    static getInstance() {
         return PressGameKeyEventHandler.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_PressGameKeyEventHandler()
+    }
+    
 
-function PressGameKeyEventHandler.new()
-    local self = setmetatable(BasicEventHandler.new(), PressGameKeyEventHandler)
-    self:_init_fields()
-    return self
-end
+    addListener(playerGameInput) {
+        if (!_list.contains(playerGameInput)) {
+            _list.add(playerGameInput)
+        }
+    }
+    
 
+    removeAllListeners() {
+        _list.clear()
+        super.removeAllListeners()
+    }
+    
 
-function PressGameKeyEventHandler:addListener(playerGameInput)
-        if not self.list:contains(playerGameInput) then
-            self.list:add(playerGameInput)
-        end
-end
+    removeListener(eventListenerInterface) {
+        _list.remove(eventListenerInterface)
+        super.removeListener(eventListenerInterface)
+    }
+    
 
+    fireEvent(eventObject) {
+        if (true) {
+            var index = _list.size()
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            var jerror0 = Fiber.new {
+                var playerGameInput = _list.objectArray[index]
+                playerGameInput.onPressGameKeyEvent(eventObject)
+            }.try()
+            if (jerror0 != null) {
+                var e = jerror0
+                this.logUtil.put(this.commonStrings.EXCEPTION, this, EventStrings.getInstance().FIRE_EVENT, e)
+            }
+            }
+        }
+        super.fireEvent(eventObject)
+    }
+    
 
-function PressGameKeyEventHandler:removeAllListeners()
-        self.list:clear()
-        BasicEventHandler.removeAllListeners(self)
-end
+    process(eventObject, eventListenerInterface) {
+        var pressGameKeyEventListenerInterface = (eventListenerInterface)
+        pressGameKeyEventListenerInterface.onPressGameKeyEvent(eventObject)
+    }
+}
 
-
-function PressGameKeyEventHandler:removeListener(eventListenerInterface)
-        self.list:remove(eventListenerInterface)
-        BasicEventHandler.removeListener(self, eventListenerInterface)
-end
-
-
--- throws Exception
-function PressGameKeyEventHandler:fireEvent(eventObject)
-        do
-            local index = self.list:size()
-            while (function() index = index - 1 return index end)() >= 0 do
-            local try_ok, try_error = pcall(function()
-                local playerGameInput = self.list.objectArray[index + 1]
-                playerGameInput:onPressGameKeyEvent(eventObject)
-            end)
-            if not try_ok then
-                local e = try_error
-                self.logUtil:put(self.commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-            end
-            end
-        end
-        BasicEventHandler.fireEvent(self, eventObject)
-end
-
-
--- throws Exception
-function PressGameKeyEventHandler:process(eventObject, eventListenerInterface)
-        local pressGameKeyEventListenerInterface = (eventListenerInterface)
-        pressGameKeyEventListenerInterface:onPressGameKeyEvent(eventObject)
-end
-
-PressGameKeyEventHandler.instance = PressGameKeyEventHandler.new()
-
-return PressGameKeyEventHandler
+import "../../../../../org/allbinary/game/input/PlayerGameInput" for PlayerGameInput
+import "../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../../org/allbinary/logic/util/event/EventListenerInterface" for EventListenerInterface
+import "../../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./GameKeyEvent" for GameKeyEvent
+import "./PressGameKeyEventListenerInterface" for PressGameKeyEventListenerInterface
 

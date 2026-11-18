@@ -1,55 +1,57 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.view
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.view
 
--- local Displayable = require("javax.microedition.lcdui.Displayable")
--- local MIDlet = require("javax.microedition.midlet.MIDlet")
-local EmulatorViewInterface = require("org.allbinary.view.EmulatorViewInterface")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NullEmulatorView is JObject {
+    static NULL_EMULATOR_VIEW {
+    if (__NULL_EMULATOR_VIEW_set == null) {
+      __NULL_EMULATOR_VIEW_set = true
+      __NULL_EMULATOR_VIEW = NullEmulatorView.new()
+    }
+    return __NULL_EMULATOR_VIEW
+  }
+  static NULL_EMULATOR_VIEW=(value) {
+    __NULL_EMULATOR_VIEW_set = true
+    __NULL_EMULATOR_VIEW = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NullEmulatorView() {
+  }
 
-local NullEmulatorView = {}
-NullEmulatorView.__index = NullEmulatorView
-NullEmulatorView.className = "NullEmulatorView"
+  construct new() {
+    super()
+    initFields_NullEmulatorView()
+  }
+    
 
-function NullEmulatorView.new()
-    local self = setmetatable({}, NullEmulatorView)
-    return self
-end
+    setMidlet(midlet) {
+    }
+    
 
+    onEmulatorInitComplete(midletActivity) {
+    }
+    
 
-function NullEmulatorView:setMidlet(midlet)
-end
+    onSetDisplayable(displayable) {
+    }
+}
 
-
-function NullEmulatorView:onEmulatorInitComplete(midletActivity)
-end
-
-
-function NullEmulatorView:onSetDisplayable(displayable)
-end
-
-NullEmulatorView.NULL_EMULATOR_VIEW = NullEmulatorView.new()
-
-return NullEmulatorView
+import "../../../javax/microedition/lcdui/Displayable" for Displayable
+import "../../../javax/microedition/midlet/MIDlet" for MIDlet
+import "./EmulatorViewInterface" for EmulatorViewInterface
 

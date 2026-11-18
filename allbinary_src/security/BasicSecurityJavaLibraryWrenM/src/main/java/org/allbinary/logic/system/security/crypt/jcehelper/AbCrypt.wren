@@ -1,106 +1,107 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.system.security.crypt.jcehelper
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.system.security.crypt.jcehelper
 
--- local Security = require("java.security.Security")
--- local KeySpec = require("java.security.spec.KeySpec")
--- local Cipher = require("javax.crypto.Cipher")
--- local SecretKey = require("javax.crypto.SecretKey")
--- local SecretKeyFactory = require("javax.crypto.SecretKeyFactory")
-local TsUtil = require("org.allbinary.TsUtil")
-local CryptInterface = require("org.allbinary.init.crypt.jcehelper.CryptInterface")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local PreLogUtil = require("org.allbinary.logic.communication.log.PreLogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BouncyCastleProvider = require("org.bouncycastle.jce.provider.BouncyCastleProvider")
+import "../../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AbCrypt is JObject {
+  tsUtil { _tsUtil }
+  tsUtil=(value) { _tsUtil = value }
+  secretComposite { _secretComposite }
+  secretComposite=(value) { _secretComposite = value }
+  algorithm { _algorithm }
+  algorithm=(value) { _algorithm = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AbCrypt() {
+    _tsUtil = null
+    _secretComposite = null
+    _algorithm = null
+        _tsUtil = TsUtil.getInstance()
+        _secretComposite = BaseSecretComposite.NULL_SECRET_COMPOSITE
+        
+  }
+    
 
-local AbCrypt = {}
-AbCrypt.__index = AbCrypt
-AbCrypt.className = "AbCrypt"
+    construct new(algorithm) {
+    super()
+    initFields_AbCrypt()
+        _algorithm = algorithm
+    }
+    
 
-function AbCrypt:_init_fields()
-    self.tsUtil = TsUtil.getInstance()
-    self.secretComposite = BaseSecretComposite.NULL_SECRET_COMPOSITE
-    self.algorithm = nil
-end
-
-
-function AbCrypt.new(algorithm)
-    local self = setmetatable({}, AbCrypt)
-    self:_init_fields()
-        self.algorithm = algorithm
-    return self
-end
-
-
-function AbCrypt:init(keyAsString)
-        local commonStrings = CommonStrings.getInstance()
-        local try_ok, try_error = pcall(function()
-            local try_ok, try_error = pcall(function()
+    init(keyAsString) {
+        var commonStrings = CommonStrings.getInstance()
+        var jerror0 = Fiber.new {
+            var jerror1 = Fiber.new {
                 Security.addProvider(BouncyCastleProvider.new())
-            end)
-            if not try_ok then
-                local e = try_error
-                PreLogUtil.putOE(commonStrings.EXCEPTION, self, commonStrings.INIT, e)
-            end
-            local key = self.tsUtil:getByteArray(keyAsString)
-            local keySpec = KeySpecFactory.getInstance():getInstance(self.algorithm, key)
-            local keyFactory = SecretKeyFactory.getInstance(self.algorithm)
-            local secretKey = keyFactory:generateSecret(keySpec)
-            local cipher = Cipher.getInstance(self.algorithm)
-            self.secretComposite = SecretComposite.new(secretKey, cipher, key)
-        end)
-        if not try_ok then
-            local e = try_error
-            PreLogUtil.putOE("init Failed", self, commonStrings.INIT, e)
-        end
-end
+            }.try()
+            if (jerror1 != null) {
+                var e = jerror1
+                PreLogUtil.putOE(commonStrings.EXCEPTION, this, commonStrings.INIT, e)
+            }
+            var key = _tsUtil.getByteArray(keyAsString)
+            var keySpec = KeySpecFactory.getInstance().getInstance(_algorithm, key)
+            var keyFactory = SecretKeyFactory.getInstance(_algorithm)
+            var secretKey = keyFactory.generateSecret(keySpec)
+            var cipher = Cipher.getInstance(_algorithm)
+            _secretComposite = SecretComposite.new(secretKey, cipher, key)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            PreLogUtil.putOE("init Failed", this, commonStrings.INIT, e)
+        }
+    }
+    
 
-
-function AbCrypt:encrypt(array)
-        local try_ok, try_error = pcall(function()
-            return self.secretComposite:encrypt(array)
-        end)
-        if not try_ok then
-            local e = try_error
-            PreLogUtil.putOE("Encrypt Failed", self, "encrypt", e)
+    encrypt(array) {
+        var jerror2 = Fiber.new {
+            return _secretComposite.encrypt(array)
+        }.try()
+        if (jerror2 != null) {
+            var e = jerror2
+            PreLogUtil.putOE("Encrypt Failed", this, "encrypt", e)
             return NullUtil.getInstance().NULL_BYTE_ARRAY
-        end
-end
+        }
+    }
+    
 
-
-function AbCrypt:decrypt(array)
-        local try_ok, try_error = pcall(function()
-            return self.secretComposite:decrypt(array)
-        end)
-        if not try_ok then
-            local e = try_error
-            PreLogUtil.putOE("decrypt Failed", self, "decrypt", e)
+    decrypt(array) {
+        var jerror3 = Fiber.new {
+            return _secretComposite.decrypt(array)
+        }.try()
+        if (jerror3 != null) {
+            var e = jerror3
+            PreLogUtil.putOE("decrypt Failed", this, "decrypt", e)
             return NullUtil.getInstance().NULL_BYTE_ARRAY
-        end
-end
+        }
+    }
+}
 
-return AbCrypt
+import "../../../../../../../java/security/Security" for Security
+import "../../../../../../../java/security/spec/KeySpec" for KeySpec
+import "../../../../../../../javax/crypto/Cipher" for Cipher
+import "../../../../../../../javax/crypto/SecretKey" for SecretKey
+import "../../../../../../../javax/crypto/SecretKeyFactory" for SecretKeyFactory
+import "../../../../../../../org/allbinary/TsUtil" for TsUtil
+import "../../../../../../../org/allbinary/init/crypt/jcehelper/CryptInterface" for CryptInterface
+import "../../../../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../../../../org/allbinary/logic/communication/log/PreLogUtil" for PreLogUtil
+import "../../../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../../../org/bouncycastle/jce/provider/BouncyCastleProvider" for BouncyCastleProvider
+import "./BaseSecretComposite" for BaseSecretComposite
+import "./KeySpecFactory" for KeySpecFactory
+import "./SecretComposite" for SecretComposite
 

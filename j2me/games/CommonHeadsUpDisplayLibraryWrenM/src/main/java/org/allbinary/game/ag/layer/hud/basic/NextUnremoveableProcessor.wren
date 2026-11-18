@@ -1,53 +1,44 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
---
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
---
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
---
--- Created By: Travis Berthelot
--- 
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.hud.basic
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ *
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ *
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ *
+ * Created By: Travis Berthelot
+ * 
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.hud.basic
 
-local Processor = require("org.allbinary.canvas.Processor")
+import "../../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../../org/allbinary/canvas/Processor" for Processor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NextUnremoveableProcessor is Processor {
+  updateMeasurementProcessor { _updateMeasurementProcessor }
+  updateMeasurementProcessor=(value) { _updateMeasurementProcessor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NextUnremoveableProcessor() {
+    _updateMeasurementProcessor = null
+        
+  }
+    
 
-local NextUnremoveableProcessor = {}
-NextUnremoveableProcessor.__index = NextUnremoveableProcessor
-NextUnremoveableProcessor.className = "NextUnremoveableProcessor"
-setmetatable(NextUnremoveableProcessor, {__index = Processor})
+    construct new(updateMeasurementProcessor) {
+    super()
+    initFields_NextUnremoveableProcessor()
+        _updateMeasurementProcessor = updateMeasurementProcessor
+    }
+    
 
-function NextUnremoveableProcessor:_init_fields()
-    self.updateMeasurementProcessor = nil
-end
+    process() {
+        _updateMeasurementProcessor.setNextUnremoveableProcess()
+    }
+}
 
-
-function NextUnremoveableProcessor.new(updateMeasurementProcessor)
-    local self = setmetatable(Processor.new(), NextUnremoveableProcessor)
-    self:_init_fields()
-        self.updateMeasurementProcessor = updateMeasurementProcessor
-    return self
-end
-
-
--- throws Exception
-function NextUnremoveableProcessor:process()
-        self.updateMeasurementProcessor:setNextUnremoveableProcess()
-end
-
-return NextUnremoveableProcessor
+import "./PlayerGameNotificationHud" for PlayerGameNotificationHud
 

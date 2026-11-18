@@ -1,83 +1,77 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.vector
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.vector
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Animation = require("org.allbinary.animation.Animation")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local ColorCompositeInterface = require("org.allbinary.graphics.color.ColorCompositeInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/animation/Animation" for Animation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RectangleFilledAnimation is Animation {
+  widthP { _widthP }
+  widthP=(value) { _widthP = value }
+  heightP { _heightP }
+  heightP=(value) { _heightP = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RectangleFilledAnimation() {
+    _widthP = 0
+    _heightP = 0
+        
+        
+  }
+    
 
-local RectangleFilledAnimation = {}
-RectangleFilledAnimation.__index = RectangleFilledAnimation
-RectangleFilledAnimation.className = "RectangleFilledAnimation"
-setmetatable(RectangleFilledAnimation, {__index = Animation})
+    construct new(width, height, basicColor) {
+    super()
+    initFields_RectangleFilledAnimation()
+        _widthP = width
+        _heightP = height
+        this.setBasicColorP(basicColor)
+    }
+    
 
-function RectangleFilledAnimation:_init_fields()
-    self.widthP = nil
-    self.heightP = nil
-end
+    nextFrame() {
+    }
+    
 
+    paintXY(graphics, x, y) {
+        this.basicSetColorUtil.setBasicColorP3(graphics, this.getBasicColorP(), this.getColor())
+        graphics.fillRect(x, y, _widthP, _heightP)
+    }
+    
 
-function RectangleFilledAnimation.new(width, height, basicColor)
-    local self = setmetatable(Animation.new(), RectangleFilledAnimation)
-    self:_init_fields()
-        self.widthP = width
-        self.heightP = height
-        self:setBasicColorP(basicColor)
-    return self
-end
+    setWidth(width) {
+        _widthP = width
+    }
+    
 
+    setHeight(height) {
+        _heightP = height
+    }
+    
 
-function RectangleFilledAnimation:nextFrame()
-end
+    getBasicColorP() {
+        return super.getBasicColorP()
+    }
+    
 
+    setBasicColorP(basicColor) {
+        super.setBasicColorP(basicColor)
+    }
+}
 
-function RectangleFilledAnimation:paintXY(graphics, x, y)
-        self.basicSetColorUtil:setBasicColorP3(graphics, self:getBasicColorP(), self:getColor())
-        graphics:fillRect(x, y, self.widthP, self.heightP)
-end
-
-
-function RectangleFilledAnimation:setWidth(width)
-        self.widthP = width
-end
-
-
-function RectangleFilledAnimation:setHeight(height)
-        self.heightP = height
-end
-
-
-function RectangleFilledAnimation:getBasicColorP()
-        return Animation.getBasicColorP(self)
-end
-
-
-function RectangleFilledAnimation:setBasicColorP(basicColor)
-        Animation.setBasicColorP(self, basicColor)
-end
-
-return RectangleFilledAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/graphics/color/ColorCompositeInterface" for ColorCompositeInterface
 

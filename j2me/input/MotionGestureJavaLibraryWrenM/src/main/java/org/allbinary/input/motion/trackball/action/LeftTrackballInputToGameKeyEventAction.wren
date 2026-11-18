@@ -1,55 +1,54 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.trackball.action
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.trackball.action
 
-local PlatformInputMappingFactory = require("org.allbinary.game.input.PlatformInputMappingFactory")
-local GameKeyCompleteMotionGestureInputEvent = require("org.allbinary.game.input.motion.action.GameKeyCompleteMotionGestureInputEvent")
-local TrackballMotionGestureFactory = require("org.allbinary.input.motion.gesture.TrackballMotionGestureFactory")
-local NullUtil = require("org.allbinary.logic.NullUtil")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/game/input/motion/action/GameKeyCompleteMotionGestureInputEvent" for GameKeyCompleteMotionGestureInputEvent
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LeftTrackballInputToGameKeyEventAction is GameKeyCompleteMotionGestureInputEvent {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LeftTrackballInputToGameKeyEventAction() {
+  }
+    
 
-local LeftTrackballInputToGameKeyEventAction = {}
-LeftTrackballInputToGameKeyEventAction.__index = LeftTrackballInputToGameKeyEventAction
-LeftTrackballInputToGameKeyEventAction.className = "LeftTrackballInputToGameKeyEventAction"
-setmetatable(LeftTrackballInputToGameKeyEventAction, {__index = GameKeyCompleteMotionGestureInputEvent})
-
-
-function LeftTrackballInputToGameKeyEventAction.getInstance()
-        if LeftTrackballInputToGameKeyEventAction.instance == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((LeftTrackballInputToGameKeyEventAction.instance == NullUtil.getInstance().NULL_OBJECT)) {
             LeftTrackballInputToGameKeyEventAction.instance = LeftTrackballInputToGameKeyEventAction.new()
-        end
+        }
         return LeftTrackballInputToGameKeyEventAction.instance
-end
+    }
+    
 
+    construct new() {
+        super("Left Action", TrackballMotionGestureFactory.getInstance().LEFT, PlatformInputMappingFactory.getInstance().getPersistentInputMappingInstance().getInputMapping())
+    }
+}
 
-function LeftTrackballInputToGameKeyEventAction.new()
-    local self = setmetatable(GameKeyCompleteMotionGestureInputEvent.new("Left Action", TrackballMotionGestureFactory.getInstance().LEFT, PlatformInputMappingFactory.getInstance():getPersistentInputMappingInstance():getInputMapping()), LeftTrackballInputToGameKeyEventAction)
-        -- super(...) made self above
-    return self
-end
-
-LeftTrackballInputToGameKeyEventAction.instance = NullUtil.getInstance().NULL_OBJECT
-
-return LeftTrackballInputToGameKeyEventAction
+import "../../../../../../org/allbinary/game/input/PlatformInputMappingFactory" for PlatformInputMappingFactory
+import "../../../../../../org/allbinary/input/motion/gesture/TrackballMotionGestureFactory" for TrackballMotionGestureFactory
+import "../../../../../../org/allbinary/logic/NullUtil" for NullUtil
 

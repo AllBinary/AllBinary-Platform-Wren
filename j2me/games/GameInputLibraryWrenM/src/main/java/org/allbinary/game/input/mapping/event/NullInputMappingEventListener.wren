@@ -1,51 +1,53 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.input.mapping.event
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input.mapping.event
 
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local InputMappingEventListenerInterface = require("org.allbinary.game.input.mapping.event.InputMappingEventListenerInterface")
+import "../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NullInputMappingEventListener is JObject {
+    static NULL_INPUT_MAPPING_EVENT_LISTENER {
+    if (__NULL_INPUT_MAPPING_EVENT_LISTENER_set == null) {
+      __NULL_INPUT_MAPPING_EVENT_LISTENER_set = true
+      __NULL_INPUT_MAPPING_EVENT_LISTENER = NullInputMappingEventListener.new()
+    }
+    return __NULL_INPUT_MAPPING_EVENT_LISTENER
+  }
+  static NULL_INPUT_MAPPING_EVENT_LISTENER=(value) {
+    __NULL_INPUT_MAPPING_EVENT_LISTENER_set = true
+    __NULL_INPUT_MAPPING_EVENT_LISTENER = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NullInputMappingEventListener() {
+  }
 
-local NullInputMappingEventListener = {}
-NullInputMappingEventListener.__index = NullInputMappingEventListener
-NullInputMappingEventListener.className = "NullInputMappingEventListener"
+  construct new() {
+    super()
+    initFields_NullInputMappingEventListener()
+  }
+    
 
-function NullInputMappingEventListener.new()
-    local self = setmetatable({}, NullInputMappingEventListener)
-    return self
-end
+    onInputMappingEvent(inputMappingEvent) {
+    }
+    
 
+    onEvent(eventObject) {
+    }
+}
 
--- throws Exception
-function NullInputMappingEventListener:onInputMappingEvent(inputMappingEvent)
-end
-
-
-function NullInputMappingEventListener:onEvent(eventObject)
-end
-
-NullInputMappingEventListener.NULL_INPUT_MAPPING_EVENT_LISTENER = NullInputMappingEventListener.new()
-
-return NullInputMappingEventListener
+import "../../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "./InputMappingEventListenerInterface" for InputMappingEventListenerInterface
+import "./InputMappingEvent" for InputMappingEvent
 

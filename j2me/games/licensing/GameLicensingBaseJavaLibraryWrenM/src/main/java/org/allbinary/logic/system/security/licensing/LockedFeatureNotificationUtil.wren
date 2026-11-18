@@ -1,73 +1,73 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.system.security.licensing
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.system.security.licensing
 
-local GameNotificationEvent = require("org.allbinary.game.layer.hud.event.GameNotificationEvent")
-local GameNotificationEventHandler = require("org.allbinary.game.layer.hud.event.GameNotificationEventHandler")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local BooleanFactory = require("org.allbinary.logic.java.bool.BooleanFactory")
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
-local ErrorSound = require("org.allbinary.media.audio.ErrorSound")
-local PrimaryPlayerQueueFactory = require("org.allbinary.media.audio.PrimaryPlayerQueueFactory")
+import "../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LockedFeatureNotificationUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = LockedFeatureNotificationUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  gameNotificationEvent { _gameNotificationEvent }
+  gameNotificationEvent=(value) { _gameNotificationEvent = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LockedFeatureNotificationUtil() {
+    _gameNotificationEvent = null
+        _gameNotificationEvent = GameNotificationEvent.new(this, LicenseStrings.getInstance().LOCKED, SmallIntegerSingletonFactory.getInstance().getAt(3), BasicColorFactory.getInstance().RED, BooleanFactory.getInstance().FALSE)
+  }
 
-local LockedFeatureNotificationUtil = {}
-LockedFeatureNotificationUtil.__index = LockedFeatureNotificationUtil
-LockedFeatureNotificationUtil.className = "LockedFeatureNotificationUtil"
+  construct new() {
+    super()
+    initFields_LockedFeatureNotificationUtil()
+  }
+    
 
-function LockedFeatureNotificationUtil:_init_fields()
-    self.gameNotificationEvent = GameNotificationEvent.new(self, LicenseStrings.getInstance().LOCKED, SmallIntegerSingletonFactory.getInstance():getAt(3), BasicColorFactory.getInstance().RED, BooleanFactory.getInstance().FALSE)
-end
-
-function LockedFeatureNotificationUtil.new()
-    local self = setmetatable({}, LockedFeatureNotificationUtil)
-    self:_init_fields()
-    return self
-end
-
-
-function LockedFeatureNotificationUtil.getInstance()
+    static getInstance() {
         return LockedFeatureNotificationUtil.instance
-end
+    }
+    
 
+    fire() {
+        PrimaryPlayerQueueFactory.getInstance().add(ErrorSound.getInstance())
+        GameNotificationEventHandler.getInstance().fireEvent(_gameNotificationEvent)
+    }
+    
 
--- throws Exception
-function LockedFeatureNotificationUtil:fire()
-        PrimaryPlayerQueueFactory.getInstance():add(ErrorSound.getInstance())
-        GameNotificationEventHandler.getInstance():fireEvent(self.gameNotificationEvent)
-end
+    fireWithColor(basicColor) {
+        PrimaryPlayerQueueFactory.getInstance().add(ErrorSound.getInstance())
+        _gameNotificationEvent.setBasicColorP(basicColor)
+        GameNotificationEventHandler.getInstance().fireEvent(_gameNotificationEvent)
+    }
+}
 
-
--- throws Exception
-function LockedFeatureNotificationUtil:fireWithColor(basicColor)
-        PrimaryPlayerQueueFactory.getInstance():add(ErrorSound.getInstance())
-        self.gameNotificationEvent:setBasicColorP(basicColor)
-        GameNotificationEventHandler.getInstance():fireEvent(self.gameNotificationEvent)
-end
-
-LockedFeatureNotificationUtil.instance = LockedFeatureNotificationUtil.new()
-
-return LockedFeatureNotificationUtil
+import "../../../../../../org/allbinary/game/layer/hud/event/GameNotificationEvent" for GameNotificationEvent
+import "../../../../../../org/allbinary/game/layer/hud/event/GameNotificationEventHandler" for GameNotificationEventHandler
+import "../../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../../org/allbinary/logic/java/bool/BooleanFactory" for BooleanFactory
+import "../../../../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../../../../org/allbinary/media/audio/ErrorSound" for ErrorSound
+import "../../../../../../org/allbinary/media/audio/PrimaryPlayerQueueFactory" for PrimaryPlayerQueueFactory
+import "./LicenseStrings" for LicenseStrings
 

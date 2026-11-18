@@ -1,62 +1,52 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.pickup.health
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.pickup.health
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local HealthInterface = require("org.allbinary.game.health.HealthInterface")
-local HealthVisitorInterface = require("org.allbinary.game.health.HealthVisitorInterface")
-local PointFactory = require("org.allbinary.graphics.PointFactory")
-local Rectangle = require("org.allbinary.graphics.Rectangle")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local ViewPosition = require("org.allbinary.view.ViewPosition")
+import "../../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class HealLayer is AllBinaryLayer {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_HealLayer() {
+  }
+    
 
-local HealLayer = {}
-HealLayer.__index = HealLayer
-HealLayer.className = "HealLayer"
-setmetatable(HealLayer, {__index = AllBinaryLayer})
+    construct new() {
+        super(StringUtil.getInstance().EMPTY_STRING, Rectangle.new(PointFactory.getInstance().ZERO_ZERO, 0, 0), ViewPosition.getInstanceD())
+    }
+    
 
+    paint(graphics) {
+    }
+    
 
-function HealLayer.new()
-    local self = setmetatable(AllBinaryLayer.new(StringUtil.getInstance().EMPTY_STRING, Rectangle.new(PointFactory.getInstance().ZERO_ZERO, 0, 0), ViewPosition.getInstanceD()), HealLayer)
-        -- super(...) made self above
-    return self
-end
+    visit(healthInterface) {
+        if (healthInterface.isAlive()) {
+            healthInterface.healMax()
+        } else {
+            this.logUtil.putF("Heal attempt on dead: Does not currently occur", this, "visit")
+        }
+    }
+}
 
-
-function HealLayer:paint(graphics)
-end
-
-
-function HealLayer:visit(healthInterface)
-        if healthInterface:isAlive() then
-            healthInterface:healMax()
-        else
-            self.logUtil:putF("Heal attempt on dead: Does not currently occur", self, "visit")
-        end
-end
-
-return HealLayer
+import "../../../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../../../org/allbinary/game/health/HealthInterface" for HealthInterface
+import "../../../../../../../org/allbinary/game/health/HealthVisitorInterface" for HealthVisitorInterface
+import "../../../../../../../org/allbinary/graphics/PointFactory" for PointFactory
+import "../../../../../../../org/allbinary/graphics/Rectangle" for Rectangle
+import "../../../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../../../org/allbinary/view/ViewPosition" for ViewPosition
 

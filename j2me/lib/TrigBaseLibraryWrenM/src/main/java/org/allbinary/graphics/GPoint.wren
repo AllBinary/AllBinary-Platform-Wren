@@ -18,17 +18,7 @@
 import "../../../allbinary_java" for JObject, JException, JR
 
 class GPoint is JObject {
-    static POINT_LABEL {
-    if (__POINT_LABEL_set == null) {
-      __POINT_LABEL_set = true
-      __POINT_LABEL = "Point: "
-    }
-    return __POINT_LABEL
-  }
-  static POINT_LABEL=(value) {
-    __POINT_LABEL_set = true
-    __POINT_LABEL = value
-  }
+    static POINT_LABEL { "Point: " }
   x { _x }
   x=(value) { _x = value }
   y { _y }

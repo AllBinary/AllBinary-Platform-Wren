@@ -1,193 +1,186 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.compound
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.compound
 
--- local GL = require("javax.microedition.khronos.opengles.GL")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local IndexedAnimation = require("org.allbinary.animation.IndexedAnimation")
-local RotationAnimation = require("org.allbinary.animation.RotationAnimation")
-local Direction = require("org.allbinary.direction.Direction")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
-local Angle = require("org.allbinary.math.Angle")
-local AngleFactory = require("org.allbinary.math.AngleFactory")
-local AngleInfo = require("org.allbinary.math.AngleInfo")
-local CircularIndexUtil = require("org.allbinary.util.CircularIndexUtil")
-local CompoundAnimationInterface = require("org.allbinary.animation.compound.CompoundAnimationInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/animation/RotationAnimation" for RotationAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CompoundRotationAnimation is RotationAnimation {
+  animationInterfaceArray { _animationInterfaceArray }
+  animationInterfaceArray=(value) { _animationInterfaceArray = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CompoundRotationAnimation() {
+    _animationInterfaceArray = null
+        
+  }
+    
 
-local CompoundRotationAnimation = {}
-CompoundRotationAnimation.__index = CompoundRotationAnimation
-CompoundRotationAnimation.className = "CompoundRotationAnimation"
-setmetatable(CompoundRotationAnimation, {__index = RotationAnimation})
+    construct new(animationInterfaceArray, animationBehavior) {
+        super(AngleInfo.getInstance(AngleFactory.getInstance().QUARTER_TOTAL_ANGLE), CircularIndexUtil.createInstance(4), animationBehavior)
+        initFields_CompoundRotationAnimation()
+        _animationInterfaceArray = animationInterfaceArray
+        this.circularIndexUtil = CircularIndexUtil.createInstance(_animationInterfaceArray.count)
+    }
+    
 
-function CompoundRotationAnimation:_init_fields()
-    self.animationInterfaceArray = nil
-end
+    setFrame(index) {
+        _animationInterfaceArray[this.circularIndexUtil.getIndex()].setFrame(index)
+    }
+    
 
+    getFrame() {
+        return _animationInterfaceArray[this.circularIndexUtil.getIndex()].getFrame()
+    }
+    
 
-function CompoundRotationAnimation.new(animationInterfaceArray, animationBehavior)
-    local self = setmetatable(RotationAnimation.new(AngleInfo.getInstance(AngleFactory.getInstance().QUARTER_TOTAL_ANGLE), CircularIndexUtil.createInstance(4), animationBehavior), CompoundRotationAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.animationInterfaceArray = animationInterfaceArray
-        self.circularIndexUtil = CircularIndexUtil.createInstance((self.animationInterfaceArray.n or #self.animationInterfaceArray))
-    return self
-end
+    getAnimationSize() {
+        return _animationInterfaceArray[this.circularIndexUtil.getIndex()].getAnimationSize()
+    }
+    
 
+    getSize() {
+        return _animationInterfaceArray[this.circularIndexUtil.getIndex()].getSize()
+    }
+    
 
-function CompoundRotationAnimation:setFrame(index)
-        self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]:setFrame(index)
-end
+    previousFrame() {
+        _animationInterfaceArray[this.circularIndexUtil.getIndex()].previousFrame()
+    }
+    
 
+    nextFrame() {
+        _animationInterfaceArray[this.circularIndexUtil.getIndex()].nextFrame()
+    }
+    
 
-function CompoundRotationAnimation:getFrame()
-        return self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]:getFrame()
-end
+    previousRotation() {
+        _animationInterfaceArray[this.circularIndexUtil.getIndex()].previousRotation()
+    }
+    
 
+    nextRotation() {
+        _animationInterfaceArray[this.circularIndexUtil.getIndex()].nextRotation()
+    }
+    
 
--- throws Exception
-function CompoundRotationAnimation:getAnimationSize()
-        return self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]:getAnimationSize()
-end
+    setSequence(sequence) {
+    }
+    
 
-
-function CompoundRotationAnimation:getSize()
-        return self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]:getSize()
-end
-
-
-function CompoundRotationAnimation:previousFrame()
-        self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]:previousFrame()
-end
-
-
--- throws Exception
-function CompoundRotationAnimation:nextFrame()
-        self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]:nextFrame()
-end
-
-
-function CompoundRotationAnimation:previousRotation()
-        self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]:previousRotation()
-end
-
-
-function CompoundRotationAnimation:nextRotation()
-        self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]:nextRotation()
-end
-
-
-function CompoundRotationAnimation:setSequence(sequence)
-end
-
-
-function CompoundRotationAnimation:getSequence()
+    getSequence() {
         return PrimitiveIntUtil.getArrayInstance()
-end
+    }
+    
 
+    paintXY(graphics, x, y) {
+        _animationInterfaceArray[this.circularIndexUtil.getIndex()].paintXY(graphics, x, y)
+    }
+    
 
-function CompoundRotationAnimation:paintXY(graphics, x, y)
-        self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]:paintXY(graphics, x, y)
-end
+    paintThreedXYZ(graphics, x, y, z) {
+        _animationInterfaceArray[this.circularIndexUtil.getIndex()].paintThreedXYZ(graphics, x, y, z)
+    }
+    
 
+    getCurrentAnimation() {
+        return _animationInterfaceArray[this.circularIndexUtil.getIndex()]
+    }
+    
 
-function CompoundRotationAnimation:paintThreedXYZ(graphics, x, y, z)
-        self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]:paintThreedXYZ(graphics, x, y, z)
-end
+    nextAnimation() {
+        var frame = this.getFrame()
+        this.circularIndexUtil.next()
+        this.setFrame(frame)
+    }
+    
 
+    previousAnimation() {
+        var frame = this.getFrame()
+        this.circularIndexUtil.previous()
+        this.setFrame(frame)
+    }
+    
 
-function CompoundRotationAnimation:getCurrentAnimation()
-        return self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]
-end
+    setAnimation(index) {
+        var frame = this.getFrame()
+        this.circularIndexUtil.setIndex(index)
+        this.setFrame(frame)
+    }
+    
 
+    setFrameByDirection(direction) {
+        _animationInterfaceArray[this.circularIndexUtil.getIndex()].setFrameByDirection(direction)
+    }
+    
 
-function CompoundRotationAnimation:nextAnimation()
-        local frame = self:getFrame()
-        self.circularIndexUtil:next()
-        self:setFrame(frame)
-end
+    setFrameToAngle(angle) {
+        _animationInterfaceArray[this.circularIndexUtil.getIndex()].setFrameToAngle(angle)
+    }
+    
 
+    adjustFrameToAngle(newAngle) {
+        this.adjustFrame(newAngle.getValue())
+    }
+    
 
-function CompoundRotationAnimation:previousAnimation()
-        local frame = self:getFrame()
-        self.circularIndexUtil:previous()
-        self:setFrame(frame)
-end
+    adjustFrame(angle) {
+        _animationInterfaceArray[this.circularIndexUtil.getIndex()].adjustFrame(angle)
+    }
+    
 
+    getAngleInfoP() {
+        return _animationInterfaceArray[this.circularIndexUtil.getIndex()].getAngleInfoP()
+    }
+    
 
-function CompoundRotationAnimation:setAnimation(index)
-        local frame = self:getFrame()
-        self.circularIndexUtil:setIndex(index)
-        self:setFrame(frame)
-end
+    getAnimationInterfaceArray() {
+        return _animationInterfaceArray
+    }
+    
 
+    setAnimationInterfaceArray(animationInterfaceArray) {
+        _animationInterfaceArray = animationInterfaceArray
+    }
+    
 
-function CompoundRotationAnimation:setFrameByDirection(direction)
-        self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]:setFrameByDirection(direction)
-end
+    set(gl) {
+        if (true) {
+            var index = _animationInterfaceArray.count
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            _animationInterfaceArray[index].set(gl)
+            }
+        }
+    }
+}
 
-
-function CompoundRotationAnimation:setFrameToAngle(angle)
-        self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]:setFrameToAngle(angle)
-end
-
-
-function CompoundRotationAnimation:adjustFrameToAngle(newAngle)
-        self:adjustFrame(newAngle:getValue())
-end
-
-
-function CompoundRotationAnimation:adjustFrame(angle)
-        self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]:adjustFrame(angle)
-end
-
-
-function CompoundRotationAnimation:getAngleInfoP()
-        return self.animationInterfaceArray[self.circularIndexUtil:getIndex() + 1]:getAngleInfoP()
-end
-
-
-function CompoundRotationAnimation:getAnimationInterfaceArray()
-        return self.animationInterfaceArray
-end
-
-
-function CompoundRotationAnimation:setAnimationInterfaceArray(animationInterfaceArray)
-        self.animationInterfaceArray = animationInterfaceArray
-end
-
-
--- throws Exception
-function CompoundRotationAnimation:set(gl)
-        do
-            local index = (self.animationInterfaceArray.n or #self.animationInterfaceArray)
-            while (function() index = index - 1 return index end)() >= 0 do
-            self.animationInterfaceArray[index + 1]:set(gl)
-            end
-        end
-end
-
-return CompoundRotationAnimation
+import "../../../../javax/microedition/khronos/opengles/GL" for GL
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/animation/IndexedAnimation" for IndexedAnimation
+import "../../../../org/allbinary/direction/Direction" for Direction
+import "../../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
+import "../../../../org/allbinary/math/Angle" for Angle
+import "../../../../org/allbinary/math/AngleFactory" for AngleFactory
+import "../../../../org/allbinary/math/AngleInfo" for AngleInfo
+import "../../../../org/allbinary/util/CircularIndexUtil" for CircularIndexUtil
+import "./CompoundAnimationInterface" for CompoundAnimationInterface
 

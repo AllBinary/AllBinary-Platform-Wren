@@ -1,50 +1,50 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.media.audio
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media.audio
 
-local CompositeSound = require("org.allbinary.media.audio.CompositeSound")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./CompositeSound" for CompositeSound
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//Use 8hz16bitmono for most J2ME
+class SelectSound is CompositeSound {
+    static soundInterface {
+    if (__soundInterface_set == null) {
+      __soundInterface_set = true
+      __soundInterface = SelectSound.new()
+    }
+    return __soundInterface
+  }
+  static soundInterface=(value) {
+    __soundInterface_set = true
+    __soundInterface = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_SelectSound() {
+  }
+    
 
---Use 8hz16bitmono for most J2ME
-local SelectSound = {}
-SelectSound.__index = SelectSound
-SelectSound.className = "SelectSound"
-setmetatable(SelectSound, {__index = CompositeSound})
+    construct new() {
+        super("resource:/wav/select.wav")
+    }
+    
 
-
-function SelectSound.new()
-    local self = setmetatable(CompositeSound.new("resource:/wav/select.wav"), SelectSound)
-        -- super(...) made self above
-    return self
-end
-
-
-function SelectSound.getInstance()
+    static getInstance() {
         return SelectSound.soundInterface
-end
+    }
+}
 
-SelectSound.soundInterface = SelectSound.new()
-
-return SelectSound
+import "./Sound" for Sound
 

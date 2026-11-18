@@ -1,88 +1,84 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.system.security.licensing
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.system.security.licensing
 
--- local InputStream = require("java.io.InputStream")
--- local InputStreamReader = require("java.io.InputStreamReader")
-local ResourceUtil = require("org.allbinary.data.resource.ResourceUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class PartnerIdentifierFileUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = PartnerIdentifierFileUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  FILE_NAME { _FILE_NAME }
+  FILE_NAME=(value) { _FILE_NAME = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_PartnerIdentifierFileUtil() {
+    _logUtil = null
+    _FILE_NAME = null
+        _logUtil = LogUtil.getInstance()
+        _FILE_NAME = "partner.txt"
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  construct new() {
+    super()
+    initFields_PartnerIdentifierFileUtil()
+  }
+    
 
-local PartnerIdentifierFileUtil = {}
-PartnerIdentifierFileUtil.__index = PartnerIdentifierFileUtil
-PartnerIdentifierFileUtil.className = "PartnerIdentifierFileUtil"
-
-function PartnerIdentifierFileUtil:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.FILE_NAME = "partner.txt"
-end
-
-function PartnerIdentifierFileUtil.new()
-    local self = setmetatable({}, PartnerIdentifierFileUtil)
-    self:_init_fields()
-    return self
-end
-
-
-function PartnerIdentifierFileUtil.getInstance()
+    static getInstance() {
         return PartnerIdentifierFileUtil.instance
-end
+    }
+    
 
-
-function PartnerIdentifierFileUtil:get()
-        local try_ok, try_error = pcall(function()
-            local resourceUtil = ResourceUtil.getInstance()
-            local inputStream = resourceUtil:getResourceAsStream(self.FILE_NAME)
-            local inputStreamReader = InputStreamReader.new(inputStream)
-            local chars = java_new_array("\0", 30)
-            local size = inputStreamReader:read(chars)
-            local partnerString = StringUtil.getInstance().EMPTY_STRING
-            if size > 0 then
-                partnerString = String.new(chars, 0, size)
-            end
-            inputStreamReader:close()
+    get() {
+        var jerror0 = Fiber.new {
+            var resourceUtil = ResourceUtil.getInstance()
+            var inputStream = resourceUtil.getResourceAsStream(_FILE_NAME)
+            var inputStreamReader = InputStreamReader.new(inputStream)
+            var chars = List.filled(30, 0)
+            var size = inputStreamReader.read(chars)
+            var partnerString = StringUtil.getInstance().EMPTY_STRING
+            if ((size > 0)) {
+                partnerString = JR.fromChars(chars, 0, size)
+            }
+            inputStreamReader.close()
             return partnerString
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, commonStrings.GET, e)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, commonStrings.GET, e)
             return StringUtil.getInstance().NULL_STRING
-        end
-end
+        }
+    }
+}
 
-PartnerIdentifierFileUtil.instance = PartnerIdentifierFileUtil.new()
-
-return PartnerIdentifierFileUtil
+import "../../../../../../java/io/InputStream" for InputStream
+import "../../../../../../java/io/InputStreamReader" for InputStreamReader
+import "../../../../../../org/allbinary/data/resource/ResourceUtil" for ResourceUtil
+import "../../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../../org/allbinary/string/CommonStrings" for CommonStrings
 

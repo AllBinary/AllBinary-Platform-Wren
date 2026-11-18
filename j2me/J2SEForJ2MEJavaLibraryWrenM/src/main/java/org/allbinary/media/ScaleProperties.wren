@@ -1,57 +1,69 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.media
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media
 
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ScaleProperties is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ScaleProperties.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  scaleX { _scaleX }
+  scaleX=(value) { _scaleX = value }
+  scaleY { _scaleY }
+  scaleY=(value) { _scaleY = value }
+  scaleWidth { _scaleWidth }
+  scaleWidth=(value) { _scaleWidth = value }
+  scaleHeight { _scaleHeight }
+  scaleHeight=(value) { _scaleHeight = value }
+  shouldScale { _shouldScale }
+  shouldScale=(value) { _shouldScale = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ScaleProperties() {
+    _scaleX = 0.0
+    _scaleY = 0.0
+    _scaleWidth = 0
+    _scaleHeight = 0
+    _shouldScale = false
+        _scaleX = 0.0
+        _scaleY = 0.0
+        _scaleWidth = 0
+        _scaleHeight = 0
+        _shouldScale = false
+  }
 
-local ScaleProperties = {}
-ScaleProperties.__index = ScaleProperties
-ScaleProperties.className = "ScaleProperties"
+  construct new() {
+    super()
+    initFields_ScaleProperties()
+  }
+    
 
-function ScaleProperties:_init_fields()
-    self.scaleX = 0.0
-    self.scaleY = 0.0
-    self.scaleWidth = 0
-    self.scaleHeight = 0
-    self.shouldScale = false
-end
+    toString() {
+        return StringMaker.new().append(CommonLabels.getInstance().COLON_SEP).appendboolean(_shouldScale).append("scaleX: ").appendfloat(_scaleX).append("scaleY: ").appendfloat(_scaleY).append("scaleWidth: ").appendint(_scaleWidth).append("scaleHeight: ").appendint(_scaleHeight).toString()
+    }
+}
 
-function ScaleProperties.new()
-    local self = setmetatable({}, ScaleProperties)
-    self:_init_fields()
-    return self
-end
-
-
-function ScaleProperties:toString()
-        return tostring(StringMaker.new():append(CommonLabels.getInstance().COLON_SEP):appendboolean(self.shouldScale):append("scaleX: "):appendfloat(self.scaleX):append("scaleY: "):appendfloat(self.scaleY):append("scaleWidth: "):appendint(self.scaleWidth):append("scaleHeight: "):appendint(self.scaleHeight))
-end
-ScaleProperties.__tostring = function(self) return self:toString() end
-
-ScaleProperties.instance = ScaleProperties.new()
-
-return ScaleProperties
+import "../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../org/allbinary/string/CommonLabels" for CommonLabels
 

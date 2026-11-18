@@ -1,41 +1,49 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ScreenInfo is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ScreenInfo.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  SMALL_WIDTH { _SMALL_WIDTH }
+  SMALL_WIDTH=(value) { _SMALL_WIDTH = value }
+  SMALL_HEIGHT { _SMALL_HEIGHT }
+  SMALL_HEIGHT=(value) { _SMALL_HEIGHT = value }
+  MEDIUM_WIDTH { _MEDIUM_WIDTH }
+  MEDIUM_WIDTH=(value) { _MEDIUM_WIDTH = value }
+  MEDIUM_HEIGHT { _MEDIUM_HEIGHT }
+  MEDIUM_HEIGHT=(value) { _MEDIUM_HEIGHT = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ScreenInfo() {
+    _SMALL_WIDTH = 0
+    _SMALL_HEIGHT = 0
+    _MEDIUM_WIDTH = 0
+    _MEDIUM_HEIGHT = 0
+        _SMALL_WIDTH = 320
+        _SMALL_HEIGHT = 240
+        _MEDIUM_WIDTH = 800
+        _MEDIUM_HEIGHT = 600
+  }
 
-local ScreenInfo = {}
-ScreenInfo.__index = ScreenInfo
-ScreenInfo.className = "ScreenInfo"
+  construct new() {
+    super()
+    initFields_ScreenInfo()
+  }
+    
 
-function ScreenInfo:_init_fields()
-    self.SMALL_WIDTH = 320
-    self.SMALL_HEIGHT = 240
-    self.MEDIUM_WIDTH = 800
-    self.MEDIUM_HEIGHT = 600
-end
-
-function ScreenInfo.new()
-    local self = setmetatable({}, ScreenInfo)
-    self:_init_fields()
-    return self
-end
-
-
-function ScreenInfo.getInstance()
+    static getInstance() {
         return ScreenInfo.instance
-end
+    }
+}
 
-ScreenInfo.instance = ScreenInfo.new()
-
-return ScreenInfo
 

@@ -1,81 +1,82 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.gesture
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.gesture
 
-local GPoint = require("org.allbinary.graphics.GPoint")
-local PointFactory = require("org.allbinary.graphics.PointFactory")
-local MotionEventCircularPool = require("org.allbinary.input.motion.gesture.observer.MotionEventCircularPool")
-local MotionGestureEvent = require("org.allbinary.input.motion.gesture.observer.MotionGestureEvent")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class MirrorMotionGestureEventUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = MirrorMotionGestureEventUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  motionEventCircularPool { _motionEventCircularPool }
+  motionEventCircularPool=(value) { _motionEventCircularPool = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_MirrorMotionGestureEventUtil() {
+    _motionEventCircularPool = null
+        
+  }
+    
 
-local MirrorMotionGestureEventUtil = {}
-MirrorMotionGestureEventUtil.__index = MirrorMotionGestureEventUtil
-MirrorMotionGestureEventUtil.className = "MirrorMotionGestureEventUtil"
+    construct new() {
+    super()
+    initFields_MirrorMotionGestureEventUtil()
+        _motionEventCircularPool = MotionEventCircularPool.createPool(Integer.MAX_VALUE)
+    }
+    
 
-function MirrorMotionGestureEventUtil:_init_fields()
-    self.motionEventCircularPool = nil
-end
-
-
-function MirrorMotionGestureEventUtil.new()
-    local self = setmetatable({}, MirrorMotionGestureEventUtil)
-    self:_init_fields()
-        self.motionEventCircularPool = MotionEventCircularPool.createPool(Integer.MAX_VALUE)
-    return self
-end
-
-
--- throws Exception
-function MirrorMotionGestureEventUtil:mirrorVerticle(motionGestureEvent, halfWidth)
-        local event = self.motionEventCircularPool:getInstance(motionGestureEvent:getMotionGesture())
-        local previousNewX = self:getNewX(motionGestureEvent:getPreviousPoint():getX(), halfWidth)
-        local currentNewX = self:getNewX(motionGestureEvent:getCurrentPoint():getX(), halfWidth)
-        local pointFactory = PointFactory.getInstance()
-        local mirroredPreviousPoint = pointFactory:createXY(previousNewX, motionGestureEvent:getPreviousPoint():getY())
-        local mirroredCurrentPoint = pointFactory:createXY(currentNewX, motionGestureEvent:getCurrentPoint():getY())
-        event:setPreviousPoint(mirroredPreviousPoint)
-        event:setCurrentPoint(mirroredCurrentPoint)
+    mirrorVerticle(motionGestureEvent, halfWidth) {
+        var event = _motionEventCircularPool.getInstance(motionGestureEvent.getMotionGesture())
+        var previousNewX = this.getNewX(motionGestureEvent.getPreviousPoint().getX(), halfWidth)
+        var currentNewX = this.getNewX(motionGestureEvent.getCurrentPoint().getX(), halfWidth)
+        var pointFactory = PointFactory.getInstance()
+        var mirroredPreviousPoint = pointFactory.createXY(previousNewX, motionGestureEvent.getPreviousPoint().getY())
+        var mirroredCurrentPoint = pointFactory.createXY(currentNewX, motionGestureEvent.getCurrentPoint().getY())
+        event.setPreviousPoint(mirroredPreviousPoint)
+        event.setCurrentPoint(mirroredCurrentPoint)
         return event
-end
+    }
+    
 
-
-function MirrorMotionGestureEventUtil:getNewX(x, halfWidth)
-        local newX = 0
-        if x > halfWidth then
-            newX = halfWidth - (x - halfWidth)
-        else
-            newX = halfWidth + (halfWidth - x)
-        end
+    getNewX(x, halfWidth) {
+        var newX = 0
+        if ((x > halfWidth)) {
+            newX = JR.i32(halfWidth - (JR.i32(x - halfWidth)))
+        } else {
+            newX = JR.i32(halfWidth + (JR.i32(halfWidth - x)))
+        }
         return newX
-end
+    }
+    
 
-
-function MirrorMotionGestureEventUtil.getInstance()
+    static getInstance() {
         return MirrorMotionGestureEventUtil.instance
-end
+    }
+}
 
-MirrorMotionGestureEventUtil.instance = MirrorMotionGestureEventUtil.new()
-
-return MirrorMotionGestureEventUtil
+import "../../../../../org/allbinary/graphics/GPoint" for GPoint
+import "../../../../../org/allbinary/graphics/PointFactory" for PointFactory
+import "../../../../../org/allbinary/input/motion/gesture/observer/MotionEventCircularPool" for MotionEventCircularPool
+import "../../../../../org/allbinary/input/motion/gesture/observer/MotionGestureEvent" for MotionGestureEvent
+import "../../../../../java/lang/Integer" for Integer
 

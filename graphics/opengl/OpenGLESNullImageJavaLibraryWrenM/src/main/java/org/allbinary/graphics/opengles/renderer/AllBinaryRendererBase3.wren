@@ -1,64 +1,55 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.opengles.renderer
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.opengles.renderer
 
--- local GL10 = require("javax.microedition.khronos.opengles.GL10")
--- local Image = require("javax.microedition.lcdui.Image")
-local OpenGLESImage = require("org.allbinary.image.opengles.OpenGLESImage")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AllBinaryRendererBase3 is JObject {
+  list { _list }
+  list=(value) { _list = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AllBinaryRendererBase3() {
+    _list = null
+        _list = BasicArrayListD.new()
+  }
 
-local AllBinaryRendererBase3 = {}
-AllBinaryRendererBase3.__index = AllBinaryRendererBase3
-AllBinaryRendererBase3.className = "AllBinaryRendererBase3"
+  construct new() {
+    super()
+    initFields_AllBinaryRendererBase3()
+  }
+    
 
-function AllBinaryRendererBase3:_init_fields()
-    self.list = BasicArrayListD.new()
-end
+    update(gl) {
+        while ((_list.size() > 0)) {
+            var openGLESImage = _list.removeAt(0)
+            if ((openGLESImage != null)) {
+                openGLESImage.set(gl)
+            }
+        }
+    }
+    
 
-function AllBinaryRendererBase3.new()
-    local self = setmetatable({}, AllBinaryRendererBase3)
-    self:_init_fields()
-    return self
-end
+    add(image) {
+        _list.add(image)
+    }
+}
 
-
--- throws Exception
-function AllBinaryRendererBase3:update(gl)
-        while self.list:size() > 0 do
-            local openGLESImage = self.list:removeAt(0)
-            if openGLESImage ~= nil then
-                openGLESImage:set(gl)
-            end
-        end
-end
-
-
-function AllBinaryRendererBase3:add(image)
-        self.list:add(image)
-end
-
-return AllBinaryRendererBase3
+import "../../../../../javax/microedition/khronos/opengles/GL10" for GL10
+import "../../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../../org/allbinary/image/opengles/OpenGLESImage" for OpenGLESImage
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
 

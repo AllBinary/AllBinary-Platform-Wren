@@ -1,54 +1,64 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.combat.damage
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.combat.damage
 
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ExplosionResources is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ExplosionResources.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  EXPLOSION_90_RESOURCE { _EXPLOSION_90_RESOURCE }
+  EXPLOSION_90_RESOURCE=(value) { _EXPLOSION_90_RESOURCE = value }
+  EXPLOSION_60_RESOURCE { _EXPLOSION_60_RESOURCE }
+  EXPLOSION_60_RESOURCE=(value) { _EXPLOSION_60_RESOURCE = value }
+  HALF_EXPLOSION_RESOURCE { _HALF_EXPLOSION_RESOURCE }
+  HALF_EXPLOSION_RESOURCE=(value) { _HALF_EXPLOSION_RESOURCE = value }
+  THIRD_EXPLOSION_RESOURCE { _THIRD_EXPLOSION_RESOURCE }
+  THIRD_EXPLOSION_RESOURCE=(value) { _THIRD_EXPLOSION_RESOURCE = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ExplosionResources() {
+    _EXPLOSION_90_RESOURCE = null
+    _EXPLOSION_60_RESOURCE = null
+    _HALF_EXPLOSION_RESOURCE = null
+    _THIRD_EXPLOSION_RESOURCE = null
+        _EXPLOSION_90_RESOURCE = "/explosion_sprite_90_by_90.png"
+        _EXPLOSION_60_RESOURCE = "/explosion_sprite_60_by_60.png"
+        _HALF_EXPLOSION_RESOURCE = "/explosion_sprite_30_by_30.png"
+        _THIRD_EXPLOSION_RESOURCE = "/explosion_sprite_15_by_15.png"
+  }
+    
 
-local ExplosionResources = {}
-ExplosionResources.__index = ExplosionResources
-ExplosionResources.className = "ExplosionResources"
-
-function ExplosionResources:_init_fields()
-    self.EXPLOSION_90_RESOURCE = "/explosion_sprite_90_by_90.png"
-    self.EXPLOSION_60_RESOURCE = "/explosion_sprite_60_by_60.png"
-    self.HALF_EXPLOSION_RESOURCE = "/explosion_sprite_30_by_30.png"
-    self.THIRD_EXPLOSION_RESOURCE = "/explosion_sprite_15_by_15.png"
-end
-
-
-function ExplosionResources.getInstance()
+    static getInstance() {
         return ExplosionResources.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_ExplosionResources()
+    }
+}
 
-function ExplosionResources.new()
-    local self = setmetatable({}, ExplosionResources)
-    self:_init_fields()
-    return self
-end
-
-ExplosionResources.instance = ExplosionResources.new()
-
-return ExplosionResources
 

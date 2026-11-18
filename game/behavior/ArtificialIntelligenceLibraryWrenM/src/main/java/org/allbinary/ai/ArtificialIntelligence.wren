@@ -1,59 +1,60 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.ai
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.ai
 
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local ArtificialIntelligenceInterface = require("org.allbinary.ai.ArtificialIntelligenceInterface")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ArtificialIntelligence is JObject {
+    static AI_ID { 2 }
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ArtificialIntelligence.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ArtificialIntelligence() {
+  }
+    
 
-local ArtificialIntelligence = {}
-ArtificialIntelligence.__index = ArtificialIntelligence
-ArtificialIntelligence.className = "ArtificialIntelligence"
-
-
-function ArtificialIntelligence.getInstance()
+    static getInstance() {
         return ArtificialIntelligence.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_ArtificialIntelligence()
+    }
+    
 
-function ArtificialIntelligence.new()
-    local self = setmetatable({}, ArtificialIntelligence)
-    return self
-end
+    processAI(layerManager) {
+    }
+    
 
-
--- throws Exception
-function ArtificialIntelligence:processAI(layerManager)
-end
-
-
-function ArtificialIntelligence:getId()
+    getId() {
         return 1
-end
+    }
+}
 
-ArtificialIntelligence.AI_ID = 2
-ArtificialIntelligence.instance = ArtificialIntelligence.new()
-
-return ArtificialIntelligence
+import "../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "./ArtificialIntelligenceInterface" for ArtificialIntelligenceInterface
 

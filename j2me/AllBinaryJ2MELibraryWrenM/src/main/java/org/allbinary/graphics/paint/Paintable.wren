@@ -1,53 +1,46 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.paint
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.paint
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local PaintableInterface = require("org.allbinary.graphics.paint.PaintableInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Paintable is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Paintable() {
+  }
 
-local Paintable = {}
-Paintable.__index = Paintable
-Paintable.className = "Paintable"
+  construct new() {
+    super()
+    initFields_Paintable()
+  }
+    
 
-function Paintable.new()
-    local self = setmetatable({}, Paintable)
-    return self
-end
+    setBasicColorP(basicColor) {
+    }
+    
 
+    paint(graphics) {
+    }
+    
 
-function Paintable:setBasicColorP(basicColor)
-end
+    paintThreed(graphics) {
+    }
+}
 
-
-function Paintable:paint(graphics)
-end
-
-
-function Paintable:paintThreed(graphics)
-end
-
-return Paintable
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "./PaintableInterface" for PaintableInterface
 

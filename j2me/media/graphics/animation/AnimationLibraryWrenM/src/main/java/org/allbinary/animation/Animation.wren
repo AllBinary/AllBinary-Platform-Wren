@@ -1,147 +1,152 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
--- local GL = require("javax.microedition.khronos.opengles.GL")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local BasicColorSetUtil = require("org.allbinary.graphics.color.BasicColorSetUtil")
-local OpenGLSurfaceChangedInterface = require("org.allbinary.image.opengles.OpenGLSurfaceChangedInterface")
-local AnimationInterface = require("org.allbinary.animation.AnimationInterface")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Animation is JObject {
+  basicSetColorUtil { _basicSetColorUtil }
+  basicSetColorUtil=(value) { _basicSetColorUtil = value }
+  basicColor { _basicColor }
+  basicColor=(value) { _basicColor = value }
+  colorP { _colorP }
+  colorP=(value) { _colorP = value }
+  changeBasicColorP { _changeBasicColorP }
+  changeBasicColorP=(value) { _changeBasicColorP = value }
+  changeColorP { _changeColorP }
+  changeColorP=(value) { _changeColorP = value }
+  alphaP { _alphaP }
+  alphaP=(value) { _alphaP = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Animation() {
+    _basicSetColorUtil = null
+    _basicColor = null
+    _colorP = 0
+    _changeBasicColorP = null
+    _changeColorP = 0
+    _alphaP = 0
+        _basicSetColorUtil = BasicColorSetUtil.getInstance()
+        _basicColor = BasicColorFactory.getInstance().WHITE
+        _colorP = 0
+        _changeBasicColorP = BasicColorFactory.getInstance().NULL_COLOR
+        _changeColorP = 0
+        _alphaP = 0
+  }
+    
 
-local Animation = {}
-Animation.__index = Animation
-Animation.className = "Animation"
+    construct new() {
+    super()
+    initFields_Animation()
+    }
+    
 
-function Animation:_init_fields()
-    self.basicSetColorUtil = BasicColorSetUtil.getInstance()
-    self.basicColor = BasicColorFactory.getInstance().WHITE
-    self.colorP = 0
-    self.changeBasicColorP = BasicColorFactory.getInstance().NULL_COLOR
-    self.changeColorP = 0
-    self.alphaP = 0
-end
+    setAlpha(alpha) {
+        _alphaP = alpha
+    }
+    
 
+    nextFrame() {
+    }
+    
 
-function Animation.new()
-    local self = setmetatable({}, Animation)
-    self:_init_fields()
-    return self
-end
+    paintXY(graphics, x, y) {
+        _basicSetColorUtil.setBasicColorP3(graphics, this.getBasicColorP(), this.getColor())
+    }
+    
 
+    paintThreedXYZ(graphics, x, y, z) {
+    }
+    
 
-function Animation:setAlpha(alpha)
-        self.alphaP = alpha
-end
-
-
--- throws Exception
-function Animation:nextFrame()
-end
-
-
-function Animation:paintXY(graphics, x, y)
-        self.basicSetColorUtil:setBasicColorP3(graphics, self:getBasicColorP(), self:getColor())
-end
-
-
-function Animation:paintThreedXYZ(graphics, x, y, z)
-end
-
-
-function Animation:isThreed()
+    isThreed() {
         return false
-end
+    }
+    
 
+    getBasicColorP() {
+        return _basicColor
+    }
+    
 
-function Animation:getBasicColorP()
-        return self.basicColor
-end
+    setBasicColorP(basicColor) {
+        _basicColor = basicColor
+        _colorP = _basicColor.intValue()
+    }
+    
 
+    setBackgroundBasicColorP(basicColor) {
+    }
+    
 
-function Animation:setBasicColorP(basicColor)
-        self.basicColor = basicColor
-        self.colorP = math.tointeger(self.basicColor // 1)
-end
+    getChangeBasicColor() {
+        return _changeBasicColorP
+    }
+    
 
+    changeBasicColor(basicColor) {
+        _changeBasicColorP = basicColor
+        _changeColorP = _changeBasicColorP.intValue()
+    }
+    
 
-function Animation:setBackgroundBasicColorP(basicColor)
-end
+    getChangeColor() {
+        return _changeColorP
+    }
+    
 
+    getColor() {
+        return _colorP
+    }
+    
 
-function Animation:getChangeBasicColor()
-        return self.changeBasicColorP
-end
+    setScale(scaleX, scaleY) {
+    }
+    
 
+    setMaxScale(maxScaleX, maxScaleY) {
+    }
+    
 
-function Animation:changeBasicColor(basicColor)
-        self.changeBasicColorP = basicColor
-        self.changeColorP = math.tointeger(self.changeBasicColorP // 1)
-end
+    set(gl) {
+    }
+    
 
+    setDx(dx) {
+    }
+    
 
-function Animation:getChangeColor()
-        return self.changeColorP
-end
-
-
-function Animation:getColor()
-        return self.colorP
-end
-
-
-function Animation:setScale(scaleX, scaleY)
-end
-
-
-function Animation:setMaxScale(maxScaleX, maxScaleY)
-end
-
-
--- throws Exception
-function Animation:set(gl)
-end
-
-
-function Animation:setDx(dx)
-end
-
-
-function Animation:getDx()
+    getDx() {
         return 0
-end
+    }
+    
 
+    setDy(dy) {
+    }
+    
 
-function Animation:setDy(dy)
-end
-
-
-function Animation:getDy()
+    getDy() {
         return 0
-end
+    }
+}
 
-return Animation
+import "../../../javax/microedition/khronos/opengles/GL" for GL
+import "../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../org/allbinary/graphics/color/BasicColorSetUtil" for BasicColorSetUtil
+import "../../../org/allbinary/image/opengles/OpenGLSurfaceChangedInterface" for OpenGLSurfaceChangedInterface
+import "./AnimationInterface" for AnimationInterface
 

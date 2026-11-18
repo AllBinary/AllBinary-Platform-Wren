@@ -1,58 +1,61 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.canvas.transition.progress
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.canvas.transition.progress
 
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local NullPaintable = require("org.allbinary.graphics.paint.NullPaintable")
-local PaintableInterface = require("org.allbinary.graphics.paint.PaintableInterface")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ProgressCanvasFactory is JObject {
+    static PROGRESS_FORM_SCREEN {
+    if (__PROGRESS_FORM_SCREEN_set == null) {
+      __PROGRESS_FORM_SCREEN_set = true
+      __PROGRESS_FORM_SCREEN = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __PROGRESS_FORM_SCREEN
+  }
+  static PROGRESS_FORM_SCREEN=(value) {
+    __PROGRESS_FORM_SCREEN_set = true
+    __PROGRESS_FORM_SCREEN = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ProgressCanvasFactory() {
+  }
 
-local ProgressCanvasFactory = {}
-ProgressCanvasFactory.__index = ProgressCanvasFactory
-ProgressCanvasFactory.className = "ProgressCanvasFactory"
+  construct new() {
+    super()
+    initFields_ProgressCanvasFactory()
+  }
+    
 
-function ProgressCanvasFactory.new()
-    local self = setmetatable({}, ProgressCanvasFactory)
-    return self
-end
-
-
-function ProgressCanvasFactory.getInstance()
-        if ProgressCanvasFactory.PROGRESS_FORM_SCREEN == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((ProgressCanvasFactory.PROGRESS_FORM_SCREEN == NullUtil.getInstance().NULL_OBJECT)) {
             ProgressCanvasFactory.PROGRESS_FORM_SCREEN = ProgressCanvas.new(StringUtil.getInstance().EMPTY_STRING, BasicColorFactory.getInstance().BLACK, BasicColorFactory.getInstance().WHITE)
-        end
+        }
         return ProgressCanvasFactory.PROGRESS_FORM_SCREEN
-end
+    }
+    
 
-
-function ProgressCanvasFactory.getLazyInstance()
+    static getLazyInstance() {
         return NullPaintable.getInstance()
-end
+    }
+}
 
-ProgressCanvasFactory.PROGRESS_FORM_SCREEN = NullUtil.getInstance().NULL_OBJECT
-
-return ProgressCanvasFactory
+import "../../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../../org/allbinary/graphics/paint/NullPaintable" for NullPaintable
+import "../../../../../../org/allbinary/graphics/paint/PaintableInterface" for PaintableInterface
+import "../../../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "./ProgressCanvas" for ProgressCanvas
 

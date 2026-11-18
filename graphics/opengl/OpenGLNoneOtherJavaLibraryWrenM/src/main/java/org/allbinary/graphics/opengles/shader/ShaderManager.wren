@@ -1,69 +1,79 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.opengles.shader
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.opengles.shader
 
--- local GL10 = require("javax.microedition.khronos.opengles.GL10")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ShaderManager is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ShaderManager.new(-1, -1)
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  LOAD_SHADER { _LOAD_SHADER }
+  LOAD_SHADER=(value) { _LOAD_SHADER = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  GL_VERTEX_SHADER { _GL_VERTEX_SHADER }
+  GL_VERTEX_SHADER=(value) { _GL_VERTEX_SHADER = value }
+  GL_FRAGMENT_SHADER { _GL_FRAGMENT_SHADER }
+  GL_FRAGMENT_SHADER=(value) { _GL_FRAGMENT_SHADER = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ShaderManager() {
+    _LOAD_SHADER = null
+    _commonStrings = null
+    _GL_VERTEX_SHADER = 0
+    _GL_FRAGMENT_SHADER = 0
+        _LOAD_SHADER = "loadShader"
+        _commonStrings = CommonStrings.getInstance()
+        
+        
+  }
+    
 
-local ShaderManager = {}
-ShaderManager.__index = ShaderManager
-ShaderManager.className = "ShaderManager"
-
-function ShaderManager:_init_fields()
-    self.LOAD_SHADER = "loadShader"
-    self.commonStrings = CommonStrings.getInstance()
-    self.GL_VERTEX_SHADER = nil
-    self.GL_FRAGMENT_SHADER = nil
-end
-
-
-function ShaderManager.getInstance()
+    static getInstance() {
         return ShaderManager.instance
-end
+    }
+    
 
+    construct new(GL_VERTEX_SHADER, GL_FRAGMENT_SHADER) {
+    super()
+    initFields_ShaderManager()
+        _GL_VERTEX_SHADER = GL_VERTEX_SHADER
+        _GL_FRAGMENT_SHADER = GL_FRAGMENT_SHADER
+    }
+    
 
-function ShaderManager.new(GL_VERTEX_SHADER, GL_FRAGMENT_SHADER)
-    local self = setmetatable({}, ShaderManager)
-    self:_init_fields()
-        self.GL_VERTEX_SHADER = GL_VERTEX_SHADER
-        self.GL_FRAGMENT_SHADER = GL_FRAGMENT_SHADER
-    return self
-end
-
-
-function ShaderManager:load(gl, resource, shaderAsStringArray, shaderType)
+    load(gl, resource, shaderAsStringArray, shaderType) {
         return -1
-end
+    }
+    
 
-
-function ShaderManager:loadShader(gl, resource, stringList, shaderType)
+    loadShader(gl, resource, stringList, shaderType) {
         return -1
-end
+    }
+}
 
-ShaderManager.instance = ShaderManager.new(-1, -1)
-
-return ShaderManager
+import "../../../../../javax/microedition/khronos/opengles/GL10" for GL10
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
 

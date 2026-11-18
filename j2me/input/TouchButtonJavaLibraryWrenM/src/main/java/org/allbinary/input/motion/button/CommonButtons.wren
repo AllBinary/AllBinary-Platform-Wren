@@ -1,73 +1,80 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.button
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.button
 
-local PointFactory = require("org.allbinary.graphics.PointFactory")
-local Rectangle = require("org.allbinary.graphics.Rectangle")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CommonButtons is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = CommonButtons.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  STANDARD_BUTTON_SIZE { _STANDARD_BUTTON_SIZE }
+  STANDARD_BUTTON_SIZE=(value) { _STANDARD_BUTTON_SIZE = value }
+  NORMAL_BUTTON { _NORMAL_BUTTON }
+  NORMAL_BUTTON=(value) { _NORMAL_BUTTON = value }
+  LARGE_BUTTON { _LARGE_BUTTON }
+  LARGE_BUTTON=(value) { _LARGE_BUTTON = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CommonButtons() {
+    _STANDARD_BUTTON_SIZE = 0
+    _NORMAL_BUTTON = null
+    _LARGE_BUTTON = null
+        
+        
+        
+  }
+    
 
-local CommonButtons = {}
-CommonButtons.__index = CommonButtons
-CommonButtons.className = "CommonButtons"
-
-function CommonButtons:_init_fields()
-    self.STANDARD_BUTTON_SIZE = nil
-    self.NORMAL_BUTTON = nil
-    self.LARGE_BUTTON = nil
-end
-
-
-function CommonButtons.getInstance()
+    static getInstance() {
         return CommonButtons.instance
-end
+    }
+    
 
-
-function CommonButtons.new()
-    local self = setmetatable({}, CommonButtons)
-    self:_init_fields()
-        local displayInfo = DisplayInfoSingleton.getInstance()
-        local commonButtonSize = 128
-        while commonButtonSize > 64 do
-            local totalColumns = displayInfo:getLastWidth() / commonButtonSize
-            local totalRows = displayInfo:getLastHeight() / commonButtonSize
-            local max = totalColumns
-            if totalRows > max then
+    construct new() {
+    super()
+    initFields_CommonButtons()
+        var displayInfo = DisplayInfoSingleton.getInstance()
+        var commonButtonSize = 128
+        while ((commonButtonSize > 64)) {
+            var totalColumns = (displayInfo.getLastWidth() / commonButtonSize)
+            var totalRows = (displayInfo.getLastHeight() / commonButtonSize)
+            var max = totalColumns
+            if ((totalRows > max)) {
                 max = totalRows
-            end
-            if max > 9 then
+            }
+            if ((max > 9)) {
                 break
-            end
-            commonButtonSize = ((commonButtonSize) // (1 << (1)))
-        end
-        self.STANDARD_BUTTON_SIZE = commonButtonSize
-        self.NORMAL_BUTTON = Rectangle.new(PointFactory.getInstance().ZERO_ZERO, self.STANDARD_BUTTON_SIZE, self.STANDARD_BUTTON_SIZE)
-        self.LARGE_BUTTON = Rectangle.new(PointFactory.getInstance().ZERO_ZERO, self.STANDARD_BUTTON_SIZE << 1, self.STANDARD_BUTTON_SIZE << 1)
-    return self
-end
+            }
+            commonButtonSize = JR.shr(commonButtonSize, 1)
+        }
+        _STANDARD_BUTTON_SIZE = commonButtonSize
+        _NORMAL_BUTTON = Rectangle.new(PointFactory.getInstance().ZERO_ZERO, _STANDARD_BUTTON_SIZE, _STANDARD_BUTTON_SIZE)
+        _LARGE_BUTTON = Rectangle.new(PointFactory.getInstance().ZERO_ZERO, JR.shl(_STANDARD_BUTTON_SIZE, 1), JR.shl(_STANDARD_BUTTON_SIZE, 1))
+    }
+}
 
-CommonButtons.instance = CommonButtons.new()
-
-return CommonButtons
+import "../../../../../org/allbinary/graphics/PointFactory" for PointFactory
+import "../../../../../org/allbinary/graphics/Rectangle" for Rectangle
+import "../../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
 

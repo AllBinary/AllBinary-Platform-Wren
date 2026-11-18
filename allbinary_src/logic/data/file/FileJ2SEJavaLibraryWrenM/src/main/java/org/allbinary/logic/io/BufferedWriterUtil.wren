@@ -1,115 +1,124 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.io
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.io
 
--- local BufferedWriter = require("java.io.BufferedWriter")
--- local FileWriter = require("java.io.FileWriter")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local AbFile = require("org.allbinary.logic.io.file.AbFile")
-local AbFileNativeUtil = require("org.allbinary.logic.io.file.AbFileNativeUtil")
-local AbPathData = require("org.allbinary.logic.io.path.AbPathData")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BufferedWriterUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = BufferedWriterUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  commonLabels { _commonLabels }
+  commonLabels=(value) { _commonLabels = value }
+  REMOVING_OLD { _REMOVING_OLD }
+  REMOVING_OLD=(value) { _REMOVING_OLD = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BufferedWriterUtil() {
+    _logUtil = null
+    _commonStrings = null
+    _commonLabels = null
+    _REMOVING_OLD = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        _commonLabels = CommonLabels.getInstance()
+        _REMOVING_OLD = "Remove old for overwriting: "
+  }
 
-local BufferedWriterUtil = {}
-BufferedWriterUtil.__index = BufferedWriterUtil
-BufferedWriterUtil.className = "BufferedWriterUtil"
+  construct new() {
+    super()
+    initFields_BufferedWriterUtil()
+  }
+    
 
-function BufferedWriterUtil:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.commonLabels = CommonLabels.getInstance()
-    self.REMOVING_OLD = "Remove old for overwriting: "
-end
-
-function BufferedWriterUtil.new()
-    local self = setmetatable({}, BufferedWriterUtil)
-    self:_init_fields()
-    return self
-end
-
-
-function BufferedWriterUtil.getInstance()
+    static getInstance() {
         return BufferedWriterUtil.instance
-end
+    }
+    
 
+    overwrite(jp1, jp2) {
+    }
 
--- throws Exception
-function BufferedWriterUtil:overwrite(path, data)
-        local abFile = AbFile.createAbFile(path)
-        if abFile:exists() then
-            self.logUtil:putF(self.REMOVING_OLD .. path, self, self.commonStrings.CREATE)
-            abFile:delete()
-        else
-            local name = AbPathData.getInstance():removeNameFromPath(path)
-            local abFileDirectory = AbFile.createAbFile(name)
-            if abFileDirectory:exists() then
-            else
-                local stringBuilder = StringMaker.new()
-                self.logUtil:putF(tostring(stringBuilder:append(self.commonStrings.CREATE):append(self.commonLabels.COLON_SEP):append(name)), self, self.commonStrings.CREATE)
-                local result = abFileDirectory:mkdirs()
-                stringBuilder:delete(0, stringBuilder:length())
-                self.logUtil:putF(tostring(stringBuilder:append(self.commonLabels.RESULT_):appendboolean(result)), self, self.commonStrings.CREATE)
-            end
-        end
-        self:write(abFile, data)
-end
+    overwrite_jo1(path, data) {
+        var abFile = AbFile.createAbFile(path)
+        if (abFile.exists()) {
+            _logUtil.putF(_REMOVING_OLD + path, this, _commonStrings.CREATE)
+            abFile.delete()
+        } else {
+            var name = AbPathData.getInstance().removeNameFromPath(path)
+            var abFileDirectory = AbFile.createAbFile(name)
+            if (abFileDirectory.exists()) {
+            } else {
+                var stringBuilder = StringMaker.new()
+                _logUtil.putF(stringBuilder.append(_commonStrings.CREATE).append(_commonLabels.COLON_SEP).append(name).toString(), this, _commonStrings.CREATE)
+                var result = abFileDirectory.mkdirs()
+                stringBuilder.delete(0, stringBuilder.length())
+                _logUtil.putF(stringBuilder.append(_commonLabels.RESULT_).appendboolean(result).toString(), this, _commonStrings.CREATE)
+            }
+        }
+        this.write(abFile, data)
+    }
+    
 
+    overwrite_jo2(abFile, data) {
+        if (abFile.exists()) {
+            _logUtil.putF(_REMOVING_OLD + JR.str(abFile.getPath()), this, _commonStrings.CREATE)
+            abFile.delete()
+        } else {
+            var name = AbPathData.getInstance().removeNameFromPath(abFile.getAbsolutePath())
+            var abFileDirectory = AbFile.createAbFile(name)
+            if (abFileDirectory.exists()) {
+            } else {
+                var stringBuilder = StringMaker.new()
+                _logUtil.putF(stringBuilder.append(_commonStrings.CREATE).append(_commonLabels.COLON_SEP).append(name).toString(), this, _commonStrings.CREATE)
+                var result = abFileDirectory.mkdirs()
+                stringBuilder.delete(0, stringBuilder.length())
+                _logUtil.putF(stringBuilder.append(_commonLabels.RESULT_).appendboolean(result).toString(), this, _commonStrings.CREATE)
+            }
+        }
+        this.write(abFile, data)
+    }
+    
 
--- throws Exception
--- Java overloaded method: Lua keeps the last definition
-function BufferedWriterUtil:overwrite(abFile, data)
-        if abFile:exists() then
-            self.logUtil:putF(self.REMOVING_OLD .. tostring(abFile:getPath()), self, self.commonStrings.CREATE)
-            abFile:delete()
-        else
-            local name = AbPathData.getInstance():removeNameFromPath(abFile:getAbsolutePath())
-            local abFileDirectory = AbFile.createAbFile(name)
-            if abFileDirectory:exists() then
-            else
-                local stringBuilder = StringMaker.new()
-                self.logUtil:putF(tostring(stringBuilder:append(self.commonStrings.CREATE):append(self.commonLabels.COLON_SEP):append(name)), self, self.commonStrings.CREATE)
-                local result = abFileDirectory:mkdirs()
-                stringBuilder:delete(0, stringBuilder:length())
-                self.logUtil:putF(tostring(stringBuilder:append(self.commonLabels.RESULT_):appendboolean(result)), self, self.commonStrings.CREATE)
-            end
-        end
-        self:write(abFile, data)
-end
+    write(abFile, data) {
+        var fileOut = BufferedWriter.new(FileWriter.new(AbFileNativeUtil.get(abFile)))
+        fileOut.write(data, 0, JR.length(data))
+        fileOut.newLine()
+        fileOut.flush()
+    }
+}
 
-
--- throws Exception
-function BufferedWriterUtil:write(abFile, data)
-        local fileOut = BufferedWriter.new(FileWriter.new(AbFileNativeUtil.get(abFile)))
-        fileOut:write(data, 0, #data)
-        fileOut:newLine()
-        fileOut:flush()
-end
-
-BufferedWriterUtil.instance = BufferedWriterUtil.new()
-
-return BufferedWriterUtil
+import "../../../../java/io/BufferedWriter" for BufferedWriter
+import "../../../../java/io/FileWriter" for FileWriter
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/logic/io/file/AbFile" for AbFile
+import "../../../../org/allbinary/logic/io/file/AbFileNativeUtil" for AbFileNativeUtil
+import "../../../../org/allbinary/logic/io/path/AbPathData" for AbPathData
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/string/CommonLabels" for CommonLabels
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
 

@@ -1,111 +1,104 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.media.audio
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media.audio
 
--- local InputStream = require("java.io.InputStream")
--- local Player = require("javax.microedition.media.Player")
-local TsUtil = require("org.allbinary.TsUtil")
-local ProgressCanvasFactory = require("org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//NotDeviceSpecificNoMediaMIDP1Library
+class AllBinaryMediaManager is JObject {
+    static THIS { "AllBinaryMediaManagerNoMediaMIDP1" }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AllBinaryMediaManager() {
+  }
+    
 
---NotDeviceSpecificNoMediaMIDP1Library
-local AllBinaryMediaManager = {}
-AllBinaryMediaManager.__index = AllBinaryMediaManager
-AllBinaryMediaManager.className = "AllBinaryMediaManager"
+    construct new() {
+    super()
+    initFields_AllBinaryMediaManager()
+    }
+    
 
-
-function AllBinaryMediaManager.new()
-    local self = setmetatable({}, AllBinaryMediaManager)
-    return self
-end
-
-
-function AllBinaryMediaManager.isMuted()
+    static isMuted() {
         return false
-end
+    }
+    
 
+    static setMuted(aMuted) {
+    }
+    
 
-function AllBinaryMediaManager.setMuted(aMuted)
-end
-
-
-function AllBinaryMediaManager.update()
+    static update() {
         return true
-end
+    }
+    
 
+    static init(soundsFactoryInterface) {
+        var logUtil = LogUtil.getInstance()
+        var commonString = CommonStrings.getInstance()
+        logUtil.putF(commonString.START, AllBinaryMediaManager.THIS, commonString.INIT)
+        ProgressCanvasFactory.getInstance().addNormalPortion(50, "Media Manager")
+        Sounds.new(soundsFactoryInterface).init()
+    }
+    
 
--- throws Exception
-function AllBinaryMediaManager.init(soundsFactoryInterface)
-        local logUtil = LogUtil.getInstance()
-        local commonString = CommonStrings.getInstance()
-        logUtil:putF(commonString.START, AllBinaryMediaManager.THIS, commonString.INIT)
-        ProgressCanvasFactory.getInstance():addNormalPortion(50, "Media Manager")
-        Sounds.new(soundsFactoryInterface):init()
-end
+    static shutdown(soundsFactoryInterface) {
+        Sounds.new(soundsFactoryInterface).stopAll()
+        Sounds.new(soundsFactoryInterface).closeAll()
+        TsUtil.getInstance().gc()
+    }
+    
 
-
--- throws Exception
-function AllBinaryMediaManager.shutdown(soundsFactoryInterface)
-        Sounds.new(soundsFactoryInterface):stopAll()
-        Sounds.new(soundsFactoryInterface):closeAll()
-        TsUtil.getInstance():gc()
-end
-
-
-function AllBinaryMediaManager.createPlayerFromInputStream(stream, type)
-        local logUtil = LogUtil.getInstance()
-        local commonString = CommonStrings.getInstance()
-        logUtil:putF(commonString.START, AllBinaryMediaManager.THIS, "creatPlayer(InputStream)")
+    static createPlayerFromInputStream(stream, type) {
+        var logUtil = LogUtil.getInstance()
+        var commonString = CommonStrings.getInstance()
+        logUtil.putF(commonString.START, AllBinaryMediaManager.THIS, "creatPlayer(InputStream)")
         return NoPlayer.NO_PLAYER
-end
+    }
+    
 
-
-function AllBinaryMediaManager.createPlayer(locator)
-        local logUtil = LogUtil.getInstance()
-        local commonString = CommonStrings.getInstance()
-        logUtil:putF(commonString.START, AllBinaryMediaManager.THIS, "creatPlayer(locator)")
+    static createPlayer(locator) {
+        var logUtil = LogUtil.getInstance()
+        var commonString = CommonStrings.getInstance()
+        logUtil.putF(commonString.START, AllBinaryMediaManager.THIS, "creatPlayer(locator)")
         return NoPlayer.NO_PLAYER
-end
+    }
+    
 
+    static playTone(frequency, time, volume) {
+    }
+    
 
-function AllBinaryMediaManager.playTone(frequency, time, volume)
-end
+    static getSupportedContentTypes(protocol) {
+        return StringUtil.getInstance().getArrayInstance()
+    }
+    
 
+    static getSupportedProtocols(content_type) {
+        return StringUtil.getInstance().getArrayInstance()
+    }
+}
 
-function AllBinaryMediaManager.getSupportedContentTypes(protocol)
-        return StringUtil.getInstance():getArrayInstance()
-end
-
-
-function AllBinaryMediaManager.getSupportedProtocols(content_type)
-        return StringUtil.getInstance():getArrayInstance()
-end
-
-AllBinaryMediaManager.THIS = "AllBinaryMediaManagerNoMediaMIDP1"
-
-return AllBinaryMediaManager
+import "../../../../java/io/InputStream" for InputStream
+import "../../../../javax/microedition/media/Player" for Player
+import "../../../../org/allbinary/TsUtil" for TsUtil
+import "../../../../org/allbinary/graphics/canvas/transition/progress/ProgressCanvasFactory" for ProgressCanvasFactory
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./Sounds" for Sounds
+import "./SoundsFactoryInterface" for SoundsFactoryInterface
+import "./NoPlayer" for NoPlayer
 

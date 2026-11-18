@@ -1,59 +1,51 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.animation.vector
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.vector
 
-local Animation = require("org.allbinary.animation.Animation")
-local AnimationInterfaceFactoryInterface = require("org.allbinary.animation.AnimationInterfaceFactoryInterface")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local ScaleProperties = require("org.allbinary.media.ScaleProperties")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LineAnimationFactory is JObject {
+  basicColor { _basicColor }
+  basicColor=(value) { _basicColor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LineAnimationFactory() {
+    _basicColor = null
+        
+  }
+    
 
-local LineAnimationFactory = {}
-LineAnimationFactory.__index = LineAnimationFactory
-LineAnimationFactory.className = "LineAnimationFactory"
+    construct new(basicColor) {
+    super()
+    initFields_LineAnimationFactory()
+        _basicColor = basicColor
+    }
+    
 
-function LineAnimationFactory:_init_fields()
-    self.basicColor = nil
-end
+    getInstance(instanceId) {
+        return LineAnimation.new(_basicColor)
+    }
+    
 
+    setInitialScale(scaleProperties) {
+    }
+}
 
-function LineAnimationFactory.new(basicColor)
-    local self = setmetatable({}, LineAnimationFactory)
-    self:_init_fields()
-        self.basicColor = basicColor
-    return self
-end
-
-
--- throws Exception
-function LineAnimationFactory:getInstance(instanceId)
-        return LineAnimation.new(self.basicColor)
-end
-
-
-function LineAnimationFactory:setInitialScale(scaleProperties)
-end
-
-return LineAnimationFactory
+import "../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../org/allbinary/animation/AnimationInterfaceFactoryInterface" for AnimationInterfaceFactoryInterface
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/media/ScaleProperties" for ScaleProperties
+import "./LineAnimation" for LineAnimation
 

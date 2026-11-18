@@ -1,143 +1,135 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.hud.basic
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.hud.basic
 
--- local Font = require("javax.microedition.lcdui.Font")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicHud = require("org.allbinary.game.graphics.hud.BasicHud")
-local BasicHudFactory = require("org.allbinary.game.graphics.hud.BasicHudFactory")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local MyFontProcessor = require("org.allbinary.graphics.font.MyFontProcessor")
-local PaintableInterface = require("org.allbinary.graphics.paint.PaintableInterface")
-local PrimitiveLongSingleton = require("org.allbinary.logic.math.PrimitiveLongSingleton")
-local PrimitiveLongUtil = require("org.allbinary.logic.math.PrimitiveLongUtil")
+import "../../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../../org/allbinary/game/graphics/hud/BasicHud" for BasicHud
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class NumberStringHud is BasicHud {
+  primitiveLongUtil { _primitiveLongUtil }
+  primitiveLongUtil=(value) { _primitiveLongUtil = value }
+  prependString { _prependString }
+  prependString=(value) { _prependString = value }
+  PREPEND_STRING { _PREPEND_STRING }
+  PREPEND_STRING=(value) { _PREPEND_STRING = value }
+  value { _value }
+  value=(value) { _value = value }
+  max { _max }
+  max=(value) { _max = value }
+  offset { _offset }
+  offset=(value) { _offset = value }
+  valueString { _valueString }
+  valueString=(value) { _valueString = value }
+  valueTotalDigits { _valueTotalDigits }
+  valueTotalDigits=(value) { _valueTotalDigits = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_NumberStringHud() {
+    _primitiveLongUtil = null
+    _prependString = null
+    _PREPEND_STRING = null
+    _value = 0
+    _max = 0
+    _offset = 0
+    _valueString = null
+    _valueTotalDigits = 0
+        
+        
+        
+        
+        
+        _offset = 0
+        
+        _valueTotalDigits = 0
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(prependString, max, location, direction, bufferZone, basicColor) {
+        super(location, direction, bufferZone, basicColor)
+        initFields_NumberStringHud()
+        _prependString = prependString
+        _PREPEND_STRING = JR.toCharArray(prependString)
+        _valueString = PrimitiveLongSingleton.getInstance().NUMBER_CHAR_ARRAYS[0]
+        _primitiveLongUtil = PrimitiveLongUtil.createPowerOfTen(JR.i32(max + 1))
+        _max = max
+        _value = 0
+        if ((direction == 0)) {
+            Fiber.abort(JR.exception("RuntimeException", BasicHudFactory.getInstance().DIRECTION_EXCEPTION))
+        }
+    }
+    
 
-local function java_chars(text)
-    local chars = {}
-    for index = 1, #text do chars[index] = string.sub(text, index, index) end
-    return chars
-end
+    updateMeasurement(graphics) {
+        var font = graphics.getFont()
+        _offset = (font.stringWidth(_prependString) + MyFontProcessor.defaultCharWidth(font))
+        super.updateMeasurement(graphics)
+    }
+    
 
-local NumberStringHud = {}
-NumberStringHud.__index = NumberStringHud
-NumberStringHud.className = "NumberStringHud"
-setmetatable(NumberStringHud, {__index = BasicHud})
+    get() {
+        return _value
+    }
+    
 
-function NumberStringHud:_init_fields()
-    self.primitiveLongUtil = nil
-    self.prependString = nil
-    self.PREPEND_STRING = nil
-    self.value = nil
-    self.max = nil
-    self.offset = 0
-    self.valueString = nil
-    self.valueTotalDigits = 0
-end
+    add(value) {
+        this.set(JR.i32(_value + value))
+    }
+    
 
+    set(value) {
+        _value = value
+        if ((_value > _max)) {
+            _value = 0
+        }
+        _valueString = _primitiveLongUtil.getCharArray(_value)
+        _valueTotalDigits = _primitiveLongUtil.getCurrentTotalDigits()
+    }
+    
 
-function NumberStringHud.new(prependString, max, location, direction, bufferZone, basicColor)
-    local self = setmetatable(BasicHud.new(location, direction, bufferZone, basicColor), NumberStringHud)
-    self:_init_fields()
-        -- super(...) made self above
-        self.prependString = prependString
-        self.PREPEND_STRING = java_chars(prependString)
-        self.valueString = PrimitiveLongSingleton.getInstance().NUMBER_CHAR_ARRAYS[1]
-        self.primitiveLongUtil = PrimitiveLongUtil.createPowerOfTen(max + 1)
-        self.max = max
-        self.value = 0
-        if direction == 0 then
-            error(java_exception("RuntimeException", BasicHudFactory.getInstance().DIRECTION_EXCEPTION), 0)
-        end
-    return self
-end
+    reduce(value) {
+        this.set(JR.i32(_value - value))
+    }
+    
 
+    paint(graphics) {
+        super.paintDX(graphics, _PREPEND_STRING, 0, _PREPEND_STRING.count, _valueString, 0, _valueTotalDigits, _offset)
+    }
+    
 
-function NumberStringHud:updateMeasurement(graphics)
-        local font = graphics:getFont()
-        self.offset = font:stringWidth(self.prependString) + MyFontProcessor.defaultCharWidth(font)
-        BasicHud.updateMeasurement(self, graphics)
-end
+    paintXY(graphics, x, y) {
+        this.myFontProcessor.process(graphics)
+        var charArray = _PREPEND_STRING
+        var len = _PREPEND_STRING.count
+        var charArray2 = _valueString
+        var len2 = _valueTotalDigits
+        this.basicSetColorUtil.setBasicColorP(graphics, this.getBasicColorP())
+        graphics.drawChars(charArray, 0, len, x, y, 0)
+        graphics.drawChars(charArray2, 0, len2, JR.i32(x - _offset), y, 0)
+    }
+    
 
+    paintThreed(graphics) {
+    }
+}
 
-function NumberStringHud:get()
-        return self.value
-end
-
-
-function NumberStringHud:add(value)
-        self:set(self.value + value)
-end
-
-
-function NumberStringHud:set(value)
-        self.value = value
-        if self.value > self.max then
-            self.value = 0
-        end
-        self.valueString = self.primitiveLongUtil:getCharArray(self.value)
-        self.valueTotalDigits = self.primitiveLongUtil:getCurrentTotalDigits()
-end
-
-
-function NumberStringHud:reduce(value)
-        self:set(self.value - value)
-end
-
-
-function NumberStringHud:paint(graphics)
-        BasicHud.paintDX(self, graphics, self.PREPEND_STRING, 0, (self.PREPEND_STRING.n or #self.PREPEND_STRING), self.valueString, 0, self.valueTotalDigits, self.offset)
-end
-
-
-function NumberStringHud:paintXY(graphics, x, y)
-        self.myFontProcessor:process(graphics)
-        local charArray = self.PREPEND_STRING
-        local len = (self.PREPEND_STRING.n or #self.PREPEND_STRING)
-        local charArray2 = self.valueString
-        local len2 = self.valueTotalDigits
-        self.basicSetColorUtil:setBasicColorP(graphics, self:getBasicColorP())
-        graphics:drawChars(charArray, 0, len, x, y, 0)
-        graphics:drawChars(charArray2, 0, len2, x - self.offset, y, 0)
-end
-
-
-function NumberStringHud:paintThreed(graphics)
-end
-
-return NumberStringHud
+import "../../../../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../../../org/allbinary/game/graphics/hud/BasicHudFactory" for BasicHudFactory
+import "../../../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../../../org/allbinary/graphics/font/MyFontProcessor" for MyFontProcessor
+import "../../../../../../../org/allbinary/graphics/paint/PaintableInterface" for PaintableInterface
+import "../../../../../../../org/allbinary/logic/math/PrimitiveLongSingleton" for PrimitiveLongSingleton
+import "../../../../../../../org/allbinary/logic/math/PrimitiveLongUtil" for PrimitiveLongUtil
 

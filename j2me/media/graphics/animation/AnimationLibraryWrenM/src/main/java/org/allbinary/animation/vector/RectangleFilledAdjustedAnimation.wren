@@ -1,84 +1,77 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.vector
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.vector
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local ColorCompositeInterface = require("org.allbinary.graphics.color.ColorCompositeInterface")
-local RectangleFilledAnimation = require("org.allbinary.animation.vector.RectangleFilledAnimation")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./RectangleFilledAnimation" for RectangleFilledAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RectangleFilledAdjustedAnimation is RectangleFilledAnimation {
+  offsetX { _offsetX }
+  offsetX=(value) { _offsetX = value }
+  offsetY { _offsetY }
+  offsetY=(value) { _offsetY = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RectangleFilledAdjustedAnimation() {
+    _offsetX = 0
+    _offsetY = 0
+        
+        
+  }
+    
 
-local RectangleFilledAdjustedAnimation = {}
-RectangleFilledAdjustedAnimation.__index = RectangleFilledAdjustedAnimation
-RectangleFilledAdjustedAnimation.className = "RectangleFilledAdjustedAnimation"
-setmetatable(RectangleFilledAdjustedAnimation, {__index = RectangleFilledAnimation})
+    construct new(width, height, offsetX, offsetY, basicColor) {
+        super(width, height, basicColor)
+        initFields_RectangleFilledAdjustedAnimation()
+        _offsetX = offsetX
+        _offsetY = offsetY
+        this.setBasicColorP(basicColor)
+    }
+    
 
-function RectangleFilledAdjustedAnimation:_init_fields()
-    self.offsetX = nil
-    self.offsetY = nil
-end
+    nextFrame() {
+    }
+    
 
+    paintXY(graphics, x, y) {
+        this.basicSetColorUtil.setBasicColorP3(graphics, this.getBasicColorP(), this.getColor())
+        super.paintXY(graphics, JR.i32(x + _offsetX), JR.i32(y + _offsetY))
+    }
+    
 
-function RectangleFilledAdjustedAnimation.new(width, height, offsetX, offsetY, basicColor)
-    local self = setmetatable(RectangleFilledAnimation.new(width, height, basicColor), RectangleFilledAdjustedAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.offsetX = offsetX
-        self.offsetY = offsetY
-        self:setBasicColorP(basicColor)
-    return self
-end
+    setOffsetX(offsetX) {
+        _offsetX = offsetX
+    }
+    
 
+    setOffsetY(offsetY) {
+        _offsetY = offsetY
+    }
+    
 
-function RectangleFilledAdjustedAnimation:nextFrame()
-end
+    getBasicColorP() {
+        return super.getBasicColorP()
+    }
+    
 
+    setBasicColorP(basicColor) {
+        super.setBasicColorP(basicColor)
+    }
+}
 
-function RectangleFilledAdjustedAnimation:paintXY(graphics, x, y)
-        self.basicSetColorUtil:setBasicColorP3(graphics, self:getBasicColorP(), self:getColor())
-        RectangleFilledAnimation.paintXY(self, graphics, x + self.offsetX, y + self.offsetY)
-end
-
-
-function RectangleFilledAdjustedAnimation:setOffsetX(offsetX)
-        self.offsetX = offsetX
-end
-
-
-function RectangleFilledAdjustedAnimation:setOffsetY(offsetY)
-        self.offsetY = offsetY
-end
-
-
-function RectangleFilledAdjustedAnimation:getBasicColorP()
-        return RectangleFilledAnimation.getBasicColorP(self)
-end
-
-
-function RectangleFilledAdjustedAnimation:setBasicColorP(basicColor)
-        RectangleFilledAnimation.setBasicColorP(self, basicColor)
-end
-
-return RectangleFilledAdjustedAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/graphics/color/ColorCompositeInterface" for ColorCompositeInterface
 

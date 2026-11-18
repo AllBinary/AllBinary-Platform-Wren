@@ -1,91 +1,128 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input.event
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input.event
 
-local LocalPlayerInputIdFactory = require("org.allbinary.game.input.LocalPlayerInputIdFactory")
-local EventListenerInterface = require("org.allbinary.logic.util.event.EventListenerInterface")
-local DownKeyEventHandlerBase = require("org.allbinary.game.input.event.DownKeyEventHandlerBase")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./DownKeyEventHandlerBase" for DownKeyEventHandlerBase
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class DownKeyEventHandler is DownKeyEventHandlerBase {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = DownKeyEventHandler.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+    static instanceArray {
+    if (__instanceArray_set == null) {
+      __instanceArray_set = true
+      __instanceArray = [DownKeyEventHandlerBase.new(), DownKeyEventHandlerBase.new(), DownKeyEventHandlerBase.new(), DownKeyEventHandlerBase.new(), DownKeyEventHandlerBase.new(), DownKeyEventHandlerBase.new()]
+    }
+    return __instanceArray
+  }
+  static instanceArray=(value) {
+    __instanceArray_set = true
+    __instanceArray = value
+  }
+  playerInputIdFactory { _playerInputIdFactory }
+  playerInputIdFactory=(value) { _playerInputIdFactory = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_DownKeyEventHandler() {
+    _playerInputIdFactory = null
+        _playerInputIdFactory = LocalPlayerInputIdFactory.getInstance()
+  }
+    
 
-local DownKeyEventHandler = {}
-DownKeyEventHandler.__index = DownKeyEventHandler
-DownKeyEventHandler.className = "DownKeyEventHandler"
-setmetatable(DownKeyEventHandler, {__index = DownKeyEventHandlerBase})
-
-function DownKeyEventHandler:_init_fields()
-    self.playerInputIdFactory = LocalPlayerInputIdFactory.getInstance()
-end
-
-
-function DownKeyEventHandler.getInstance()
+    static getInstance() {
         return DownKeyEventHandler.instance
-end
+    }
+    
 
+    getInstanceForDevice(deviceId) {
+        var playerInputId = _playerInputIdFactory.getPlayerForDevice(deviceId)
+        return DownKeyEventHandler.instanceArray[playerInputId]
+    }
+    
 
-function DownKeyEventHandler:getInstanceForDevice(deviceId)
-        local playerInputId = self.playerInputIdFactory:getPlayerForDevice(deviceId)
-        return DownKeyEventHandler.instanceArray[playerInputId + 1]
-end
+    getInstanceForPlayer(playerInputId) {
+        return DownKeyEventHandler.instanceArray[playerInputId]
+    }
+    
 
+    construct new() {
+    super()
+    initFields_DownKeyEventHandler()
+    }
+    
 
-function DownKeyEventHandler:getInstanceForPlayer(playerInputId)
-        return DownKeyEventHandler.instanceArray[playerInputId + 1]
-end
+    removeAllListeners() {
+        super.removeAllListeners()
+        if (true) {
+            var index = JR.i32(DownKeyEventHandler.instanceArray.count - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            DownKeyEventHandler.instanceArray[index].removeAllListeners()
+            }
+        }
+    }
+    
 
+    removeListenerSingleThreaded(eventListenerInterface) {
+        super.removeListenerSingleThreaded(eventListenerInterface)
+        if (true) {
+            var index = JR.i32(DownKeyEventHandler.instanceArray.count - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            DownKeyEventHandler.instanceArray[index].removeListenerSingleThreaded(eventListenerInterface)
+            }
+        }
+    }
+    
 
-function DownKeyEventHandler.new()
-    local self = setmetatable(DownKeyEventHandlerBase.new(), DownKeyEventHandler)
-    self:_init_fields()
-    return self
-end
+    removeListener(eventListenerInterface) {
+        super.removeListener(eventListenerInterface)
+        if (true) {
+            var index = JR.i32(DownKeyEventHandler.instanceArray.count - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            DownKeyEventHandler.instanceArray[index].removeListener(eventListenerInterface)
+            }
+        }
+    }
+}
 
-
-function DownKeyEventHandler:removeAllListeners()
-        DownKeyEventHandlerBase.removeAllListeners(self)
-        for index = (DownKeyEventHandler.instanceArray.n or #DownKeyEventHandler.instanceArray) - 1, 0, -1 do
-            DownKeyEventHandler.instanceArray[index + 1]:removeAllListeners()
-        end
-end
-
-
-function DownKeyEventHandler:removeListenerSingleThreaded(eventListenerInterface)
-        DownKeyEventHandlerBase.removeListenerSingleThreaded(self, eventListenerInterface)
-        for index = (DownKeyEventHandler.instanceArray.n or #DownKeyEventHandler.instanceArray) - 1, 0, -1 do
-            DownKeyEventHandler.instanceArray[index + 1]:removeListenerSingleThreaded(eventListenerInterface)
-        end
-end
-
-
-function DownKeyEventHandler:removeListener(eventListenerInterface)
-        DownKeyEventHandlerBase.removeListener(self, eventListenerInterface)
-        for index = (DownKeyEventHandler.instanceArray.n or #DownKeyEventHandler.instanceArray) - 1, 0, -1 do
-            DownKeyEventHandler.instanceArray[index + 1]:removeListener(eventListenerInterface)
-        end
-end
-
-DownKeyEventHandler.instance = DownKeyEventHandler.new()
-DownKeyEventHandler.instanceArray = {DownKeyEventHandlerBase.new(), DownKeyEventHandlerBase.new(), DownKeyEventHandlerBase.new(), DownKeyEventHandlerBase.new(), DownKeyEventHandlerBase.new(), DownKeyEventHandlerBase.new()}
-
-return DownKeyEventHandler
+import "../../../../../org/allbinary/game/input/LocalPlayerInputIdFactory" for LocalPlayerInputIdFactory
+import "../../../../../org/allbinary/logic/util/event/EventListenerInterface" for EventListenerInterface
 

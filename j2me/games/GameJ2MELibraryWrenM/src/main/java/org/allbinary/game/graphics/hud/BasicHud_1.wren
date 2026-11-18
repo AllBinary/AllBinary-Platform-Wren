@@ -1,275 +1,318 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.graphics.hud
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.graphics.hud
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local GPoint = require("org.allbinary.graphics.GPoint")
-local PointFactory = require("org.allbinary.graphics.PointFactory")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local BasicColorSetUtil = require("org.allbinary.graphics.color.BasicColorSetUtil")
-local CanvasStrings = require("org.allbinary.graphics.displayable.CanvasStrings")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
-local DisplayChangeEvent = require("org.allbinary.graphics.displayable.event.DisplayChangeEvent")
-local MyFontProcessor = require("org.allbinary.graphics.font.MyFontProcessor")
-local UpdateMyFontInterface = require("org.allbinary.graphics.font.UpdateMyFontInterface")
-local UpdateMyFontProcessor = require("org.allbinary.graphics.font.UpdateMyFontProcessor")
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventStrings = require("org.allbinary.logic.util.event.EventStrings")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BasicHud_1 is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  canvasStrings { _canvasStrings }
+  canvasStrings=(value) { _canvasStrings = value }
+  basicSetColorUtil { _basicSetColorUtil }
+  basicSetColorUtil=(value) { _basicSetColorUtil = value }
+  displayInfo { _displayInfo }
+  displayInfo=(value) { _displayInfo = value }
+  updateMyFontProcessor { _updateMyFontProcessor }
+  updateMyFontProcessor=(value) { _updateMyFontProcessor = value }
+  myFontProcessor { _myFontProcessor }
+  myFontProcessor=(value) { _myFontProcessor = value }
+  location { _location }
+  location=(value) { _location = value }
+  direction { _direction }
+  direction=(value) { _direction = value }
+  bufferZone { _bufferZone }
+  bufferZone=(value) { _bufferZone = value }
+  hudGraphicsPosition { _hudGraphicsPosition }
+  hudGraphicsPosition=(value) { _hudGraphicsPosition = value }
+  x { _x }
+  x=(value) { _x = value }
+  y { _y }
+  y=(value) { _y = value }
+  basicColor { _basicColor }
+  basicColor=(value) { _basicColor = value }
+  color { _color }
+  color=(value) { _color = value }
+  updateMaxWidth { _updateMaxWidth }
+  updateMaxWidth=(value) { _updateMaxWidth = value }
+  updateMaxHeight { _updateMaxHeight }
+  updateMaxHeight=(value) { _updateMaxHeight = value }
+  offsetY { _offsetY }
+  offsetY=(value) { _offsetY = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BasicHud_1() {
+    _logUtil = null
+    _commonStrings = null
+    _canvasStrings = null
+    _basicSetColorUtil = null
+    _displayInfo = null
+    _updateMyFontProcessor = null
+    _myFontProcessor = null
+    _location = 0
+    _direction = 0
+    _bufferZone = 0
+    _hudGraphicsPosition = null
+    _x = 0
+    _y = 0
+    _basicColor = null
+    _color = 0
+    _updateMaxWidth = 0
+    _updateMaxHeight = 0
+    _offsetY = 0
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        _canvasStrings = CanvasStrings.getInstance()
+        _basicSetColorUtil = BasicColorSetUtil.getInstance()
+        _displayInfo = DisplayInfoSingleton.getInstance()
+        _updateMyFontProcessor = UpdateMyFontProcessor.new(this)
+        _myFontProcessor = _updateMyFontProcessor
+        _location = 0
+        _direction = 0
+        _bufferZone = 0
+        _hudGraphicsPosition = HudGraphicsPosition.NULL_HUD_GRAPHICS_POSITION
+        _x = 0
+        _y = 0
+        _basicColor = BasicColorFactory.getInstance().BLACK
+        
+        _updateMaxWidth = 0
+        _updateMaxHeight = 0
+        _offsetY = 0
+  }
+    
 
-local BasicHud_1 = {}
-BasicHud_1.__index = BasicHud_1
-BasicHud_1.className = "BasicHud_1"
+    construct new(location, direction, bufferZone, basicColor) {
+    super()
+    initFields_BasicHud_1()
+        this.setLocation(location)
+        this.setDirection(direction)
+        this.setBufferZone(bufferZone)
+        this.onDisplayChangeEvent(DisplayInfoSingleton.getInstance().displayChangeEvent)
+        this.setBasicColorP(basicColor)
+        _color = basicColor.intValue()
+    }
+    
 
-function BasicHud_1:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.canvasStrings = CanvasStrings.getInstance()
-    self.basicSetColorUtil = BasicColorSetUtil.getInstance()
-    self.displayInfo = DisplayInfoSingleton.getInstance()
-    self.updateMyFontProcessor = UpdateMyFontProcessor.new(self)
-    self.myFontProcessor = self.updateMyFontProcessor
-    self.location = 0
-    self.direction = 0
-    self.bufferZone = 0
-    self.hudGraphicsPosition = HudGraphicsPosition.NULL_HUD_GRAPHICS_POSITION
-    self.x = 0
-    self.y = 0
-    self.basicColor = BasicColorFactory.getInstance().BLACK
-    self.color = nil
-    self.updateMaxWidth = 0
-    self.updateMaxHeight = 0
-    self.offsetY = 0
-end
+    updateMeasurement(graphics) {
+        var jerror0 = Fiber.new {
+            _hudGraphicsPosition = this.getHudGraphicsPositionWH(_displayInfo.getLastWidth(), _displayInfo.getLastHeight(), _updateMaxWidth, _updateMaxHeight)
+            _x = _hudGraphicsPosition.getPoint().getX()
+            this.setY(_hudGraphicsPosition.getPoint().getY())
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, _canvasStrings.ON_DISPLAY_CHANGE_EVENT, e)
+        }
+        _myFontProcessor = MyFontProcessor.getInstance()
+    }
+    
 
+    getLocation() {
+        return _location
+    }
+    
 
-function BasicHud_1.new(location, direction, bufferZone, basicColor)
-    local self = setmetatable({}, BasicHud_1)
-    self:_init_fields()
-        self:setLocation(location)
-        self:setDirection(direction)
-        self:setBufferZone(bufferZone)
-        self:onDisplayChangeEvent(DisplayInfoSingleton.getInstance().displayChangeEvent)
-        self:setBasicColorP(basicColor)
-        self.color = math.tointeger(basicColor // 1)
-    return self
-end
+    getDirection() {
+        return _direction
+    }
+    
 
-
-function BasicHud_1:updateMeasurement(graphics)
-        local try_ok, try_error = pcall(function()
-            self.hudGraphicsPosition = self:getHudGraphicsPositionWH(self.displayInfo:getLastWidth(), self.displayInfo:getLastHeight(), self.updateMaxWidth, self.updateMaxHeight)
-            self.x = self.hudGraphicsPosition:getPoint():getX()
-            self:setY(self.hudGraphicsPosition:getPoint():getY())
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, self.canvasStrings.ON_DISPLAY_CHANGE_EVENT, e)
-        end
-        self.myFontProcessor = MyFontProcessor.getInstance()
-end
-
-
-function BasicHud_1:getLocation()
-        return self.location
-end
-
-
-function BasicHud_1:getDirection()
-        return self.direction
-end
-
-
--- throws Exception
-function BasicHud_1:getHudGraphicsPositionWH(width, height, maxWidth, maxHeight)
-        local x = 0
-        local y = 0
-        local anchor = 0
-        local basicHudFactory = BasicHudFactory.getInstance()
-        if basicHudFactory.BOTTOMLEFT == self:getLocation() then
-            x = self.bufferZone + 2
-            y = height - maxHeight - self.bufferZone
-            anchor = Graphics.BOTTOM & Graphics.LEFT
-        elseif basicHudFactory.BOTTOMRIGHT == self:getLocation() then
-            x = width - maxWidth
-            y = height - maxHeight - self.bufferZone
-            anchor = Graphics.BOTTOM & Graphics.RIGHT
-        elseif basicHudFactory.TOPLEFT == self:getLocation() then
-            x = self.bufferZone + 2
-            y = self.bufferZone + 5
+    getHudGraphicsPositionWH(width, height, maxWidth, maxHeight) {
+        var x = 0
+        var y = 0
+        var anchor = 0
+        var basicHudFactory = BasicHudFactory.getInstance()
+        if ((basicHudFactory.BOTTOMLEFT == this.getLocation())) {
+            x = JR.i32(_bufferZone + 2)
+            y = JR.i32(JR.i32(height - maxHeight) - _bufferZone)
+            anchor = (Graphics.BOTTOM & Graphics.LEFT)
+        } else if ((basicHudFactory.BOTTOMRIGHT == this.getLocation())) {
+            x = JR.i32(width - maxWidth)
+            y = JR.i32(JR.i32(height - maxHeight) - _bufferZone)
+            anchor = (Graphics.BOTTOM & Graphics.RIGHT)
+        } else if ((basicHudFactory.TOPLEFT == this.getLocation())) {
+            x = JR.i32(_bufferZone + 2)
+            y = JR.i32(_bufferZone + 5)
             anchor = Anchor.TOP_LEFT
-        elseif basicHudFactory.TOPRIGHT == self:getLocation() then
-            x = width - maxWidth
-            y = self.bufferZone + 5
-            anchor = Graphics.TOP & Graphics.RIGHT
-        elseif basicHudFactory.TOPCENTER == self:getLocation() then
-            x = (java_idiv((width - maxWidth), 2))
-            y = self.bufferZone + 5
-            anchor = Graphics.TOP & Graphics.HCENTER
-        elseif basicHudFactory.BOTTOMCENTER == self:getLocation() then
-            x = (java_idiv((width - maxWidth), 2))
-            y = height - maxHeight - self.bufferZone
-            anchor = Graphics.BOTTOM & Graphics.HCENTER
-        elseif basicHudFactory.ABSOLUTE == self:getLocation() then
+        } else if ((basicHudFactory.TOPRIGHT == this.getLocation())) {
+            x = JR.i32(width - maxWidth)
+            y = JR.i32(_bufferZone + 5)
+            anchor = (Graphics.TOP & Graphics.RIGHT)
+        } else if ((basicHudFactory.TOPCENTER == this.getLocation())) {
+            x = (JR.idiv((JR.i32(width - maxWidth)), 2))
+            y = JR.i32(_bufferZone + 5)
+            anchor = (Graphics.TOP & Graphics.HCENTER)
+        } else if ((basicHudFactory.BOTTOMCENTER == this.getLocation())) {
+            x = (JR.idiv((JR.i32(width - maxWidth)), 2))
+            y = JR.i32(JR.i32(height - maxHeight) - _bufferZone)
+            anchor = (Graphics.BOTTOM & Graphics.HCENTER)
+        } else if ((basicHudFactory.ABSOLUTE == this.getLocation())) {
             x = maxHeight
             y = maxWidth
             anchor = 0
-        end
-        return HudGraphicsPosition.new(self:getPoint(x, y), anchor)
-end
+        }
+        return HudGraphicsPosition.new(this.getPoint(x, y), anchor)
+    }
+    
 
+    onEvent(eventObject) {
+        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, this)
+    }
+    
 
-function BasicHud_1:onEvent(eventObject)
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-end
+    onDisplayChangeEvent(displayChangeEvent) {
+        _myFontProcessor = _updateMyFontProcessor
+    }
+    
 
+    getPoint(x, y) {
+        return PointFactory.getInstance().createXY(x, y)
+    }
+    
 
-function BasicHud_1:onDisplayChangeEvent(displayChangeEvent)
-        self.myFontProcessor = self.updateMyFontProcessor
-end
+    getBufferZone() {
+        return _bufferZone
+    }
+    
 
+    setBufferZone(bufferZone) {
+        _bufferZone = bufferZone
+    }
+    
 
-function BasicHud_1:getPoint(x, y)
-        return PointFactory.getInstance():createXY(x, y)
-end
+    setLocation(location) {
+        _location = location
+    }
+    
 
+    setDirection(direction) {
+        _direction = direction
+    }
+    
 
-function BasicHud_1:getBufferZone()
-        return self.bufferZone
-end
+    getHudGraphicsPosition() {
+        return _hudGraphicsPosition
+    }
+    
 
+    getColor() {
+        return _color
+    }
+    
 
-function BasicHud_1:setBufferZone(bufferZone)
-        self.bufferZone = bufferZone
-end
+    getX() {
+        return _x
+    }
+    
 
+    setX(x) {
+        _x = x
+    }
+    
 
-function BasicHud_1:setLocation(location)
-        self.location = location
-end
+    setBasicColorP(basicColor) {
+        _basicColor = basicColor
+    }
+    
 
+    getBasicColorP() {
+        return _basicColor
+    }
+    
 
-function BasicHud_1:setDirection(direction)
-        self.direction = direction
-end
+    setY(y) {
+        _y = y
+    }
+    
 
+    getY() {
+        return _y
+    }
+    
 
-function BasicHud_1:getHudGraphicsPosition()
-        return self.hudGraphicsPosition
-end
+    paintSSO(graphics, string, string2, offset) {
+        _myFontProcessor.process(graphics)
+        _basicSetColorUtil.setBasicColorP(graphics, this.getBasicColorP())
+        graphics.drawString(string, _x, this.getY(), _hudGraphicsPosition.getAnchor())
+        graphics.drawString(string2, JR.i32(_x + offset), this.getY(), _hudGraphicsPosition.getAnchor())
+    }
+    
 
+    paintSSOO(graphics, string, string2, offset, offset2) {
+        _myFontProcessor.process(graphics)
+        graphics.setColor(this.getColor())
+        graphics.drawString(string, JR.i32(_x + offset), this.getY(), _hudGraphicsPosition.getAnchor())
+        graphics.drawString(string2, JR.i32(_x + offset2), this.getY(), _hudGraphicsPosition.getAnchor())
+    }
+    
 
-function BasicHud_1:getColor()
-        return self.color
-end
+    paintDXY(graphics, charArray, offset, len, charArray2, offset2, len2, xOffset, xOffset2) {
+        _myFontProcessor.process(graphics)
+        _basicSetColorUtil.setBasicColorP(graphics, this.getBasicColorP())
+        var y = this.getY()
+        graphics.drawChars(charArray, offset, len, JR.i32(_x + xOffset), y, _hudGraphicsPosition.getAnchor())
+        graphics.drawChars(charArray2, offset2, len2, JR.i32(_x + xOffset2), y, _hudGraphicsPosition.getAnchor())
+    }
+    
 
+    paintDX(graphics, charArray, offset, len, charArray2, offset2, len2, xOffset) {
+        _myFontProcessor.process(graphics)
+        _basicSetColorUtil.setBasicColorP(graphics, this.getBasicColorP())
+        var y = this.getY()
+        graphics.drawChars(charArray, offset, len, _x, y, _hudGraphicsPosition.getAnchor())
+        graphics.drawChars(charArray2, offset2, len2, JR.i32(_x + xOffset), y, _hudGraphicsPosition.getAnchor())
+    }
+    
 
-function BasicHud_1:getX()
-        return self.x
-end
+    paintOffsetAndLength(graphics, charArray, offset, len) {
+        _myFontProcessor.process(graphics)
+        _basicSetColorUtil.setBasicColorP(graphics, this.getBasicColorP())
+        var y = this.getY()
+        graphics.drawChars(charArray, offset, len, _x, y, _hudGraphicsPosition.getAnchor())
+    }
+    
 
+    paintString(graphics, string) {
+        _myFontProcessor.process(graphics)
+        _basicSetColorUtil.setBasicColorP(graphics, this.getBasicColorP())
+        var y = JR.i32(this.getY() + _offsetY)
+        graphics.drawString(string, _x, y, _hudGraphicsPosition.getAnchor())
+    }
+}
 
-function BasicHud_1:setX(x)
-        self.x = x
-end
-
-
-function BasicHud_1:setBasicColorP(basicColor)
-        self.basicColor = basicColor
-end
-
-
-function BasicHud_1:getBasicColorP()
-        return self.basicColor
-end
-
-
-function BasicHud_1:setY(y)
-        self.y = y
-end
-
-
-function BasicHud_1:getY()
-        return self.y
-end
-
-
-function BasicHud_1:paintSSO(graphics, string, string2, offset)
-        self.myFontProcessor:process(graphics)
-        self.basicSetColorUtil:setBasicColorP(graphics, self:getBasicColorP())
-        graphics:drawString(string, self.x, self:getY(), self.hudGraphicsPosition:getAnchor())
-        graphics:drawString(string2, self.x + offset, self:getY(), self.hudGraphicsPosition:getAnchor())
-end
-
-
-function BasicHud_1:paintSSOO(graphics, string, string2, offset, offset2)
-        self.myFontProcessor:process(graphics)
-        graphics:setColor(self:getColor())
-        graphics:drawString(string, self.x + offset, self:getY(), self.hudGraphicsPosition:getAnchor())
-        graphics:drawString(string2, self.x + offset2, self:getY(), self.hudGraphicsPosition:getAnchor())
-end
-
-
-function BasicHud_1:paintDXY(graphics, charArray, offset, len, charArray2, offset2, len2, xOffset, xOffset2)
-        self.myFontProcessor:process(graphics)
-        self.basicSetColorUtil:setBasicColorP(graphics, self:getBasicColorP())
-        local y = self:getY()
-        graphics:drawChars(charArray, offset, len, self.x + xOffset, y, self.hudGraphicsPosition:getAnchor())
-        graphics:drawChars(charArray2, offset2, len2, self.x + xOffset2, y, self.hudGraphicsPosition:getAnchor())
-end
-
-
-function BasicHud_1:paintDX(graphics, charArray, offset, len, charArray2, offset2, len2, xOffset)
-        self.myFontProcessor:process(graphics)
-        self.basicSetColorUtil:setBasicColorP(graphics, self:getBasicColorP())
-        local y = self:getY()
-        graphics:drawChars(charArray, offset, len, self.x, y, self.hudGraphicsPosition:getAnchor())
-        graphics:drawChars(charArray2, offset2, len2, self.x + xOffset, y, self.hudGraphicsPosition:getAnchor())
-end
-
-
-function BasicHud_1:paintOffsetAndLength(graphics, charArray, offset, len)
-        self.myFontProcessor:process(graphics)
-        self.basicSetColorUtil:setBasicColorP(graphics, self:getBasicColorP())
-        local y = self:getY()
-        graphics:drawChars(charArray, offset, len, self.x, y, self.hudGraphicsPosition:getAnchor())
-end
-
-
-function BasicHud_1:paintString(graphics, string)
-        self.myFontProcessor:process(graphics)
-        self.basicSetColorUtil:setBasicColorP(graphics, self:getBasicColorP())
-        local y = self:getY() + self.offsetY
-        graphics:drawString(string, self.x, y, self.hudGraphicsPosition:getAnchor())
-end
-
-return BasicHud_1
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../org/allbinary/graphics/Anchor" for Anchor
+import "../../../../../org/allbinary/graphics/GPoint" for GPoint
+import "../../../../../org/allbinary/graphics/PointFactory" for PointFactory
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../org/allbinary/graphics/color/BasicColorSetUtil" for BasicColorSetUtil
+import "../../../../../org/allbinary/graphics/displayable/CanvasStrings" for CanvasStrings
+import "../../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "../../../../../org/allbinary/graphics/displayable/event/DisplayChangeEvent" for DisplayChangeEvent
+import "../../../../../org/allbinary/graphics/font/MyFontProcessor" for MyFontProcessor
+import "../../../../../org/allbinary/graphics/font/UpdateMyFontInterface" for UpdateMyFontInterface
+import "../../../../../org/allbinary/graphics/font/UpdateMyFontProcessor" for UpdateMyFontProcessor
+import "../../../../../org/allbinary/logic/communication/log/ForcedLogUtil" for ForcedLogUtil
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./HudGraphicsPosition" for HudGraphicsPosition
+import "./BasicHudFactory" for BasicHudFactory
 

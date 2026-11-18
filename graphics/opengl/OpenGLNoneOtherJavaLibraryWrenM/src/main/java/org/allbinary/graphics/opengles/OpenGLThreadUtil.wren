@@ -1,45 +1,45 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.opengles
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.opengles
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class OpenGLThreadUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = OpenGLThreadUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_OpenGLThreadUtil() {
+  }
 
-local OpenGLThreadUtil = {}
-OpenGLThreadUtil.__index = OpenGLThreadUtil
-OpenGLThreadUtil.className = "OpenGLThreadUtil"
+  construct new() {
+    super()
+    initFields_OpenGLThreadUtil()
+  }
+    
 
-function OpenGLThreadUtil.new()
-    local self = setmetatable({}, OpenGLThreadUtil)
-    return self
-end
-
-
-function OpenGLThreadUtil.getInstance()
+    static getInstance() {
         return OpenGLThreadUtil.instance
-end
+    }
+    
 
+    set(glSurfaceView) {
+    }
+    
 
-function OpenGLThreadUtil:set(glSurfaceView)
-end
+    onPause() {
+    }
+    
 
+    onResume() {
+    }
+}
 
-function OpenGLThreadUtil:onPause()
-end
-
-
-function OpenGLThreadUtil:onResume()
-end
-
-OpenGLThreadUtil.instance = OpenGLThreadUtil.new()
-
-return OpenGLThreadUtil
 

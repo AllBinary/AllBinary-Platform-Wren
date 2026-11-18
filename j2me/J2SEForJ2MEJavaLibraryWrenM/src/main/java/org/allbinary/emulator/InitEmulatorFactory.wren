@@ -1,60 +1,61 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2011 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.emulator
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2011 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.emulator
 
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class InitEmulatorFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = InitEmulatorFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  initEmulator { _initEmulator }
+  initEmulator=(value) { _initEmulator = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_InitEmulatorFactory() {
+    _initEmulator = false
+        _initEmulator = false
+  }
 
-local InitEmulatorFactory = {}
-InitEmulatorFactory.__index = InitEmulatorFactory
-InitEmulatorFactory.className = "InitEmulatorFactory"
+  construct new() {
+    super()
+    initFields_InitEmulatorFactory()
+  }
+    
 
-function InitEmulatorFactory:_init_fields()
-    self.initEmulator = false
-end
-
-function InitEmulatorFactory.new()
-    local self = setmetatable({}, InitEmulatorFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function InitEmulatorFactory.getInstance()
+    static getInstance() {
         return InitEmulatorFactory.instance
-end
+    }
+    
 
+    setInitEmulator(initEmulator) {
+        _initEmulator = initEmulator
+    }
+    
 
-function InitEmulatorFactory:setInitEmulator(initEmulator)
-        self.initEmulator = initEmulator
-end
+    isInitEmulator() {
+        return _initEmulator
+    }
+}
 
-
-function InitEmulatorFactory:isInitEmulator()
-        return self.initEmulator
-end
-
-InitEmulatorFactory.instance = InitEmulatorFactory.new()
-
-return InitEmulatorFactory
 

@@ -1,72 +1,75 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
-local PaintableInterface = require("org.allbinary.graphics.paint.PaintableInterface")
-local Layer = require("org.allbinary.layer.Layer")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/graphics/paint/Paintable" for Paintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PaintableLayerComposite is Paintable {
+  paintableArray { _paintableArray }
+  paintableArray=(value) { _paintableArray = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PaintableLayerComposite() {
+    _paintableArray = null
+        
+  }
+    
 
-local PaintableLayerComposite = {}
-PaintableLayerComposite.__index = PaintableLayerComposite
-PaintableLayerComposite.className = "PaintableLayerComposite"
-setmetatable(PaintableLayerComposite, {__index = Paintable})
+    construct new(paintableArray) {
+    super()
+    initFields_PaintableLayerComposite()
+        _paintableArray = paintableArray
+    }
+    
 
-function PaintableLayerComposite:_init_fields()
-    self.paintableArray = nil
-end
+    paint(graphics) {
+        if (true) {
+            var index = _paintableArray.count
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            _paintableArray[index].paint(graphics)
+            }
+        }
+    }
+    
 
+    paintThreed(graphics) {
+        var paintableInterface = null
+        if (true) {
+            var index = _paintableArray.count
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            paintableInterface = _paintableArray[index]
+            paintableInterface.paintThreed(graphics)
+            }
+        }
+    }
+}
 
-function PaintableLayerComposite.new(paintableArray)
-    local self = setmetatable(Paintable.new(), PaintableLayerComposite)
-    self:_init_fields()
-        self.paintableArray = paintableArray
-    return self
-end
-
-
-function PaintableLayerComposite:paint(graphics)
-        do
-            local index = (self.paintableArray.n or #self.paintableArray)
-            while (function() index = index - 1 return index end)() >= 0 do
-            self.paintableArray[index + 1]:paint(graphics)
-            end
-        end
-end
-
-
-function PaintableLayerComposite:paintThreed(graphics)
-        local paintableInterface = nil
-        do
-            local index = (self.paintableArray.n or #self.paintableArray)
-            while (function() index = index - 1 return index end)() >= 0 do
-            paintableInterface = self.paintableArray[index + 1]
-            paintableInterface:paintThreed(graphics)
-            end
-        end
-end
-
-return PaintableLayerComposite
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/graphics/paint/PaintableInterface" for PaintableInterface
+import "../../../../org/allbinary/layer/Layer" for Layer
 

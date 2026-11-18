@@ -1,59 +1,59 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.media.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media.image
 
--- local Image = require("javax.microedition.lcdui.Image")
-local Anchor = require("org.allbinary.graphics.Anchor")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ImageRotationUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ImageRotationUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImageRotationUtil() {
+    _anchor = 0
+        _anchor = Anchor.TOP_LEFT
+  }
+    
 
-local ImageRotationUtil = {}
-ImageRotationUtil.__index = ImageRotationUtil
-ImageRotationUtil.className = "ImageRotationUtil"
-
-function ImageRotationUtil:_init_fields()
-    self.anchor = Anchor.TOP_LEFT
-end
-
-
-function ImageRotationUtil.getInstance()
+    static getInstance() {
         return ImageRotationUtil.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_ImageRotationUtil()
+    }
+    
 
-function ImageRotationUtil.new()
-    local self = setmetatable({}, ImageRotationUtil)
-    self:_init_fields()
-    return self
-end
-
-
--- throws Exception
-function ImageRotationUtil:createRotatedImage(originalImage, rotationInDegrees)
+    createRotatedImage(originalImage, rotationInDegrees) {
         return originalImage
-end
+    }
+}
 
-ImageRotationUtil.instance = ImageRotationUtil.new()
-
-return ImageRotationUtil
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/graphics/Anchor" for Anchor
 

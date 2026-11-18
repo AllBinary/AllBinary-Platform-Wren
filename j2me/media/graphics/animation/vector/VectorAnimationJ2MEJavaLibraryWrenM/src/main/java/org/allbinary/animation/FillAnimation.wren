@@ -1,95 +1,90 @@
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local IndexedAnimation = require("org.allbinary.animation.IndexedAnimation")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./IndexedAnimation" for IndexedAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class FillAnimation is IndexedAnimation {
+  pixelBuffer { _pixelBuffer }
+  pixelBuffer=(value) { _pixelBuffer = value }
+  width { _width }
+  width=(value) { _width = value }
+  height { _height }
+  height=(value) { _height = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_FillAnimation() {
+    _pixelBuffer = null
+    _width = 0
+    _height = 0
+        
+        
+        
+  }
+    
 
-local FillAnimation = {}
-FillAnimation.__index = FillAnimation
-FillAnimation.className = "FillAnimation"
-setmetatable(FillAnimation, {__index = IndexedAnimation})
+    construct new(pixelBuffer, width, height, animationBehavior) {
+        super(animationBehavior)
+        initFields_FillAnimation()
+        _width = 100
+        _height = 100
+        _pixelBuffer = pixelBuffer
+    }
+    
 
-function FillAnimation:_init_fields()
-    self.pixelBuffer = nil
-    self.width = nil
-    self.height = nil
-end
-
-
-function FillAnimation.new(pixelBuffer, width, height, animationBehavior)
-    local self = setmetatable(IndexedAnimation.new(animationBehavior), FillAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.width = 100
-        self.height = 100
-        self.pixelBuffer = pixelBuffer
-    return self
-end
-
-
-function FillAnimation:setBasicColorP(basicColor)
-        local changed = false
-        if self:getBasicColorP() == nil or math.tointeger(self:getBasicColorP() // 1) ~= math.tointeger(basicColor // 1) then
+    setBasicColorP(basicColor) {
+        var changed = false
+        if (((this.getBasicColorP() == null) || (this.getBasicColorP().intValue() != basicColor.intValue()))) {
             changed = true
-        end
-        IndexedAnimation.setBasicColorP(self, basicColor)
-        if changed then
-            self:updateModifiers()
-        end
-end
+        }
+        super.setBasicColorP(basicColor)
+        if (changed) {
+            this.updateModifiers()
+        }
+    }
+    
 
-
-function FillAnimation:changeBasicColor(basicColor)
-        local changed = false
-        if self:getChangeBasicColor() == nil or math.tointeger(self:getChangeBasicColor() // 1) ~= math.tointeger(basicColor // 1) then
+    changeBasicColor(basicColor) {
+        var changed = false
+        if (((this.getChangeBasicColor() == null) || (this.getChangeBasicColor().intValue() != basicColor.intValue()))) {
             changed = true
-        end
-        IndexedAnimation.changeBasicColor(self, basicColor)
-        if changed then
-            self:updateModifiers()
-        end
-end
+        }
+        super.changeBasicColor(basicColor)
+        if (changed) {
+            this.updateModifiers()
+        }
+    }
+    
 
-
-function FillAnimation:setAlpha(alpha)
-        local changed = false
-        if self.alphaP ~= alpha then
+    setAlpha(alpha) {
+        var changed = false
+        if ((this.alphaP != alpha)) {
             changed = true
-        end
-        IndexedAnimation.setAlpha(self, alpha)
-        if changed then
-            self:updateModifiers()
-        end
-end
+        }
+        super.setAlpha(alpha)
+        if (changed) {
+            this.updateModifiers()
+        }
+    }
+    
 
+    setScale(scaleX, scaleY) {
+    }
+    
 
-function FillAnimation:setScale(scaleX, scaleY)
-end
+    setMaxScale(maxScaleX, maxScaleY) {
+    }
+    
 
+    updateModifiers() {
+    }
+    
 
-function FillAnimation:setMaxScale(maxScaleX, maxScaleY)
-end
+    paint(g) {
+        g.drawRGB(_pixelBuffer, 0, _width, 0, 0, _width, _height, true)
+    }
+}
 
-
-function FillAnimation:updateModifiers()
-end
-
-
-function FillAnimation:paint(g)
-        g:drawRGB(self.pixelBuffer, 0, self.width, 0, 0, self.width, self.height, true)
-end
-
-return FillAnimation
+import "../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "./AnimationBehavior" for AnimationBehavior
 

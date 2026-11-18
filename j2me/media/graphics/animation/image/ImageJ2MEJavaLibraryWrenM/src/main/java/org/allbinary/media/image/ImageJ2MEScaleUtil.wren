@@ -1,98 +1,112 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2023 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.media.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2023 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media.image
 
--- local Image = require("javax.microedition.lcdui.Image")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class ImageJ2MEScaleUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ImageJ2MEScaleUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_ImageJ2MEScaleUtil() {
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local ImageJ2MEScaleUtil = {}
-ImageJ2MEScaleUtil.__index = ImageJ2MEScaleUtil
-ImageJ2MEScaleUtil.className = "ImageJ2MEScaleUtil"
-
-
-function ImageJ2MEScaleUtil.getInstance()
+    static getInstance() {
         return ImageJ2MEScaleUtil.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_ImageJ2MEScaleUtil()
+    }
+    
 
-function ImageJ2MEScaleUtil.new()
-    local self = setmetatable({}, ImageJ2MEScaleUtil)
-    return self
-end
-
-
--- throws Exception
-function ImageJ2MEScaleUtil:scaleArray(images, width, height)
-        local scaledImages = java_new_array(nil, (images.n or #images))
-        do
-            local index = (images.n or #images)
-            while (function() index = index - 1 return index end)() >= 0 do
-            scaledImages[index + 1] = self:scale(images[index + 1], width, height)
-            end
-        end
+    scaleArray(images, width, height) {
+        var scaledImages = List.filled(images.count, null)
+        if (true) {
+            var index = images.count
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            scaledImages[index] = this.scale(images[index], width, height)
+            }
+        }
         return scaledImages
-end
+    }
+    
 
-
--- throws Exception
-function ImageJ2MEScaleUtil:scale(image, width, height)
-        local sourceWidth = image:getWidth()
-        local sourceHeight = image:getHeight()
-        local originalData = java_new_array(0, image:getWidth() * image:getHeight())
-        image:getRGB(originalData, 0, image:getWidth(), 0, 0, image:getWidth(), image:getHeight())
-        local scaledData = java_new_array(0, width * height)
-        local heightRatioFactor = java_idiv((8 * sourceHeight), height)
-        local widthRatioFactor = java_idiv((8 * sourceWidth), width)
-        local scaledIndex = (scaledData.n or #scaledData) - 1
-        local dx = 0
-        local dy = 0
-        do
-            local index = height
-            while (function() index = index - 1 return index end)() >= 0 do
-            dy = (((index * heightRatioFactor)) // (1 << (3)))
-            do
-                local index2 = width
-                while (function() index2 = index2 - 1 return index2 end)() >= 0 do
-                dx = (((index2 * widthRatioFactor)) // (1 << (3)))
-                scaledData[(function() local value = scaledIndex scaledIndex = value - 1 return value end)() + 1] = originalData[(sourceWidth * dy) + dx + 1]
-                end
-            end
-            end
-        end
-        local scaledImage = Image.createRGBImage(scaledData, width, height, true)
+    scale(image, width, height) {
+        var sourceWidth = image.getWidth()
+        var sourceHeight = image.getHeight()
+        var originalData = List.filled((image.getWidth() * image.getHeight()), 0)
+        image.getRGB(originalData, 0, image.getWidth(), 0, 0, image.getWidth(), image.getHeight())
+        var scaledData = List.filled(JR.i32(width * height), 0)
+        var heightRatioFactor = JR.idiv((JR.i32(8 * sourceHeight)), height)
+        var widthRatioFactor = JR.idiv((JR.i32(8 * sourceWidth)), width)
+        var scaledIndex = JR.i32(scaledData.count - 1)
+        var dx = 0
+        var dy = 0
+        if (true) {
+            var index = height
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            dy = JR.shr((JR.i32(index * heightRatioFactor)), 3)
+            if (true) {
+                var index2 = width
+                var jfirst = true
+                while (true) {
+                    jfirst = false
+                    if (!((Fn.new {
+index2 = JR.i32(index2 - 1)
+return index2
+}.call() >= 0))) break
+                dx = JR.shr((JR.i32(index2 * widthRatioFactor)), 3)
+                scaledData[Fn.new {
+var jold = scaledIndex
+scaledIndex = JR.i32(jold - 1)
+return jold
+}.call()] = originalData[JR.i32((JR.i32(sourceWidth * dy)) + dx)]
+                }
+            }
+            }
+        }
+        var scaledImage = Image.createRGBImage(scaledData, width, height, true)
         return scaledImage
-end
+    }
+}
 
-ImageJ2MEScaleUtil.instance = ImageJ2MEScaleUtil.new()
-
-return ImageJ2MEScaleUtil
+import "../../../../javax/microedition/lcdui/Image" for Image
 

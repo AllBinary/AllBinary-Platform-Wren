@@ -1,50 +1,53 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AnimationBehaviorFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = AnimationBehaviorFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AnimationBehaviorFactory() {
+  }
 
-local AnimationBehaviorFactory = {}
-AnimationBehaviorFactory.__index = AnimationBehaviorFactory
-AnimationBehaviorFactory.className = "AnimationBehaviorFactory"
+  construct new() {
+    super()
+    initFields_AnimationBehaviorFactory()
+  }
+    
 
-function AnimationBehaviorFactory.new()
-    local self = setmetatable({}, AnimationBehaviorFactory)
-    return self
-end
-
-
-function AnimationBehaviorFactory.getInstance()
+    static getInstance() {
         return AnimationBehaviorFactory.instance
-end
+    }
+    
 
-
-function AnimationBehaviorFactory:getOrCreateInstance()
+    getOrCreateInstance() {
         return AnimationBehavior.getInstance()
-end
+    }
+}
 
-AnimationBehaviorFactory.instance = AnimationBehaviorFactory.new()
-
-return AnimationBehaviorFactory
+import "./AnimationBehavior" for AnimationBehavior
 

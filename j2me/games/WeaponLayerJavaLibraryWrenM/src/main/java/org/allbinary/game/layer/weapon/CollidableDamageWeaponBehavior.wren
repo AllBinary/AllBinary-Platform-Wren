@@ -1,117 +1,108 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer.weapon
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer.weapon
 
-local CollidableHelperFactory = require("org.allbinary.game.collision.CollidableHelperFactory")
-local CollidableInterfaceCompositeInterface = require("org.allbinary.game.collision.CollidableInterfaceCompositeInterface")
-local CollisionHelper = require("org.allbinary.game.collision.CollisionHelper")
-local CollisionType = require("org.allbinary.game.collision.CollisionType")
-local CollisionTypeFactory = require("org.allbinary.game.collision.CollisionTypeFactory")
-local DamageableInterface = require("org.allbinary.game.combat.damage.DamageableInterface")
-local CollidableCompositeLayer = require("org.allbinary.game.layer.CollidableCompositeLayer")
-local CollidableDestroyableDamageableBehavior = require("org.allbinary.game.layer.special.CollidableDestroyableDamageableBehavior")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/game/layer/special/CollidableDestroyableDamageableBehavior" for CollidableDestroyableDamageableBehavior
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CollidableDamageWeaponBehavior is CollidableDestroyableDamageableBehavior {
+  collided { _collided }
+  collided=(value) { _collided = value }
+  collisionHelper { _collisionHelper }
+  collisionHelper=(value) { _collisionHelper = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CollidableDamageWeaponBehavior() {
+    _collided = false
+    _collisionHelper = null
+        _collided = false
+        
+  }
+    
 
-local CollidableDamageWeaponBehavior = {}
-CollidableDamageWeaponBehavior.__index = CollidableDamageWeaponBehavior
-CollidableDamageWeaponBehavior.className = "CollidableDamageWeaponBehavior"
-setmetatable(CollidableDamageWeaponBehavior, {__index = CollidableDestroyableDamageableBehavior})
+    construct new(collidable) {
+        super(collidable)
+        initFields_CollidableDamageWeaponBehavior()
+        this.setCollided(false)
+        this.setCollidable(true)
+        _collisionHelper = CollidableHelperFactory.getInstance()
+    }
+    
 
-function CollidableDamageWeaponBehavior:_init_fields()
-    self.collided = false
-    self.collisionHelper = nil
-end
+    init(sourceLayerInterface) {
+        this.setCollided(false)
+        _collisionHelper.setOwnerLayerInterface(sourceLayerInterface)
+    }
+    
 
-
-function CollidableDamageWeaponBehavior.new(collidable)
-    local self = setmetatable(CollidableDestroyableDamageableBehavior.new(collidable), CollidableDamageWeaponBehavior)
-    self:_init_fields()
-        -- super(...) made self above
-        self:setCollided(false)
-        self:setCollidable(true)
-        self.collisionHelper = CollidableHelperFactory.getInstance()
-    return self
-end
-
-
-function CollidableDamageWeaponBehavior:init(sourceLayerInterface)
-        self:setCollided(false)
-        self.collisionHelper:setOwnerLayerInterface(sourceLayerInterface)
-end
-
-
-function CollidableDamageWeaponBehavior:isCollision(ownerLayer, collisionLayer)
-        if self.collisionHelper:isCollidable(collisionLayer) then
-            if ownerLayer:getGroupInterface()[1] ~= collisionLayer:getGroupInterface()[1] then
-                return CollidableDestroyableDamageableBehavior.isCollision(self, ownerLayer, collisionLayer)
-            end
-        end
+    isCollision(ownerLayer, collisionLayer) {
+        if (_collisionHelper.isCollidable(collisionLayer)) {
+            if ((ownerLayer.getGroupInterface()[0] != collisionLayer.getGroupInterface()[0])) {
+                return super.isCollision(ownerLayer, collisionLayer)
+            }
+        }
         return false
-end
+    }
+    
 
+    collide(ownerLayer, collisionLayer) {
+        super.collide(ownerLayer, collisionLayer)
+        _collided = true
+    }
+    
 
--- throws Exception
-function CollidableDamageWeaponBehavior:collide(ownerLayer, collisionLayer)
-        CollidableDestroyableDamageableBehavior.collide(self, ownerLayer, collisionLayer)
-        self.collided = true
-end
-
-
-function CollidableDamageWeaponBehavior:isCollisionInterface(ownerLayer, collidableInterfaceCompositeInterface)
-        if self.collisionHelper:isCollidable(collidableInterfaceCompositeInterface) then
-            local layerInterface = collidableInterfaceCompositeInterface
-            if ownerLayer:getGroupInterface()[1] ~= layerInterface:getGroupInterface()[1] then
-                if self.layerCollisionUtil:isCollision(ownerLayer, layerInterface) then
+    isCollisionInterface(ownerLayer, collidableInterfaceCompositeInterface) {
+        if (_collisionHelper.isCollidable(collidableInterfaceCompositeInterface)) {
+            var layerInterface = collidableInterfaceCompositeInterface
+            if ((ownerLayer.getGroupInterface()[0] != layerInterface.getGroupInterface()[0])) {
+                if (this.layerCollisionUtil.isCollision(ownerLayer, layerInterface)) {
                     return true
-                end
-            end
-        end
+                }
+            }
+        }
         return false
-end
+    }
+    
 
+    collideInterface(ownerLayer, collidableInterfaceCompositeInterface) {
+        this.damageUtil.process(ownerLayer, collidableInterfaceCompositeInterface)
+        _collided = true
+    }
+    
 
--- throws Exception
-function CollidableDamageWeaponBehavior:collideInterface(ownerLayer, collidableInterfaceCompositeInterface)
-        self.damageUtil:process(ownerLayer, collidableInterfaceCompositeInterface)
-        self.collided = true
-end
-
-
-function CollidableDamageWeaponBehavior:getCollisionTypeWith(layerInterface)
+    getCollisionTypeWith(layerInterface) {
         return CollisionTypeFactory.getInstance().COLLISION
-end
+    }
+    
 
+    isCollided() {
+        return _collided
+    }
+    
 
-function CollidableDamageWeaponBehavior:isCollided()
-        return self.collided
-end
+    setCollided(collided) {
+        _collided = collided
+    }
+}
 
-
-function CollidableDamageWeaponBehavior:setCollided(collided)
-        self.collided = collided
-end
-
-return CollidableDamageWeaponBehavior
+import "../../../../../org/allbinary/game/collision/CollidableHelperFactory" for CollidableHelperFactory
+import "../../../../../org/allbinary/game/collision/CollidableInterfaceCompositeInterface" for CollidableInterfaceCompositeInterface
+import "../../../../../org/allbinary/game/collision/CollisionHelper" for CollisionHelper
+import "../../../../../org/allbinary/game/collision/CollisionType" for CollisionType
+import "../../../../../org/allbinary/game/collision/CollisionTypeFactory" for CollisionTypeFactory
+import "../../../../../org/allbinary/game/combat/damage/DamageableInterface" for DamageableInterface
+import "../../../../../org/allbinary/game/layer/CollidableCompositeLayer" for CollidableCompositeLayer
+import "../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
 

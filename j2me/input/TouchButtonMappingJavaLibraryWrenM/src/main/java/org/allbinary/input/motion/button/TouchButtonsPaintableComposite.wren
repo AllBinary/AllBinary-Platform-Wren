@@ -1,116 +1,135 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.button
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.button
 
-local CompleteMotionGestureInputEvent = require("org.allbinary.game.input.CompleteMotionGestureInputEvent")
-local CompleteMotionGestureInputEventHandler = require("org.allbinary.game.input.CompleteMotionGestureInputEventHandler")
-local CompleteMotionGestureInputEventListenerInterface = require("org.allbinary.game.input.CompleteMotionGestureInputEventListenerInterface")
-local GameKey = require("org.allbinary.game.input.GameKey")
-local InputMappingInterface = require("org.allbinary.game.input.mapping.InputMappingInterface")
-local GameKeyCompleteMotionGestureInputEvent = require("org.allbinary.game.input.motion.action.GameKeyCompleteMotionGestureInputEvent")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local ProcessPaintable = require("org.allbinary.graphics.paint.ProcessPaintable")
-local MotionGestureInput = require("org.allbinary.input.motion.gesture.MotionGestureInput")
-local TouchMotionGestureFactory = require("org.allbinary.input.motion.gesture.TouchMotionGestureFactory")
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventStrings = require("org.allbinary.logic.util.event.EventStrings")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local TimeDelayHelper = require("org.allbinary.time.TimeDelayHelper")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/graphics/paint/ProcessPaintable" for ProcessPaintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class TouchButtonsPaintableComposite is ProcessPaintable {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  inputMappingInterface { _inputMappingInterface }
+  inputMappingInterface=(value) { _inputMappingInterface = value }
+  touchButtonsPaintable { _touchButtonsPaintable }
+  touchButtonsPaintable=(value) { _touchButtonsPaintable = value }
+  timeHelper { _timeHelper }
+  timeHelper=(value) { _timeHelper = value }
+  released { _released }
+  released=(value) { _released = value }
+  METHOD_NAME { _METHOD_NAME }
+  METHOD_NAME=(value) { _METHOD_NAME = value }
+  RELEASE { _RELEASE }
+  RELEASE=(value) { _RELEASE = value }
+  FAST_REPEAT { _FAST_REPEAT }
+  FAST_REPEAT=(value) { _FAST_REPEAT = value }
+  IGNORE { _IGNORE }
+  IGNORE=(value) { _IGNORE = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TouchButtonsPaintableComposite() {
+    _logUtil = null
+    _commonStrings = null
+    _inputMappingInterface = null
+    _touchButtonsPaintable = null
+    _timeHelper = null
+    _released = false
+    _METHOD_NAME = null
+    _RELEASE = null
+    _FAST_REPEAT = null
+    _IGNORE = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        
+        
+        _timeHelper = TimeDelayHelper.new(250)
+        _released = true
+        _METHOD_NAME = "onCompleteMotionGestureInputEvent"
+        _RELEASE = "Ignoring: MotionGestureInput Release"
+        _FAST_REPEAT = "Ignoring: MotionGestureInput Repeated To Quickly"
+        _IGNORE = "Ignoring: Until Released"
+  }
+    
 
-local TouchButtonsPaintableComposite = {}
-TouchButtonsPaintableComposite.__index = TouchButtonsPaintableComposite
-TouchButtonsPaintableComposite.className = "TouchButtonsPaintableComposite"
-setmetatable(TouchButtonsPaintableComposite, {__index = ProcessPaintable})
+    construct new(inputMappingInterface, basicColor) {
+    super()
+    initFields_TouchButtonsPaintableComposite()
+        _inputMappingInterface = inputMappingInterface
+        CompleteMotionGestureInputEventHandler.getInstance().addListenerInterface(this)
+        _touchButtonsPaintable = TouchButtonsMappingPaintable.new(basicColor)
+    }
+    
 
-function TouchButtonsPaintableComposite:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.inputMappingInterface = nil
-    self.touchButtonsPaintable = nil
-    self.timeHelper = TimeDelayHelper.new(250)
-    self.released = true
-    self.METHOD_NAME = "onCompleteMotionGestureInputEvent"
-    self.RELEASE = "Ignoring: MotionGestureInput Release"
-    self.FAST_REPEAT = "Ignoring: MotionGestureInput Repeated To Quickly"
-    self.IGNORE = "Ignoring: Until Released"
-end
+    onEvent(eventObject) {
+        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, this)
+    }
+    
 
-
-function TouchButtonsPaintableComposite.new(inputMappingInterface, basicColor)
-    local self = setmetatable(ProcessPaintable.new(), TouchButtonsPaintableComposite)
-    self:_init_fields()
-        self.inputMappingInterface = inputMappingInterface
-        CompleteMotionGestureInputEventHandler.getInstance():addListenerInterface(self)
-        self.touchButtonsPaintable = TouchButtonsMappingPaintable.new(basicColor)
-    return self
-end
-
-
-function TouchButtonsPaintableComposite:onEvent(eventObject)
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-end
-
-
-function TouchButtonsPaintableComposite:onCompleteMotionGestureInputEvent(completeMotionGestureInputEvent)
-        local try_ok, try_error = pcall(function()
-            self.logUtil:putF(self.commonStrings.START, self, "onCompleteMotionGestureInputEvent")
-            local touchMotionGestureFactory = TouchMotionGestureFactory.getInstance()
-            local gameKeyCompleteMotionGestureInputEvent = completeMotionGestureInputEvent
-            local gameKey = gameKeyCompleteMotionGestureInputEvent:getGameKey()
-            local motionGestureInput = completeMotionGestureInputEvent:getMotionGestureInput()
-            if motionGestureInput == touchMotionGestureFactory.RELEASED then
-                self.logUtil:putF(self.RELEASE, self, self.METHOD_NAME)
-                self.released = true
+    onCompleteMotionGestureInputEvent(completeMotionGestureInputEvent) {
+        var jerror0 = Fiber.new {
+            _logUtil.putF(_commonStrings.START, this, "onCompleteMotionGestureInputEvent")
+            var touchMotionGestureFactory = TouchMotionGestureFactory.getInstance()
+            var gameKeyCompleteMotionGestureInputEvent = completeMotionGestureInputEvent
+            var gameKey = gameKeyCompleteMotionGestureInputEvent.getGameKey()
+            var motionGestureInput = completeMotionGestureInputEvent.getMotionGestureInput()
+            if ((motionGestureInput == touchMotionGestureFactory.RELEASED)) {
+                _logUtil.putF(_RELEASE, this, _METHOD_NAME)
+                _released = true
                 return
-            end
-            if motionGestureInput == TouchMotionGestureFactory.getInstance().NO_MOTION and not self.timeHelper:isTimeTNT() then
-                self.logUtil:putF(self.FAST_REPEAT, self, self.METHOD_NAME)
+            }
+            if (((motionGestureInput == TouchMotionGestureFactory.getInstance().NO_MOTION) && !_timeHelper.isTimeTNT())) {
+                _logUtil.putF(_FAST_REPEAT, this, _METHOD_NAME)
                 return
-            end
-            if not self.released then
-                self.logUtil:putF(self.IGNORE, self, self.METHOD_NAME)
+            }
+            if (!_released) {
+                _logUtil.putF(_IGNORE, this, _METHOD_NAME)
                 return
-            end
-            self.released = false
-            self.logUtil:putF(tostring(StringMaker.new():append("GameKey: "):append(StringUtil.getInstance():toString(gameKey)):append(" MotionGestureInput: "):append(StringUtil.getInstance():toString(motionGestureInput))), self, self.METHOD_NAME)
-            self.inputMappingInterface:processInputMapping(gameKey, motionGestureInput)
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.METHOD_NAME, e)
-        end
-end
+            }
+            _released = false
+            _logUtil.putF(StringMaker.new().append("GameKey: ").append(StringUtil.getInstance().toString(gameKey)).append(" MotionGestureInput: ").append(StringUtil.getInstance().toString(motionGestureInput)).toString(), this, _METHOD_NAME)
+            _inputMappingInterface.processInputMapping(gameKey, motionGestureInput)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            _logUtil.put(_commonStrings.EXCEPTION, this, _METHOD_NAME, e)
+        }
+    }
+    
 
+    process() {
+        CompleteMotionGestureInputEventHandler.getInstance().removeListener(this)
+    }
+}
 
-function TouchButtonsPaintableComposite:process()
-        CompleteMotionGestureInputEventHandler.getInstance():removeListener(self)
-end
-
-return TouchButtonsPaintableComposite
+import "../../../../../org/allbinary/game/input/CompleteMotionGestureInputEvent" for CompleteMotionGestureInputEvent
+import "../../../../../org/allbinary/game/input/CompleteMotionGestureInputEventHandler" for CompleteMotionGestureInputEventHandler
+import "../../../../../org/allbinary/game/input/CompleteMotionGestureInputEventListenerInterface" for CompleteMotionGestureInputEventListenerInterface
+import "../../../../../org/allbinary/game/input/GameKey" for GameKey
+import "../../../../../org/allbinary/game/input/mapping/InputMappingInterface" for InputMappingInterface
+import "../../../../../org/allbinary/game/input/motion/action/GameKeyCompleteMotionGestureInputEvent" for GameKeyCompleteMotionGestureInputEvent
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../org/allbinary/input/motion/gesture/MotionGestureInput" for MotionGestureInput
+import "../../../../../org/allbinary/input/motion/gesture/TouchMotionGestureFactory" for TouchMotionGestureFactory
+import "../../../../../org/allbinary/logic/communication/log/ForcedLogUtil" for ForcedLogUtil
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../org/allbinary/time/TimeDelayHelper" for TimeDelayHelper
+import "./TouchButtonsMappingPaintable" for TouchButtonsMappingPaintable
 

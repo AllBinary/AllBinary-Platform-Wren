@@ -1,270 +1,312 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.canvas
 
--- local CommandListener = require("javax.microedition.lcdui.CommandListener")
-local TsUtil = require("org.allbinary.TsUtil")
-local NullWaitGameRunnable = require("org.allbinary.game.displayable.canvas.NullWaitGameRunnable")
-local MyCanvas = require("org.allbinary.graphics.displayable.MyCanvas")
-local ABSystemWrapper = require("org.allbinary.logic.ABSystemWrapper")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local StdUtil = require("org.allbinary.logic.StdUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local NullThread = require("org.allbinary.thread.NullThread")
-local RunnableInterface = require("org.allbinary.thread.RunnableInterface")
-local ThreadObjectUtil = require("org.allbinary.thread.ThreadObjectUtil")
-local TimeDelayHelper = require("org.allbinary.time.TimeDelayHelper")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
+import "../../../allbinary_java" for JObject, JException, JR
+import "../../../org/allbinary/graphics/displayable/MyCanvas" for MyCanvas
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RunnableCanvas is MyCanvas {
+  nullUtil { _nullUtil }
+  nullUtil=(value) { _nullUtil = value }
+  stdUtil { _stdUtil }
+  stdUtil=(value) { _stdUtil = value }
+  systemWrapper { _systemWrapper }
+  systemWrapper=(value) { _systemWrapper = value }
+  tsUtil { _tsUtil }
+  tsUtil=(value) { _tsUtil = value }
+  thread { _thread }
+  thread=(value) { _thread = value }
+  currentThread { _currentThread }
+  currentThread=(value) { _currentThread = value }
+  running { _running }
+  running=(value) { _running = value }
+  loopTimeHelper { _loopTimeHelper }
+  loopTimeHelper=(value) { _loopTimeHelper = value }
+  runnableCanvasRefreshHelper { _runnableCanvasRefreshHelper }
+  runnableCanvasRefreshHelper=(value) { _runnableCanvasRefreshHelper = value }
+  commonLabels { _commonLabels }
+  commonLabels=(value) { _commonLabels = value }
+  threadObjectUtil { _threadObjectUtil }
+  threadObjectUtil=(value) { _threadObjectUtil = value }
+  SET_RUNNING { _SET_RUNNING }
+  SET_RUNNING=(value) { _SET_RUNNING = value }
+  IS_RUNNING { _IS_RUNNING }
+  IS_RUNNING=(value) { _IS_RUNNING = value }
+  THREAD { _THREAD }
+  THREAD=(value) { _THREAD = value }
+  NOT_EQUAL { _NOT_EQUAL }
+  NOT_EQUAL=(value) { _NOT_EQUAL = value }
+  PAUSE_SLEEP { _PAUSE_SLEEP }
+  PAUSE_SLEEP=(value) { _PAUSE_SLEEP = value }
+  START_PAUSE { _START_PAUSE }
+  START_PAUSE=(value) { _START_PAUSE = value }
+  END_PAUSE { _END_PAUSE }
+  END_PAUSE=(value) { _END_PAUSE = value }
+  PROCESS_LOOP_SLEEP { _PROCESS_LOOP_SLEEP }
+  PROCESS_LOOP_SLEEP=(value) { _PROCESS_LOOP_SLEEP = value }
+  pauseWait { _pauseWait }
+  pauseWait=(value) { _pauseWait = value }
+  notified { _notified }
+  notified=(value) { _notified = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RunnableCanvas() {
+    _nullUtil = null
+    _stdUtil = null
+    _systemWrapper = null
+    _tsUtil = null
+    _thread = null
+    _currentThread = null
+    _running = false
+    _loopTimeHelper = null
+    _runnableCanvasRefreshHelper = null
+    _commonLabels = null
+    _threadObjectUtil = null
+    _SET_RUNNING = null
+    _IS_RUNNING = null
+    _THREAD = null
+    _NOT_EQUAL = null
+    _PAUSE_SLEEP = null
+    _START_PAUSE = null
+    _END_PAUSE = null
+    _PROCESS_LOOP_SLEEP = null
+    _pauseWait = 0
+    _notified = false
+        _nullUtil = NullUtil.getInstance()
+        _stdUtil = StdUtil.getInstance()
+        _systemWrapper = ABSystemWrapper.getInstance()
+        _tsUtil = TsUtil.getInstance()
+        _thread = NullThread.NULL_THREAD
+        _currentThread = NullThread.NULL_THREAD
+        _running = false
+        _loopTimeHelper = TimeDelayHelper.new(NullWaitGameRunnable.getInstance().WAIT)
+        _runnableCanvasRefreshHelper = Processor.getInstance()
+        _commonLabels = CommonLabels.getInstance()
+        _threadObjectUtil = ThreadObjectUtil.getInstance()
+        _SET_RUNNING = "setRunning"
+        _IS_RUNNING = "isRunning"
+        _THREAD = "Thread: "
+        _NOT_EQUAL = " != "
+        _PAUSE_SLEEP = "pause sleep"
+        _START_PAUSE = "start pause - game thread sleep at: "
+        _END_PAUSE = "end pause - game thread sleep at: "
+        _PROCESS_LOOP_SLEEP = "processLoopSleep"
+        _pauseWait = 0
+        _notified = false
+  }
+    
 
-local function java_sleep(milliseconds)
-    local finish = os.clock() + milliseconds / 1000
-    while os.clock() < finish do end
-end
+    construct new(commandListener, childNameList, hasParam) {
+        super(CommonStrings.getInstance().UNKNOWN, childNameList)
+        initFields_RunnableCanvas()
+        this.logUtil.putF(StringMaker.new().append("RunnableCanvas delay: ").appendint(JR.i32(_loopTimeHelper.delay)).toString(), this, this.commonStrings.CONSTRUCTOR)
+        _runnableCanvasRefreshHelper = RunnableCanvasRefreshHelper.new(this)
+        if ((commandListener != null)) {
+            this.initCommands(commandListener)
+        } else if (hasParam) {
+            this.logUtil.putF("commandListener was null", this, "initCommands")
+        }
+    }
+    
 
-local RunnableCanvas = {}
-RunnableCanvas.__index = RunnableCanvas
-RunnableCanvas.className = "RunnableCanvas"
-setmetatable(RunnableCanvas, {__index = MyCanvas})
+    initCommands(cmdListener) {
+        this.logUtil.putF(this.commonStrings.NOT_IMPLEMENTED, this, "initCommands")
+    }
+    
 
-function RunnableCanvas:_init_fields()
-    self.nullUtil = NullUtil.getInstance()
-    self.stdUtil = StdUtil.getInstance()
-    self.systemWrapper = ABSystemWrapper.getInstance()
-    self.tsUtil = TsUtil.getInstance()
-    self.thread = NullThread.NULL_THREAD
-    self.currentThread = NullThread.NULL_THREAD
-    self.running = false
-    self.loopTimeHelper = TimeDelayHelper.new(NullWaitGameRunnable.getInstance().WAIT)
-    self.runnableCanvasRefreshHelper = Processor.getInstance()
-    self.commonLabels = CommonLabels.getInstance()
-    self.threadObjectUtil = ThreadObjectUtil.getInstance()
-    self.SET_RUNNING = "setRunning"
-    self.IS_RUNNING = "isRunning"
-    self.THREAD = "Thread: "
-    self.NOT_EQUAL = " != "
-    self.PAUSE_SLEEP = "pause sleep"
-    self.START_PAUSE = "start pause - game thread sleep at: "
-    self.END_PAUSE = "end pause - game thread sleep at: "
-    self.PROCESS_LOOP_SLEEP = "processLoopSleep"
-    self.pauseWait = 0
-    self.notified = false
-end
-
-
-function RunnableCanvas.new(commandListener, childNameList, hasParam)
-    local self = setmetatable(MyCanvas.new(CommonStrings.getInstance().UNKNOWN, childNameList), RunnableCanvas)
-    self:_init_fields()
-        -- super(...) made self above
-        self.logUtil:putF(tostring(StringMaker.new():append("RunnableCanvas delay: "):appendint(java_int(self.loopTimeHelper.delay))), self, self.commonStrings.CONSTRUCTOR)
-        self.runnableCanvasRefreshHelper = RunnableCanvasRefreshHelper.new(self)
-        if commandListener ~= nil then
-            self:initCommands(commandListener)
-        elseif hasParam then
-            self.logUtil:putF("commandListener was null", self, "initCommands")
-        end
-    return self
-end
-
-
-function RunnableCanvas:initCommands(cmdListener)
-        self.logUtil:putF(self.commonStrings.NOT_IMPLEMENTED, self, "initCommands")
-end
-
-
-function RunnableCanvas:isMainCanvas()
-        if self:getCustomCommandListener() ~= nil then
+    isMainCanvas() {
+        if ((this.getCustomCommandListener() != null)) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+    
 
+    setThread(thread) {
+        _thread = thread
+    }
+    
 
-function RunnableCanvas:setThread(thread)
-        self.thread = thread
-end
+    setRunning(running) {
+        _running = running
+        if (!_running) {
+            _thread = NullThread.NULL_THREAD
+            if (true) {
+                _threadObjectUtil.notifyObject(this)
+            }
+        }
+        this.logUtil.putF(StringMaker.new().append(_IS_RUNNING).appendboolean(_running).toString(), this, _SET_RUNNING)
+    }
+    
 
-
-function RunnableCanvas:setRunning(running)
-        self.running = running
-        if not self.running then
-            self.thread = NullThread.NULL_THREAD
-            do -- synchronized (self)
-                self.threadObjectUtil:notifyObject(self)
-            end
-        end
-        self.logUtil:putF(tostring(StringMaker.new():append(self.IS_RUNNING):appendboolean(self.running)), self, self.SET_RUNNING)
-end
-
-
-function RunnableCanvas:isRunning()
-        if self.thread == self.currentThread then
-            return self.running
-        else
-            local stringBuffer = StringMaker.new()
-            stringBuffer:append(self.THREAD)
-            if self.thread ~= nil then
-                stringBuffer:append(tostring(self.thread))
-            end
-            stringBuffer:append(self.NOT_EQUAL)
-            if self.currentThread ~= nil then
-                stringBuffer:append(StringUtil.getInstance():toString(self.currentThread))
-            end
-            self.logUtil:putF(tostring(stringBuffer), self, self.IS_RUNNING)
+    isRunning() {
+        if ((_thread == _currentThread)) {
+            return _running
+        } else {
+            var stringBuffer = StringMaker.new()
+            stringBuffer.append(_THREAD)
+            if ((_thread != null)) {
+                stringBuffer.append(_thread.toString())
+            }
+            stringBuffer.append(_NOT_EQUAL)
+            if ((_currentThread != null)) {
+                stringBuffer.append(StringUtil.getInstance().toString(_currentThread))
+            }
+            this.logUtil.putF(stringBuffer.toString(), this, _IS_RUNNING)
             return false
-        end
-end
+        }
+    }
+    
 
+    getLoopTimeHelperP() {
+        return _loopTimeHelper
+    }
+    
 
-function RunnableCanvas:getLoopTimeHelperP()
-        return self.loopTimeHelper
-end
+    setWait(wait) {
+        _loopTimeHelper.delay = wait
+        _pauseWait = JR.i32(wait * 3)
+        this.logUtil.putF(StringMaker.new().append("setWait - delay: ").appendint(JR.i32(_loopTimeHelper.delay)).toString(), this, this.commonStrings.CONSTRUCTOR)
+    }
+    
 
+    getWait() {
+        return _loopTimeHelper.delay
+    }
+    
 
-function RunnableCanvas:setWait(wait)
-        self.loopTimeHelper.delay = wait
-        self.pauseWait = wait * 3
-        self.logUtil:putF(tostring(StringMaker.new():append("setWait - delay: "):appendint(java_int(self.loopTimeHelper.delay))), self, self.commonStrings.CONSTRUCTOR)
-end
+    setCurrentThread() {
+        _currentThread = Thread.currentThread()
+    }
+    
 
+    setCurrentThreadFake() {
+        _currentThread = _thread
+    }
+    
 
-function RunnableCanvas:getWait()
-        return self.loopTimeHelper.delay
-end
+    showNotify() {
+        var jerror0 = Fiber.new {
+            this.stopWaiting()
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            this.logUtil.put(this.commonStrings.EXCEPTION, this, "showNotify", e)
+        }
+    }
+    
 
+    stopWaiting() {
+        _notified = true
+        if (true) {
+            _threadObjectUtil.notifyObject(this)
+        }
+        this.repaint()
+    }
+    
 
-function RunnableCanvas:setCurrentThread()
-        self.currentThread = Thread.currentThread()
-end
+    waitOnNotify(wait) {
+        if (!_notified) {
+            if ((wait > 0)) {
+                _threadObjectUtil.waitObjectFor(this, wait)
+            } else {
+                _threadObjectUtil.waitObject(this)
+            }
+        }
+    }
+    
 
+    processSleep() {
+        Thread.sleep(_pauseWait)
+    }
+    
 
-function RunnableCanvas:setCurrentThreadFake()
-        self.currentThread = self.thread
-end
-
-
-function RunnableCanvas:showNotify()
-        local try_ok, try_error = pcall(function()
-            self:stopWaiting()
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, "showNotify", e)
-        end
-end
-
-
--- throws Exception
-function RunnableCanvas:stopWaiting()
-        self.notified = true
-        do -- synchronized (self)
-            self.threadObjectUtil:notifyObject(self)
-        end
-        self:repaint()
-end
-
-
--- throws Exception
-function RunnableCanvas:waitOnNotify(wait)
-        if not self.notified then
-            if wait > 0 then
-                self.threadObjectUtil:waitObjectFor(self, wait)
-            else
-                self.threadObjectUtil:waitObject(self)
-            end
-        end
-end
-
-
--- throws Exception
-function RunnableCanvas:processSleep()
-        java_sleep(self.pauseWait)
-end
-
-
-function RunnableCanvas:isPausable()
+    isPausable() {
         return false
-end
+    }
+    
 
+    processGameSleep(sleep) {
+        Thread.sleep(sleep)
+    }
+    
 
--- throws Exception
-function RunnableCanvas:processGameSleep(sleep)
-        java_sleep(sleep)
-end
-
-
--- throws Exception
-function RunnableCanvas:processLoopSleep()
-        self.runnableCanvasRefreshHelper:process()
-        if self:isPaused() then
-            local stringMaker = StringMaker.new()
-            if self:isRunning() and not self:isSingleThread() then
-                stringMaker:delete(0, stringMaker:length())
-                local currentTimeMillis = self.systemWrapper:currentTimeMillis()
-                self.logUtil:putF(tostring(stringMaker:append(self.START_PAUSE):appendlong(currentTimeMillis):append(self.PAUSE_SLEEP):appendlong(self.pauseWait)), self, self.PROCESS_LOOP_SLEEP)
-                while self:isPaused() and self:isRunning() and not self:isSingleThread() do
-                    self:processSleep()
-                    if not self:isPausable() then
-                        stringMaker:delete(0, stringMaker:length())
-                        self.logUtil:putF(tostring(stringMaker:append(self.END_PAUSE):appendlong(currentTimeMillis)), self, self.PROCESS_LOOP_SLEEP)
+    processLoopSleep() {
+        _runnableCanvasRefreshHelper.process()
+        if (this.isPaused()) {
+            var stringMaker = StringMaker.new()
+            if ((this.isRunning() && !this.isSingleThread())) {
+                stringMaker.delete(0, stringMaker.length())
+                var currentTimeMillis = _systemWrapper.currentTimeMillis()
+                this.logUtil.putF(stringMaker.append(_START_PAUSE).appendlong(currentTimeMillis).append(_PAUSE_SLEEP).appendlong(_pauseWait).toString(), this, _PROCESS_LOOP_SLEEP)
+                while (((this.isPaused() && this.isRunning()) && !this.isSingleThread())) {
+                    this.processSleep()
+                    if (!this.isPausable()) {
+                        stringMaker.delete(0, stringMaker.length())
+                        this.logUtil.putF(stringMaker.append(_END_PAUSE).appendlong(currentTimeMillis).toString(), this, _PROCESS_LOOP_SLEEP)
                         return
-                    end
-                end
-            end
-        end
-        local elapsedTime = self.loopTimeHelper:getElapsedTNT()
-        local wait = java_int(self.loopTimeHelper.delay)
-        if elapsedTime > wait then
+                    }
+                }
+            }
+        }
+        var elapsedTime = _loopTimeHelper.getElapsedTNT()
+        var wait = _loopTimeHelper.delay
+        if ((elapsedTime > wait)) {
             elapsedTime = wait
-        else
-            self:processGameSleep(wait - elapsedTime)
-        end
-end
+        } else {
+            this.processGameSleep(JR.i32(wait - elapsedTime))
+        }
+    }
+    
 
-
-function RunnableCanvas:isSingleThread()
+    isSingleThread() {
         return false
-end
+    }
+    
 
+    run() {
+        this.setCurrentThread()
+    }
+    
 
-function RunnableCanvas:run()
-        self:setCurrentThread()
-end
+    end2() {
+    }
+    
 
-
--- throws Exception
-function RunnableCanvas:end2()
-end
-
-
-function RunnableCanvas:getType()
+    getType() {
         return -1
-end
+    }
+}
 
-return RunnableCanvas
+import "../../../javax/microedition/lcdui/CommandListener" for CommandListener
+import "../../../org/allbinary/TsUtil" for TsUtil
+import "../../../org/allbinary/game/displayable/canvas/NullWaitGameRunnable" for NullWaitGameRunnable
+import "../../../org/allbinary/logic/ABSystemWrapper" for ABSystemWrapper
+import "../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../org/allbinary/logic/StdUtil" for StdUtil
+import "../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../org/allbinary/string/CommonLabels" for CommonLabels
+import "../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../org/allbinary/thread/NullThread" for NullThread
+import "../../../org/allbinary/thread/RunnableInterface" for RunnableInterface
+import "../../../org/allbinary/thread/ThreadObjectUtil" for ThreadObjectUtil
+import "../../../org/allbinary/time/TimeDelayHelper" for TimeDelayHelper
+import "../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../java/lang/Thread" for Thread
+import "./Processor" for Processor
+import "./RunnableCanvasRefreshHelper" for RunnableCanvasRefreshHelper
 

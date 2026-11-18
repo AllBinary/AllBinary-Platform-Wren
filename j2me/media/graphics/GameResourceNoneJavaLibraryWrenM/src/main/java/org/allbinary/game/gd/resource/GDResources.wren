@@ -1,51 +1,55 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.gd.resource
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.gd.resource
 
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GDResources is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = GDResources.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  resourceStringArray { _resourceStringArray }
+  resourceStringArray=(value) { _resourceStringArray = value }
+  currentLayoutRequiredTotal { _currentLayoutRequiredTotal }
+  currentLayoutRequiredTotal=(value) { _currentLayoutRequiredTotal = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GDResources() {
+    _resourceStringArray = null
+    _currentLayoutRequiredTotal = 0
+        _resourceStringArray = []
+        _currentLayoutRequiredTotal = 0
+  }
 
-local GDResources = {}
-GDResources.__index = GDResources
-GDResources.className = "GDResources"
+  construct new() {
+    super()
+    initFields_GDResources()
+  }
+    
 
-function GDResources:_init_fields()
-    self.resourceStringArray = {}
-    self.currentLayoutRequiredTotal = 0
-end
-
-function GDResources.new()
-    local self = setmetatable({}, GDResources)
-    self:_init_fields()
-    return self
-end
-
-
-function GDResources.getInstance()
+    static getInstance() {
         return GDResources.instance
-end
+    }
+}
 
-GDResources.instance = GDResources.new()
-
-return GDResources
 

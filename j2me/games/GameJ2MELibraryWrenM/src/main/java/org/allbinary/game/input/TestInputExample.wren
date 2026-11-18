@@ -1,79 +1,71 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local TestInputInterface = require("org.allbinary.game.input.TestInputInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class TestInputExample is JObject {
+  testValue { _testValue }
+  testValue=(value) { _testValue = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TestInputExample() {
+    _testValue = 0
+        _testValue = 0
+  }
 
-local TestInputExample = {}
-TestInputExample.__index = TestInputExample
-TestInputExample.className = "TestInputExample"
+  construct new() {
+    super()
+    initFields_TestInputExample()
+  }
+    
 
-function TestInputExample:_init_fields()
-    self.testValue = 0
-end
+    up() {
+    }
+    
 
-function TestInputExample.new()
-    local self = setmetatable({}, TestInputExample)
-    self:_init_fields()
-    return self
-end
+    down() {
+    }
+    
 
+    left() {
+        _testValue = JR.i32(_testValue + 1)
+    }
+    
 
-function TestInputExample:up()
-end
+    right() {
+        _testValue = JR.i32(_testValue - 1)
+    }
+    
 
+    strafeLeft() {
+    }
+    
 
-function TestInputExample:down()
-end
+    strafeRight() {
+    }
+    
 
+    paint(graphics) {
+    }
+    
 
-function TestInputExample:left()
-        self.testValue = self.testValue + 1
-end
+    paintThreed(graphics) {
+    }
+}
 
-
-function TestInputExample:right()
-        self.testValue = self.testValue - 1
-end
-
-
-function TestInputExample:strafeLeft()
-end
-
-
-function TestInputExample:strafeRight()
-end
-
-
-function TestInputExample:paint(graphics)
-end
-
-
-function TestInputExample:paintThreed(graphics)
-end
-
-return TestInputExample
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "./TestInputInterface" for TestInputInterface
 

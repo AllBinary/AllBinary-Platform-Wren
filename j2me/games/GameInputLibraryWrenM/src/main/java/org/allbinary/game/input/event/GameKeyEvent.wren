@@ -1,119 +1,129 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input.event
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input.event
 
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameKeyEvent is AllBinaryEventObject {
+    static NONE {
+    if (__NONE_set == null) {
+      __NONE_set = true
+      __NONE = GameKeyEvent.new(NullUtil.getInstance().NULL_OBJECT, -1, -1, -1, -1, false)
+    }
+    return __NONE
+  }
+  static NONE=(value) {
+    __NONE_set = true
+    __NONE = value
+  }
+  sourceId { _sourceId }
+  sourceId=(value) { _sourceId = value }
+  repeated { _repeated }
+  repeated=(value) { _repeated = value }
+  key { _key }
+  key=(value) { _key = value }
+  gameActionKey { _gameActionKey }
+  gameActionKey=(value) { _gameActionKey = value }
+  originalKey { _originalKey }
+  originalKey=(value) { _originalKey = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameKeyEvent() {
+    _sourceId = 0
+    _repeated = false
+    _key = 0
+    _gameActionKey = 0
+    _originalKey = 0
+        
+        _repeated = false
+        
+        _gameActionKey = 0
+        _originalKey = 0
+  }
+    
 
-local GameKeyEvent = {}
-GameKeyEvent.__index = GameKeyEvent
-GameKeyEvent.className = "GameKeyEvent"
-setmetatable(GameKeyEvent, {__index = AllBinaryEventObject})
-
-function GameKeyEvent:_init_fields()
-    self.sourceId = nil
-    self.repeated = false
-    self.key = nil
-    self.gameActionKey = 0
-    self.originalKey = 0
-end
-
-
-function GameKeyEvent.createEvent(anyType, sourceId, key)
+    static createEvent(anyType, sourceId, key) {
         return GameKeyEvent.new(anyType, sourceId, 0, 0, key, false)
-end
+    }
+    
 
+    construct new(anyType, sourceId, originalKey, gameActionKey, key, repeated) {
+        super(anyType)
+        initFields_GameKeyEvent()
+        _sourceId = sourceId
+        this.setOriginalKey(originalKey)
+        _key = key
+        this.setGameActionKey(gameActionKey)
+        this.setRepeatEvents(repeated)
+    }
+    
 
-function GameKeyEvent.new(anyType, sourceId, originalKey, gameActionKey, key, repeated)
-    local self = setmetatable(AllBinaryEventObject.new(anyType), GameKeyEvent)
-    self:_init_fields()
-        -- super(...) made self above
-        self.sourceId = sourceId
-        self:setOriginalKey(originalKey)
-        self.key = key
-        self:setGameActionKey(gameActionKey)
-        self:setRepeatEvents(repeated)
-    return self
-end
+    init(anyType) {
+        this.setSource(anyType)
+    }
+    
 
+    setRepeatEvents(repeated) {
+        _repeated = repeated
+    }
+    
 
-function GameKeyEvent:init(anyType)
-        self:setSource(anyType)
-end
+    hasRepeatEvents() {
+        return _repeated
+    }
+    
 
+    getKey() {
+        return _key
+    }
+    
 
-function GameKeyEvent:setRepeatEvents(repeated)
-        self.repeated = repeated
-end
+    toString() {
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append("\nKey: ")
+        stringBuffer.appendint(this.getKey())
+        return stringBuffer.toString()
+    }
+    
 
+    getOriginalKey() {
+        return _originalKey
+    }
+    
 
-function GameKeyEvent:hasRepeatEvents()
-        return self.repeated
-end
+    setOriginalKey(originalKey) {
+        _originalKey = originalKey
+    }
+    
 
+    getGameActionKey() {
+        return _gameActionKey
+    }
+    
 
-function GameKeyEvent:getKey()
-        return self.key
-end
+    setGameActionKey(gameActionKey) {
+        _gameActionKey = gameActionKey
+    }
+    
 
+    getSourceId() {
+        return _sourceId
+    }
+}
 
-function GameKeyEvent:toString()
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append("\nKey: ")
-        stringBuffer:appendint(self:getKey())
-        return tostring(stringBuffer)
-end
-GameKeyEvent.__tostring = function(self) return self:toString() end
-
-
-function GameKeyEvent:getOriginalKey()
-        return self.originalKey
-end
-
-
-function GameKeyEvent:setOriginalKey(originalKey)
-        self.originalKey = originalKey
-end
-
-
-function GameKeyEvent:getGameActionKey()
-        return self.gameActionKey
-end
-
-
-function GameKeyEvent:setGameActionKey(gameActionKey)
-        self.gameActionKey = gameActionKey
-end
-
-
-function GameKeyEvent:getSourceId()
-        return self.sourceId
-end
-
-GameKeyEvent.NONE = GameKeyEvent.new(NullUtil.getInstance().NULL_OBJECT, -1, -1, -1, -1, false)
-
-return GameKeyEvent
+import "../../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
 

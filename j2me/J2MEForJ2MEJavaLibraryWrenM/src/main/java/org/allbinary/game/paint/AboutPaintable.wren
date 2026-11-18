@@ -1,118 +1,167 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.paint
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.paint
 
--- local Font = require("javax.microedition.lcdui.Font")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local CanvasStrings = require("org.allbinary.graphics.displayable.CanvasStrings")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
-local MyFontProcessor = require("org.allbinary.graphics.font.MyFontProcessor")
-local UpdateMyFontInterface = require("org.allbinary.graphics.font.UpdateMyFontInterface")
-local UpdateMyFontProcessor = require("org.allbinary.graphics.font.UpdateMyFontProcessor")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/graphics/paint/Paintable" for Paintable
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+//J2MEForJ2ME
+class AboutPaintable is Paintable {
+  displayInfoSingleton { _displayInfoSingleton }
+  displayInfoSingleton=(value) { _displayInfoSingleton = value }
+  ABOUT { _ABOUT }
+  ABOUT=(value) { _ABOUT = value }
+  info { _info }
+  info=(value) { _info = value }
+  developers { _developers }
+  developers=(value) { _developers = value }
+  paintableArray { _paintableArray }
+  paintableArray=(value) { _paintableArray = value }
+  myFontProcessor { _myFontProcessor }
+  myFontProcessor=(value) { _myFontProcessor = value }
+  charHeight { _charHeight }
+  charHeight=(value) { _charHeight = value }
+  aboutBeginWidth { _aboutBeginWidth }
+  aboutBeginWidth=(value) { _aboutBeginWidth = value }
+  infoBeginWidth { _infoBeginWidth }
+  infoBeginWidth=(value) { _infoBeginWidth = value }
+  developersBeginWidth { _developersBeginWidth }
+  developersBeginWidth=(value) { _developersBeginWidth = value }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_AboutPaintable() {
+    _displayInfoSingleton = null
+    _ABOUT = null
+    _info = null
+    _developers = null
+    _paintableArray = null
+    _myFontProcessor = null
+    _charHeight = 0
+    _aboutBeginWidth = 0
+    _infoBeginWidth = null
+    _developersBeginWidth = null
+    _anchor = 0
+        _displayInfoSingleton = DisplayInfoSingleton.getInstance()
+        _ABOUT = CanvasStrings.getInstance().ABOUT
+        
+        
+        _paintableArray = [this]
+        _myFontProcessor = UpdateMyFontProcessor.new(this)
+        _charHeight = 0
+        _aboutBeginWidth = 0
+        
+        
+        _anchor = Anchor.TOP_LEFT
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
---J2MEForJ2ME
-local AboutPaintable = {}
-AboutPaintable.__index = AboutPaintable
-AboutPaintable.className = "AboutPaintable"
-setmetatable(AboutPaintable, {__index = Paintable})
-
-function AboutPaintable:_init_fields()
-    self.displayInfoSingleton = DisplayInfoSingleton.getInstance()
-    self.ABOUT = CanvasStrings.getInstance().ABOUT
-    self.info = nil
-    self.developers = nil
-    self.paintableArray = {self}
-    self.myFontProcessor = UpdateMyFontProcessor.new(self)
-    self.charHeight = 0
-    self.aboutBeginWidth = 0
-    self.infoBeginWidth = nil
-    self.developersBeginWidth = nil
-    self.anchor = Anchor.TOP_LEFT
-end
-
-
-function AboutPaintable.getInstance(info, developers)
+    static getInstance(info, developers) {
         return AboutPaintable.new(info, developers)
-end
+    }
+    
 
+    construct new(info, developers) {
+    super()
+    initFields_AboutPaintable()
+        _info = info
+        _infoBeginWidth = List.filled(_info.count, 0)
+        _developers = developers
+        _developersBeginWidth = List.filled(_developers.count, 0)
+    }
+    
 
-function AboutPaintable.new(info, developers)
-    local self = setmetatable(Paintable.new(), AboutPaintable)
-    self:_init_fields()
-        self.info = info
-        self.infoBeginWidth = java_new_array(0, (self.info.n or #self.info))
-        self.developers = developers
-        self.developersBeginWidth = java_new_array(0, (self.developers.n or #self.developers))
-    return self
-end
+    updateMeasurement(graphics) {
+        var font = graphics.getFont()
+        _charHeight = font.getHeight()
+        _aboutBeginWidth = (JR.shr(font.stringWidth(_ABOUT), 1))
+        var infoSize = _info.count
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < infoSize))) break
+            _infoBeginWidth[index] = (JR.shr(font.stringWidth(_info[index]), 1))
+            }
+        }
+        var size = _developers.count
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            _developersBeginWidth[index] = (JR.shr(font.stringWidth(_developers[index]), 1))
+            }
+        }
+        _myFontProcessor = MyFontProcessor.getInstance()
+    }
+    
 
+    getPaintableArrayInstance() {
+        return _paintableArray
+    }
+    
 
-function AboutPaintable:updateMeasurement(graphics)
-        local font = graphics:getFont()
-        self.charHeight = font:getHeight()
-        self.aboutBeginWidth = (((font:stringWidth(self.ABOUT)) // (1 << (1))))
-        local infoSize = (self.info.n or #self.info)
-        for index = 0, infoSize - 1 do
-            self.infoBeginWidth[index + 1] = (((font:stringWidth(self.info[index + 1])) // (1 << (1))))
-        end
-        local size = (self.developers.n or #self.developers)
-        for index = 0, size - 1 do
-            self.developersBeginWidth[index + 1] = (((font:stringWidth(self.developers[index + 1])) // (1 << (1))))
-        end
-        self.myFontProcessor = MyFontProcessor.getInstance()
-end
+    paint(graphics) {
+        _myFontProcessor.process(graphics)
+        var halfWidth = _displayInfoSingleton.getLastHalfWidth()
+        graphics.drawString(_ABOUT, JR.i32(halfWidth - _aboutBeginWidth), JR.i32(2 * _charHeight), _anchor)
+        var infoSize = _info.count
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < infoSize))) break
+            graphics.drawString(_info[index], JR.i32(halfWidth - _infoBeginWidth[index]), JR.i32((JR.i32(4 + index)) * _charHeight), _anchor)
+            }
+        }
+        var size = _developers.count
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            graphics.drawString(_developers[index], JR.i32(halfWidth - _developersBeginWidth[index]), JR.i32((JR.i32(JR.i32(5 + infoSize) + index)) * _charHeight), _anchor)
+            }
+        }
+    }
+}
 
-
-function AboutPaintable:getPaintableArrayInstance()
-        return self.paintableArray
-end
-
-
-function AboutPaintable:paint(graphics)
-        self.myFontProcessor:process(graphics)
-        local halfWidth = self.displayInfoSingleton:getLastHalfWidth()
-        graphics:drawString(self.ABOUT, halfWidth - self.aboutBeginWidth, 2 * self.charHeight, self.anchor)
-        local infoSize = (self.info.n or #self.info)
-        for index = 0, infoSize - 1 do
-            graphics:drawString(self.info[index + 1], halfWidth - self.infoBeginWidth[index + 1], (4 + index) * self.charHeight, self.anchor)
-        end
-        local size = (self.developers.n or #self.developers)
-        for index = 0, size - 1 do
-            graphics:drawString(self.developers[index + 1], halfWidth - self.developersBeginWidth[index + 1], (5 + infoSize + index) * self.charHeight, self.anchor)
-        end
-end
-
-return AboutPaintable
+import "../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/graphics/Anchor" for Anchor
+import "../../../../org/allbinary/graphics/displayable/CanvasStrings" for CanvasStrings
+import "../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "../../../../org/allbinary/graphics/font/MyFontProcessor" for MyFontProcessor
+import "../../../../org/allbinary/graphics/font/UpdateMyFontInterface" for UpdateMyFontInterface
+import "../../../../org/allbinary/graphics/font/UpdateMyFontProcessor" for UpdateMyFontProcessor
 

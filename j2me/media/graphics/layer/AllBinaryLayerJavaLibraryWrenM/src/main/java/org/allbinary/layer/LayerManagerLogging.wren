@@ -1,129 +1,177 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
--- 
--- Generated Code Do Not Modify
--- package org.allbinary.layer
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ * 
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.layer
 
-local TsUtil = require("org.allbinary.TsUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local LayerManagerLoggingBase = require("org.allbinary.layer.LayerManagerLoggingBase")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./LayerManagerLoggingBase" for LayerManagerLoggingBase
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LayerManagerLogging is LayerManagerLoggingBase {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = LayerManagerLogging.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+    static removeFailed {
+    if (__removeFailed_set == null) {
+      __removeFailed_set = true
+      __removeFailed = false
+    }
+    return __removeFailed
+  }
+  static removeFailed=(value) {
+    __removeFailed_set = true
+    __removeFailed = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  stringBuilder { _stringBuilder }
+  stringBuilder=(value) { _stringBuilder = value }
+  APPEND { _APPEND }
+  APPEND=(value) { _APPEND = value }
+  APPEND_ { _APPEND_ }
+  APPEND_=(value) { _APPEND_ = value }
+  u_AT_ { _u_AT_ }
+  u_AT_=(value) { _u_AT_ = value }
+  ATTEMPT_REMOVE_ { _ATTEMPT_REMOVE_ }
+  ATTEMPT_REMOVE_=(value) { _ATTEMPT_REMOVE_ = value }
+  REMOVE_ { _REMOVE_ }
+  REMOVE_=(value) { _REMOVE_ = value }
+  REMOVE { _REMOVE }
+  REMOVE=(value) { _REMOVE = value }
+  DID_NOT_REMOVE { _DID_NOT_REMOVE }
+  DID_NOT_REMOVE=(value) { _DID_NOT_REMOVE = value }
+  CLEAR { _CLEAR }
+  CLEAR=(value) { _CLEAR = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LayerManagerLogging() {
+    _logUtil = null
+    _stringBuilder = null
+    _APPEND = null
+    _APPEND_ = null
+    _u_AT_ = null
+    _ATTEMPT_REMOVE_ = null
+    _REMOVE_ = null
+    _REMOVE = null
+    _DID_NOT_REMOVE = null
+    _CLEAR = null
+        _logUtil = LogUtil.getInstance()
+        _stringBuilder = StringMaker.new()
+        _APPEND = "append"
+        _APPEND_ = " append: "
+        _u_AT_ = " at: "
+        _ATTEMPT_REMOVE_ = " Remove Attempt: "
+        _REMOVE_ = " Remove: "
+        _REMOVE = "remove"
+        _DID_NOT_REMOVE = " Did not remove: "
+        _CLEAR = " Clear List"
+  }
 
-local LayerManagerLogging = {}
-LayerManagerLogging.__index = LayerManagerLogging
-LayerManagerLogging.className = "LayerManagerLogging"
-setmetatable(LayerManagerLogging, {__index = LayerManagerLoggingBase})
+  construct new() {
+    super()
+    initFields_LayerManagerLogging()
+  }
+    
 
-function LayerManagerLogging:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.stringBuilder = StringMaker.new()
-    self.APPEND = "append"
-    self.APPEND_ = " append: "
-    self._AT_ = " at: "
-    self.ATTEMPT_REMOVE_ = " Remove Attempt: "
-    self.REMOVE_ = " Remove: "
-    self.REMOVE = "remove"
-    self.DID_NOT_REMOVE = " Did not remove: "
-    self.CLEAR = " Clear List"
-end
-
-function LayerManagerLogging.new()
-    local self = setmetatable(LayerManagerLoggingBase.new(), LayerManagerLogging)
-    self:_init_fields()
-    return self
-end
-
-
-function LayerManagerLogging.getInstance()
+    static getInstance() {
         return LayerManagerLogging.instance
-end
+    }
+    
 
+    append(layerInterface) {
+        _stringBuilder.delete(0, _stringBuilder.length())
+        _logUtil.putF(_stringBuilder.appendint(JR.i32(TsUtil.getInstance().hashCode(this))).append(_APPEND_).append(layerInterface.getName()).toString(), this, _APPEND)
+    }
+    
 
--- throws Exception
-function LayerManagerLogging:append(layerInterface)
-        self.stringBuilder:delete(0, self.stringBuilder:length())
-        self.logUtil:putF(tostring(self.stringBuilder:appendint(java_int(TsUtil.getInstance():hashCode(self))):append(self.APPEND_):append(layerInterface:getName())), self, self.APPEND)
-end
+    appendAt(layerInterface, index) {
+        _stringBuilder.delete(0, _stringBuilder.length())
+        _logUtil.putF(_stringBuilder.appendint(JR.i32(TsUtil.getInstance().hashCode(this))).append(_APPEND_).append(layerInterface.getName()).append(_u_AT_).appendint(index).toString(), this, _APPEND)
+    }
+    
 
+    remove(layerInterface) {
+        if ((layerInterface == null)) {
+            _stringBuilder.delete(0, _stringBuilder.length())
+            _logUtil.putF(_stringBuilder.appendint(JR.i32(TsUtil.getInstance().hashCode(this))).append(_ATTEMPT_REMOVE_).append(StringUtil.getInstance().toString(layerInterface)).toString(), this, _REMOVE)
+        } else {
+            _stringBuilder.delete(0, _stringBuilder.length())
+            _logUtil.putF(_stringBuilder.appendint(JR.i32(TsUtil.getInstance().hashCode(this))).append(_ATTEMPT_REMOVE_).append(layerInterface.getName()).toString(), this, _REMOVE)
+        }
+    }
+    
 
-function LayerManagerLogging:appendAt(layerInterface, index)
-        self.stringBuilder:delete(0, self.stringBuilder:length())
-        self.logUtil:putF(tostring(self.stringBuilder:appendint(java_int(TsUtil.getInstance():hashCode(self))):append(self.APPEND_):append(layerInterface:getName()):append(self._AT_):appendint(index)), self, self.APPEND)
-end
-
-
-function LayerManagerLogging:remove(layerInterface)
-        if layerInterface == nil then
-            self.stringBuilder:delete(0, self.stringBuilder:length())
-            self.logUtil:putF(tostring(self.stringBuilder:appendint(java_int(TsUtil.getInstance():hashCode(self))):append(self.ATTEMPT_REMOVE_):append(StringUtil.getInstance():toString(layerInterface))), self, self.REMOVE)
-        else
-            self.stringBuilder:delete(0, self.stringBuilder:length())
-            self.logUtil:putF(tostring(self.stringBuilder:appendint(java_int(TsUtil.getInstance():hashCode(self))):append(self.ATTEMPT_REMOVE_):append(layerInterface:getName())), self, self.REMOVE)
-        end
-end
-
-
-function LayerManagerLogging:removeResult(layerManager, layerInterface, result)
-        if layerInterface == nil then
-            self.stringBuilder:delete(0, self.stringBuilder:length())
-            self.logUtil:putF(tostring(self.stringBuilder:appendint(java_int(TsUtil.getInstance():hashCode(self))):append(self.REMOVE_):append(StringUtil.getInstance():toString(layerInterface))), self, self.REMOVE)
-        elseif result then
-            if LayerManagerLogging.removeFailed then
-                self.stringBuilder:delete(0, self.stringBuilder:length())
-                self.logUtil:putF(tostring(self.stringBuilder:appendint(java_int(TsUtil.getInstance():hashCode(self))):append(self.REMOVE_):append(layerInterface:getName())), self, self.REMOVE)
-            end
-        else
-            self.stringBuilder:delete(0, self.stringBuilder:length())
-            self.logUtil:putF(tostring(self.stringBuilder:appendint(java_int(TsUtil.getInstance():hashCode(self))):append(self.DID_NOT_REMOVE):append(layerInterface:getName())), self, self.REMOVE)
+    removeResult(layerManager, layerInterface, result) {
+        if ((layerInterface == null)) {
+            _stringBuilder.delete(0, _stringBuilder.length())
+            _logUtil.putF(_stringBuilder.appendint(JR.i32(TsUtil.getInstance().hashCode(this))).append(_REMOVE_).append(StringUtil.getInstance().toString(layerInterface)).toString(), this, _REMOVE)
+        } else if (result) {
+            if (LayerManagerLogging.removeFailed) {
+                _stringBuilder.delete(0, _stringBuilder.length())
+                _logUtil.putF(_stringBuilder.appendint(JR.i32(TsUtil.getInstance().hashCode(this))).append(_REMOVE_).append(layerInterface.getName()).toString(), this, _REMOVE)
+            }
+        } else {
+            _stringBuilder.delete(0, _stringBuilder.length())
+            _logUtil.putF(_stringBuilder.appendint(JR.i32(TsUtil.getInstance().hashCode(this))).append(_DID_NOT_REMOVE).append(layerInterface.getName()).toString(), this, _REMOVE)
             LayerManagerLogging.removeFailed = true
-        end
-end
+        }
+    }
+    
 
+    log(layerManager) {
+        _stringBuilder.delete(0, _stringBuilder.length())
+        var size = layerManager.getSize()
+        var commonSeps = CommonSeps.getInstance()
+        _stringBuilder.append(Integer.toHexString(TsUtil.getInstance().hashCode(layerManager))).append(commonSeps.COLON_SEP)
+        _stringBuilder.appendint(size).append(commonSeps.COLON_SEP)
+        var allBinaryLayer = null
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            allBinaryLayer = (layerManager.getLayerAt(index))
+            _stringBuilder.append(allBinaryLayer.getName()).append(commonSeps.COMMA)
+            }
+        }
+        _logUtil.putF(_stringBuilder.toString(), this, _REMOVE)
+    }
+    
 
-function LayerManagerLogging:log(layerManager)
-        self.stringBuilder:delete(0, self.stringBuilder:length())
-        local size = layerManager:getSize()
-        local commonSeps = CommonSeps.getInstance()
-        self.stringBuilder:append(string.format("%x", TsUtil.getInstance():hashCode(layerManager))):append(commonSeps.COLON_SEP)
-        self.stringBuilder:appendint(size):append(commonSeps.COLON_SEP)
-        local allBinaryLayer = nil
-        for index = 0, size - 1 do
-            allBinaryLayer = (layerManager:getLayerAt(index))
-            self.stringBuilder:append(allBinaryLayer:getName()):append(commonSeps.COMMA)
-        end
-        self.logUtil:putF(tostring(self.stringBuilder), self, self.REMOVE)
-end
+    clear() {
+        _stringBuilder.delete(0, _stringBuilder.length())
+        _logUtil.putF(_stringBuilder.appendint(JR.i32(TsUtil.getInstance().hashCode(this))).append(_CLEAR).toString(), this, _CLEAR)
+    }
+}
 
-
-function LayerManagerLogging:clear()
-        self.stringBuilder:delete(0, self.stringBuilder:length())
-        self.logUtil:putF(tostring(self.stringBuilder:appendint(java_int(TsUtil.getInstance():hashCode(self))):append(self.CLEAR)), self, self.CLEAR)
-end
-
-LayerManagerLogging.instance = LayerManagerLogging.new()
-LayerManagerLogging.removeFailed = false
-
-return LayerManagerLogging
+import "../../../org/allbinary/TsUtil" for TsUtil
+import "../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../java/lang/Integer" for Integer
+import "./AllBinaryLayer" for AllBinaryLayer
+import "./LayerManager" for LayerManager
 

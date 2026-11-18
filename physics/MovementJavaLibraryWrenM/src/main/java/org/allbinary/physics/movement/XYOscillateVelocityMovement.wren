@@ -1,75 +1,73 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.physics.movement
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.physics.movement
 
-local AllBinaryGameLayer = require("org.allbinary.game.layer.AllBinaryGameLayer")
-local VelocityProperties = require("org.allbinary.game.physics.velocity.VelocityProperties")
-local BasicDecimal = require("org.allbinary.logic.math.BasicDecimal")
-local BasicConstantVelocityMovement = require("org.allbinary.physics.movement.BasicConstantVelocityMovement")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./BasicConstantVelocityMovement" for BasicConstantVelocityMovement
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class XYOscillateVelocityMovement is BasicConstantVelocityMovement {
+  oscillateMin { _oscillateMin }
+  oscillateMin=(value) { _oscillateMin = value }
+  oscillateMax { _oscillateMax }
+  oscillateMax=(value) { _oscillateMax = value }
+  oscillate { _oscillate }
+  oscillate=(value) { _oscillate = value }
+  oscillatePositive { _oscillatePositive }
+  oscillatePositive=(value) { _oscillatePositive = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_XYOscillateVelocityMovement() {
+    _oscillateMin = 0
+    _oscillateMax = 0
+    _oscillate = 0
+    _oscillatePositive = false
+        
+        
+        _oscillate = 0
+        _oscillatePositive = false
+  }
+    
 
-local XYOscillateVelocityMovement = {}
-XYOscillateVelocityMovement.__index = XYOscillateVelocityMovement
-XYOscillateVelocityMovement.className = "XYOscillateVelocityMovement"
-setmetatable(XYOscillateVelocityMovement, {__index = BasicConstantVelocityMovement})
+    construct new(speedBasicDecimal, oscillateMin, oscillateMax) {
+        super(speedBasicDecimal, VelocityProperties.new(JR.i32(speedBasicDecimal.getUnscaled()), JR.i32(speedBasicDecimal.getUnscaled())))
+        initFields_XYOscillateVelocityMovement()
+        _oscillateMin = oscillateMin
+        _oscillateMax = oscillateMax
+    }
+    
 
-function XYOscillateVelocityMovement:_init_fields()
-    self.oscillateMin = nil
-    self.oscillateMax = nil
-    self.oscillate = 0
-    self.oscillatePositive = false
-end
+    process(layer) {
+        super.process(layer)
+        if ((_oscillate < _oscillateMin)) {
+            _oscillatePositive = true
+            this.getVelocityProperties().getVelocityYBasicDecimalP().addint(3000)
+        } else if ((_oscillate > _oscillateMax)) {
+            _oscillatePositive = false
+            this.getVelocityProperties().getVelocityYBasicDecimalP().subtractint(3000)
+        }
+        if (_oscillatePositive) {
+            _oscillate = JR.i32(_oscillate + 1)
+            this.getVelocityProperties().getVelocityXBasicDecimalP().addint(5000)
+        } else {
+            _oscillate = JR.i32(_oscillate - 1)
+            this.getVelocityProperties().getVelocityXBasicDecimalP().subtractint(5000)
+        }
+    }
+}
 
-
-function XYOscillateVelocityMovement.new(speedBasicDecimal, oscillateMin, oscillateMax)
-    local self = setmetatable(BasicConstantVelocityMovement.new(speedBasicDecimal, VelocityProperties.new(java_int(speedBasicDecimal:getUnscaled()), java_int(speedBasicDecimal:getUnscaled()))), XYOscillateVelocityMovement)
-    self:_init_fields()
-        -- super(...) made self above
-        self.oscillateMin = oscillateMin
-        self.oscillateMax = oscillateMax
-    return self
-end
-
-
--- throws Exception
-function XYOscillateVelocityMovement:process(layer)
-        BasicConstantVelocityMovement.process(self, layer)
-        if self.oscillate < self.oscillateMin then
-            self.oscillatePositive = true
-            self:getVelocityProperties():getVelocityYBasicDecimalP():addint(3000)
-        elseif self.oscillate > self.oscillateMax then
-            self.oscillatePositive = false
-            self:getVelocityProperties():getVelocityYBasicDecimalP():subtractint(3000)
-        end
-        if self.oscillatePositive then
-            self.oscillate = self.oscillate + 1
-            self:getVelocityProperties():getVelocityXBasicDecimalP():addint(5000)
-        else
-            self.oscillate = self.oscillate - 1
-            self:getVelocityProperties():getVelocityXBasicDecimalP():subtractint(5000)
-        end
-end
-
-return XYOscillateVelocityMovement
+import "../../../../org/allbinary/game/layer/AllBinaryGameLayer" for AllBinaryGameLayer
+import "../../../../org/allbinary/game/physics/velocity/VelocityProperties" for VelocityProperties
+import "../../../../org/allbinary/logic/math/BasicDecimal" for BasicDecimal
 

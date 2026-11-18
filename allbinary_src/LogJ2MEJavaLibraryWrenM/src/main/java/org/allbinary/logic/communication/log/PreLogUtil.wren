@@ -19,17 +19,7 @@ import "../../../../../allbinary_java" for JObject, JException, JR
 
 //ActualPlatform
 class PreLogUtil is JObject {
-    static LOG_SUCCESS {
-    if (__LOG_SUCCESS_set == null) {
-      __LOG_SUCCESS_set = true
-      __LOG_SUCCESS = "org.allbinary: "
-    }
-    return __LOG_SUCCESS
-  }
-  static LOG_SUCCESS=(value) {
-    __LOG_SUCCESS_set = true
-    __LOG_SUCCESS = value
-  }
+    static LOG_SUCCESS { "org.allbinary: " }
 
   initFields_PreLogUtil() {
   }

@@ -1,176 +1,127 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input
 
--- local Canvas = require("javax.microedition.lcdui.Canvas")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local GameKeyEvent = require("org.allbinary.game.input.event.GameKeyEvent")
-local AllBinaryGameLayer = require("org.allbinary.game.layer.AllBinaryGameLayer")
-local RectangleFactory = require("org.allbinary.graphics.RectangleFactory")
-local NullPaintable = require("org.allbinary.graphics.paint.NullPaintable")
-local PaintableInterface = require("org.allbinary.graphics.paint.PaintableInterface")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local ViewPosition = require("org.allbinary.view.ViewPosition")
-local GameInputInterface = require("org.allbinary.game.input.GameInputInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/game/layer/AllBinaryGameLayer" for AllBinaryGameLayer
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class TestingInputSingleton is AllBinaryGameLayer {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = TestingInputSingleton.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  inputProcessorArray { _inputProcessorArray }
+  inputProcessorArray=(value) { _inputProcessorArray = value }
+  testInputPaintable { _testInputPaintable }
+  testInputPaintable=(value) { _testInputPaintable = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_TestingInputSingleton() {
+    _inputProcessorArray = null
+    _testInputPaintable = null
+        _inputProcessorArray = List.filled(InputFactory.getInstance().MAX, null)
+        _testInputPaintable = NullPaintable.getInstance()
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local TestingInputSingleton = {}
-TestingInputSingleton.__index = TestingInputSingleton
-TestingInputSingleton.className = "TestingInputSingleton"
-setmetatable(TestingInputSingleton, {__index = AllBinaryGameLayer})
-
-function TestingInputSingleton:_init_fields()
-    self.inputProcessorArray = java_new_array(nil, InputFactory.getInstance().MAX)
-    self.testInputPaintable = NullPaintable.getInstance()
-end
-
-
-function TestingInputSingleton.getInstance()
+    static getInstance() {
         return TestingInputSingleton.instance
-end
+    }
+    
 
+    construct new() {
+        super(StringUtil.getInstance().EMPTY_STRING, RectangleFactory.SINGLETON, ViewPosition.getInstanceD())
+        initFields_TestingInputSingleton()
+        GameInputProcessorUtil.init(_inputProcessorArray)
+    }
+    
 
-function TestingInputSingleton.new()
-    local self = setmetatable(AllBinaryGameLayer.new(StringUtil.getInstance().EMPTY_STRING, RectangleFactory.SINGLETON, ViewPosition.getInstanceD()), TestingInputSingleton)
-    self:_init_fields()
-        -- super(...) made self above
-        GameInputProcessorUtil.init(self.inputProcessorArray)
-    return self
-end
+    initInputProcessors() {
+    }
+    
 
+    initInputProcessorsForTestInput(aTestInputInterface) {
+        var testInputInterface = aTestInputInterface
+        _testInputPaintable = testInputInterface
+        _inputProcessorArray[Canvas.UP] = GameInputProcessor.new()
+        _inputProcessorArray[Canvas.DOWN] = GameInputProcessor.new()
+        _inputProcessorArray[Canvas.LEFT] = GameInputProcessor.new()
+        _inputProcessorArray[Canvas.RIGHT] = GameInputProcessor.new()
+        _inputProcessorArray[Canvas.KEY_NUM7] = GameInputProcessor.new()
+        _inputProcessorArray[Canvas.KEY_NUM9] = GameInputProcessor.new()
+        GameInputProcessorUtil.init(_inputProcessorArray)
+    }
+    
 
-function TestingInputSingleton:initInputProcessors()
-end
+    processInputList(allbinaryLayerManager, list) {
+        var key = 0
+        var gameKeyEvent = null
+        var size = list.size()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            gameKeyEvent = (list.objectArray[index])
+            key = gameKeyEvent.getKey()
+            _inputProcessorArray[key].processEvent(allbinaryLayerManager, GameKeyEvent.NONE)
+            }
+        }
+    }
+    
 
+    processInput(allbinaryLayerManager) {
+        this.processInputList(allbinaryLayerManager, this.getGameKeyEventList())
+        this.getGameKeyEventList().clear()
+    }
+    
 
-function TestingInputSingleton:initInputProcessorsForTestInput(aTestInputInterface)
-        local testInputInterface = aTestInputInterface
-        self.testInputPaintable = testInputInterface
-        self.inputProcessorArray[Canvas.UP + 1] = (function()
-            local o = GameInputProcessor.new and GameInputProcessor.new() or setmetatable({}, {__index = GameInputProcessor})
-            
+    paint(graphics) {
+        _testInputPaintable.paint(graphics)
+    }
+    
 
-            -- throws Exception
-        function o:processEvent(allbinaryLayerManager, gameKeyEvent)
-                testInputInterface:up()
-            end
-            return o
-        end)()
-        self.inputProcessorArray[Canvas.DOWN + 1] = (function()
-            local o = GameInputProcessor.new and GameInputProcessor.new() or setmetatable({}, {__index = GameInputProcessor})
-            
-
-            -- throws Exception
-        function o:processEvent(allbinaryLayerManager, gameKeyEvent)
-                testInputInterface:down()
-            end
-            return o
-        end)()
-        self.inputProcessorArray[Canvas.LEFT + 1] = (function()
-            local o = GameInputProcessor.new and GameInputProcessor.new() or setmetatable({}, {__index = GameInputProcessor})
-            
-
-            -- throws Exception
-        function o:processEvent(allbinaryLayerManager, gameKeyEvent)
-                testInputInterface:left()
-            end
-            return o
-        end)()
-        self.inputProcessorArray[Canvas.RIGHT + 1] = (function()
-            local o = GameInputProcessor.new and GameInputProcessor.new() or setmetatable({}, {__index = GameInputProcessor})
-            
-
-            -- throws Exception
-        function o:processEvent(allbinaryLayerManager, gameKeyEvent)
-                testInputInterface:right()
-            end
-            return o
-        end)()
-        self.inputProcessorArray[Canvas.KEY_NUM7 + 1] = (function()
-            local o = GameInputProcessor.new and GameInputProcessor.new() or setmetatable({}, {__index = GameInputProcessor})
-            
-
-            -- throws Exception
-        function o:processEvent(allbinaryLayerManager, gameKeyEvent)
-                testInputInterface:strafeLeft()
-            end
-            return o
-        end)()
-        self.inputProcessorArray[Canvas.KEY_NUM9 + 1] = (function()
-            local o = GameInputProcessor.new and GameInputProcessor.new() or setmetatable({}, {__index = GameInputProcessor})
-            
-
-            -- throws Exception
-        function o:processEvent(allbinaryLayerManager, gameKeyEvent)
-                testInputInterface:strafeRight()
-            end
-            return o
-        end)()
-        GameInputProcessorUtil.init(self.inputProcessorArray)
-end
-
-
--- throws Exception
-function TestingInputSingleton:processInputList(allbinaryLayerManager, list)
-        local key = 0
-        local gameKeyEvent = nil
-        local size = list:size()
-        for index = 0, size - 1 do
-            gameKeyEvent = (list.objectArray[index + 1])
-            key = gameKeyEvent:getKey()
-            self.inputProcessorArray[key + 1]:processEvent(allbinaryLayerManager, GameKeyEvent.NONE)
-        end
-end
-
-
--- throws Exception
-function TestingInputSingleton:processInput(allbinaryLayerManager)
-        self:processInputList(allbinaryLayerManager, self:getGameKeyEventList())
-        self:getGameKeyEventList():clear()
-end
-
-
-function TestingInputSingleton:paint(graphics)
-        self.testInputPaintable:paint(graphics)
-end
-
-
-function TestingInputSingleton:implmentsGameInputInterface()
+    implmentsGameInputInterface() {
         return true
-end
+    }
+}
 
-TestingInputSingleton.instance = TestingInputSingleton.new()
-
-return TestingInputSingleton
+import "../../../../javax/microedition/lcdui/Canvas" for Canvas
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/game/input/event/GameKeyEvent" for GameKeyEvent
+import "../../../../org/allbinary/graphics/RectangleFactory" for RectangleFactory
+import "../../../../org/allbinary/graphics/paint/NullPaintable" for NullPaintable
+import "../../../../org/allbinary/graphics/paint/PaintableInterface" for PaintableInterface
+import "../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/view/ViewPosition" for ViewPosition
+import "./GameInputInterface" for GameInputInterface
+import "./GameInputProcessor" for GameInputProcessor
+import "./InputFactory" for InputFactory
+import "./GameInputProcessorUtil" for GameInputProcessorUtil
+import "./TestInputInterface" for TestInputInterface
 

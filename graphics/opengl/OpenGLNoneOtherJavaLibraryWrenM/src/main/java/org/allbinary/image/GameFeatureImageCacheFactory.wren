@@ -1,53 +1,48 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.image
 
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameFeatureImageCacheFactory is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameFeatureImageCacheFactory() {
+  }
 
-local GameFeatureImageCacheFactory = {}
-GameFeatureImageCacheFactory.__index = GameFeatureImageCacheFactory
-GameFeatureImageCacheFactory.className = "GameFeatureImageCacheFactory"
+  construct new() {
+    super()
+    initFields_GameFeatureImageCacheFactory()
+  }
+    
 
-function GameFeatureImageCacheFactory.new()
-    local self = setmetatable({}, GameFeatureImageCacheFactory)
-    return self
-end
-
-
-function GameFeatureImageCacheFactory.getInstance()
+    static getInstance() {
         return ImageCacheFactory.getInstance()
-end
+    }
+    
 
-
-function GameFeatureImageCacheFactory.init()
+    static init() {
         ImageCacheFactory.init()
-end
+    }
+    
 
+    static releaseAll() {
+        ImageCacheFactory.getInstance().releaseAll()
+    }
+}
 
-function GameFeatureImageCacheFactory.releaseAll()
-        ImageCacheFactory.getInstance():releaseAll()
-end
-
-return GameFeatureImageCacheFactory
+import "./ImageCacheFactory" for ImageCacheFactory
+import "./ImageCache" for ImageCache
 

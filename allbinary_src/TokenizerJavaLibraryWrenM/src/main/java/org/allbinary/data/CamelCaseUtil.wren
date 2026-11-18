@@ -1,75 +1,84 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.data
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.data
 
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local StringValidationUtil = require("org.allbinary.logic.string.StringValidationUtil")
-local Tokenizer = require("org.allbinary.logic.string.tokens.Tokenizer")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CamelCaseUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = CamelCaseUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  commonSeps { _commonSeps }
+  commonSeps=(value) { _commonSeps = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CamelCaseUtil() {
+    _commonSeps = null
+        _commonSeps = CommonSeps.getInstance()
+  }
 
-local CamelCaseUtil = {}
-CamelCaseUtil.__index = CamelCaseUtil
-CamelCaseUtil.className = "CamelCaseUtil"
+  construct new() {
+    super()
+    initFields_CamelCaseUtil()
+  }
+    
 
-function CamelCaseUtil:_init_fields()
-    self.commonSeps = CommonSeps.getInstance()
-end
-
-function CamelCaseUtil.new()
-    local self = setmetatable({}, CamelCaseUtil)
-    self:_init_fields()
-    return self
-end
-
-
-function CamelCaseUtil.getInstance()
+    static getInstance() {
         return CamelCaseUtil.instance
-end
+    }
+    
 
+    getAsCamelCase(string, stringBuilder) {
+        var stringValidationUtil = StringValidationUtil.getInstance()
+        stringBuilder.delete(0, stringBuilder.length())
+        var list = BasicArrayListD.new()
+        var tokenizer = Tokenizer.new(_commonSeps.UNDERSCORE)
+        tokenizer.getTokensFromString(string, list)
+        var size = list.size()
+        var word = null
+        if (true) {
+            var i = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    i = JR.i32(i + 1)
+                }
+                jfirst = false
+                if (!((i < size))) break
+            word = list.get(i)
+            word = (stringValidationUtil.isEmpty(word) ? word : StringMaker.new().appendchar(Character.toUpperCase(JR.charAt(word, 0))).append(JR.toLowerCase(JR.substring(word, 1))).toString())
+            stringBuilder.append(word)
+            }
+        }
+        return stringBuilder.toString()
+    }
+}
 
--- throws Exception
-function CamelCaseUtil:getAsCamelCase(string, stringBuilder)
-        local stringValidationUtil = StringValidationUtil.getInstance()
-        stringBuilder:delete(0, stringBuilder:length())
-        local list = BasicArrayListD.new()
-        local tokenizer = Tokenizer.new(self.commonSeps.UNDERSCORE)
-        tokenizer:getTokensFromString(string, list)
-        local size = list:size()
-        local word = nil
-        for i = 0, size - 1 do
-            word = list:get(i)
-            word = (function() if stringValidationUtil:isEmpty(word) then return word else return tostring(StringMaker.new():appendchar(string.upper(string.sub(word, (0) + 1, (0) + 1))):append(string.lower(string.sub(word, (1) + 1)))) end end)()
-            stringBuilder:append(word)
-        end
-        return tostring(stringBuilder)
-end
-
-CamelCaseUtil.instance = CamelCaseUtil.new()
-
-return CamelCaseUtil
+import "../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../org/allbinary/logic/string/StringValidationUtil" for StringValidationUtil
+import "../../../org/allbinary/logic/string/tokens/Tokenizer" for Tokenizer
+import "../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "../../../java/lang/Character" for Character
 

@@ -1,199 +1,221 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
--- local Canvas = require("javax.microedition.lcdui.Canvas")
--- local Command = require("javax.microedition.lcdui.Command")
-local GameCommandsFactory = require("org.allbinary.game.commands.GameCommandsFactory")
-local Features = require("org.allbinary.game.configuration.feature.Features")
-local InputFeatureFactory = require("org.allbinary.game.configuration.feature.InputFeatureFactory")
-local GameKeyEvent = require("org.allbinary.game.input.event.GameKeyEvent")
-local GameKeyEventFactory = require("org.allbinary.game.input.event.GameKeyEventFactory")
-local SWTUtil = require("org.allbinary.game.layer.SWTUtil")
-local GPoint = require("org.allbinary.graphics.GPoint")
-local MyCanvas = require("org.allbinary.graphics.displayable.MyCanvas")
-local CommandCurrentSelectionForm = require("org.allbinary.graphics.form.CommandCurrentSelectionForm")
-local ScrollSelectionForm = require("org.allbinary.graphics.form.ScrollSelectionForm")
-local OpenGLFeatureFactory = require("org.allbinary.graphics.opengles.OpenGLFeatureFactory")
-local MotionGestureInput = require("org.allbinary.input.motion.gesture.MotionGestureInput")
-local TouchMotionGestureFactory = require("org.allbinary.input.motion.gesture.TouchMotionGestureFactory")
-local MotionGestureEvent = require("org.allbinary.input.motion.gesture.observer.MotionGestureEvent")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local PrimaryPlayerQueueFactory = require("org.allbinary.media.audio.PrimaryPlayerQueueFactory")
-local SelectSound = require("org.allbinary.media.audio.SelectSound")
-local PrimaryThreadPool = require("org.allbinary.thread.PrimaryThreadPool")
-local TimeDelayHelper = require("org.allbinary.time.TimeDelayHelper")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicMenuInputProcessor = require("org.allbinary.game.displayable.canvas.BasicMenuInputProcessor")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./BasicMenuInputProcessor" for BasicMenuInputProcessor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//In general allow scrolling of the menu and selection the center item
+class CommandFormInputProcessor is BasicMenuInputProcessor {
+  MOTION_GESTURE_SOURCE_ID { _MOTION_GESTURE_SOURCE_ID }
+  MOTION_GESTURE_SOURCE_ID=(value) { _MOTION_GESTURE_SOURCE_ID = value }
+  CLICK_DELAY { _CLICK_DELAY }
+  CLICK_DELAY=(value) { _CLICK_DELAY = value }
+  clickTimeHelper { _clickTimeHelper }
+  clickTimeHelper=(value) { _clickTimeHelper = value }
+  DOUBLE_CLICK_DELAY { _DOUBLE_CLICK_DELAY }
+  DOUBLE_CLICK_DELAY=(value) { _DOUBLE_CLICK_DELAY = value }
+  doubleClickTimeHelper { _doubleClickTimeHelper }
+  doubleClickTimeHelper=(value) { _doubleClickTimeHelper = value }
+  isSingleKeyProcessing { _isSingleKeyProcessing }
+  isSingleKeyProcessing=(value) { _isSingleKeyProcessing = value }
+  form { _form }
+  form=(value) { _form = value }
+  hasPressed { _hasPressed }
+  hasPressed=(value) { _hasPressed = value }
+  PROCESS_COMMAND { _PROCESS_COMMAND }
+  PROCESS_COMMAND=(value) { _PROCESS_COMMAND = value }
+  NAME_LABEL { _NAME_LABEL }
+  NAME_LABEL=(value) { _NAME_LABEL = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CommandFormInputProcessor() {
+    _MOTION_GESTURE_SOURCE_ID = 0
+    _CLICK_DELAY = 0
+    _clickTimeHelper = null
+    _DOUBLE_CLICK_DELAY = 0
+    _doubleClickTimeHelper = null
+    _isSingleKeyProcessing = false
+    _form = null
+    _hasPressed = false
+    _PROCESS_COMMAND = null
+    _NAME_LABEL = null
+        _MOTION_GESTURE_SOURCE_ID = GameKeyEventFactory.getInstance().MOTION_GESTURE_SOURCE_ID
+        _CLICK_DELAY = 150
+        _clickTimeHelper = TimeDelayHelper.new(_CLICK_DELAY)
+        _DOUBLE_CLICK_DELAY = 1200
+        _doubleClickTimeHelper = TimeDelayHelper.new(_DOUBLE_CLICK_DELAY)
+        _isSingleKeyProcessing = InputFeatureFactory.getInstance().isSingleKeyProcessing()
+        
+        _hasPressed = false
+        _PROCESS_COMMAND = "processCommand"
+        _NAME_LABEL = " ScrollSelectionForm: "
+  }
+    
 
---In general allow scrolling of the menu and selection the center item
-local CommandFormInputProcessor = {}
-CommandFormInputProcessor.__index = CommandFormInputProcessor
-CommandFormInputProcessor.className = "CommandFormInputProcessor"
-setmetatable(CommandFormInputProcessor, {__index = BasicMenuInputProcessor})
+    construct new(gameKeyEventList, playerInputId, gameCanvas, form) {
+        super(gameKeyEventList, playerInputId, gameCanvas)
+        initFields_CommandFormInputProcessor()
+        _form = form
+    }
+    
 
-function CommandFormInputProcessor:_init_fields()
-    self.MOTION_GESTURE_SOURCE_ID = GameKeyEventFactory.getInstance().MOTION_GESTURE_SOURCE_ID
-    self.CLICK_DELAY = 150
-    self.clickTimeHelper = TimeDelayHelper.new(self.CLICK_DELAY)
-    self.DOUBLE_CLICK_DELAY = 1200
-    self.doubleClickTimeHelper = TimeDelayHelper.new(self.DOUBLE_CLICK_DELAY)
-    self.isSingleKeyProcessing = InputFeatureFactory.getInstance():isSingleKeyProcessing()
-    self.form = nil
-    self.hasPressed = false
-    self.PROCESS_COMMAND = "processCommand"
-    self.NAME_LABEL = " ScrollSelectionForm: "
-end
-
-
-function CommandFormInputProcessor.new(gameKeyEventList, playerInputId, gameCanvas, form)
-    local self = setmetatable(BasicMenuInputProcessor.new(gameKeyEventList, playerInputId, gameCanvas), CommandFormInputProcessor)
-    self:_init_fields()
-        -- super(...) made self above
-        self.form = form
-    return self
-end
-
-
--- throws Exception
-function CommandFormInputProcessor:processInput(key)
-        if key == Canvas.LEFT or key == Canvas.RIGHT or key == Canvas.UP or key == Canvas.DOWN then
-            PrimaryPlayerQueueFactory.getInstance():add(SelectSound.getInstance())
-            self.form:processInputKey(key)
+    processInput(key) {
+        if (((((key == Canvas.LEFT) || (key == Canvas.RIGHT)) || (key == Canvas.UP)) || (key == Canvas.DOWN))) {
+            PrimaryPlayerQueueFactory.getInstance().add(SelectSound.getInstance())
+            _form.processInputKey(key)
             return 1
-        elseif key == Canvas.FIRE then
-            PrimaryPlayerQueueFactory.getInstance():add(SelectSound.getInstance())
-            return self:processCommand()
-        end
+        } else if ((key == Canvas.FIRE)) {
+            PrimaryPlayerQueueFactory.getInstance().add(SelectSound.getInstance())
+            return this.processCommand()
+        }
         return 0
-end
+    }
+    
 
-
-function CommandFormInputProcessor:processCommand()
-        local commandCurrentSelectionForm = self.form
-        local command = commandCurrentSelectionForm:getSelectedCommand()
-        self.logUtil:putF(tostring(command), self, self.PROCESS_COMMAND)
-        local features = Features.getInstance()
-        local openGLFeatureFactory = OpenGLFeatureFactory.getInstance()
-        if SWTUtil.isSWT and features:isFeature(openGLFeatureFactory.OPENGL) and command ~= GameCommandsFactory.getInstance().EXIT_COMMAND then
-            CommandRunnable.new(self, command):run()
-        else
-            PrimaryThreadPool.getInstance():runTask(CommandRunnable.new(self, command))
-        end
-        if command == GameCommandsFactory.getInstance().QUIT_COMMAND then
+    processCommand() {
+        var commandCurrentSelectionForm = _form
+        var command = commandCurrentSelectionForm.getSelectedCommand()
+        this.logUtil.putF(command.toString(), this, _PROCESS_COMMAND)
+        var features = Features.getInstance()
+        var openGLFeatureFactory = OpenGLFeatureFactory.getInstance()
+        if (((SWTUtil.isSWT && features.isFeature(openGLFeatureFactory.OPENGL)) && (command != GameCommandsFactory.getInstance().EXIT_COMMAND))) {
+            CommandRunnable.new(this, command).run()
+        } else {
+            PrimaryThreadPool.getInstance().runTask(CommandRunnable.new(this, command))
+        }
+        if ((command == GameCommandsFactory.getInstance().QUIT_COMMAND)) {
             return -1
-        else
+        } else {
             return 1
-        end
-end
+        }
+    }
+    
 
-
--- throws Exception
-function CommandFormInputProcessor:processInputList()
-        local try_ok, try_error = pcall(function()
-            local motionInputsIndex = self:processMotionInputs()
-            local list = self:getGameKeyEventList()
-            local size = list:size()
-            local key = 0
-            local gameKeyEvent = nil
-            for index = 0, size - 1 do
-                gameKeyEvent = list.objectArray[index + 1]
-                key = gameKeyEvent:getKey()
-                if gameKeyEvent:getSourceId() ~= self.MOTION_GESTURE_SOURCE_ID then
-                    if self:processInput(key) == 1 then
+    processInputList() {
+        var jerror0 = Fiber.new {
+            var motionInputsIndex = this.processMotionInputs()
+            var list = this.getGameKeyEventList()
+            var size = list.size()
+            var key = 0
+            var gameKeyEvent = null
+            if (true) {
+                var index = 0
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        index = JR.i32(index + 1)
+                    }
+                    jfirst = false
+                    if (!((index < size))) break
+                gameKeyEvent = list.objectArray[index]
+                key = gameKeyEvent.getKey()
+                if ((gameKeyEvent.getSourceId() != _MOTION_GESTURE_SOURCE_ID)) {
+                    if ((this.processInput(key) == 1)) {
                         break
-                    end
-                end
-            end
-            self:clear()
-            if size > 0 or motionInputsIndex >= 0 then
+                    }
+                }
+                }
+            }
+            this.clear()
+            if (((size > 0) || (motionInputsIndex >= 0))) {
                 return 1
-            else
+            } else {
                 return -1
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.gameInputStrings.PROCESS_INPUT, e)
+            }
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            this.logUtil.put(this.commonStrings.EXCEPTION, this, this.gameInputStrings.PROCESS_INPUT, e)
             return -1
-        end
-end
+        }
+    }
+    
 
-
--- throws Exception
-function CommandFormInputProcessor:processMotionInputs()
-        local lastIndex = self.motionGestureEventList:size() - 1
-        if lastIndex >= 0 then
-            local motionGestureEvent = self.motionGestureEventList.objectArray[lastIndex + 1]
-            self:processMotionInput(motionGestureEvent)
-        end
-        self.motionGestureEventList:clear()
+    processMotionInputs() {
+        var lastIndex = JR.i32(this.motionGestureEventList.size() - 1)
+        if ((lastIndex >= 0)) {
+            var motionGestureEvent = this.motionGestureEventList.objectArray[lastIndex]
+            this.processMotionInput(motionGestureEvent)
+        }
+        this.motionGestureEventList.clear()
         return lastIndex
-end
+    }
+    
 
+    processMotionInput(motionGestureEvent) {
+        var touchMotionGestureFactory = TouchMotionGestureFactory.getInstance()
+        var motionGestureInput = motionGestureEvent.getMotionGesture()
+        if ((motionGestureInput == touchMotionGestureFactory.RELEASED)) {
+            var point = motionGestureEvent.getCurrentPoint()
+            if (_form.isInForm(point)) {
+                var index = _form.getSelectedIndexForPoint(point)
+                if ((index != -1)) {
+                    PrimaryPlayerQueueFactory.getInstance().add(SelectSound.getInstance())
+                    if ((index == _form.getSelectedIndex())) {
+                        if (_clickTimeHelper.isTimeTNT()) {
+                            this.processCommand()
+                        }
+                    } else {
+                        _form.setSelectedIndex(index)
+                    }
+                } else {
+                }
+            }
+            if (_hasPressed) {
+                if (!_doubleClickTimeHelper.isTimeTNT()) {
+                    this.logUtil.putF("Double Press", this, this.gameInputStrings.PROCESS_MOTION_INPUT)
+                    this.processCommand()
+                }
+                _doubleClickTimeHelper.delay = _DOUBLE_CLICK_DELAY
+                _doubleClickTimeHelper.setStartTimeTNT()
+            }
+            _hasPressed = false
+        } else if ((motionGestureInput == touchMotionGestureFactory.PRESSED)) {
+            _doubleClickTimeHelper.delay = 0
+            _hasPressed = true
+        }
+    }
+    
 
--- throws Exception
-function CommandFormInputProcessor:processMotionInput(motionGestureEvent)
-        local touchMotionGestureFactory = TouchMotionGestureFactory.getInstance()
-        local motionGestureInput = motionGestureEvent:getMotionGesture()
-        if motionGestureInput == touchMotionGestureFactory.RELEASED then
-            local point = motionGestureEvent:getCurrentPoint()
-            if self.form:isInForm(point) then
-                local index = self.form:getSelectedIndexForPoint(point)
-                if index ~= -1 then
-                    PrimaryPlayerQueueFactory.getInstance():add(SelectSound.getInstance())
-                    if index == self.form:getSelectedIndex() then
-                        if self.clickTimeHelper:isTimeTNT() then
-                            self:processCommand()
-                        end
-                    else
-                        self.form:setSelectedIndex(index)
-                    end
-                else
-                end
-            end
-            if self.hasPressed then
-                if not self.doubleClickTimeHelper:isTimeTNT() then
-                    self.logUtil:putF("Double Press", self, self.gameInputStrings.PROCESS_MOTION_INPUT)
-                    self:processCommand()
-                end
-                self.doubleClickTimeHelper.delay = self.DOUBLE_CLICK_DELAY
-                self.doubleClickTimeHelper:setStartTimeTNT()
-            end
-            self.hasPressed = false
-        elseif motionGestureInput == touchMotionGestureFactory.PRESSED then
-            self.doubleClickTimeHelper.delay = 0
-            self.hasPressed = true
-        end
-end
+    toString() {
+        return StringMaker.new().append(super.toString()).append(_NAME_LABEL).append(_form.toString()).toString()
+    }
+}
 
-
-function CommandFormInputProcessor:toString()
-        return tostring(StringMaker.new():append(tostring(BasicMenuInputProcessor)):append(self.NAME_LABEL):append(tostring(self.form)))
-end
-CommandFormInputProcessor.__tostring = function(self) return self:toString() end
-
-return CommandFormInputProcessor
+import "../../../../../javax/microedition/lcdui/Canvas" for Canvas
+import "../../../../../javax/microedition/lcdui/Command" for Command
+import "../../../../../org/allbinary/game/commands/GameCommandsFactory" for GameCommandsFactory
+import "../../../../../org/allbinary/game/configuration/feature/Features" for Features
+import "../../../../../org/allbinary/game/configuration/feature/InputFeatureFactory" for InputFeatureFactory
+import "../../../../../org/allbinary/game/input/event/GameKeyEvent" for GameKeyEvent
+import "../../../../../org/allbinary/game/input/event/GameKeyEventFactory" for GameKeyEventFactory
+import "../../../../../org/allbinary/game/layer/SWTUtil" for SWTUtil
+import "../../../../../org/allbinary/graphics/GPoint" for GPoint
+import "../../../../../org/allbinary/graphics/displayable/MyCanvas" for MyCanvas
+import "../../../../../org/allbinary/graphics/form/CommandCurrentSelectionForm" for CommandCurrentSelectionForm
+import "../../../../../org/allbinary/graphics/form/ScrollSelectionForm" for ScrollSelectionForm
+import "../../../../../org/allbinary/graphics/opengles/OpenGLFeatureFactory" for OpenGLFeatureFactory
+import "../../../../../org/allbinary/input/motion/gesture/MotionGestureInput" for MotionGestureInput
+import "../../../../../org/allbinary/input/motion/gesture/TouchMotionGestureFactory" for TouchMotionGestureFactory
+import "../../../../../org/allbinary/input/motion/gesture/observer/MotionGestureEvent" for MotionGestureEvent
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/media/audio/PrimaryPlayerQueueFactory" for PrimaryPlayerQueueFactory
+import "../../../../../org/allbinary/media/audio/SelectSound" for SelectSound
+import "../../../../../org/allbinary/thread/PrimaryThreadPool" for PrimaryThreadPool
+import "../../../../../org/allbinary/time/TimeDelayHelper" for TimeDelayHelper
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "./CommandRunnable" for CommandRunnable
 

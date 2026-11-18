@@ -18,17 +18,7 @@
 import "../../../allbinary_java" for JObject, JException, JR
 
 class AngleInfo is JObject {
-    static ANGLE {
-    if (__ANGLE_set == null) {
-      __ANGLE_set = true
-      __ANGLE = "Angle: "
-    }
-    return __ANGLE
-  }
-  static ANGLE=(value) {
-    __ANGLE_set = true
-    __ANGLE = value
-  }
+    static ANGLE { "Angle: " }
   angleIncrementInfo { _angleIncrementInfo }
   angleIncrementInfo=(value) { _angleIncrementInfo = value }
   angle { _angle }

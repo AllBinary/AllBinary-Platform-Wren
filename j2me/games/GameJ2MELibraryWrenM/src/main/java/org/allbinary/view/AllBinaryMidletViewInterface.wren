@@ -1,42 +1,28 @@
--- Generated Code Do Not Modify
--- package org.allbinary.view
+// Generated Code Do Not Modify
+// package org.allbinary.view
 
-local GameInitializedListenerInterface = require("org.allbinary.game.configuration.event.GameInitializedListenerInterface")
-local DemoGameMidletEventListener = require("org.allbinary.game.midlet.DemoGameMidletEventListener")
-local MidletCompositeInterface = require("org.allbinary.midlet.MidletCompositeInterface")
-local EmulatorViewInterface = require("org.allbinary.view.EmulatorViewInterface")
+import "../../../allbinary_java" for JObject, JException, JR
+import "../../../org/allbinary/midlet/MidletCompositeInterface" for MidletCompositeInterface
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AllBinaryMidletViewInterface is JObject {
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    onResume() {
+        Fiber.abort(JR.exception("AbstractMethodError", "onResume"))
+    }
+    
 
--- Java interface
-local AllBinaryMidletViewInterface = {}
-AllBinaryMidletViewInterface.__index = AllBinaryMidletViewInterface
-AllBinaryMidletViewInterface.className = "AllBinaryMidletViewInterface"
-setmetatable(AllBinaryMidletViewInterface, {__index = MidletCompositeInterface})
+    onPause() {
+        Fiber.abort(JR.exception("AbstractMethodError", "onPause"))
+    }
+    
 
+    onDestroy() {
+        Fiber.abort(JR.exception("AbstractMethodError", "onDestroy"))
+    }
+}
 
-function AllBinaryMidletViewInterface:onResume()
-    error("abstract method onResume")
-end
-
-
-function AllBinaryMidletViewInterface:onPause()
-    error("abstract method onPause")
-end
-
-
-function AllBinaryMidletViewInterface:onDestroy()
-    error("abstract method onDestroy")
-end
-
-return AllBinaryMidletViewInterface
+import "../../../org/allbinary/game/configuration/event/GameInitializedListenerInterface" for GameInitializedListenerInterface
+import "../../../org/allbinary/game/midlet/DemoGameMidletEventListener" for DemoGameMidletEventListener
+import "./EmulatorViewInterface" for EmulatorViewInterface
 

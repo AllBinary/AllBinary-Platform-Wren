@@ -1,78 +1,78 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.pickup.life
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.pickup.life
 
-local FeaturedAnimationInterfaceFactoryInterfaceFactory = require("org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory")
-local CountedPickedUpLayerInterfaceFactory = require("org.allbinary.game.layer.pickup.CountedPickedUpLayerInterfaceFactory")
-local IconLayerFactory = require("org.allbinary.game.layer.pickup.IconLayerFactory")
-local PickedUpLayerInterfaceFactory = require("org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactory")
-local PickedUpLayerInterfaceFactoryInterface = require("org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface")
-local PickedUpLayerTypeFactory = require("org.allbinary.game.layer.pickup.PickedUpLayerTypeFactory")
-local PickupProcessorInterface = require("org.allbinary.game.layer.pickup.PickupProcessorInterface")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
+import "../../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../../org/allbinary/game/layer/pickup/PickedUpLayerInterfaceFactory" for PickedUpLayerInterfaceFactory
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LifePickedUpLayerInterfaceFactory is PickedUpLayerInterfaceFactory {
+    static pickedUpLayerInterfaceFactoryInterface {
+    if (__pickedUpLayerInterfaceFactoryInterface_set == null) {
+      __pickedUpLayerInterfaceFactoryInterface_set = true
+      __pickedUpLayerInterfaceFactoryInterface = CountedPickedUpLayerInterfaceFactory.NULL_COUNTED_PICKUP_LAYER_FACTORY
+    }
+    return __pickedUpLayerInterfaceFactoryInterface
+  }
+  static pickedUpLayerInterfaceFactoryInterface=(value) {
+    __pickedUpLayerInterfaceFactoryInterface_set = true
+    __pickedUpLayerInterfaceFactoryInterface = value
+  }
+  pool { _pool }
+  pool=(value) { _pool = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LifePickedUpLayerInterfaceFactory() {
+    _pool = null
+        _pool = LifeLayerCircularStaticPool.new(LifeLayerFactory.new(), 1)
+  }
+    
 
-local LifePickedUpLayerInterfaceFactory = {}
-LifePickedUpLayerInterfaceFactory.__index = LifePickedUpLayerInterfaceFactory
-LifePickedUpLayerInterfaceFactory.className = "LifePickedUpLayerInterfaceFactory"
-setmetatable(LifePickedUpLayerInterfaceFactory, {__index = PickedUpLayerInterfaceFactory})
-
-function LifePickedUpLayerInterfaceFactory:_init_fields()
-    self.pool = LifeLayerCircularStaticPool.new(LifeLayerFactory.new(), 1)
-end
-
-
--- throws Exception
-function LifePickedUpLayerInterfaceFactory.init()
+    static init() {
         LifePickedUpLayerInterfaceFactory.pickedUpLayerInterfaceFactoryInterface = LifePickedUpLayerInterfaceFactory.new()
-end
+    }
+    
 
+    construct new() {
+        super(PickedUpLayerTypeFactory.getInstance().LIFE, IconLayerFactory.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(LifeResources.getInstance().RESOURCE).getInstance(0), 10, 10), FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(LifeResources.getInstance().RESOURCE).getInstance(0))
+        initFields_LifePickedUpLayerInterfaceFactory()
+    }
+    
 
-function LifePickedUpLayerInterfaceFactory.new()
-    local self = setmetatable(PickedUpLayerInterfaceFactory.new(PickedUpLayerTypeFactory.getInstance().LIFE, IconLayerFactory.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance():get(LifeResources.getInstance().RESOURCE):getInstance(0), 10, 10), FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance():get(LifeResources.getInstance().RESOURCE):getInstance(0)), LifePickedUpLayerInterfaceFactory)
-    self:_init_fields()
-        -- super(...) made self above
-    return self
-end
-
-
-function LifePickedUpLayerInterfaceFactory:getTotal()
+    getTotal() {
         return 1
-end
+    }
+    
 
-
-function LifePickedUpLayerInterfaceFactory.getInstance()
+    static getInstance() {
         return LifePickedUpLayerInterfaceFactory.pickedUpLayerInterfaceFactoryInterface
-end
+    }
+    
 
+    process(sourceLayerInterface) {
+        _pool.visit(sourceLayerInterface)
+    }
+}
 
--- throws Exception
-function LifePickedUpLayerInterfaceFactory:process(sourceLayerInterface)
-        self.pool:visit(sourceLayerInterface)
-end
-
-LifePickedUpLayerInterfaceFactory.pickedUpLayerInterfaceFactoryInterface = CountedPickedUpLayerInterfaceFactory.NULL_COUNTED_PICKUP_LAYER_FACTORY
-
-return LifePickedUpLayerInterfaceFactory
+import "../../../../../../../org/allbinary/animation/FeaturedAnimationInterfaceFactoryInterfaceFactory" for FeaturedAnimationInterfaceFactoryInterfaceFactory
+import "../../../../../../../org/allbinary/game/layer/pickup/CountedPickedUpLayerInterfaceFactory" for CountedPickedUpLayerInterfaceFactory
+import "../../../../../../../org/allbinary/game/layer/pickup/IconLayerFactory" for IconLayerFactory
+import "../../../../../../../org/allbinary/game/layer/pickup/PickedUpLayerInterfaceFactoryInterface" for PickedUpLayerInterfaceFactoryInterface
+import "../../../../../../../org/allbinary/game/layer/pickup/PickedUpLayerTypeFactory" for PickedUpLayerTypeFactory
+import "../../../../../../../org/allbinary/game/layer/pickup/PickupProcessorInterface" for PickupProcessorInterface
+import "../../../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "./LifeLayerCircularStaticPool" for LifeLayerCircularStaticPool
+import "./LifeLayerFactory" for LifeLayerFactory
+import "./LifeResources" for LifeResources
 

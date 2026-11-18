@@ -1,42 +1,29 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.combat.destroy
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.combat.destroy
 
-local NamedInterface = require("org.allbinary.layer.NamedInterface")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/layer/NamedInterface" for NamedInterface
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class DestroyableInterface is JObject {
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    isDestroyed() {
+        Fiber.abort(JR.exception("AbstractMethodError", "isDestroyed"))
+    }
+}
 
--- Java interface
-local DestroyableInterface = {}
-DestroyableInterface.__index = DestroyableInterface
-DestroyableInterface.className = "DestroyableInterface"
-setmetatable(DestroyableInterface, {__index = NamedInterface})
-
-
--- throws Exception
-function DestroyableInterface:isDestroyed()
-    error("abstract method isDestroyed")
-end
-
-return DestroyableInterface
 

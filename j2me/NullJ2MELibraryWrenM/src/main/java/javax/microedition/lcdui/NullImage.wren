@@ -1,49 +1,54 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package javax.microedition.lcdui
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package javax.microedition.lcdui
 
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class NullImage is JObject {
+    static NULL_IMAGE_ARRAY {
+    if (__NULL_IMAGE_ARRAY_set == null) {
+      __NULL_IMAGE_ARRAY_set = true
+      __NULL_IMAGE_ARRAY = List.filled(0, null)
+    }
+    return __NULL_IMAGE_ARRAY
+  }
+  static NULL_IMAGE_ARRAY=(value) {
+    __NULL_IMAGE_ARRAY_set = true
+    __NULL_IMAGE_ARRAY = value
+  }
+    static NULL_IMAGE {
+    if (__NULL_IMAGE_set == null) {
+      __NULL_IMAGE_set = true
+      __NULL_IMAGE = Image.new()
+    }
+    return __NULL_IMAGE
+  }
+  static NULL_IMAGE=(value) {
+    __NULL_IMAGE_set = true
+    __NULL_IMAGE = value
+  }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_NullImage() {
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  construct new() {
+    super()
+    initFields_NullImage()
+  }
+}
 
-local NullImage = {}
-NullImage.__index = NullImage
-NullImage.className = "NullImage"
-
-function NullImage.new()
-    local self = setmetatable({}, NullImage)
-    return self
-end
-
-NullImage.NULL_IMAGE_ARRAY = java_new_array(nil, 0)
-NullImage.NULL_IMAGE = Image.new()
-
-return NullImage
+import "./Image" for Image
 

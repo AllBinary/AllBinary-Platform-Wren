@@ -1,104 +1,108 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.resource
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.resource
 
-local PointFactory = require("org.allbinary.graphics.PointFactory")
-local RelativeRelationship = require("org.allbinary.graphics.RelativeRelationship")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local RelativeLayerRelationship = require("org.allbinary.layer.relationship.RelativeLayerRelationship")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local BasicArrayListUtil = require("org.allbinary.util.BasicArrayListUtil")
-local FeaturedResourceFactory = require("org.allbinary.game.resource.FeaturedResourceFactory")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./FeaturedResourceFactory" for FeaturedResourceFactory
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class FeaturedResourceRelativeRelationshipFactory is FeaturedResourceFactory {
+    static INSTANCE {
+    if (__INSTANCE_set == null) {
+      __INSTANCE_set = true
+      __INSTANCE = FeaturedResourceRelativeRelationshipFactory.new()
+    }
+    return __INSTANCE
+  }
+  static INSTANCE=(value) {
+    __INSTANCE_set = true
+    __INSTANCE = value
+  }
+  basicArrayListUtil { _basicArrayListUtil }
+  basicArrayListUtil=(value) { _basicArrayListUtil = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_FeaturedResourceRelativeRelationshipFactory() {
+    _basicArrayListUtil = null
+        _basicArrayListUtil = BasicArrayListUtil.getInstance()
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new() {
+    super()
+    initFields_FeaturedResourceRelativeRelationshipFactory()
+    }
+    
 
-local FeaturedResourceRelativeRelationshipFactory = {}
-FeaturedResourceRelativeRelationshipFactory.__index = FeaturedResourceRelativeRelationshipFactory
-FeaturedResourceRelativeRelationshipFactory.className = "FeaturedResourceRelativeRelationshipFactory"
-setmetatable(FeaturedResourceRelativeRelationshipFactory, {__index = FeaturedResourceFactory})
-
-function FeaturedResourceRelativeRelationshipFactory:_init_fields()
-    self.basicArrayListUtil = BasicArrayListUtil.getInstance()
-end
-
-
-function FeaturedResourceRelativeRelationshipFactory.new()
-    local self = setmetatable(FeaturedResourceFactory.new(), FeaturedResourceRelativeRelationshipFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function FeaturedResourceRelativeRelationshipFactory.getInstance()
+    static getInstance() {
         return FeaturedResourceRelativeRelationshipFactory.INSTANCE
-end
+    }
+    
 
+    getRelativeRelationshipList(resource, layer) {
+        var featureReleaseList = this.getList()
+        var size = this.getList().size()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            var featureInterface = featureReleaseList.objectArray[index]
+            if (featureInterface.isFeature()) {
+                var list = featureInterface.getResourceRelativeRelationshipList(resource)
+                if ((list != _basicArrayListUtil.getImmutableInstance())) {
+                    return this.duplicate(list, layer)
+                }
+            }
+            }
+        }
+        Fiber.abort(JR.exception("Exception", StringMaker.new().append("Not available for current feature selection or Resource: ").append(resource).toString()))
+    }
+    
 
--- throws Exception
-function FeaturedResourceRelativeRelationshipFactory:getRelativeRelationshipList(resource, layer)
-        local featureReleaseList = self:getList()
-        local size = self:getList():size()
-        for index = 0, size - 1 do
-            local featureInterface = featureReleaseList.objectArray[index + 1]
-            if featureInterface:isFeature() then
-                local list = featureInterface:getResourceRelativeRelationshipList(resource)
-                if list ~= self.basicArrayListUtil:getImmutableInstance() then
-                    return self:duplicate(list, layer)
-                end
-            end
-        end
-        error(java_exception("Exception", tostring(StringMaker.new():append("Not available for current feature selection or Resource: "):append(resource))), 0)
-end
-
-
--- throws Exception
-function FeaturedResourceRelativeRelationshipFactory:duplicate(list, layer)
-        local pointFactory = PointFactory.getInstance()
-        local newList = BasicArrayListD.new()
-        local size = list:size()
-        for index = 0, size - 1 do
-            local relativeRelationship = list.objectArray[index + 1]
-            newList:add(RelativeLayerRelationship.new(layer, pointFactory:createXY(relativeRelationship:getX(), relativeRelationship:getY()), BasicArrayListUtil.getInstance():getImmutableInstance()))
-        end
+    duplicate(list, layer) {
+        var pointFactory = PointFactory.getInstance()
+        var newList = BasicArrayListD.new()
+        var size = list.size()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            var relativeRelationship = list.objectArray[index]
+            newList.add(RelativeLayerRelationship.new(layer, pointFactory.createXY(relativeRelationship.getX(), relativeRelationship.getY()), BasicArrayListUtil.getInstance().getImmutableInstance()))
+            }
+        }
         return newList
-end
+    }
+}
 
-FeaturedResourceRelativeRelationshipFactory.INSTANCE = FeaturedResourceRelativeRelationshipFactory.new()
-
-return FeaturedResourceRelativeRelationshipFactory
+import "../../../../org/allbinary/graphics/PointFactory" for PointFactory
+import "../../../../org/allbinary/graphics/RelativeRelationship" for RelativeRelationship
+import "../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../org/allbinary/layer/relationship/RelativeLayerRelationship" for RelativeLayerRelationship
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "../../../../org/allbinary/util/BasicArrayListUtil" for BasicArrayListUtil
+import "./ResourceRelativeRelationshipFactoryInterface" for ResourceRelativeRelationshipFactoryInterface
 

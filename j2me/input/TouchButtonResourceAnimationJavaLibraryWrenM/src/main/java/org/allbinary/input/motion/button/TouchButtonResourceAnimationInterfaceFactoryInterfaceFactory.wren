@@ -1,166 +1,208 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2011 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.button
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2011 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.button
 
--- local Image = require("javax.microedition.lcdui.Image")
-local AnimationBehaviorFactory = require("org.allbinary.animation.AnimationBehaviorFactory")
-local NullAnimationFactory = require("org.allbinary.animation.NullAnimationFactory")
-local OneRowSpriteIndexedAnimationFactory = require("org.allbinary.animation.image.sprite.OneRowSpriteIndexedAnimationFactory")
-local BaseResourceAnimationInterfaceFactoryInterfaceFactory = require("org.allbinary.animation.resource.BaseResourceAnimationInterfaceFactoryInterfaceFactory")
-local Features = require("org.allbinary.game.configuration.feature.Features")
-local ResourceLoadingLevelFactory = require("org.allbinary.game.resource.ResourceLoadingLevelFactory")
-local ProgressCanvas = require("org.allbinary.graphics.canvas.transition.progress.ProgressCanvas")
-local ProgressCanvasFactory = require("org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory")
-local OpenGLFeatureFactory = require("org.allbinary.graphics.opengles.OpenGLFeatureFactory")
-local ImageCache = require("org.allbinary.image.ImageCache")
-local ImageCacheFactory = require("org.allbinary.image.ImageCacheFactory")
-local StdUtil = require("org.allbinary.logic.StdUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local OperatingSystemFactory = require("org.allbinary.logic.system.os.OperatingSystemFactory")
-local ImageCompleteUtil = require("org.allbinary.media.image.ImageCompleteUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/animation/resource/BaseResourceAnimationInterfaceFactoryInterfaceFactory" for BaseResourceAnimationInterfaceFactoryInterfaceFactory
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory is BaseResourceAnimationInterfaceFactoryInterfaceFactory {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TouchButtonResourceAnimationInterfaceFac60aceFactory() {
+  }
+    
 
-local TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory = {}
-TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory.__index = TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory
-TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory.className = "TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory"
-setmetatable(TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory, {__index = BaseResourceAnimationInterfaceFactoryInterfaceFactory})
-
-
-function TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory.createFactory()
+    static createFactory() {
         return TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory.new("TouchButton Animations")
-end
+    }
+    
 
+    construct new(name) {
+        super(name, StdUtil.getInstance().createHashtable(), StdUtil.getInstance().createHashtable(), StdUtil.getInstance().createHashtable())
+    }
+    
 
-function TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory.new(name)
-    local self = setmetatable(BaseResourceAnimationInterfaceFactoryInterfaceFactory.new(name, StdUtil.getInstance():createHashtable(), StdUtil.getInstance():createHashtable(), StdUtil.getInstance():createHashtable()), TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory)
-        -- super(...) made self above
-    return self
-end
+    init(level) {
+        this.initImageCache(ImageCacheFactory.getInstance(), level)
+    }
+    
 
-
--- throws Exception
-function TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory:init(level)
-        self:initImageCache(ImageCacheFactory.getInstance(), level)
-end
-
-
--- throws Exception
-function TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory:initImageCache(imageCache, level)
-        if self:isInitialized() then
+    initImageCache(imageCache, level) {
+        if (this.isInitialized()) {
             return
-        end
-        local portion = 140
-        local loadingString = tostring(StringMaker.new():append(tostring(self)):append(" Loading: "))
-        local index = 0
-        local progressCanvas = ProgressCanvasFactory.getInstance()
-        progressCanvas:addPortion(portion, loadingString, (function() local value = index index = value + 1 return value end)())
-        local touchButtonBlankResource = TouchButtonBlankResource.getInstance()
-        local touchButtonGenericActionResource = TouchButtonGenericActionResource.getInstance()
-        local touchButtonStartResource = TouchButtonStartResource.getInstance()
-        local touchButtonUpResource = TouchButtonUpResource.getInstance()
-        local touchButtonDownResource = TouchButtonDownResource.getInstance()
-        local touchButtonTurnLeftResource = TouchButtonTurnLeftResource.getInstance()
-        local touchButtonTurnRightResource = TouchButtonTurnRightResource.getInstance()
-        local touchButtonStrafeLeftResource = TouchButtonStrafeLeftResource.getInstance()
-        local touchButtonStrafeRightResource = TouchButtonStrafeRightResource.getInstance()
-        local touchButtonBlankResourceImage = imageCache:getWithKey(touchButtonBlankResource.RESOURCE)
-        local touchButtonGenericActionResourceImage = imageCache:getWithKey(touchButtonGenericActionResource.RESOURCE)
-        local touchButtonStartResourceImage = imageCache:getWithKey(touchButtonStartResource.RESOURCE)
-        local touchButtonUpResourceImage = imageCache:getWithKey(touchButtonUpResource.RESOURCE)
-        local touchButtonDownResourceImage = imageCache:getWithKey(touchButtonDownResource.RESOURCE)
-        local touchButtonTurnLeftResourceImage = imageCache:getWithKey(touchButtonTurnLeftResource.RESOURCE)
-        local touchButtonTurnRightResourceImage = imageCache:getWithKey(touchButtonTurnRightResource.RESOURCE)
-        local touchButtonStrafeLeftResourceImage = imageCache:getWithKey(touchButtonStrafeLeftResource.RESOURCE)
-        local touchButtonStrafeRightResourceImage = imageCache:getWithKey(touchButtonStrafeRightResource.RESOURCE)
-        local nullAnimationFactory = NullAnimationFactory.getFactoryInstance()
-        if OperatingSystemFactory.getInstance():getOperatingSystemInstance():isOverScan() then
-            imageCache:getWithKey(TouchButtonStartResource.getInstance().HINT)
-        end
-        progressCanvas:addPortion(portion, loadingString, (function() local value = index index = value + 1 return value end)())
-        local imageCompleteUtil = ImageCompleteUtil.getInstance()
-        progressCanvas:addPortion(portion, loadingString, (function() local value = index index = value + 1 return value end)())
-        imageCompleteUtil:waitForImage(touchButtonBlankResourceImage, touchButtonBlankResource.RESOURCE)
-        self:add(touchButtonBlankResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonBlankResourceImage, AnimationBehaviorFactory.getInstance()))
-        self:add(touchButtonBlankResource.HINT, nullAnimationFactory)
-        progressCanvas:addPortion(portion, loadingString, (function() local value = index index = value + 1 return value end)())
-        imageCompleteUtil:waitForImage(touchButtonGenericActionResourceImage, touchButtonGenericActionResource.RESOURCE)
-        self:add(touchButtonGenericActionResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonGenericActionResourceImage, AnimationBehaviorFactory.getInstance()))
-        self:add(touchButtonGenericActionResource.HINT, nullAnimationFactory)
-        progressCanvas:addPortion(portion, loadingString, (function() local value = index index = value + 1 return value end)())
-        imageCompleteUtil:waitForImage(touchButtonStartResourceImage, touchButtonStartResource.RESOURCE)
-        self:add(touchButtonStartResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonStartResourceImage, AnimationBehaviorFactory.getInstance()))
-        progressCanvas:addPortion(portion, loadingString, (function() local value = index index = value + 1 return value end)())
-        imageCompleteUtil:waitForImage(touchButtonUpResourceImage, touchButtonUpResource.RESOURCE)
-        self:add(touchButtonUpResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonUpResourceImage, AnimationBehaviorFactory.getInstance()))
-        self:add(touchButtonUpResource.HINT, nullAnimationFactory)
-        progressCanvas:addPortion(portion, loadingString, (function() local value = index index = value + 1 return value end)())
-        imageCompleteUtil:waitForImage(touchButtonDownResourceImage, touchButtonDownResource.RESOURCE)
-        self:add(touchButtonDownResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonDownResourceImage, AnimationBehaviorFactory.getInstance()))
-        self:add(touchButtonDownResource.HINT, nullAnimationFactory)
-        progressCanvas:addPortion(portion, loadingString, (function() local value = index index = value + 1 return value end)())
-        imageCompleteUtil:waitForImage(touchButtonTurnLeftResourceImage, touchButtonTurnLeftResource.RESOURCE)
-        self:add(touchButtonTurnLeftResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonTurnLeftResourceImage, AnimationBehaviorFactory.getInstance()))
-        self:add(touchButtonTurnLeftResource.HINT, nullAnimationFactory)
-        progressCanvas:addPortion(portion, loadingString, (function() local value = index index = value + 1 return value end)())
-        imageCompleteUtil:waitForImage(touchButtonTurnRightResourceImage, touchButtonTurnRightResource.RESOURCE)
-        self:add(touchButtonTurnRightResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonTurnRightResourceImage, AnimationBehaviorFactory.getInstance()))
-        self:add(touchButtonTurnRightResource.HINT, nullAnimationFactory)
-        progressCanvas:addPortion(portion, loadingString, (function() local value = index index = value + 1 return value end)())
-        imageCompleteUtil:waitForImage(touchButtonStrafeLeftResourceImage, touchButtonStrafeLeftResource.RESOURCE)
-        self:add(touchButtonStrafeLeftResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonStrafeLeftResourceImage, AnimationBehaviorFactory.getInstance()))
-        self:add(touchButtonStrafeLeftResource.HINT, nullAnimationFactory)
-        progressCanvas:addPortion(portion, loadingString, (function() local value = index index = value + 1 return value end)())
-        imageCompleteUtil:waitForImage(touchButtonStrafeRightResourceImage, touchButtonStrafeRightResource.RESOURCE)
-        self:add(touchButtonStrafeRightResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonStrafeRightResourceImage, AnimationBehaviorFactory.getInstance()))
-        self:add(touchButtonStrafeRightResource.HINT, nullAnimationFactory)
-        if OperatingSystemFactory.getInstance():getOperatingSystemInstance():isOverScan() then
-            local touchButtonStartHintResource = imageCache:getWithKey(TouchButtonStartResource.getInstance().HINT)
-            self:add(touchButtonStartResource.HINT, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonStartHintResource, AnimationBehaviorFactory.getInstance()))
-        else
-            self:add(touchButtonStartResource.HINT, nullAnimationFactory)
-        end
-        BaseResourceAnimationInterfaceFactoryInterfaceFactory.init(self, level)
-end
+        }
+        var portion = 140
+        var loadingString = StringMaker.new().append(this.toString()).append(" Loading: ").toString()
+        var index = 0
+        var progressCanvas = ProgressCanvasFactory.getInstance()
+        progressCanvas.addPortion(portion, loadingString, Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call())
+        var touchButtonBlankResource = TouchButtonBlankResource.getInstance()
+        var touchButtonGenericActionResource = TouchButtonGenericActionResource.getInstance()
+        var touchButtonStartResource = TouchButtonStartResource.getInstance()
+        var touchButtonUpResource = TouchButtonUpResource.getInstance()
+        var touchButtonDownResource = TouchButtonDownResource.getInstance()
+        var touchButtonTurnLeftResource = TouchButtonTurnLeftResource.getInstance()
+        var touchButtonTurnRightResource = TouchButtonTurnRightResource.getInstance()
+        var touchButtonStrafeLeftResource = TouchButtonStrafeLeftResource.getInstance()
+        var touchButtonStrafeRightResource = TouchButtonStrafeRightResource.getInstance()
+        var touchButtonBlankResourceImage = imageCache.getWithKey(touchButtonBlankResource.RESOURCE)
+        var touchButtonGenericActionResourceImage = imageCache.getWithKey(touchButtonGenericActionResource.RESOURCE)
+        var touchButtonStartResourceImage = imageCache.getWithKey(touchButtonStartResource.RESOURCE)
+        var touchButtonUpResourceImage = imageCache.getWithKey(touchButtonUpResource.RESOURCE)
+        var touchButtonDownResourceImage = imageCache.getWithKey(touchButtonDownResource.RESOURCE)
+        var touchButtonTurnLeftResourceImage = imageCache.getWithKey(touchButtonTurnLeftResource.RESOURCE)
+        var touchButtonTurnRightResourceImage = imageCache.getWithKey(touchButtonTurnRightResource.RESOURCE)
+        var touchButtonStrafeLeftResourceImage = imageCache.getWithKey(touchButtonStrafeLeftResource.RESOURCE)
+        var touchButtonStrafeRightResourceImage = imageCache.getWithKey(touchButtonStrafeRightResource.RESOURCE)
+        var nullAnimationFactory = NullAnimationFactory.getFactoryInstance()
+        if (OperatingSystemFactory.getInstance().getOperatingSystemInstance().isOverScan()) {
+            imageCache.getWithKey(TouchButtonStartResource.getInstance().HINT)
+        }
+        progressCanvas.addPortion(portion, loadingString, Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call())
+        var imageCompleteUtil = ImageCompleteUtil.getInstance()
+        progressCanvas.addPortion(portion, loadingString, Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call())
+        imageCompleteUtil.waitForImage(touchButtonBlankResourceImage, touchButtonBlankResource.RESOURCE)
+        this.add(touchButtonBlankResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonBlankResourceImage, AnimationBehaviorFactory.getInstance()))
+        this.add(touchButtonBlankResource.HINT, nullAnimationFactory)
+        progressCanvas.addPortion(portion, loadingString, Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call())
+        imageCompleteUtil.waitForImage(touchButtonGenericActionResourceImage, touchButtonGenericActionResource.RESOURCE)
+        this.add(touchButtonGenericActionResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonGenericActionResourceImage, AnimationBehaviorFactory.getInstance()))
+        this.add(touchButtonGenericActionResource.HINT, nullAnimationFactory)
+        progressCanvas.addPortion(portion, loadingString, Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call())
+        imageCompleteUtil.waitForImage(touchButtonStartResourceImage, touchButtonStartResource.RESOURCE)
+        this.add(touchButtonStartResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonStartResourceImage, AnimationBehaviorFactory.getInstance()))
+        progressCanvas.addPortion(portion, loadingString, Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call())
+        imageCompleteUtil.waitForImage(touchButtonUpResourceImage, touchButtonUpResource.RESOURCE)
+        this.add(touchButtonUpResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonUpResourceImage, AnimationBehaviorFactory.getInstance()))
+        this.add(touchButtonUpResource.HINT, nullAnimationFactory)
+        progressCanvas.addPortion(portion, loadingString, Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call())
+        imageCompleteUtil.waitForImage(touchButtonDownResourceImage, touchButtonDownResource.RESOURCE)
+        this.add(touchButtonDownResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonDownResourceImage, AnimationBehaviorFactory.getInstance()))
+        this.add(touchButtonDownResource.HINT, nullAnimationFactory)
+        progressCanvas.addPortion(portion, loadingString, Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call())
+        imageCompleteUtil.waitForImage(touchButtonTurnLeftResourceImage, touchButtonTurnLeftResource.RESOURCE)
+        this.add(touchButtonTurnLeftResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonTurnLeftResourceImage, AnimationBehaviorFactory.getInstance()))
+        this.add(touchButtonTurnLeftResource.HINT, nullAnimationFactory)
+        progressCanvas.addPortion(portion, loadingString, Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call())
+        imageCompleteUtil.waitForImage(touchButtonTurnRightResourceImage, touchButtonTurnRightResource.RESOURCE)
+        this.add(touchButtonTurnRightResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonTurnRightResourceImage, AnimationBehaviorFactory.getInstance()))
+        this.add(touchButtonTurnRightResource.HINT, nullAnimationFactory)
+        progressCanvas.addPortion(portion, loadingString, Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call())
+        imageCompleteUtil.waitForImage(touchButtonStrafeLeftResourceImage, touchButtonStrafeLeftResource.RESOURCE)
+        this.add(touchButtonStrafeLeftResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonStrafeLeftResourceImage, AnimationBehaviorFactory.getInstance()))
+        this.add(touchButtonStrafeLeftResource.HINT, nullAnimationFactory)
+        progressCanvas.addPortion(portion, loadingString, Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call())
+        imageCompleteUtil.waitForImage(touchButtonStrafeRightResourceImage, touchButtonStrafeRightResource.RESOURCE)
+        this.add(touchButtonStrafeRightResource.RESOURCE, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonStrafeRightResourceImage, AnimationBehaviorFactory.getInstance()))
+        this.add(touchButtonStrafeRightResource.HINT, nullAnimationFactory)
+        if (OperatingSystemFactory.getInstance().getOperatingSystemInstance().isOverScan()) {
+            var touchButtonStartHintResource = imageCache.getWithKey(TouchButtonStartResource.getInstance().HINT)
+            this.add(touchButtonStartResource.HINT, OneRowSpriteIndexedAnimationFactory.createFactory(touchButtonStartHintResource, AnimationBehaviorFactory.getInstance()))
+        } else {
+            this.add(touchButtonStartResource.HINT, nullAnimationFactory)
+        }
+        super.init(level)
+    }
+    
 
-
-function TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory:isLoadingLevel(level)
-        local resourceLoadingLevelFactory = ResourceLoadingLevelFactory.getInstance()
-        if level == resourceLoadingLevelFactory.LOAD_TOUCH:getLevel() then
+    isLoadingLevel(level) {
+        var resourceLoadingLevelFactory = ResourceLoadingLevelFactory.getInstance()
+        if ((level == resourceLoadingLevelFactory.LOAD_TOUCH.getLevel())) {
             return true
-        else
-            return BaseResourceAnimationInterfaceFactoryInterfaceFactory.isLoadingLevel(self, level)
-        end
-end
+        } else {
+            return super.isLoadingLevel(level)
+        }
+    }
+    
 
-
-function TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory:isFeature()
-        if not Features.getInstance():isDefault(OpenGLFeatureFactory.getInstance().OPENGL) then
+    isFeature() {
+        if (!Features.getInstance().isDefault(OpenGLFeatureFactory.getInstance().OPENGL)) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+}
 
-return TouchButtonResourceAnimationInterfaceFactoryInterfaceFactory
+import "../../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../../org/allbinary/animation/AnimationBehaviorFactory" for AnimationBehaviorFactory
+import "../../../../../org/allbinary/animation/NullAnimationFactory" for NullAnimationFactory
+import "../../../../../org/allbinary/animation/image/sprite/OneRowSpriteIndexedAnimationFactory" for OneRowSpriteIndexedAnimationFactory
+import "../../../../../org/allbinary/game/configuration/feature/Features" for Features
+import "../../../../../org/allbinary/game/resource/ResourceLoadingLevelFactory" for ResourceLoadingLevelFactory
+import "../../../../../org/allbinary/graphics/canvas/transition/progress/ProgressCanvas" for ProgressCanvas
+import "../../../../../org/allbinary/graphics/canvas/transition/progress/ProgressCanvasFactory" for ProgressCanvasFactory
+import "../../../../../org/allbinary/graphics/opengles/OpenGLFeatureFactory" for OpenGLFeatureFactory
+import "../../../../../org/allbinary/image/ImageCache" for ImageCache
+import "../../../../../org/allbinary/image/ImageCacheFactory" for ImageCacheFactory
+import "../../../../../org/allbinary/logic/StdUtil" for StdUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/system/os/OperatingSystemFactory" for OperatingSystemFactory
+import "../../../../../org/allbinary/media/image/ImageCompleteUtil" for ImageCompleteUtil
+import "./TouchButtonBlankResource" for TouchButtonBlankResource
+import "./TouchButtonResource" for TouchButtonResource
+import "./TouchButtonGenericActionResource" for TouchButtonGenericActionResource
+import "./TouchButtonStartResource" for TouchButtonStartResource
+import "./TouchButtonUpResource" for TouchButtonUpResource
+import "./TouchButtonDownResource" for TouchButtonDownResource
+import "./TouchButtonTurnLeftResource" for TouchButtonTurnLeftResource
+import "./TouchButtonTurnRightResource" for TouchButtonTurnRightResource
+import "./TouchButtonStrafeLeftResource" for TouchButtonStrafeLeftResource
+import "./TouchButtonStrafeRightResource" for TouchButtonStrafeRightResource
 

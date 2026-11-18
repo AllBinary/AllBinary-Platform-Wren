@@ -1,72 +1,73 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Image = require("javax.microedition.lcdui.Image")
-local Animation = require("org.allbinary.animation.Animation")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local AnimationBehaviorFactory = require("org.allbinary.animation.AnimationBehaviorFactory")
-local AnimationInterfaceFactoryInterface = require("org.allbinary.animation.AnimationInterfaceFactoryInterface")
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local ScaleProperties = require("org.allbinary.media.ScaleProperties")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ImageArrayAnimationFactory is JObject {
+  dx { _dx }
+  dx=(value) { _dx = value }
+  dy { _dy }
+  dy=(value) { _dy = value }
+  imageArray { _imageArray }
+  imageArray=(value) { _imageArray = value }
+  animationBehaviorFactory { _animationBehaviorFactory }
+  animationBehaviorFactory=(value) { _animationBehaviorFactory = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImageArrayAnimationFactory() {
+    _dx = 0
+    _dy = 0
+    _imageArray = null
+    _animationBehaviorFactory = null
+        _dx = 0
+        _dy = 0
+        
+        
+  }
+    
 
-local ImageArrayAnimationFactory = {}
-ImageArrayAnimationFactory.__index = ImageArrayAnimationFactory
-ImageArrayAnimationFactory.className = "ImageArrayAnimationFactory"
+    construct new(imageArray, dx, dy, animationBehaviorFactory) {
+    super()
+    initFields_ImageArrayAnimationFactory()
+        _imageArray = imageArray
+        _animationBehaviorFactory = animationBehaviorFactory
+        _dx = dx
+        _dy = dy
+    }
+    
 
-function ImageArrayAnimationFactory:_init_fields()
-    self.dx = 0
-    self.dy = 0
-    self.imageArray = nil
-    self.animationBehaviorFactory = nil
-end
+    getInstance(instanceId) {
+        if (((_dx != 0) || (_dy != 0))) {
+            return AdjustedImageArrayAnimation.new(_imageArray, _dx, _dy, _animationBehaviorFactory.getOrCreateInstance())
+        } else {
+            return ImageArrayAnimation.new(_imageArray, AnimationBehavior.getInstance())
+        }
+    }
+    
 
+    setInitialScale(scaleProperties) {
+    }
+}
 
-function ImageArrayAnimationFactory.new(imageArray, dx, dy, animationBehaviorFactory)
-    local self = setmetatable({}, ImageArrayAnimationFactory)
-    self:_init_fields()
-        self.imageArray = imageArray
-        self.animationBehaviorFactory = animationBehaviorFactory
-        self.dx = dx
-        self.dy = dy
-    return self
-end
-
-
--- throws Exception
-function ImageArrayAnimationFactory:getInstance(instanceId)
-        if self.dx ~= 0 or self.dy ~= 0 then
-            return AdjustedImageArrayAnimation.new(self.imageArray, self.dx, self.dy, self.animationBehaviorFactory:getOrCreateInstance())
-        else
-            return ImageArrayAnimation.new(self.imageArray, AnimationBehavior.getInstance())
-        end
-end
-
-
-function ImageArrayAnimationFactory:setInitialScale(scaleProperties)
-end
-
-return ImageArrayAnimationFactory
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/animation/AnimationBehaviorFactory" for AnimationBehaviorFactory
+import "../../../../org/allbinary/animation/AnimationInterfaceFactoryInterface" for AnimationInterfaceFactoryInterface
+import "../../../../org/allbinary/media/ScaleProperties" for ScaleProperties
+import "./ImageArrayAnimation" for ImageArrayAnimation
+import "./AdjustedImageArrayAnimation" for AdjustedImageArrayAnimation
 

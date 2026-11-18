@@ -1,93 +1,86 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Image = require("javax.microedition.lcdui.Image")
--- local Sprite = require("javax.microedition.lcdui.game.Sprite")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local ImageSegmentAnimation = require("org.allbinary.animation.image.ImageSegmentAnimation")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./ImageSegmentAnimation" for ImageSegmentAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LeftToRightImageAnimation is ImageSegmentAnimation {
+  currentWidth { _currentWidth }
+  currentWidth=(value) { _currentWidth = value }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LeftToRightImageAnimation() {
+    _currentWidth = 0
+    _anchor = 0
+        
+        _anchor = Anchor.TOP_LEFT
+  }
+    
 
-local LeftToRightImageAnimation = {}
-LeftToRightImageAnimation.__index = LeftToRightImageAnimation
-LeftToRightImageAnimation.className = "LeftToRightImageAnimation"
-setmetatable(LeftToRightImageAnimation, {__index = ImageSegmentAnimation})
+    construct new(image, sequenceArray, animationBehavior) {
+        super(image, sequenceArray, animationBehavior)
+        initFields_LeftToRightImageAnimation()
+        _currentWidth = 0
+        if ((this.getSequence()[0] == -1)) {
+            this.setFrame((this.getSize() - 1))
+        }
+    }
+    
 
-function LeftToRightImageAnimation:_init_fields()
-    self.currentWidth = nil
-    self.anchor = Anchor.TOP_LEFT
-end
+    nextFrame() {
+        if ((this.getSequence()[0] == -1)) {
+            super.previousFrame()
+        } else {
+            super.nextFrame()
+        }
+        this.update()
+    }
+    
 
+    previousFrame() {
+        if ((this.getSequence()[0] == -1)) {
+            super.nextFrame()
+        } else {
+            super.previousFrame()
+        }
+        this.update()
+    }
+    
 
-function LeftToRightImageAnimation.new(image, sequenceArray, animationBehavior)
-    local self = setmetatable(ImageSegmentAnimation.new(image, sequenceArray, animationBehavior), LeftToRightImageAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.currentWidth = 0
-        if self:getSequence()[1] == -1 then
-            self:setFrame(self:getSize() - 1)
-        end
-    return self
-end
+    setFrame(index) {
+        super.setFrame(index)
+        this.update()
+    }
+    
 
+    update() {
+        _currentWidth = ((this.getDrawWidth() * this.getFrame()) / this.getSize())
+    }
+    
 
-function LeftToRightImageAnimation:nextFrame()
-        if self:getSequence()[1] == -1 then
-            ImageSegmentAnimation.previousFrame(self)
-        else
-            ImageSegmentAnimation.nextFrame(self)
-        end
-        self:update()
-end
+    paintXY(graphics, x, y) {
+        graphics.drawRegion(this.getImage(), this.getStartX(), this.getStartY(), _currentWidth, this.getDrawHeight(), Sprite.TRANS_NONE, x, y, _anchor)
+    }
+}
 
-
-function LeftToRightImageAnimation:previousFrame()
-        if self:getSequence()[1] == -1 then
-            ImageSegmentAnimation.nextFrame(self)
-        else
-            ImageSegmentAnimation.previousFrame(self)
-        end
-        self:update()
-end
-
-
-function LeftToRightImageAnimation:setFrame(index)
-        ImageSegmentAnimation.setFrame(self, index)
-        self:update()
-end
-
-
-function LeftToRightImageAnimation:update()
-        self.currentWidth = self:getDrawWidth() * self:getFrame() / self:getSize()
-end
-
-
-function LeftToRightImageAnimation:paintXY(graphics, x, y)
-        graphics:drawRegion(self:getImage(), self:getStartX(), self:getStartY(), self.currentWidth, self:getDrawHeight(), Sprite.TRANS_NONE, x, y, self.anchor)
-end
-
-return LeftToRightImageAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../javax/microedition/lcdui/game/Sprite" for Sprite
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/graphics/Anchor" for Anchor
 

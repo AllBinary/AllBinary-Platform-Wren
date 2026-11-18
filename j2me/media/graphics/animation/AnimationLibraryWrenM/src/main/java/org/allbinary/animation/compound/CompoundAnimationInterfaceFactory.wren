@@ -1,87 +1,98 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.animation.compound
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.compound
 
-local Animation = require("org.allbinary.animation.Animation")
-local AnimationBehaviorFactory = require("org.allbinary.animation.AnimationBehaviorFactory")
-local AnimationInterfaceFactoryInterface = require("org.allbinary.animation.AnimationInterfaceFactoryInterface")
-local NullAnimationFactory = require("org.allbinary.animation.NullAnimationFactory")
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local ScaleProperties = require("org.allbinary.media.ScaleProperties")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CompoundAnimationInterfaceFactory is JObject {
+  basicAnimationInterfaceFactoryInterfaceArrayP { _basicAnimationInterfaceFactoryInterfaceArrayP }
+  basicAnimationInterfaceFactoryInterfaceArrayP=(value) { _basicAnimationInterfaceFactoryInterfaceArrayP = value }
+  animationBehaviorFactory { _animationBehaviorFactory }
+  animationBehaviorFactory=(value) { _animationBehaviorFactory = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CompoundAnimationInterfaceFactory() {
+    _basicAnimationInterfaceFactoryInterfaceArrayP = null
+    _animationBehaviorFactory = null
+        
+        
+  }
+    
 
-local CompoundAnimationInterfaceFactory = {}
-CompoundAnimationInterfaceFactory.__index = CompoundAnimationInterfaceFactory
-CompoundAnimationInterfaceFactory.className = "CompoundAnimationInterfaceFactory"
+    construct new(basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory) {
+    super()
+    initFields_CompoundAnimationInterfaceFactory()
+        _basicAnimationInterfaceFactoryInterfaceArrayP = basicAnimationInterfaceFactoryInterfaceArray
+        _animationBehaviorFactory = animationBehaviorFactory
+    }
+    
 
-function CompoundAnimationInterfaceFactory:_init_fields()
-    self.basicAnimationInterfaceFactoryInterfaceArrayP = nil
-    self.animationBehaviorFactory = nil
-end
+    getInstance(instanceId) {
+        var size = _basicAnimationInterfaceFactoryInterfaceArrayP.count
+        var animationInterfaceArray = this.createArray(size)
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            animationInterfaceArray[index] = _basicAnimationInterfaceFactoryInterfaceArrayP[index].getInstance(instanceId)
+            }
+        }
+        return this.createAnimation(animationInterfaceArray)
+    }
+    
 
-
-function CompoundAnimationInterfaceFactory.new(basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
-    local self = setmetatable({}, CompoundAnimationInterfaceFactory)
-    self:_init_fields()
-        self.basicAnimationInterfaceFactoryInterfaceArrayP = basicAnimationInterfaceFactoryInterfaceArray
-        self.animationBehaviorFactory = animationBehaviorFactory
-    return self
-end
-
-
--- throws Exception
-function CompoundAnimationInterfaceFactory:getInstance(instanceId)
-        local size = (self.basicAnimationInterfaceFactoryInterfaceArrayP.n or #self.basicAnimationInterfaceFactoryInterfaceArrayP)
-        local animationInterfaceArray = self:createArray(size)
-        for index = 0, size - 1 do
-            animationInterfaceArray[index + 1] = self.basicAnimationInterfaceFactoryInterfaceArrayP[index + 1]:getInstance(instanceId)
-        end
-        return self:createAnimation(animationInterfaceArray)
-end
-
-
-function CompoundAnimationInterfaceFactory:createArray(size)
+    createArray(size) {
         return NullAnimationFactory.getFactoryInstance().EMPTY_ARRAY
-end
+    }
+    
 
+    createAnimation(animationInterfaceArray) {
+        return NullAnimationFactory.getFactoryInstance().getInstance(0)
+    }
+    
 
-function CompoundAnimationInterfaceFactory:createAnimation(animationInterfaceArray)
-        return NullAnimationFactory.getFactoryInstance():getInstance(0)
-end
+    getBasicAnimationInterfaceFactoryInterfaceArray() {
+        return _basicAnimationInterfaceFactoryInterfaceArrayP
+    }
+    
 
+    setInitialScale(scaleProperties) {
+        var size = _basicAnimationInterfaceFactoryInterfaceArrayP.count
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            _basicAnimationInterfaceFactoryInterfaceArrayP[index].setInitialScale(scaleProperties)
+            }
+        }
+    }
+}
 
-function CompoundAnimationInterfaceFactory:getBasicAnimationInterfaceFactoryInterfaceArray()
-        return self.basicAnimationInterfaceFactoryInterfaceArrayP
-end
-
-
-function CompoundAnimationInterfaceFactory:setInitialScale(scaleProperties)
-        local size = (self.basicAnimationInterfaceFactoryInterfaceArrayP.n or #self.basicAnimationInterfaceFactoryInterfaceArrayP)
-        for index = 0, size - 1 do
-            self.basicAnimationInterfaceFactoryInterfaceArrayP[index + 1]:setInitialScale(scaleProperties)
-        end
-end
-
-return CompoundAnimationInterfaceFactory
+import "../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../org/allbinary/animation/AnimationBehaviorFactory" for AnimationBehaviorFactory
+import "../../../../org/allbinary/animation/AnimationInterfaceFactoryInterface" for AnimationInterfaceFactoryInterface
+import "../../../../org/allbinary/animation/NullAnimationFactory" for NullAnimationFactory
+import "../../../../org/allbinary/media/ScaleProperties" for ScaleProperties
 

@@ -1,60 +1,61 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
---
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
---
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
---
--- Created By: Travis Berthelot
--- 
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.button
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ *
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ *
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ *
+ * Created By: Travis Berthelot
+ * 
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.button
 
-local GameKeyEvent = require("org.allbinary.game.input.event.GameKeyEvent")
-local ReleaseHelper = require("org.allbinary.input.motion.button.ReleaseHelper")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./ReleaseHelper" for ReleaseHelper
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class MultitouchReleaseHelper is ReleaseHelper {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_MultitouchReleaseHelper() {
+  }
+    
 
-local MultitouchReleaseHelper = {}
-MultitouchReleaseHelper.__index = MultitouchReleaseHelper
-MultitouchReleaseHelper.className = "MultitouchReleaseHelper"
-setmetatable(MultitouchReleaseHelper, {__index = ReleaseHelper})
+    construct new(touchButtonRecognizer) {
+        super(touchButtonRecognizer)
+    }
+    
 
+    release(touchButtonInput, deviceId) {
+        var cancelTouchButtonInput = CancelTouchButtonInputFactory.getInstance().getCancel(touchButtonInput)
+        var nextTouchButtonInput = null
+        var gameKeyEvent = null
+        if (true) {
+            var index = JR.i32(this.touchButtonRecognizer.currentlyPressedTouchButtonSingleton.size() - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            nextTouchButtonInput = this.touchButtonRecognizer.currentlyPressedTouchButtonSingleton.get(index)
+            if ((cancelTouchButtonInput == nextTouchButtonInput)) {
+                gameKeyEvent = nextTouchButtonInput.getGameKeyEvent()
+                this.touchButtonRecognizer.upGameKeyEventHandler.fireEvent(gameKeyEvent)
+                this.touchButtonRecognizer.upGameKeyEventHandler.getInstanceForDevice(deviceId).fireEvent(gameKeyEvent)
+                this.touchButtonRecognizer.currentlyPressedTouchButtonSingleton.removeAt(index)
+            }
+            }
+        }
+    }
+}
 
-function MultitouchReleaseHelper.new(touchButtonRecognizer)
-    local self = setmetatable(ReleaseHelper.new(touchButtonRecognizer), MultitouchReleaseHelper)
-        -- super(...) made self above
-    return self
-end
-
-
--- throws Exception
-function MultitouchReleaseHelper:release(touchButtonInput, deviceId)
-        local cancelTouchButtonInput = CancelTouchButtonInputFactory.getInstance():getCancel(touchButtonInput)
-        local nextTouchButtonInput = nil
-        local gameKeyEvent = nil
-        for index = self.touchButtonRecognizer.currentlyPressedTouchButtonSingleton:size() - 1, 0, -1 do
-            nextTouchButtonInput = self.touchButtonRecognizer.currentlyPressedTouchButtonSingleton:get(index)
-            if cancelTouchButtonInput == nextTouchButtonInput then
-                gameKeyEvent = nextTouchButtonInput:getGameKeyEvent()
-                self.touchButtonRecognizer.upGameKeyEventHandler:fireEvent(gameKeyEvent)
-                self.touchButtonRecognizer.upGameKeyEventHandler:getInstanceForDevice(deviceId):fireEvent(gameKeyEvent)
-                self.touchButtonRecognizer.currentlyPressedTouchButtonSingleton:removeAt(index)
-            end
-        end
-end
-
-return MultitouchReleaseHelper
+import "../../../../../org/allbinary/game/input/event/GameKeyEvent" for GameKeyEvent
+import "./TouchButtonRecognizer" for TouchButtonRecognizer
+import "./CancelTouchButtonInputFactory" for CancelTouchButtonInputFactory
+import "./TouchButtonInput" for TouchButtonInput
 

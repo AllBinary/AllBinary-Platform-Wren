@@ -1,85 +1,75 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.weapon.mine
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.weapon.mine
 
-local DropWeaponSound = require("org.allbinary.ag.weapon.media.audio.DropWeaponSound")
-local FeaturedAnimationInterfaceFactoryInterfaceFactory = require("org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory")
-local SimpleWeaponLayer = require("org.allbinary.game.layer.weapon.SimpleWeaponLayer")
-local RemoteInfo = require("org.allbinary.game.multiplayer.layer.RemoteInfo")
-local PointFactory = require("org.allbinary.graphics.PointFactory")
-local Rectangle = require("org.allbinary.graphics.Rectangle")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local SecondaryPlayerQueueFactory = require("org.allbinary.media.audio.SecondaryPlayerQueueFactory")
-local NoMovementFactory = require("org.allbinary.physics.movement.NoMovementFactory")
-local ViewPositionBase = require("org.allbinary.view.ViewPositionBase")
-local ViewPositionEventHandler = require("org.allbinary.view.event.ViewPositionEventHandler")
+import "../../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../../org/allbinary/game/layer/weapon/SimpleWeaponLayer" for SimpleWeaponLayer
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class MineLayer is SimpleWeaponLayer {
+    static NAME { "MineLayer" }
+  viewPositionEventHandler { _viewPositionEventHandler }
+  viewPositionEventHandler=(value) { _viewPositionEventHandler = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_MineLayer() {
+    _viewPositionEventHandler = null
+        _viewPositionEventHandler = ViewPositionEventHandler.getInstance()
+  }
+    
 
-local MineLayer = {}
-MineLayer.__index = MineLayer
-MineLayer.className = "MineLayer"
-setmetatable(MineLayer, {__index = SimpleWeaponLayer})
+    construct new(viewPosition) {
+        super(MineLayer.NAME, RemoteInfo.REMOTE_INFO, -1, NoMovementFactory.getInstance().getMovmentInstance(), FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(MineWeaponResources.getInstance().RESOURCE).getInstance(0), SimpleWeaponLayer.createDestroyed(), Rectangle.new(PointFactory.getInstance().ZERO_ZERO, 10, 10), viewPosition)
+        initFields_MineLayer()
+    }
+    
 
-function MineLayer:_init_fields()
-    self.viewPositionEventHandler = ViewPositionEventHandler.getInstance()
-end
+    initXYZ(x, y, z) {
+        this.setPosition(JR.i32(x + 5), JR.i32(y + 5), z)
+        _viewPositionEventHandler.addListener(this)
+        SecondaryPlayerQueueFactory.getInstance().add(DropWeaponSound.getInstance())
+    }
+    
 
+    damage(damage, damageType) {
+        this.totalDamage = (this.getInitDamage() + 1)
+    }
+    
 
-function MineLayer.new(viewPosition)
-    local self = setmetatable(SimpleWeaponLayer.new(MineLayer.NAME, RemoteInfo.REMOTE_INFO, -1, NoMovementFactory.getInstance():getMovmentInstance(), FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance():get(MineWeaponResources.getInstance().RESOURCE):getInstance(0), SimpleWeaponLayer.createDestroyed(), Rectangle.new(PointFactory.getInstance().ZERO_ZERO, 10, 10), viewPosition), MineLayer)
-    self:_init_fields()
-        -- super(...) made self above
-    return self
-end
+    getDamage(damageType) {
+        super.getDamage(damageType)
+        return this.getInitDamage()
+    }
+    
 
+    setDestroyed(destroyed) {
+        super.setDestroyed(destroyed)
+        if (this.isDestroyed()) {
+            _viewPositionEventHandler.removeListener(this)
+        }
+    }
+}
 
-function MineLayer:initXYZ(x, y, z)
-        self:setPosition(x + 5, y + 5, z)
-        self.viewPositionEventHandler:addListener(self)
-        SecondaryPlayerQueueFactory.getInstance():add(DropWeaponSound.getInstance())
-end
-
-
-function MineLayer:damage(damage, damageType)
-        self.totalDamage = self:getInitDamage() + 1
-end
-
-
-function MineLayer:getDamage(damageType)
-        SimpleWeaponLayer.getDamage(self, damageType)
-        return self:getInitDamage()
-end
-
-
-function MineLayer:setDestroyed(destroyed)
-        SimpleWeaponLayer.setDestroyed(self, destroyed)
-        if self:isDestroyed() then
-            self.viewPositionEventHandler:removeListener(self)
-        end
-end
-
-MineLayer.NAME = "MineLayer"
-
-return MineLayer
+import "../../../../../../../org/allbinary/ag/weapon/media/audio/DropWeaponSound" for DropWeaponSound
+import "../../../../../../../org/allbinary/animation/FeaturedAnimationInterfaceFactoryInterfaceFactory" for FeaturedAnimationInterfaceFactoryInterfaceFactory
+import "../../../../../../../org/allbinary/game/multiplayer/layer/RemoteInfo" for RemoteInfo
+import "../../../../../../../org/allbinary/graphics/PointFactory" for PointFactory
+import "../../../../../../../org/allbinary/graphics/Rectangle" for Rectangle
+import "../../../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../../../org/allbinary/media/audio/SecondaryPlayerQueueFactory" for SecondaryPlayerQueueFactory
+import "../../../../../../../org/allbinary/physics/movement/NoMovementFactory" for NoMovementFactory
+import "../../../../../../../org/allbinary/view/ViewPositionBase" for ViewPositionBase
+import "../../../../../../../org/allbinary/view/event/ViewPositionEventHandler" for ViewPositionEventHandler
+import "./MineWeaponResources" for MineWeaponResources
 

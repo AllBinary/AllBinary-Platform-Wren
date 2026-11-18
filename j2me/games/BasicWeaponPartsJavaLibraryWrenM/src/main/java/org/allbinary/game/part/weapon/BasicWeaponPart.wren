@@ -1,145 +1,143 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.part.weapon
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.part.weapon
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Animation = require("org.allbinary.animation.Animation")
-local NullAnimationFactory = require("org.allbinary.animation.NullAnimationFactory")
-local WeaponProperties = require("org.allbinary.game.combat.weapon.WeaponProperties")
-local PartInterface = require("org.allbinary.game.part.PartInterface")
-local NoScoreable = require("org.allbinary.game.score.NoScoreable")
-local ScoreableInterface = require("org.allbinary.game.score.ScoreableInterface")
-local RelativeRelationship = require("org.allbinary.graphics.RelativeRelationship")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local ViewPositionBase = require("org.allbinary.view.ViewPositionBase")
-local SalvoInterface = require("org.allbinary.game.part.weapon.SalvoInterface")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class BasicWeaponPart is JObject {
+    static NULL_BASIC_WEAPON_PART {
+    if (__NULL_BASIC_WEAPON_PART_set == null) {
+      __NULL_BASIC_WEAPON_PART_set = true
+      __NULL_BASIC_WEAPON_PART = BasicWeaponPart.createBasicWeaponPart(NullAnimationFactory.getFactoryInstance().getInstance(0))
+    }
+    return __NULL_BASIC_WEAPON_PART
+  }
+  static NULL_BASIC_WEAPON_PART=(value) {
+    __NULL_BASIC_WEAPON_PART_set = true
+    __NULL_BASIC_WEAPON_PART = value
+  }
+  animationInterface { _animationInterface }
+  animationInterface=(value) { _animationInterface = value }
+  ownerLayerInterface { _ownerLayerInterface }
+  ownerLayerInterface=(value) { _ownerLayerInterface = value }
+  weaponProperties { _weaponProperties }
+  weaponProperties=(value) { _weaponProperties = value }
+  scoreableInterface { _scoreableInterface }
+  scoreableInterface=(value) { _scoreableInterface = value }
+  relativeRelationship { _relativeRelationship }
+  relativeRelationship=(value) { _relativeRelationship = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_BasicWeaponPart() {
+    _animationInterface = null
+    _ownerLayerInterface = null
+    _weaponProperties = null
+    _scoreableInterface = null
+    _relativeRelationship = null
+        _animationInterface = NullAnimationFactory.getFactoryInstance().getInstance(0)
+        _ownerLayerInterface = AllBinaryLayer.NULL_ALLBINARY_LAYER
+        _weaponProperties = WeaponProperties.NULL_WEAPON_PROPERTIES
+        _scoreableInterface = NoScoreable.getInstance()
+        _relativeRelationship = RelativeRelationship.NULL_RELATIVE_RELATIONSHIP
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local BasicWeaponPart = {}
-BasicWeaponPart.__index = BasicWeaponPart
-BasicWeaponPart.className = "BasicWeaponPart"
-
-function BasicWeaponPart:_init_fields()
-    self.animationInterface = NullAnimationFactory.getFactoryInstance():getInstance(0)
-    self.ownerLayerInterface = AllBinaryLayer.NULL_ALLBINARY_LAYER
-    self.weaponProperties = WeaponProperties.NULL_WEAPON_PROPERTIES
-    self.scoreableInterface = NoScoreable.getInstance()
-    self.relativeRelationship = RelativeRelationship.NULL_RELATIVE_RELATIONSHIP
-end
-
-
-function BasicWeaponPart.createBasicWeaponPart(animationInterface)
+    static createBasicWeaponPart(animationInterface) {
         return BasicWeaponPart.new(animationInterface, AllBinaryLayer.NULL_ALLBINARY_LAYER, WeaponProperties.NULL_WEAPON_PROPERTIES, NoScoreable.getInstance(), RelativeRelationship.NULL_RELATIVE_RELATIONSHIP)
-end
+    }
+    
 
+    construct new(animationInterface, sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship) {
+    super()
+    initFields_BasicWeaponPart()
+        this.init(sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
+        this.setAnimationInterface(animationInterface)
+    }
+    
 
-function BasicWeaponPart.new(animationInterface, sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
-    local self = setmetatable({}, BasicWeaponPart)
-    self:_init_fields()
-        self:init(sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
-        self:setAnimationInterface(animationInterface)
-    return self
-end
+    init(sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship) {
+        this.setOwnerLayerInterface(sourceLayerInterface)
+        this.setWeaponProperties(weaponProperties)
+        _scoreableInterface = scoreableInterface
+        _relativeRelationship = relativeRelationship
+    }
+    
 
+    process(allbinaryLayerManager, angle, otherAngle) {
+        this.processScore(allbinaryLayerManager, angle, otherAngle, this.getWeaponProperties(), _scoreableInterface)
+    }
+    
 
-function BasicWeaponPart:init(sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
-        self:setOwnerLayerInterface(sourceLayerInterface)
-        self:setWeaponProperties(weaponProperties)
-        self.scoreableInterface = scoreableInterface
-        self.relativeRelationship = relativeRelationship
-end
+    processScore(allbinaryLayerManager, angle, otherAngle, weaponProperties, scoreableInterface) {
+        Fiber.abort(JR.exception("Exception", CommonStrings.getInstance().NOT_IMPLEMENTED))
+    }
+    
 
+    getOwnerLayerInterface() {
+        return _ownerLayerInterface
+    }
+    
 
--- throws Exception
-function BasicWeaponPart:process(allbinaryLayerManager, angle, otherAngle)
-        self:processScore(allbinaryLayerManager, angle, otherAngle, self:getWeaponProperties(), self.scoreableInterface)
-end
+    setOwnerLayerInterface(ownerLayerInterface) {
+        _ownerLayerInterface = ownerLayerInterface
+    }
+    
 
+    getAnimationInterface() {
+        return _animationInterface
+    }
+    
 
--- throws Exception
-function BasicWeaponPart:processScore(allbinaryLayerManager, angle, otherAngle, weaponProperties, scoreableInterface)
-        error(java_exception("Exception", CommonStrings.getInstance().NOT_IMPLEMENTED), 0)
-end
+    setAnimationInterface(animationInterface) {
+        _animationInterface = animationInterface
+    }
+    
 
+    paint(graphics) {
+        var viewPosition = this.getOwnerLayerInterface().getViewPosition()
+        var viewX = viewPosition.getX()
+        var viewY = viewPosition.getY()
+        _animationInterface.paintXY(graphics, viewX, viewY)
+    }
+    
 
-function BasicWeaponPart:getOwnerLayerInterface()
-        return self.ownerLayerInterface
-end
+    paintThreed(graphics) {
+    }
+    
 
+    getWeaponProperties() {
+        return _weaponProperties
+    }
+    
 
-function BasicWeaponPart:setOwnerLayerInterface(ownerLayerInterface)
-        self.ownerLayerInterface = ownerLayerInterface
-end
+    setWeaponProperties(weaponProperties) {
+        _weaponProperties = weaponProperties
+    }
+}
 
-
-function BasicWeaponPart:getAnimationInterface()
-        return self.animationInterface
-end
-
-
-function BasicWeaponPart:setAnimationInterface(animationInterface)
-        self.animationInterface = animationInterface
-end
-
-
-function BasicWeaponPart:paint(graphics)
-        local viewPosition = self:getOwnerLayerInterface():getViewPosition()
-        local viewX = viewPosition:getX()
-        local viewY = viewPosition:getY()
-        self.animationInterface:paintXY(graphics, viewX, viewY)
-end
-
-
-function BasicWeaponPart:paintThreed(graphics)
-end
-
-
-function BasicWeaponPart:getWeaponProperties()
-        return self.weaponProperties
-end
-
-
-function BasicWeaponPart:setWeaponProperties(weaponProperties)
-        self.weaponProperties = weaponProperties
-end
-
-BasicWeaponPart.NULL_BASIC_WEAPON_PART = BasicWeaponPart.createBasicWeaponPart(NullAnimationFactory.getFactoryInstance():getInstance(0))
-
-return BasicWeaponPart
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../../org/allbinary/animation/NullAnimationFactory" for NullAnimationFactory
+import "../../../../../org/allbinary/game/combat/weapon/WeaponProperties" for WeaponProperties
+import "../../../../../org/allbinary/game/part/PartInterface" for PartInterface
+import "../../../../../org/allbinary/game/score/NoScoreable" for NoScoreable
+import "../../../../../org/allbinary/game/score/ScoreableInterface" for ScoreableInterface
+import "../../../../../org/allbinary/graphics/RelativeRelationship" for RelativeRelationship
+import "../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../org/allbinary/view/ViewPositionBase" for ViewPositionBase
+import "./SalvoInterface" for SalvoInterface
 

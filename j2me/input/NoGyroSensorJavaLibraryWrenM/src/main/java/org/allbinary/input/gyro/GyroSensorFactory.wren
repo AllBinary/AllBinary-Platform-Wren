@@ -1,51 +1,54 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.gyro
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.gyro
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GyroSensorFactory is JObject {
+    static allBinaryGyroSensor {
+    if (__allBinaryGyroSensor_set == null) {
+      __allBinaryGyroSensor_set = true
+      __allBinaryGyroSensor = AllBinaryOrientationSensor.NULL_ALLBINARY_ORIENTATION_SENSOR
+    }
+    return __allBinaryGyroSensor
+  }
+  static allBinaryGyroSensor=(value) {
+    __allBinaryGyroSensor_set = true
+    __allBinaryGyroSensor = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GyroSensorFactory() {
+  }
 
-local GyroSensorFactory = {}
-GyroSensorFactory.__index = GyroSensorFactory
-GyroSensorFactory.className = "GyroSensorFactory"
+  construct new() {
+    super()
+    initFields_GyroSensorFactory()
+  }
+    
 
-function GyroSensorFactory.new()
-    local self = setmetatable({}, GyroSensorFactory)
-    return self
-end
-
-
--- throws Exception
-function GyroSensorFactory.init()
+    static init() {
         GyroSensorFactory.allBinaryGyroSensor = NoGyroSensor.new()
-end
+    }
+    
 
-
-function GyroSensorFactory.getInstance()
+    static getInstance() {
         return GyroSensorFactory.allBinaryGyroSensor
-end
+    }
+}
 
-GyroSensorFactory.allBinaryGyroSensor = AllBinaryOrientationSensor.NULL_ALLBINARY_ORIENTATION_SENSOR
-
-return GyroSensorFactory
+import "./AllBinaryOrientationSensor" for AllBinaryOrientationSensor
+import "./NoGyroSensor" for NoGyroSensor
 

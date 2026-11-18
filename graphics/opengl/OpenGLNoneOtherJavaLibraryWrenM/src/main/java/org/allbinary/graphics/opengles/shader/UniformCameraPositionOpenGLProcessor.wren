@@ -1,46 +1,39 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.opengles.shader
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.opengles.shader
 
--- local GL10 = require("javax.microedition.khronos.opengles.GL10")
-local OpenGLObject3dProcessor = require("org.allbinary.graphics.opengles.shader.OpenGLObject3dProcessor")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./OpenGLObject3dProcessor" for OpenGLObject3dProcessor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class UniformCameraPositionOpenGLProcessor is OpenGLObject3dProcessor {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_UniformCameraPositionOpenGLProcessor() {
+  }
+    
 
-local UniformCameraPositionOpenGLProcessor = {}
-UniformCameraPositionOpenGLProcessor.__index = UniformCameraPositionOpenGLProcessor
-UniformCameraPositionOpenGLProcessor.className = "UniformCameraPositionOpenGLProcessor"
-setmetatable(UniformCameraPositionOpenGLProcessor, {__index = OpenGLObject3dProcessor})
+    construct new(shaderComposite, handleIndex) {
+    super()
+    initFields_UniformCameraPositionOpenGLProcessor()
+    }
+    
 
+    process(gl, anyType) {
+    }
+}
 
-function UniformCameraPositionOpenGLProcessor.new(shaderComposite, handleIndex)
-    local self = setmetatable(OpenGLObject3dProcessor.new(), UniformCameraPositionOpenGLProcessor)
-    return self
-end
-
-
-function UniformCameraPositionOpenGLProcessor:process(gl, anyType)
-end
-
-return UniformCameraPositionOpenGLProcessor
+import "../../../../../javax/microedition/khronos/opengles/GL10" for GL10
+import "./ShaderComposite" for ShaderComposite
 

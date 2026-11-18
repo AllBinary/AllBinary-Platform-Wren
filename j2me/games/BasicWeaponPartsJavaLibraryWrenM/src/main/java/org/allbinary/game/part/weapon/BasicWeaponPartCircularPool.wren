@@ -1,62 +1,63 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.part.weapon
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.part.weapon
 
-local WeaponProperties = require("org.allbinary.game.combat.weapon.WeaponProperties")
-local ScoreableInterface = require("org.allbinary.game.score.ScoreableInterface")
-local RelativeRelationship = require("org.allbinary.graphics.RelativeRelationship")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BasicWeaponPartCircularPool is JObject {
+    static NULL_BASIC_WEAPON_PART_CIRCULAR_POOL {
+    if (__NULL_BASIC_WEAPON_PART_CIRCULAR_POOL_set == null) {
+      __NULL_BASIC_WEAPON_PART_CIRCULAR_POOL_set = true
+      __NULL_BASIC_WEAPON_PART_CIRCULAR_POOL = BasicWeaponPartCircularPool.new()
+    }
+    return __NULL_BASIC_WEAPON_PART_CIRCULAR_POOL
+  }
+  static NULL_BASIC_WEAPON_PART_CIRCULAR_POOL=(value) {
+    __NULL_BASIC_WEAPON_PART_CIRCULAR_POOL_set = true
+    __NULL_BASIC_WEAPON_PART_CIRCULAR_POOL = value
+  }
+  basicWeaponPart { _basicWeaponPart }
+  basicWeaponPart=(value) { _basicWeaponPart = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BasicWeaponPartCircularPool() {
+    _basicWeaponPart = null
+        _basicWeaponPart = BasicWeaponPart.NULL_BASIC_WEAPON_PART
+  }
 
-local BasicWeaponPartCircularPool = {}
-BasicWeaponPartCircularPool.__index = BasicWeaponPartCircularPool
-BasicWeaponPartCircularPool.className = "BasicWeaponPartCircularPool"
+  construct new() {
+    super()
+    initFields_BasicWeaponPartCircularPool()
+  }
+    
 
-function BasicWeaponPartCircularPool:_init_fields()
-    self.basicWeaponPart = BasicWeaponPart.NULL_BASIC_WEAPON_PART
-end
+    init(basicWeaponPartFactoryInterface) {
+        _basicWeaponPart = basicWeaponPartFactoryInterface.getInstance()
+    }
+    
 
-function BasicWeaponPartCircularPool.new()
-    local self = setmetatable({}, BasicWeaponPartCircularPool)
-    self:_init_fields()
-    return self
-end
+    getInstance(sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship) {
+        _basicWeaponPart.init(sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
+        return _basicWeaponPart
+    }
+}
 
-
--- throws Exception
-function BasicWeaponPartCircularPool:init(basicWeaponPartFactoryInterface)
-        self.basicWeaponPart = basicWeaponPartFactoryInterface:getInstance()
-end
-
-
--- throws Exception
-function BasicWeaponPartCircularPool:getInstance(sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
-        self.basicWeaponPart:init(sourceLayerInterface, weaponProperties, scoreableInterface, relativeRelationship)
-        return self.basicWeaponPart
-end
-
-BasicWeaponPartCircularPool.NULL_BASIC_WEAPON_PART_CIRCULAR_POOL = BasicWeaponPartCircularPool.new()
-
-return BasicWeaponPartCircularPool
+import "../../../../../org/allbinary/game/combat/weapon/WeaponProperties" for WeaponProperties
+import "../../../../../org/allbinary/game/score/ScoreableInterface" for ScoreableInterface
+import "../../../../../org/allbinary/graphics/RelativeRelationship" for RelativeRelationship
+import "../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "./BasicWeaponPart" for BasicWeaponPart
+import "./BasicWeaponPartFactoryInterface" for BasicWeaponPartFactoryInterface
 

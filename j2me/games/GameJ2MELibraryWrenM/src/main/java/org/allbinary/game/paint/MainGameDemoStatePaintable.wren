@@ -1,66 +1,60 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.paint
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.paint
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/graphics/paint/Paintable" for Paintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class MainGameDemoStatePaintable is Paintable {
+  ownershipPaintableInterface { _ownershipPaintableInterface }
+  ownershipPaintableInterface=(value) { _ownershipPaintableInterface = value }
+  menuPaintableInterface { _menuPaintableInterface }
+  menuPaintableInterface=(value) { _menuPaintableInterface = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_MainGameDemoStatePaintable() {
+    _ownershipPaintableInterface = null
+    _menuPaintableInterface = null
+        
+        
+  }
+    
 
-local MainGameDemoStatePaintable = {}
-MainGameDemoStatePaintable.__index = MainGameDemoStatePaintable
-MainGameDemoStatePaintable.className = "MainGameDemoStatePaintable"
-setmetatable(MainGameDemoStatePaintable, {__index = Paintable})
+    construct new(ownershipPaintableInterface, menuPaintableInterface) {
+    super()
+    initFields_MainGameDemoStatePaintable()
+        _ownershipPaintableInterface = ownershipPaintableInterface
+        _menuPaintableInterface = menuPaintableInterface
+    }
+    
 
-function MainGameDemoStatePaintable:_init_fields()
-    self.ownershipPaintableInterface = nil
-    self.menuPaintableInterface = nil
-end
+    paint(graphics) {
+        _menuPaintableInterface.paint(graphics)
+        _ownershipPaintableInterface.paint(graphics)
+    }
+    
 
+    getOwnershipPaintableInterface() {
+        return _ownershipPaintableInterface
+    }
+    
 
-function MainGameDemoStatePaintable.new(ownershipPaintableInterface, menuPaintableInterface)
-    local self = setmetatable(Paintable.new(), MainGameDemoStatePaintable)
-    self:_init_fields()
-        self.ownershipPaintableInterface = ownershipPaintableInterface
-        self.menuPaintableInterface = menuPaintableInterface
-    return self
-end
+    getMenuPaintableInterface() {
+        return _menuPaintableInterface
+    }
+}
 
-
-function MainGameDemoStatePaintable:paint(graphics)
-        self.menuPaintableInterface:paint(graphics)
-        self.ownershipPaintableInterface:paint(graphics)
-end
-
-
-function MainGameDemoStatePaintable:getOwnershipPaintableInterface()
-        return self.ownershipPaintableInterface
-end
-
-
-function MainGameDemoStatePaintable:getMenuPaintableInterface()
-        return self.menuPaintableInterface
-end
-
-return MainGameDemoStatePaintable
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
 

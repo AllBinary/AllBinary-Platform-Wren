@@ -1,134 +1,161 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion
 
-local CustomGPoint = require("org.allbinary.graphics.CustomGPoint")
-local GPointCircularPool = require("org.allbinary.graphics.GPointCircularPool")
-local TouchButtonRecognizer = require("org.allbinary.input.motion.button.TouchButtonRecognizer")
-local MotionGestureRecognizer = require("org.allbinary.input.motion.gesture.MotionGestureRecognizer")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local MotionRecognizer = require("org.allbinary.input.motion.MotionRecognizer")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./MotionRecognizer" for MotionRecognizer
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AllMotionRecognizer is MotionRecognizer {
+    static index {
+    if (__index_set == null) {
+      __index_set = true
+      __index = 0
+    }
+    return __index
+  }
+  static index=(value) {
+    __index_set = true
+    __index = value
+  }
+    static pointCircularPool {
+    if (__pointCircularPool_set == null) {
+      __pointCircularPool_set = true
+      __pointCircularPool = GPointCircularPool.new(40)
+    }
+    return __pointCircularPool
+  }
+  static pointCircularPool=(value) {
+    __pointCircularPool_set = true
+    __pointCircularPool = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  motionGestureRecognizer { _motionGestureRecognizer }
+  motionGestureRecognizer=(value) { _motionGestureRecognizer = value }
+  touchButtonProcessing { _touchButtonProcessing }
+  touchButtonProcessing=(value) { _touchButtonProcessing = value }
+  touchButtonRecognizer { _touchButtonRecognizer }
+  touchButtonRecognizer=(value) { _touchButtonRecognizer = value }
+  id { _id }
+  id=(value) { _id = value }
+  lastX { _lastX }
+  lastX=(value) { _lastX = value }
+  lastY { _lastY }
+  lastY=(value) { _lastY = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AllMotionRecognizer() {
+    _logUtil = null
+    _motionGestureRecognizer = null
+    _touchButtonProcessing = false
+    _touchButtonRecognizer = null
+    _id = 0
+    _lastX = 0
+    _lastY = 0
+        _logUtil = LogUtil.getInstance()
+        
+        _touchButtonProcessing = false
+        
+        
+        _lastX = 0
+        _lastY = 0
+  }
+    
 
-local AllMotionRecognizer = {}
-AllMotionRecognizer.__index = AllMotionRecognizer
-AllMotionRecognizer.className = "AllMotionRecognizer"
-setmetatable(AllMotionRecognizer, {__index = MotionRecognizer})
+    construct new() {
+    super()
+    initFields_AllMotionRecognizer()
+        _id = Fn.new {
+var jold = AllMotionRecognizer.index
+AllMotionRecognizer.index = JR.i32(jold + 1)
+return jold
+}.call()
+        _motionGestureRecognizer = MotionGestureRecognizer.new(_id)
+        _touchButtonRecognizer = TouchButtonRecognizer.new()
+    }
+    
 
-function AllMotionRecognizer:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.motionGestureRecognizer = nil
-    self.touchButtonProcessing = false
-    self.touchButtonRecognizer = nil
-    self.id = nil
-    self.lastX = 0
-    self.lastY = 0
-end
+    processStartMotionEvent(x, y, deviceId, modifiers) {
+        if (_touchButtonRecognizer.pressTouchButtonInput(x, y, deviceId)) {
+            _touchButtonProcessing = true
+        }
+        if (!_touchButtonProcessing) {
+            var point = AllMotionRecognizer.pointCircularPool.getNextInstance()
+            point.setX(x)
+            point.setY(y)
+            _motionGestureRecognizer.processPressedMotionEvent(point, deviceId, modifiers)
+        }
+    }
+    
 
+    processEndMotionEvent(x, y, deviceId, modifiers) {
+        if (_touchButtonRecognizer.releaseTouchButtonInput(x, y, deviceId)) {
+        }
+        if (!_touchButtonProcessing) {
+            var point = AllMotionRecognizer.pointCircularPool.getNextInstance()
+            point.setX(x)
+            point.setY(y)
+            _motionGestureRecognizer.processReleasedMotionEvent(point, deviceId, modifiers)
+        }
+        if (_touchButtonProcessing) {
+            _touchButtonProcessing = false
+        }
+    }
+    
 
-function AllMotionRecognizer.new()
-    local self = setmetatable(MotionRecognizer.new(), AllMotionRecognizer)
-    self:_init_fields()
-        self.id = (function() local value = AllMotionRecognizer.index AllMotionRecognizer.index = value + 1 return value end)()
-        self.motionGestureRecognizer = MotionGestureRecognizer.new(self.id)
-        self.touchButtonRecognizer = TouchButtonRecognizer.new()
-    return self
-end
+    processDraggedMotionEvent(x, y, deviceId, modifiers) {
+        if (_touchButtonProcessing) {
+            _touchButtonRecognizer.pressTouchButtonInput(x, y, deviceId)
+        }
+        if (!_touchButtonProcessing) {
+            var point = AllMotionRecognizer.pointCircularPool.getNextInstance()
+            point.setX(x)
+            point.setY(y)
+            _motionGestureRecognizer.processDraggedMotionEvent(point, deviceId, modifiers)
+        }
+    }
+    
 
+    processMovedMotionEvent(x, y, deviceId, modifiers) {
+        if (((x != _lastX) || (y != _lastY))) {
+            _lastX = x
+            _lastY = y
+            var point = AllMotionRecognizer.pointCircularPool.getNextInstance()
+            point.setX(x)
+            point.setY(y)
+            _motionGestureRecognizer.processMovedMotionEvent(point, deviceId, modifiers)
+        }
+    }
+    
 
--- throws Exception
-function AllMotionRecognizer:processStartMotionEvent(x, y, deviceId, modifiers)
-        if self.touchButtonRecognizer:pressTouchButtonInput(x, y, deviceId) then
-            self.touchButtonProcessing = true
-        end
-        if not self.touchButtonProcessing then
-            local point = AllMotionRecognizer.pointCircularPool:getNextInstance()
-            point:setX(x)
-            point:setY(y)
-            self.motionGestureRecognizer:processPressedMotionEvent(point, deviceId, modifiers)
-        end
-end
+    processScrolledMotionEvent(x, y, deviceId, modifiers) {
+        var point = AllMotionRecognizer.pointCircularPool.getNextInstance()
+        point.setX(x)
+        point.setY(y)
+        _motionGestureRecognizer.processScrolledMotionEvent(point, deviceId, modifiers)
+    }
+    
 
+    getMotionGestureRecognizer() {
+        return _motionGestureRecognizer
+    }
+}
 
--- throws Exception
-function AllMotionRecognizer:processEndMotionEvent(x, y, deviceId, modifiers)
-        if self.touchButtonRecognizer:releaseTouchButtonInput(x, y, deviceId) then
-        end
-        if not self.touchButtonProcessing then
-            local point = AllMotionRecognizer.pointCircularPool:getNextInstance()
-            point:setX(x)
-            point:setY(y)
-            self.motionGestureRecognizer:processReleasedMotionEvent(point, deviceId, modifiers)
-        end
-        if self.touchButtonProcessing then
-            self.touchButtonProcessing = false
-        end
-end
-
-
--- throws Exception
-function AllMotionRecognizer:processDraggedMotionEvent(x, y, deviceId, modifiers)
-        if self.touchButtonProcessing then
-            self.touchButtonRecognizer:pressTouchButtonInput(x, y, deviceId)
-        end
-        if not self.touchButtonProcessing then
-            local point = AllMotionRecognizer.pointCircularPool:getNextInstance()
-            point:setX(x)
-            point:setY(y)
-            self.motionGestureRecognizer:processDraggedMotionEvent(point, deviceId, modifiers)
-        end
-end
-
-
--- throws Exception
-function AllMotionRecognizer:processMovedMotionEvent(x, y, deviceId, modifiers)
-        if x ~= self.lastX or y ~= self.lastY then
-            self.lastX = x
-            self.lastY = y
-            local point = AllMotionRecognizer.pointCircularPool:getNextInstance()
-            point:setX(x)
-            point:setY(y)
-            self.motionGestureRecognizer:processMovedMotionEvent(point, deviceId, modifiers)
-        end
-end
-
-
--- throws Exception
-function AllMotionRecognizer:processScrolledMotionEvent(x, y, deviceId, modifiers)
-        local point = AllMotionRecognizer.pointCircularPool:getNextInstance()
-        point:setX(x)
-        point:setY(y)
-        self.motionGestureRecognizer:processScrolledMotionEvent(point, deviceId, modifiers)
-end
-
-
-function AllMotionRecognizer:getMotionGestureRecognizer()
-        return self.motionGestureRecognizer
-end
-
-AllMotionRecognizer.index = 0
-AllMotionRecognizer.pointCircularPool = GPointCircularPool.new(40)
-
-return AllMotionRecognizer
+import "../../../../org/allbinary/graphics/CustomGPoint" for CustomGPoint
+import "../../../../org/allbinary/graphics/GPointCircularPool" for GPointCircularPool
+import "../../../../org/allbinary/input/motion/button/TouchButtonRecognizer" for TouchButtonRecognizer
+import "../../../../org/allbinary/input/motion/gesture/MotionGestureRecognizer" for MotionGestureRecognizer
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
 

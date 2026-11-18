@@ -1,74 +1,72 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.util.cache
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.util.cache
 
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CachePolicy is JObject {
+  name { _name }
+  name=(value) { _name = value }
+  maxTime { _maxTime }
+  maxTime=(value) { _maxTime = value }
+  maxSize { _maxSize }
+  maxSize=(value) { _maxSize = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CachePolicy() {
+    _name = null
+    _maxTime = 0
+    _maxSize = 0
+        
+        _maxTime = 0
+        _maxSize = 0
+  }
+    
 
-local CachePolicy = {}
-CachePolicy.__index = CachePolicy
-CachePolicy.className = "CachePolicy"
+    construct new(name, maxTime, maxSize) {
+    super()
+    initFields_CachePolicy()
+        _name = name
+        this.setMaxTime(maxTime)
+        this.setMaxSize(maxSize)
+    }
+    
 
-function CachePolicy:_init_fields()
-    self.name = nil
-    self.maxTime = 0
-    self.maxSize = 0
-end
+    getMaxTime() {
+        return _maxTime
+    }
+    
 
+    setMaxTime(maxTime) {
+        _maxTime = maxTime
+    }
+    
 
-function CachePolicy.new(name, maxTime, maxSize)
-    local self = setmetatable({}, CachePolicy)
-    self:_init_fields()
-        self.name = name
-        self:setMaxTime(maxTime)
-        self:setMaxSize(maxSize)
-    return self
-end
+    getMaxSize() {
+        return _maxSize
+    }
+    
 
+    setMaxSize(maxSize) {
+        _maxSize = maxSize
+    }
+    
 
-function CachePolicy:getMaxTime()
-        return self.maxTime
-end
+    getName() {
+        return _name
+    }
+}
 
-
-function CachePolicy:setMaxTime(maxTime)
-        self.maxTime = maxTime
-end
-
-
-function CachePolicy:getMaxSize()
-        return self.maxSize
-end
-
-
-function CachePolicy:setMaxSize(maxSize)
-        self.maxSize = maxSize
-end
-
-
-function CachePolicy:getName()
-        return self.name
-end
-
-return CachePolicy
 

@@ -1,91 +1,96 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics
 
-local GPoint = require("org.allbinary.graphics.GPoint")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./GPoint" for GPoint
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CustomGPoint is GPoint {
+    static NULL_CUSTOM_POINT {
+    if (__NULL_CUSTOM_POINT_set == null) {
+      __NULL_CUSTOM_POINT_set = true
+      __NULL_CUSTOM_POINT = CustomGPoint.new(0, 0, 0)
+    }
+    return __NULL_CUSTOM_POINT
+  }
+  static NULL_CUSTOM_POINT=(value) {
+    __NULL_CUSTOM_POINT_set = true
+    __NULL_CUSTOM_POINT = value
+  }
+  cx { _cx }
+  cx=(value) { _cx = value }
+  cy { _cy }
+  cy=(value) { _cy = value }
+  cz { _cz }
+  cz=(value) { _cz = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CustomGPoint() {
+    _cx = 0
+    _cy = 0
+    _cz = 0
+        _cx = 0
+        _cy = 0
+        _cz = 0
+  }
+    
 
-local CustomGPoint = {}
-CustomGPoint.__index = CustomGPoint
-CustomGPoint.className = "CustomGPoint"
-setmetatable(CustomGPoint, {__index = GPoint})
+    static getInstance(point) {
+        return CustomGPoint.new(point.getX(), point.getY(), point.getZ())
+    }
+    
 
-function CustomGPoint:_init_fields()
-    self.cx = 0
-    self.cy = 0
-    self.cz = 0
-end
-
-
-function CustomGPoint.getInstance(point)
-        return CustomGPoint.new(point:getX(), point:getY(), point:getZ())
-end
-
-
-function CustomGPoint.getInstance3(x, y)
+    static getInstance3(x, y) {
         return CustomGPoint.new(x, y, 3)
-end
+    }
+    
 
+    construct new(x, y, z) {
+        super(x, y, z)
+        initFields_CustomGPoint()
+    }
+    
 
-function CustomGPoint.new(x, y, z)
-    local self = setmetatable(GPoint.new(x, y, z), CustomGPoint)
-    self:_init_fields()
-        -- super(...) made self above
-    return self
-end
+    setX(x) {
+        _cx = x
+    }
+    
 
+    getX() {
+        return _cx
+    }
+    
 
-function CustomGPoint:setX(x)
-        self.cx = x
-end
+    setY(y) {
+        _cy = y
+    }
+    
 
+    getY() {
+        return _cy
+    }
+    
 
-function CustomGPoint:getX()
-        return self.cx
-end
+    setZ(z) {
+        _cz = z
+    }
+    
 
+    getZ() {
+        return _cz
+    }
+}
 
-function CustomGPoint:setY(y)
-        self.cy = y
-end
-
-
-function CustomGPoint:getY()
-        return self.cy
-end
-
-
-function CustomGPoint:setZ(z)
-        self.cz = z
-end
-
-
-function CustomGPoint:getZ()
-        return self.cz
-end
-
-CustomGPoint.NULL_CUSTOM_POINT = CustomGPoint.new(0, 0, 0)
-
-return CustomGPoint
 

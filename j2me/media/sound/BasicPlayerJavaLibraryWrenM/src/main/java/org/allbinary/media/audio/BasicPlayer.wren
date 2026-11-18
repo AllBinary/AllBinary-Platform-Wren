@@ -1,166 +1,164 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.media.audio
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media.audio
 
--- local Control = require("javax.microedition.media.Control")
--- local MediaException = require("javax.microedition.media.MediaException")
--- local Player = require("javax.microedition.media.Player")
--- local PlayerListener = require("javax.microedition.media.PlayerListener")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local Controllable2 = require("org.allbinary.media.audio.Controllable2")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+//BasicPlayerJavaLibrary
+class BasicPlayer is JObject {
+    static CONTROL_TYPE {
+    if (__CONTROL_TYPE_set == null) {
+      __CONTROL_TYPE_set = true
+      __CONTROL_TYPE = "ToneControl"
+    }
+    return __CONTROL_TYPE
+  }
+  static CONTROL_TYPE=(value) {
+    __CONTROL_TYPE_set = true
+    __CONTROL_TYPE = value
+  }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  listenersList { _listenersList }
+  listenersList=(value) { _listenersList = value }
+  stateP { _stateP }
+  stateP=(value) { _stateP = value }
+  loopCountP { _loopCountP }
+  loopCountP=(value) { _loopCountP = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_BasicPlayer() {
+    _commonStrings = null
+    _listenersList = null
+    _stateP = 0
+    _loopCountP = 0
+        _commonStrings = CommonStrings.getInstance()
+        _listenersList = BasicArrayListD.new()
+        _stateP = 0
+        _loopCountP = 0
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new() {
+    super()
+    initFields_BasicPlayer()
+        this.setLoopCount(0)
+        this.setState(Player.UNREALIZED)
+    }
+    
 
---BasicPlayerJavaLibrary
-local BasicPlayer = {}
-BasicPlayer.__index = BasicPlayer
-BasicPlayer.className = "BasicPlayer"
-
-function BasicPlayer:_init_fields()
-    self.commonStrings = CommonStrings.getInstance()
-    self.listenersList = BasicArrayListD.new()
-    self.stateP = 0
-    self.loopCountP = 0
-end
-
-
-function BasicPlayer.new()
-    local self = setmetatable({}, BasicPlayer)
-    self:_init_fields()
-        self:setLoopCount(0)
-        self:setState(Player.UNREALIZED)
-    return self
-end
-
-
-function BasicPlayer:getContentType()
+    getContentType() {
         return StringUtil.getInstance().EMPTY_STRING
-end
+    }
+    
 
-
-function BasicPlayer:getControl(controlType)
+    getControl(controlType) {
         return NullControl.new()
-end
+    }
+    
 
+    getControls() {
+        return List.filled(0, null)
+    }
+    
 
-function BasicPlayer:getControls()
-        return java_new_array(nil, 0)
-end
+    close() {
+    }
+    
 
+    addPlayerListener(playerListener) {
+        if (!_listenersList.contains(playerListener)) {
+            _listenersList.add(playerListener)
+        }
+    }
+    
 
-function BasicPlayer:close()
-end
+    removePlayerListener(playerListener) {
+        _listenersList.remove(playerListener)
+    }
+    
 
+    getState() {
+        return _stateP
+    }
+    
 
-function BasicPlayer:addPlayerListener(playerListener)
-        if not self.listenersList:contains(playerListener) then
-            self.listenersList:add(playerListener)
-        end
-end
+    setState(state) {
+        _stateP = state
+    }
+    
 
-
-function BasicPlayer:removePlayerListener(playerListener)
-        self.listenersList:remove(playerListener)
-end
-
-
-function BasicPlayer:getState()
-        return self.stateP
-end
-
-
-function BasicPlayer:setState(state)
-        self.stateP = state
-end
-
-
-function BasicPlayer:getDuration()
+    getDuration() {
         return 0
-end
+    }
+    
 
-
-function BasicPlayer:getMediaTime()
+    getMediaTime() {
         return 0
-end
+    }
+    
 
+    deallocate() {
+    }
+    
 
-function BasicPlayer:deallocate()
-end
+    prefetch() {
+    }
+    
 
+    realize() {
+    }
+    
 
--- throws MediaException
-function BasicPlayer:prefetch()
-end
+    setLoopCount(count) {
+        _loopCountP = count
+    }
+    
 
+    getLoopCount() {
+        return _loopCountP
+    }
+    
 
--- throws MediaException
-function BasicPlayer:realize()
-end
-
-
-function BasicPlayer:setLoopCount(count)
-        self.loopCountP = count
-end
-
-
-function BasicPlayer:getLoopCount()
-        return self.loopCountP
-end
-
-
--- throws MediaException
-function BasicPlayer:setMediaTime(now)
+    setMediaTime(now) {
         return 0
-end
+    }
+    
 
+    start() {
+        this.setState(Player.STARTED)
+    }
+    
 
--- throws MediaException
-function BasicPlayer:start()
-        self:setState(Player.STARTED)
-end
+    stop() {
+        this.setState(Player.PREFETCHED)
+    }
+    
 
+    setVolume(leftVolume, rightVolume) {
+    }
+}
 
--- throws MediaException
-function BasicPlayer:stop()
-        self:setState(Player.PREFETCHED)
-end
-
-
-function BasicPlayer:setVolume(leftVolume, rightVolume)
-end
-
-BasicPlayer.CONTROL_TYPE = "ToneControl"
-
-return BasicPlayer
+import "../../../../javax/microedition/media/Control" for Control
+import "../../../../javax/microedition/media/MediaException" for MediaException
+import "../../../../javax/microedition/media/Player" for Player
+import "../../../../javax/microedition/media/PlayerListener" for PlayerListener
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./Controllable2" for Controllable2
+import "./NullControl" for NullControl
 

@@ -1,79 +1,77 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.identification
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.identification
 
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local GroupInterface = require("org.allbinary.game.identification.GroupInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Group is JObject {
+  name { _name }
+  name=(value) { _name = value }
+  teamId { _teamId }
+  teamId=(value) { _teamId = value }
+  string { _string }
+  string=(value) { _string = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Group() {
+    _name = null
+    _teamId = 0
+    _string = null
+        _name = StringUtil.getInstance().EMPTY_STRING
+        
+        _string = StringUtil.getInstance().EMPTY_STRING
+  }
+    
 
-local Group = {}
-Group.__index = Group
-Group.className = "Group"
+    construct new(teamName, teamId) {
+    super()
+    initFields_Group()
+        _teamId = teamId
+        this.setName(teamName)
+    }
+    
 
-function Group:_init_fields()
-    self.name = StringUtil.getInstance().EMPTY_STRING
-    self.teamId = nil
-    self.string = StringUtil.getInstance().EMPTY_STRING
-end
+    getGroupName() {
+        return _name
+    }
+    
 
+    setName(name) {
+        _name = name
+        var groupCommonFactory = GroupCommonFactory.getInstance()
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append(groupCommonFactory.GROUP_NAME_LABEL)
+        stringBuffer.append(_name)
+        stringBuffer.append(groupCommonFactory.ID_LABEL)
+        stringBuffer.appendshort(_teamId)
+        _string = stringBuffer.toString()
+    }
+    
 
-function Group.new(teamName, teamId)
-    local self = setmetatable({}, Group)
-    self:_init_fields()
-        self.teamId = teamId
-        self:setName(teamName)
-    return self
-end
+    getGroupId() {
+        return _teamId
+    }
+    
 
+    toString() {
+        return _string
+    }
+}
 
-function Group:getGroupName()
-        return self.name
-end
-
-
-function Group:setName(name)
-        self.name = name
-        local groupCommonFactory = GroupCommonFactory.getInstance()
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append(groupCommonFactory.GROUP_NAME_LABEL)
-        stringBuffer:append(self.name)
-        stringBuffer:append(groupCommonFactory.ID_LABEL)
-        stringBuffer:appendshort(self.teamId)
-        self.string = tostring(stringBuffer)
-end
-
-
-function Group:getGroupId()
-        return self.teamId
-end
-
-
-function Group:toString()
-        return self.string
-end
-Group.__tostring = function(self) return self:toString() end
-
-return Group
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "./GroupInterface" for GroupInterface
+import "./GroupCommonFactory" for GroupCommonFactory
 

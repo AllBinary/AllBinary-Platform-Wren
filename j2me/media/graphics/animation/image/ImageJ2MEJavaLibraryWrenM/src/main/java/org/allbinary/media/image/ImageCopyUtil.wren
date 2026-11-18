@@ -1,128 +1,132 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.media.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media.image
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Image = require("javax.microedition.lcdui.Image")
-local Features = require("org.allbinary.game.configuration.feature.Features")
-local GameFeatureFactory = require("org.allbinary.game.configuration.feature.GameFeatureFactory")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../allbinary_java" for JObject, JException, JR
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class ImageCopyUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ImageCopyUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  imageCreationUtil { _imageCreationUtil }
+  imageCreationUtil=(value) { _imageCreationUtil = value }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
+  gameFeatureFactory { _gameFeatureFactory }
+  gameFeatureFactory=(value) { _gameFeatureFactory = value }
+  features { _features }
+  features=(value) { _features = value }
+  NO_COPY { _NO_COPY }
+  NO_COPY=(value) { _NO_COPY = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_ImageCopyUtil() {
+    _logUtil = null
+    _commonStrings = null
+    _imageCreationUtil = null
+    _anchor = 0
+    _gameFeatureFactory = null
+    _features = null
+    _NO_COPY = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        _imageCreationUtil = ImageCreationUtil.getInstance()
+        _anchor = Anchor.TOP_LEFT
+        _gameFeatureFactory = GameFeatureFactory.getInstance()
+        _features = Features.getInstance()
+        _NO_COPY = "J2ME does not need to copy images after initial loading"
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local ImageCopyUtil = {}
-ImageCopyUtil.__index = ImageCopyUtil
-ImageCopyUtil.className = "ImageCopyUtil"
-
-function ImageCopyUtil:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.imageCreationUtil = ImageCreationUtil.getInstance()
-    self.anchor = Anchor.TOP_LEFT
-    self.gameFeatureFactory = GameFeatureFactory.getInstance()
-    self.features = Features.getInstance()
-    self.NO_COPY = "J2ME does not need to copy images after initial loading"
-end
-
-
-function ImageCopyUtil.getInstance()
+    static getInstance() {
         return ImageCopyUtil.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_ImageCopyUtil()
+    }
+    
 
-function ImageCopyUtil.new()
-    local self = setmetatable({}, ImageCopyUtil)
-    self:_init_fields()
-    return self
-end
+    createImageForRotation(originalImage) {
+        return this.createImage(originalImage)
+    }
+    
 
-
--- throws Exception
-function ImageCopyUtil:createImageForRotation(originalImage)
-        return self:createImage(originalImage)
-end
-
-
--- throws Exception
-function ImageCopyUtil:createImage(originalImage)
-        if not self.features:isFeature(self.gameFeatureFactory.POST_IMAGE_LOADING_MODIFICATION) then
-            self.logUtil:put(self.NO_COPY, self, self.commonStrings.CONSTRUCTOR, java_exception("Exception"))
+    createImage(originalImage) {
+        if (!_features.isFeature(_gameFeatureFactory.POST_IMAGE_LOADING_MODIFICATION)) {
+            _logUtil.put(_NO_COPY, this, _commonStrings.CONSTRUCTOR, JR.exception("Exception", ""))
             return originalImage
-        end
-        local image = self.imageCreationUtil:createImageWH(originalImage:getWidth(), originalImage:getHeight())
-        if image:isMutable() then
-            image:getGraphics():drawImage(originalImage, 0, 0, self.anchor)
+        }
+        var image = _imageCreationUtil.createImageWH(originalImage.getWidth(), originalImage.getHeight())
+        if (image.isMutable()) {
+            image.getGraphics().drawImage(originalImage, 0, 0, _anchor)
             return image
-        else
-            error(java_exception("Exception", "Not Mutable"), 0)
-        end
-end
+        } else {
+            Fiber.abort(JR.exception("Exception", "Not Mutable"))
+        }
+    }
+    
 
-
--- throws Exception
-function ImageCopyUtil:createImageScale(originalImage, canvasScale, resize)
-        if not self.features:isFeature(self.gameFeatureFactory.POST_IMAGE_LOADING_MODIFICATION) then
-            self.logUtil:put(self.NO_COPY, self, self.commonStrings.CONSTRUCTOR, java_exception("Exception"))
+    createImageScale(originalImage, canvasScale, resize) {
+        if (!_features.isFeature(_gameFeatureFactory.POST_IMAGE_LOADING_MODIFICATION)) {
+            _logUtil.put(_NO_COPY, this, _commonStrings.CONSTRUCTOR, JR.exception("Exception", ""))
             return originalImage
-        end
-        local newWidth = java_int((originalImage:getWidth() * canvasScale))
-        local newHeight = java_int((originalImage:getHeight() * canvasScale))
-        if resize then
-            if newWidth < newHeight then
+        }
+        var newWidth = JR.i32(((originalImage.getWidth() * canvasScale)))
+        var newHeight = JR.i32(((originalImage.getHeight() * canvasScale)))
+        if (resize) {
+            if ((newWidth < newHeight)) {
                 newWidth = newHeight
-            end
-            if newHeight < newWidth then
+            }
+            if ((newHeight < newWidth)) {
                 newHeight = newWidth
-            end
-        end
-        local image = self.imageCreationUtil:createImageWH(newWidth, newHeight)
-        if image:isMutable() then
-            local halfWidthDelta = (newWidth - originalImage:getWidth()) / 2
-            local halfHeightDelta = (newHeight - originalImage:getHeight()) / 2
-            local graphics = image:getGraphics()
-            graphics:drawImage(originalImage, halfWidthDelta, halfHeightDelta, self.anchor)
+            }
+        }
+        var image = _imageCreationUtil.createImageWH(newWidth, newHeight)
+        if (image.isMutable()) {
+            var halfWidthDelta = (((newWidth - originalImage.getWidth())) / 2)
+            var halfHeightDelta = (((newHeight - originalImage.getHeight())) / 2)
+            var graphics = image.getGraphics()
+            graphics.drawImage(originalImage, halfWidthDelta, halfHeightDelta, _anchor)
             return image
-        else
-            error(java_exception("Exception", "Not Mutable"), 0)
-        end
-end
+        } else {
+            Fiber.abort(JR.exception("Exception", "Not Mutable"))
+        }
+    }
+}
 
-ImageCopyUtil.instance = ImageCopyUtil.new()
-
-return ImageCopyUtil
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/game/configuration/feature/Features" for Features
+import "../../../../org/allbinary/game/configuration/feature/GameFeatureFactory" for GameFeatureFactory
+import "../../../../org/allbinary/graphics/Anchor" for Anchor
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./ImageCreationUtil" for ImageCreationUtil
 

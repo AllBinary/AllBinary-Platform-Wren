@@ -1,77 +1,71 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.paint
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.paint
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local ColorCompositeInterface = require("org.allbinary.graphics.color.ColorCompositeInterface")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/graphics/paint/Paintable" for Paintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ColorFillBasePaintable is Paintable {
+  basicColor { _basicColor }
+  basicColor=(value) { _basicColor = value }
+  colorP { _colorP }
+  colorP=(value) { _colorP = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ColorFillBasePaintable() {
+    _basicColor = null
+    _colorP = 0
+        _basicColor = BasicColorFactory.getInstance().WHITE
+        _colorP = 0
+  }
+    
 
-local ColorFillBasePaintable = {}
-ColorFillBasePaintable.__index = ColorFillBasePaintable
-ColorFillBasePaintable.className = "ColorFillBasePaintable"
-setmetatable(ColorFillBasePaintable, {__index = Paintable})
+    construct new(basicColor) {
+    super()
+    initFields_ColorFillBasePaintable()
+        this.setBasicColorP(basicColor)
+    }
+    
 
-function ColorFillBasePaintable:_init_fields()
-    self.basicColor = BasicColorFactory.getInstance().WHITE
-    self.colorP = 0
-end
+    setBasicColorP(basicColor) {
+        _basicColor = basicColor
+        this.setColor(this.getBasicColorP().intValue())
+    }
+    
 
+    getBasicColorP() {
+        return _basicColor
+    }
+    
 
-function ColorFillBasePaintable.new(basicColor)
-    local self = setmetatable(Paintable.new(), ColorFillBasePaintable)
-    self:_init_fields()
-        self:setBasicColorP(basicColor)
-    return self
-end
+    getColor() {
+        return _colorP
+    }
+    
 
+    setColor(color) {
+        _colorP = color
+    }
+    
 
-function ColorFillBasePaintable:setBasicColorP(basicColor)
-        self.basicColor = basicColor
-        self:setColor(math.tointeger(self:getBasicColorP() // 1))
-end
+    paint(graphics) {
+    }
+}
 
-
-function ColorFillBasePaintable:getBasicColorP()
-        return self.basicColor
-end
-
-
-function ColorFillBasePaintable:getColor()
-        return self.colorP
-end
-
-
-function ColorFillBasePaintable:setColor(color)
-        self.colorP = color
-end
-
-
-function ColorFillBasePaintable:paint(graphics)
-end
-
-return ColorFillBasePaintable
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../org/allbinary/graphics/color/ColorCompositeInterface" for ColorCompositeInterface
 

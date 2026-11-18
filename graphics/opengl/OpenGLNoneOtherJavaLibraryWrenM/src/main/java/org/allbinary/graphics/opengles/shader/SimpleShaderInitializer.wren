@@ -1,47 +1,48 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.opengles.shader
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.opengles.shader
 
-local ShaderInitializer = require("org.allbinary.graphics.opengles.shader.ShaderInitializer")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./ShaderInitializer" for ShaderInitializer
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class SimpleShaderInitializer is ShaderInitializer {
+    static instanceC {
+    if (__instanceC_set == null) {
+      __instanceC_set = true
+      __instanceC = SimpleShaderInitializer.new()
+    }
+    return __instanceC
+  }
+  static instanceC=(value) {
+    __instanceC_set = true
+    __instanceC = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_SimpleShaderInitializer() {
+  }
 
-local SimpleShaderInitializer = {}
-SimpleShaderInitializer.__index = SimpleShaderInitializer
-SimpleShaderInitializer.className = "SimpleShaderInitializer"
-setmetatable(SimpleShaderInitializer, {__index = ShaderInitializer})
+  construct new() {
+    super()
+    initFields_SimpleShaderInitializer()
+  }
+    
 
-function SimpleShaderInitializer.new()
-    local self = setmetatable(ShaderInitializer.new(), SimpleShaderInitializer)
-    return self
-end
-
-
-function SimpleShaderInitializer.getInstance()
+    static getInstance() {
         return SimpleShaderInitializer.instanceC
-end
+    }
+}
 
-SimpleShaderInitializer.instanceC = SimpleShaderInitializer.new()
-
-return SimpleShaderInitializer
 

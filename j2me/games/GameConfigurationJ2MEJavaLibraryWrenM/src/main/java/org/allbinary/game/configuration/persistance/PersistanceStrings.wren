@@ -1,60 +1,91 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration.persistance
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration.persistance
 
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PersistanceStrings is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = PersistanceStrings.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  SAVING { _SAVING }
+  SAVING=(value) { _SAVING = value }
+  NUMBER_OF_RECORDS { _NUMBER_OF_RECORDS }
+  NUMBER_OF_RECORDS=(value) { _NUMBER_OF_RECORDS = value }
+  LOADING_ID { _LOADING_ID }
+  LOADING_ID=(value) { _LOADING_ID = value }
+  LOAD_ALL { _LOAD_ALL }
+  LOAD_ALL=(value) { _LOAD_ALL = value }
+  DELETING_WITH_ID { _DELETING_WITH_ID }
+  DELETING_WITH_ID=(value) { _DELETING_WITH_ID = value }
+  CLOSING_RECORDSTORE { _CLOSING_RECORDSTORE }
+  CLOSING_RECORDSTORE=(value) { _CLOSING_RECORDSTORE = value }
+  NOT_SAVING { _NOT_SAVING }
+  NOT_SAVING=(value) { _NOT_SAVING = value }
+  ERROR_LOADING { _ERROR_LOADING }
+  ERROR_LOADING=(value) { _ERROR_LOADING = value }
+  ERROR_LOADING_ID { _ERROR_LOADING_ID }
+  ERROR_LOADING_ID=(value) { _ERROR_LOADING_ID = value }
+  ID { _ID }
+  ID=(value) { _ID = value }
+  GAME_ACTION_INPUT { _GAME_ACTION_INPUT }
+  GAME_ACTION_INPUT=(value) { _GAME_ACTION_INPUT = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PersistanceStrings() {
+    _SAVING = null
+    _NUMBER_OF_RECORDS = null
+    _LOADING_ID = null
+    _LOAD_ALL = null
+    _DELETING_WITH_ID = null
+    _CLOSING_RECORDSTORE = null
+    _NOT_SAVING = null
+    _ERROR_LOADING = null
+    _ERROR_LOADING_ID = null
+    _ID = null
+    _GAME_ACTION_INPUT = null
+        _SAVING = "Saving: "
+        _NUMBER_OF_RECORDS = "Number of records: "
+        _LOADING_ID = "Loading data with id: "
+        _LOAD_ALL = "loadAll"
+        _DELETING_WITH_ID = "Deleting data with id: "
+        _CLOSING_RECORDSTORE = "Closing RecordStore"
+        _NOT_SAVING = "Not Saving: "
+        _ERROR_LOADING = "Error Loading gameActionInput: "
+        _ERROR_LOADING_ID = "Error Loading id: "
+        _ID = " id: "
+        _GAME_ACTION_INPUT = " GameActionInput: "
+  }
 
-local PersistanceStrings = {}
-PersistanceStrings.__index = PersistanceStrings
-PersistanceStrings.className = "PersistanceStrings"
+  construct new() {
+    super()
+    initFields_PersistanceStrings()
+  }
+    
 
-function PersistanceStrings:_init_fields()
-    self.SAVING = "Saving: "
-    self.NUMBER_OF_RECORDS = "Number of records: "
-    self.LOADING_ID = "Loading data with id: "
-    self.LOAD_ALL = "loadAll"
-    self.DELETING_WITH_ID = "Deleting data with id: "
-    self.CLOSING_RECORDSTORE = "Closing RecordStore"
-    self.NOT_SAVING = "Not Saving: "
-    self.ERROR_LOADING = "Error Loading gameActionInput: "
-    self.ERROR_LOADING_ID = "Error Loading id: "
-    self.ID = " id: "
-    self.GAME_ACTION_INPUT = " GameActionInput: "
-end
-
-function PersistanceStrings.new()
-    local self = setmetatable({}, PersistanceStrings)
-    self:_init_fields()
-    return self
-end
-
-
-function PersistanceStrings.getInstance()
+    static getInstance() {
         return PersistanceStrings.instance
-end
+    }
+}
 
-PersistanceStrings.instance = PersistanceStrings.new()
-
-return PersistanceStrings
 

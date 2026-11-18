@@ -1,42 +1,31 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.part
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.part
 
-local RelativeRelationship = require("org.allbinary.graphics.RelativeRelationship")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PartFactoryInterface is JObject {
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    getInstance(sourceLayerInterface, relativeRelationship) {
+        Fiber.abort(JR.exception("AbstractMethodError", "getInstance"))
+    }
+}
 
--- Java interface
-local PartFactoryInterface = {}
-PartFactoryInterface.__index = PartFactoryInterface
-PartFactoryInterface.className = "PartFactoryInterface"
-
-
--- throws Exception
-function PartFactoryInterface:getInstance(sourceLayerInterface, relativeRelationship)
-    error("abstract method getInstance")
-end
-
-return PartFactoryInterface
+import "../../../../org/allbinary/graphics/RelativeRelationship" for RelativeRelationship
+import "../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "./PartInterface" for PartInterface
 

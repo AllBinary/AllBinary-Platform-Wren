@@ -1,51 +1,54 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.string
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.string
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class StringValidationJSEUtil is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_StringValidationJSEUtil() {
+  }
+    
 
-local StringValidationJSEUtil = {}
-StringValidationJSEUtil.__index = StringValidationJSEUtil
-StringValidationJSEUtil.className = "StringValidationJSEUtil"
+    construct new() {
+    super()
+    initFields_StringValidationJSEUtil()
+    }
+    
 
-
-function StringValidationJSEUtil.new()
-    local self = setmetatable({}, StringValidationJSEUtil)
-    return self
-end
-
-
-function StringValidationJSEUtil.isBlank(string)
-        local len = #string
-        for i = 0, len - 1 do
-            local c = string.sub(string, (i) + 1, (i) + 1)
-            if (string.match(c, "^%s$") ~= nil) == false then
+    static isBlank(string) {
+        var len = JR.length(string)
+        if (true) {
+            var i = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    i = JR.i32(i + 1)
+                }
+                jfirst = false
+                if (!((i < len))) break
+            var c = JR.charAt(string, i)
+            if ((Character.isWhitespace(c) == false)) {
                 return false
-            end
-        end
+            }
+            }
+        }
         return true
-end
+    }
+}
 
-return StringValidationJSEUtil
+import "../../../../java/lang/Character" for Character
 

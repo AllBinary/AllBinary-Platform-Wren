@@ -1,132 +1,127 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2011 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.input.event
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2011 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input.event
 
-local PlayerGameInput = require("org.allbinary.game.input.PlayerGameInput")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventListenerInterface = require("org.allbinary.logic.util.event.EventListenerInterface")
-local EventStrings = require("org.allbinary.logic.util.event.EventStrings")
-local BasicEventHandler = require("org.allbinary.logic.util.event.handler.BasicEventHandler")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/logic/util/event/handler/BasicEventHandler" for BasicEventHandler
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class DownGameKeyEventHandlerBase is BasicEventHandler {
+    static TOTAL_LISTENERS { " Total PlayerGameInput Listeners: " }
+    static LISTENER_LABEL { " PlayerGameInput Listener: " }
+  list { _list }
+  list=(value) { _list = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_DownGameKeyEventHandlerBase() {
+    _list = null
+        _list = BasicArrayListD.new()
+  }
+    
 
-local DownGameKeyEventHandlerBase = {}
-DownGameKeyEventHandlerBase.__index = DownGameKeyEventHandlerBase
-DownGameKeyEventHandlerBase.className = "DownGameKeyEventHandlerBase"
-setmetatable(DownGameKeyEventHandlerBase, {__index = BasicEventHandler})
+    construct new() {
+    super()
+    initFields_DownGameKeyEventHandlerBase()
+    }
+    
 
-function DownGameKeyEventHandlerBase:_init_fields()
-    self.list = BasicArrayListD.new()
-end
+    addListener(playerGameInput) {
+        if (!_list.contains(playerGameInput)) {
+            _list.add(playerGameInput)
+        }
+    }
+    
 
+    removeAllListeners() {
+        _list.clear()
+        super.removeAllListeners()
+    }
+    
 
-function DownGameKeyEventHandlerBase.new()
-    local self = setmetatable(BasicEventHandler.new(), DownGameKeyEventHandlerBase)
-    self:_init_fields()
-    return self
-end
+    removeListenerSingleThreaded(eventListenerInterface) {
+        _list.remove(eventListenerInterface)
+        super.removeListenerSingleThreaded(eventListenerInterface)
+    }
+    
 
+    removeListener(eventListenerInterface) {
+        _list.remove(eventListenerInterface)
+        super.removeListener(eventListenerInterface)
+    }
+    
 
-function DownGameKeyEventHandlerBase:addListener(playerGameInput)
-        if not self.list:contains(playerGameInput) then
-            self.list:add(playerGameInput)
-        end
-end
+    fireEvent(eventObject) {
+        if (true) {
+            var index = _list.size()
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            var jerror0 = Fiber.new {
+                var playerGameInput = _list.objectArray[index]
+                playerGameInput.onDownGameKeyEvent(eventObject)
+            }.try()
+            if (jerror0 != null) {
+                var e = jerror0
+                this.logUtil.put(this.commonStrings.EXCEPTION, this, EventStrings.getInstance().FIRE_EVENT, e)
+            }
+            }
+        }
+        super.fireEvent(eventObject)
+    }
+    
 
+    process(eventObject, eventListenerInterface) {
+        var downGameKeyEventListenerInterface = eventListenerInterface
+        downGameKeyEventListenerInterface.onDownGameKeyEvent(eventObject)
+    }
+    
 
-function DownGameKeyEventHandlerBase:removeAllListeners()
-        self.list:clear()
-        BasicEventHandler.removeAllListeners(self)
-end
+    toString() {
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append(super.toString())
+        stringBuffer.append(DownGameKeyEventHandlerBase.TOTAL_LISTENERS)
+        stringBuffer.appendint(_list.size())
+        var eventListenerInterface = null
+        var size = _list.size()
+        var index = 0
+        while ((index < size)) {
+            var jerror1 = Fiber.new {
+                eventListenerInterface = _list.get(index)
+                stringBuffer.append(DownGameKeyEventHandlerBase.LISTENER_LABEL)
+                stringBuffer.append(eventListenerInterface.toString())
+            }.try()
+            if (jerror1 != null) {
+                var e = jerror1
+                this.logUtil.put(this.commonStrings.EXCEPTION, this, this.commonStrings.TOSTRING, e)
+            }
+            index = JR.i32(index + 1)
+        }
+        return stringBuffer.toString()
+    }
+}
 
-
-function DownGameKeyEventHandlerBase:removeListenerSingleThreaded(eventListenerInterface)
-        self.list:remove(eventListenerInterface)
-        BasicEventHandler.removeListenerSingleThreaded(self, eventListenerInterface)
-end
-
-
-function DownGameKeyEventHandlerBase:removeListener(eventListenerInterface)
-        self.list:remove(eventListenerInterface)
-        BasicEventHandler.removeListener(self, eventListenerInterface)
-end
-
-
--- throws Exception
-function DownGameKeyEventHandlerBase:fireEvent(eventObject)
-        do
-            local index = self.list:size()
-            while (function() index = index - 1 return index end)() >= 0 do
-            local try_ok, try_error = pcall(function()
-                local playerGameInput = self.list.objectArray[index + 1]
-                playerGameInput:onDownGameKeyEvent(eventObject)
-            end)
-            if not try_ok then
-                local e = try_error
-                self.logUtil:put(self.commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-            end
-            end
-        end
-        BasicEventHandler.fireEvent(self, eventObject)
-end
-
-
--- throws Exception
-function DownGameKeyEventHandlerBase:process(eventObject, eventListenerInterface)
-        local downGameKeyEventListenerInterface = eventListenerInterface
-        downGameKeyEventListenerInterface:onDownGameKeyEvent(eventObject)
-end
-
-
-function DownGameKeyEventHandlerBase:toString()
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append(tostring(BasicEventHandler))
-        stringBuffer:append(DownGameKeyEventHandlerBase.TOTAL_LISTENERS)
-        stringBuffer:appendint(self.list:size())
-        local eventListenerInterface = nil
-        local size = self.list:size()
-        local index = 0
-        while index < size do
-            local try_ok, try_error = pcall(function()
-                eventListenerInterface = self.list:get(index)
-                stringBuffer:append(DownGameKeyEventHandlerBase.LISTENER_LABEL)
-                stringBuffer:append(tostring(eventListenerInterface))
-            end)
-            if not try_ok then
-                local e = try_error
-                self.logUtil:put(self.commonStrings.EXCEPTION, self, self.commonStrings.TOSTRING, e)
-            end
-            index = index + 1
-        end
-        return tostring(stringBuffer)
-end
-DownGameKeyEventHandlerBase.__tostring = function(self) return self:toString() end
-
-DownGameKeyEventHandlerBase.TOTAL_LISTENERS = " Total PlayerGameInput Listeners: "
-DownGameKeyEventHandlerBase.LISTENER_LABEL = " PlayerGameInput Listener: "
-
-return DownGameKeyEventHandlerBase
+import "../../../../../org/allbinary/game/input/PlayerGameInput" for PlayerGameInput
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../../org/allbinary/logic/util/event/EventListenerInterface" for EventListenerInterface
+import "../../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./GameKeyEvent" for GameKeyEvent
+import "./DownGameKeyEventListenerInterface" for DownGameKeyEventListenerInterface
 

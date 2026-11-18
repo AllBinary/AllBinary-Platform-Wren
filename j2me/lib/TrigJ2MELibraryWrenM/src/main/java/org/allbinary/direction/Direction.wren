@@ -1,101 +1,102 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.direction
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.direction
 
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class Direction is JObject {
+    static directionArray {
+    if (__directionArray_set == null) {
+      __directionArray_set = true
+      __directionArray = List.filled(13, null)
+    }
+    return __directionArray
+  }
+  static directionArray=(value) {
+    __directionArray_set = true
+    __directionArray = value
+  }
+  name { _name }
+  name=(value) { _name = value }
+  otherName { _otherName }
+  otherName=(value) { _otherName = value }
+  value { _value }
+  value=(value) { _value = value }
+  frameFactor { _frameFactor }
+  frameFactor=(value) { _frameFactor = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_Direction() {
+    _name = null
+    _otherName = null
+    _value = 0
+    _frameFactor = 0
+        
+        
+        
+        
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(name, otherName, value, frameFactor) {
+    super()
+    initFields_Direction()
+        _name = name
+        _otherName = otherName
+        _value = value
+        _frameFactor = frameFactor
+        Direction.directionArray[value] = this
+    }
+    
 
-local Direction = {}
-Direction.__index = Direction
-Direction.className = "Direction"
+    static getInstance(direction) {
+        return Direction.directionArray[direction]
+    }
+    
 
-function Direction:_init_fields()
-    self.name = nil
-    self.otherName = nil
-    self.value = nil
-    self.frameFactor = nil
-end
+    getValue() {
+        return _value
+    }
+    
 
+    getFrameFactor() {
+        return _frameFactor
+    }
+    
 
-function Direction.new(name, otherName, value, frameFactor)
-    local self = setmetatable({}, Direction)
-    self:_init_fields()
-        self.name = name
-        self.otherName = otherName
-        self.value = value
-        self.frameFactor = frameFactor
-        Direction.directionArray[value + 1] = self
-    return self
-end
+    getOtherName() {
+        return _otherName
+    }
+    
 
+    getName() {
+        return _name
+    }
+    
 
-function Direction.getInstance(direction)
-        return Direction.directionArray[direction + 1]
-end
+    toString() {
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append("Direction: ")
+        stringBuffer.append(this.getName())
+        stringBuffer.append(" Or: ")
+        stringBuffer.append(this.getOtherName())
+        stringBuffer.append(" Value: ")
+        stringBuffer.appendint(_value)
+        return stringBuffer.toString()
+    }
+}
 
-
-function Direction:getValue()
-        return self.value
-end
-
-
-function Direction:getFrameFactor()
-        return self.frameFactor
-end
-
-
-function Direction:getOtherName()
-        return self.otherName
-end
-
-
-function Direction:getName()
-        return self.name
-end
-
-
-function Direction:toString()
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append("Direction: ")
-        stringBuffer:append(self:getName())
-        stringBuffer:append(" Or: ")
-        stringBuffer:append(self:getOtherName())
-        stringBuffer:append(" Value: ")
-        stringBuffer:appendint(self.value)
-        return tostring(stringBuffer)
-end
-Direction.__tostring = function(self) return self:toString() end
-
-Direction.directionArray = java_new_array(nil, 13)
-
-return Direction
+import "../../../org/allbinary/logic/string/StringMaker" for StringMaker
 

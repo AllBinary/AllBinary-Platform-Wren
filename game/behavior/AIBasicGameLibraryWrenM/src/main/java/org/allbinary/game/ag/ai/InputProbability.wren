@@ -1,84 +1,95 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.ai
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.ai
 
-local StdUtil = require("org.allbinary.logic.StdUtil")
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
-local TimeDelayHelper = require("org.allbinary.time.TimeDelayHelper")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class InputProbability is JObject {
+    static INPUT_PROBABILITY {
+    if (__INPUT_PROBABILITY_set == null) {
+      __INPUT_PROBABILITY_set = true
+      __INPUT_PROBABILITY = SmallIntegerSingletonFactory.getInstance().getAt(0)
+    }
+    return __INPUT_PROBABILITY
+  }
+  static INPUT_PROBABILITY=(value) {
+    __INPUT_PROBABILITY_set = true
+    __INPUT_PROBABILITY = value
+  }
+  likelyhoodIntegerArray { _likelyhoodIntegerArray }
+  likelyhoodIntegerArray=(value) { _likelyhoodIntegerArray = value }
+  repeatLikelyhoodIntegerArray { _repeatLikelyhoodIntegerArray }
+  repeatLikelyhoodIntegerArray=(value) { _repeatLikelyhoodIntegerArray = value }
+  max { _max }
+  max=(value) { _max = value }
+  timeDelayHelper { _timeDelayHelper }
+  timeDelayHelper=(value) { _timeDelayHelper = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_InputProbability() {
+    _likelyhoodIntegerArray = null
+    _repeatLikelyhoodIntegerArray = null
+    _max = 0
+    _timeDelayHelper = null
+        
+        
+        
+        
+  }
+    
 
-local InputProbability = {}
-InputProbability.__index = InputProbability
-InputProbability.className = "InputProbability"
+    construct new(likelyhoodIntegerArray, repeatLikelyhoodIntegerArray, max, timeDelayHelper) {
+    super()
+    initFields_InputProbability()
+        _likelyhoodIntegerArray = likelyhoodIntegerArray
+        _repeatLikelyhoodIntegerArray = repeatLikelyhoodIntegerArray
+        _max = max
+        _timeDelayHelper = timeDelayHelper
+    }
+    
 
-function InputProbability:_init_fields()
-    self.likelyhoodIntegerArray = nil
-    self.repeatLikelyhoodIntegerArray = nil
-    self.max = nil
-    self.timeDelayHelper = nil
-end
+    getLikelyhoodIntegerArray() {
+        return _likelyhoodIntegerArray
+    }
+    
 
+    getRepeatLikelyhoodIntegerArray() {
+        return _repeatLikelyhoodIntegerArray
+    }
+    
 
-function InputProbability.new(likelyhoodIntegerArray, repeatLikelyhoodIntegerArray, max, timeDelayHelper)
-    local self = setmetatable({}, InputProbability)
-    self:_init_fields()
-        self.likelyhoodIntegerArray = likelyhoodIntegerArray
-        self.repeatLikelyhoodIntegerArray = repeatLikelyhoodIntegerArray
-        self.max = max
-        self.timeDelayHelper = timeDelayHelper
-    return self
-end
+    getMax() {
+        return _max
+    }
+    
 
+    getTimeDelayHelper() {
+        return _timeDelayHelper
+    }
+    
 
-function InputProbability:getLikelyhoodIntegerArray()
-        return self.likelyhoodIntegerArray
-end
-
-
-function InputProbability:getRepeatLikelyhoodIntegerArray()
-        return self.repeatLikelyhoodIntegerArray
-end
-
-
-function InputProbability:getMax()
-        return self.max
-end
-
-
-function InputProbability:getTimeDelayHelper()
-        return self.timeDelayHelper
-end
-
-
-function InputProbability:toHashtable()
-        local hashtable = StdUtil.getInstance():createHashtable()
-        hashtable:put(InputProbability.INPUT_PROBABILITY, self)
+    toHashtable() {
+        var hashtable = StdUtil.getInstance().createHashtable()
+        hashtable.put(InputProbability.INPUT_PROBABILITY, this)
         return hashtable
-end
+    }
+}
 
-InputProbability.INPUT_PROBABILITY = SmallIntegerSingletonFactory.getInstance():getAt(0)
-
-return InputProbability
+import "../../../../../org/allbinary/logic/StdUtil" for StdUtil
+import "../../../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../../../org/allbinary/time/TimeDelayHelper" for TimeDelayHelper
+import "../../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "../../../../../java/lang/Integer" for Integer
 

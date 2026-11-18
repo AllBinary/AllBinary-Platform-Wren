@@ -1,78 +1,76 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
-local ScaleProperties = require("org.allbinary.media.ScaleProperties")
-local AnimationInterfaceFactoryInterface = require("org.allbinary.animation.AnimationInterfaceFactoryInterface")
-local ProceduralAnimationInterfaceFactoryInterface = require("org.allbinary.animation.ProceduralAnimationInterfaceFactoryInterface")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class NullRotationAnimationFactory is JObject {
+    static NULL_ROTATION_ANIMATION_FACTORY {
+    if (__NULL_ROTATION_ANIMATION_FACTORY_set == null) {
+      __NULL_ROTATION_ANIMATION_FACTORY_set = true
+      __NULL_ROTATION_ANIMATION_FACTORY = NullRotationAnimationFactory.new()
+    }
+    return __NULL_ROTATION_ANIMATION_FACTORY
+  }
+  static NULL_ROTATION_ANIMATION_FACTORY=(value) {
+    __NULL_ROTATION_ANIMATION_FACTORY_set = true
+    __NULL_ROTATION_ANIMATION_FACTORY = value
+  }
+  NULL_ROTATION_ANIMATION_ARRAY { _NULL_ROTATION_ANIMATION_ARRAY }
+  NULL_ROTATION_ANIMATION_ARRAY=(value) { _NULL_ROTATION_ANIMATION_ARRAY = value }
+  NULL_ANIMATION { _NULL_ANIMATION }
+  NULL_ANIMATION=(value) { _NULL_ANIMATION = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_NullRotationAnimationFactory() {
+    _NULL_ROTATION_ANIMATION_ARRAY = null
+    _NULL_ANIMATION = null
+        _NULL_ROTATION_ANIMATION_ARRAY = List.filled(0, null)
+        _NULL_ANIMATION = NullRotationAnimation2.new()
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new() {
+    super()
+    initFields_NullRotationAnimationFactory()
+    }
+    
 
-local NullRotationAnimationFactory = {}
-NullRotationAnimationFactory.__index = NullRotationAnimationFactory
-NullRotationAnimationFactory.className = "NullRotationAnimationFactory"
-
-function NullRotationAnimationFactory:_init_fields()
-    self.NULL_ROTATION_ANIMATION_ARRAY = java_new_array(nil, 0)
-    self.NULL_ANIMATION = NullRotationAnimation2.new()
-end
-
-
-function NullRotationAnimationFactory.new()
-    local self = setmetatable({}, NullRotationAnimationFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function NullRotationAnimationFactory.getFactoryInstance()
+    static getFactoryInstance() {
         return NullRotationAnimationFactory.NULL_ROTATION_ANIMATION_FACTORY
-end
+    }
+    
 
+    getInstance(instanceId) {
+        return _NULL_ANIMATION
+    }
+    
 
-function NullRotationAnimationFactory:getInstance(instanceId)
-        return self.NULL_ANIMATION
-end
+    getInstanceAnimation(animationInterface) {
+        return _NULL_ANIMATION
+    }
+    
 
+    setInitialScale(scaleProperties) {
+    }
+}
 
--- throws Exception
-function NullRotationAnimationFactory:getInstanceAnimation(animationInterface)
-        return self.NULL_ANIMATION
-end
-
-
-function NullRotationAnimationFactory:setInitialScale(scaleProperties)
-end
-
-NullRotationAnimationFactory.NULL_ROTATION_ANIMATION_FACTORY = NullRotationAnimationFactory.new()
-
-return NullRotationAnimationFactory
+import "../../../org/allbinary/media/ScaleProperties" for ScaleProperties
+import "./AnimationInterfaceFactoryInterface" for AnimationInterfaceFactoryInterface
+import "./ProceduralAnimationInterfaceFactoryInterface" for ProceduralAnimationInterfaceFactoryInterface
+import "./RotationAnimation" for RotationAnimation
+import "./NullRotationAnimation2" for NullRotationAnimation2
+import "./Animation" for Animation
 

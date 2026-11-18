@@ -1,57 +1,79 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics
 
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GraphicsStrings is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = GraphicsStrings.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  ANIMATION { _ANIMATION }
+  ANIMATION=(value) { _ANIMATION = value }
+  ANGLE { _ANGLE }
+  ANGLE=(value) { _ANGLE = value }
+  MOVEMENT_ANGLE { _MOVEMENT_ANGLE }
+  MOVEMENT_ANGLE=(value) { _MOVEMENT_ANGLE = value }
+  ROTATION { _ROTATION }
+  ROTATION=(value) { _ROTATION = value }
+  OPACITY { _OPACITY }
+  OPACITY=(value) { _OPACITY = value }
+  HTML { _HTML }
+  HTML=(value) { _HTML = value }
+  WIDTH { _WIDTH }
+  WIDTH=(value) { _WIDTH = value }
+  HEIGHT { _HEIGHT }
+  HEIGHT=(value) { _HEIGHT = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GraphicsStrings() {
+    _ANIMATION = null
+    _ANGLE = null
+    _MOVEMENT_ANGLE = null
+    _ROTATION = null
+    _OPACITY = null
+    _HTML = null
+    _WIDTH = null
+    _HEIGHT = null
+        _ANIMATION = "animation"
+        _ANGLE = "angle"
+        _MOVEMENT_ANGLE = "movement_angle"
+        _ROTATION = "rotation"
+        _OPACITY = "opacity"
+        _HTML = "HTML"
+        _WIDTH = "width"
+        _HEIGHT = "height"
+  }
 
-local GraphicsStrings = {}
-GraphicsStrings.__index = GraphicsStrings
-GraphicsStrings.className = "GraphicsStrings"
+  construct new() {
+    super()
+    initFields_GraphicsStrings()
+  }
+    
 
-function GraphicsStrings:_init_fields()
-    self.ANIMATION = "animation"
-    self.ANGLE = "angle"
-    self.MOVEMENT_ANGLE = "movement_angle"
-    self.ROTATION = "rotation"
-    self.OPACITY = "opacity"
-    self.HTML = "HTML"
-    self.WIDTH = "width"
-    self.HEIGHT = "height"
-end
-
-function GraphicsStrings.new()
-    local self = setmetatable({}, GraphicsStrings)
-    self:_init_fields()
-    return self
-end
-
-
-function GraphicsStrings.getInstance()
+    static getInstance() {
         return GraphicsStrings.instance
-end
+    }
+}
 
-GraphicsStrings.instance = GraphicsStrings.new()
-
-return GraphicsStrings
 

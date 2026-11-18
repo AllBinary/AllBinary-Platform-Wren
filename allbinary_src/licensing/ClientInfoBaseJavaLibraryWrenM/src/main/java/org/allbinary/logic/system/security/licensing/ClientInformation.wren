@@ -1,192 +1,227 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.system.security.licensing
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.system.security.licensing
 
-local TsUtil = require("org.allbinary.TsUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local HardwareInterface = require("org.allbinary.logic.system.hardware.HardwareInterface")
-local SystemHardwareFactory = require("org.allbinary.logic.system.hardware.SystemHardwareFactory")
-local GenericOperatingSystem = require("org.allbinary.logic.system.os.GenericOperatingSystem")
-local NoOperatingSystem = require("org.allbinary.logic.system.os.NoOperatingSystem")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListUtil = require("org.allbinary.util.BasicArrayListUtil")
-local StdUtil = require("org.allbinary.logic.StdUtil")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
-local AbeClientInformationInterface = require("org.allbinary.logic.system.security.licensing.AbeClientInformationInterface")
+import "../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+// This is the information sent to the license server
+class ClientInformation is JObject {
+  operatingSystemInterface { _operatingSystemInterface }
+  operatingSystemInterface=(value) { _operatingSystemInterface = value }
+  tsUtil { _tsUtil }
+  tsUtil=(value) { _tsUtil = value }
+  name { _name }
+  name=(value) { _name = value }
+  shortName { _shortName }
+  shortName=(value) { _shortName = value }
+  version { _version }
+  version=(value) { _version = value }
+  specialName { _specialName }
+  specialName=(value) { _specialName = value }
+  hardSale { _hardSale }
+  hardSale=(value) { _hardSale = value }
+  licenseId { _licenseId }
+  licenseId=(value) { _licenseId = value }
+  licenseServers { _licenseServers }
+  licenseServers=(value) { _licenseServers = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ClientInformation() {
+    _operatingSystemInterface = null
+    _tsUtil = null
+    _name = null
+    _shortName = null
+    _version = null
+    _specialName = null
+    _hardSale = false
+    _licenseId = null
+    _licenseServers = null
+        _operatingSystemInterface = NoOperatingSystem.NO_OPERATING_SYSTEM
+        _tsUtil = TsUtil.getInstance()
+        
+        
+        
+        
+        _hardSale = true
+        _licenseId = StringUtil.getInstance().EMPTY_STRING
+        _licenseServers = BasicArrayListUtil.getInstance().getImmutableInstance()
+  }
+    
 
--- This is the information sent to the license server
-local ClientInformation = {}
-ClientInformation.__index = ClientInformation
-ClientInformation.className = "ClientInformation"
+    construct new(name, version, specialName, shortName) {
+    super()
+    initFields_ClientInformation()
+        _name = name
+        _version = version
+        _specialName = specialName
+        _shortName = StringMaker.new().append(shortName).append(CommonSeps.getInstance().UNDERSCORE).append(version).toString()
+        this.init()
+    }
+    
 
-function ClientInformation:_init_fields()
-    self.operatingSystemInterface = NoOperatingSystem.NO_OPERATING_SYSTEM
-    self.tsUtil = TsUtil.getInstance()
-    self.name = nil
-    self.shortName = nil
-    self.version = nil
-    self.specialName = nil
-    self.hardSale = true
-    self.licenseId = StringUtil.getInstance().EMPTY_STRING
-    self.licenseServers = BasicArrayListUtil.getInstance():getImmutableInstance()
-end
+    init() {
+    }
+    
 
+    getOperatingSystemInterface() {
+        return _operatingSystemInterface
+    }
+    
 
-function ClientInformation.new(name, version, specialName, shortName)
-    local self = setmetatable({}, ClientInformation)
-    self:_init_fields()
-        self.name = name
-        self.version = version
-        self.specialName = specialName
-        self.shortName = tostring(StringMaker.new():append(shortName):append(CommonSeps.getInstance().UNDERSCORE):append(version))
-        self:init()
-    return self
-end
+    getName() {
+        return _name
+    }
+    
 
+    getSpecialName() {
+        return _specialName
+    }
+    
 
-function ClientInformation:init()
-end
+    getVersion() {
+        return _version
+    }
+    
 
+    getLicenseId() {
+        return _licenseId
+    }
+    
 
-function ClientInformation:getOperatingSystemInterface()
-        return self.operatingSystemInterface
-end
+    getLicenseServers() {
+        return _licenseServers
+    }
+    
 
+    getLicenseServer(index) {
+        return _licenseServers.objectArray[index]
+    }
+    
 
-function ClientInformation:getName()
-        return self.name
-end
+    getNumberOfLicenseServers() {
+        return _licenseServers.size()
+    }
+    
 
-
-function ClientInformation:getSpecialName()
-        return self.specialName
-end
-
-
-function ClientInformation:getVersion()
-        return self.version
-end
-
-
-function ClientInformation:getLicenseId()
-        return self.licenseId
-end
-
-
-function ClientInformation:getLicenseServers()
-        return self.licenseServers
-end
-
-
-function ClientInformation:getLicenseServer(index)
-        return self.licenseServers.objectArray[index + 1]
-end
-
-
-function ClientInformation:getNumberOfLicenseServers()
-        return self.licenseServers:size()
-end
-
-
-function ClientInformation:toHashtable()
-        local abeClientInformationData = AbeClientInformationData.getInstance()
-        local genericOperatingSystem = self:getOperatingSystemInterface()
-        local clientInfoHashtable = StdUtil.getInstance():createHashtable()
-        clientInfoHashtable:put(abeClientInformationData.NAME, self.name)
-        clientInfoHashtable:put(abeClientInformationData.VERSION, self.version)
-        clientInfoHashtable:put(abeClientInformationData.SPECIALNAME, self.specialName)
-        clientInfoHashtable:put(abeClientInformationData.LICENSEID, self:getLicenseId())
-        clientInfoHashtable:put(abeClientInformationData.OSNAME, genericOperatingSystem:getName())
-        clientInfoHashtable:put(abeClientInformationData.OSARCH, genericOperatingSystem:getArch())
-        clientInfoHashtable:put(abeClientInformationData.OSVERSION, genericOperatingSystem:getVersion())
-        clientInfoHashtable:put(abeClientInformationData.OS, tostring(genericOperatingSystem))
-        local hardwareInterface = SystemHardwareFactory.getInstance():getInstance(genericOperatingSystem)
-        local hardwareString = tostring(hardwareInterface)
-        clientInfoHashtable:put(abeClientInformationData.HARDWARE, hardwareString)
+    toHashtable() {
+        var abeClientInformationData = AbeClientInformationData.getInstance()
+        var genericOperatingSystem = this.getOperatingSystemInterface()
+        var clientInfoHashtable = StdUtil.getInstance().createHashtable()
+        clientInfoHashtable.put(abeClientInformationData.NAME, _name)
+        clientInfoHashtable.put(abeClientInformationData.VERSION, _version)
+        clientInfoHashtable.put(abeClientInformationData.SPECIALNAME, _specialName)
+        clientInfoHashtable.put(abeClientInformationData.LICENSEID, this.getLicenseId())
+        clientInfoHashtable.put(abeClientInformationData.OSNAME, genericOperatingSystem.getName())
+        clientInfoHashtable.put(abeClientInformationData.OSARCH, genericOperatingSystem.getArch())
+        clientInfoHashtable.put(abeClientInformationData.OSVERSION, genericOperatingSystem.getVersion())
+        clientInfoHashtable.put(abeClientInformationData.OS, genericOperatingSystem.toString())
+        var hardwareInterface = SystemHardwareFactory.getInstance().getInstance(genericOperatingSystem)
+        var hardwareString = hardwareInterface.toString()
+        clientInfoHashtable.put(abeClientInformationData.HARDWARE, hardwareString)
         return clientInfoHashtable
-end
+    }
+    
 
-
-function ClientInformation:isSameId(alicenseId)
-        if self.tsUtil:compareTo(self:getLicenseId(), alicenseId) == 0 then
+    isSameId(alicenseId) {
+        if ((_tsUtil.compareTo(this.getLicenseId(), alicenseId) == 0)) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+    
 
-
-function ClientInformation:isLargerOrDifferentServerList(list)
-        local size = list:size() - 1
-        local currentSize = self.licenseServers:size() - 1
-        if size > currentSize then
+    isLargerOrDifferentServerList(list) {
+        var size = JR.i32(list.size() - 1)
+        var currentSize = JR.i32(_licenseServers.size() - 1)
+        if ((size > currentSize)) {
             return true
-        end
-        for index = size, 0, -1 do
-            local newServerName = list.objectArray[index + 1]
-            for index2 = currentSize, 0, -1 do
-                local nextOldServerName = self.licenseServers.objectArray[index + 1]
-                if self.tsUtil:compareTo(newServerName, nextOldServerName) ~= 0 then
+        }
+        if (true) {
+            var index = size
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            var newServerName = list.objectArray[index]
+            if (true) {
+                var index2 = currentSize
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        index2 = JR.i32(index2 - 1)
+                    }
+                    jfirst = false
+                    if (!((index2 >= 0))) break
+                var nextOldServerName = _licenseServers.objectArray[index]
+                if ((_tsUtil.compareTo(newServerName, nextOldServerName) != 0)) {
                     return true
-                end
-            end
-        end
+                }
+                }
+            }
+            }
+        }
         return false
-end
+    }
+    
 
+    setHardSale(hardSale) {
+        _hardSale = hardSale
+    }
+    
 
-function ClientInformation:setHardSale(hardSale)
-        self.hardSale = hardSale
-end
+    isHardSale() {
+        return _hardSale
+    }
+    
 
+    setOperatingSystemInterface(operatingSystemInterface) {
+        _operatingSystemInterface = operatingSystemInterface
+    }
+    
 
-function ClientInformation:isHardSale()
-        return self.hardSale
-end
+    setLicenseId(licenseId) {
+        _licenseId = licenseId
+    }
+    
 
+    setLicenseServers(licenseServers) {
+        _licenseServers = licenseServers
+    }
+    
 
-function ClientInformation:setOperatingSystemInterface(operatingSystemInterface)
-        self.operatingSystemInterface = operatingSystemInterface
-end
+    toShortString() {
+        return _shortName
+    }
+}
 
-
-function ClientInformation:setLicenseId(licenseId)
-        self.licenseId = licenseId
-end
-
-
-function ClientInformation:setLicenseServers(licenseServers)
-        self.licenseServers = licenseServers
-end
-
-
-function ClientInformation:toShortString()
-        return self.shortName
-end
-
-return ClientInformation
+import "../../../../../../org/allbinary/TsUtil" for TsUtil
+import "../../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../../org/allbinary/logic/system/hardware/HardwareInterface" for HardwareInterface
+import "../../../../../../org/allbinary/logic/system/hardware/SystemHardwareFactory" for SystemHardwareFactory
+import "../../../../../../org/allbinary/logic/system/os/GenericOperatingSystem" for GenericOperatingSystem
+import "../../../../../../org/allbinary/logic/system/os/NoOperatingSystem" for NoOperatingSystem
+import "../../../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../../org/allbinary/util/BasicArrayListUtil" for BasicArrayListUtil
+import "../../../../../../org/allbinary/logic/StdUtil" for StdUtil
+import "../../../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "./AbeClientInformationInterface" for AbeClientInformationInterface
+import "./AbeClientInformationData" for AbeClientInformationData
 

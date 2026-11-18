@@ -1,62 +1,50 @@
--- Generated Code Do Not Modify
--- package org.apache.xmlrpc
+// Generated Code Do Not Modify
+// package org.apache.xmlrpc
 
--- local IOException = require("java.io.IOException")
--- local MalformedURLException = require("java.net.MalformedURLException")
--- local URL = require("java.net.URL")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local CryptInterface = require("org.allbinary.init.crypt.jcehelper.CryptInterface")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local XmlRpcHandler = require("org.apache.xmlrpc.XmlRpcHandler")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class XmlRpcClient is JObject {
+  url { _url }
+  url=(value) { _url = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_XmlRpcClient() {
+    _url = null
+        
+  }
+    
 
-local XmlRpcClient = {}
-XmlRpcClient.__index = XmlRpcClient
-XmlRpcClient.className = "XmlRpcClient"
+    construct new(url) {
+    super()
+    initFields_XmlRpcClient()
+        _url = URL.new(url)
+    }
+    
 
-function XmlRpcClient:_init_fields()
-    self.url = nil
-end
+    getURL() {
+        return _url
+    }
+    
 
+    setBasicAuthentication(user, password) {
+    }
+    
 
-function XmlRpcClient.new(url)
-    local self = setmetatable({}, XmlRpcClient)
-    self:_init_fields()
-        self.url = URL.new(url)
-    return self
-end
-
-
-function XmlRpcClient:getURL()
-        return self.url
-end
-
-
-function XmlRpcClient:setBasicAuthentication(user, password)
-end
-
-
--- throws XmlRpcException, IOException
-function XmlRpcClient:execute(method, params)
+    execute(method, params) {
         return NullUtil.getInstance().NULL_OBJECT
-end
+    }
+    
 
-
--- throws XmlRpcException, IOException
-function XmlRpcClient:executeWithCrypt(method, params, cryptInterface)
+    executeWithCrypt(method, params, cryptInterface) {
         return NullUtil.getInstance().NULL_OBJECT
-end
+    }
+}
 
-return XmlRpcClient
+import "../../../java/io/IOException" for IOException
+import "../../../java/net/MalformedURLException" for MalformedURLException
+import "../../../java/net/URL" for URL
+import "../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../org/allbinary/init/crypt/jcehelper/CryptInterface" for CryptInterface
+import "../../../org/allbinary/logic/NullUtil" for NullUtil
+import "./XmlRpcHandler" for XmlRpcHandler
+import "./XmlRpcException" for XmlRpcException
 

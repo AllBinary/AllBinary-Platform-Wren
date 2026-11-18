@@ -1,114 +1,104 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Image = require("javax.microedition.lcdui.Image")
-local DisposalUtil = require("org.allbinary.DisposalUtil")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local IndexedAnimation = require("org.allbinary.animation.IndexedAnimation")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/animation/IndexedAnimation" for IndexedAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ImageAnimation is IndexedAnimation {
+  image { _image }
+  image=(value) { _image = value }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImageAnimation() {
+    _image = null
+    _anchor = 0
+        
+        _anchor = Anchor.TOP_LEFT
+  }
+    
 
-local ImageAnimation = {}
-ImageAnimation.__index = ImageAnimation
-ImageAnimation.className = "ImageAnimation"
-setmetatable(ImageAnimation, {__index = IndexedAnimation})
+    construct new(image, animationBehavior) {
+        super(animationBehavior)
+        initFields_ImageAnimation()
+        _image = image
+    }
+    
 
-function ImageAnimation:_init_fields()
-    self.image = nil
-    self.anchor = Anchor.TOP_LEFT
-end
+    getAnimationSize() {
+        return this.getSize()
+    }
+    
 
+    nextFrame() {
+    }
+    
 
-function ImageAnimation.new(image, animationBehavior)
-    local self = setmetatable(IndexedAnimation.new(animationBehavior), ImageAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.image = image
-    return self
-end
+    previousFrame() {
+    }
+    
 
+    setFrame(index) {
+    }
+    
 
--- throws Exception
-function ImageAnimation:getAnimationSize()
-        return self:getSize()
-end
-
-
-function ImageAnimation:nextFrame()
-end
-
-
-function ImageAnimation:previousFrame()
-end
-
-
-function ImageAnimation:setFrame(index)
-end
-
-
-function ImageAnimation:getFrame()
+    getFrame() {
         return 0
-end
+    }
+    
 
-
-function ImageAnimation:getSize()
+    getSize() {
         return 1
-end
+    }
+    
 
+    setSequence(sequence) {
+    }
+    
 
-function ImageAnimation:setSequence(sequence)
-end
-
-
-function ImageAnimation:getSequence()
+    getSequence() {
         return PrimitiveIntUtil.getArrayInstance()
-end
+    }
+    
 
+    paintXY(graphics, x, y) {
+        graphics.drawImage(_image, x, y, _anchor)
+    }
+    
 
-function ImageAnimation:paintXY(graphics, x, y)
-        graphics:drawImage(self.image, x, y, self.anchor)
-end
+    getImage() {
+        return _image
+    }
+    
 
+    close() {
+        DisposalUtil.getInstance().disposeImage(_image)
+    }
+    
 
-function ImageAnimation:getImage()
-        return self.image
-end
+    finalize() {
+        DisposalUtil.getInstance().disposeImage(_image)
+    }
+}
 
-
--- throws Exception
-function ImageAnimation:close()
-        DisposalUtil.getInstance():disposeImage(self.image)
-end
-
-
--- throws Throwable
-function ImageAnimation:finalize()
-        DisposalUtil.getInstance():disposeImage(self.image)
-end
-
-return ImageAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/DisposalUtil" for DisposalUtil
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/graphics/Anchor" for Anchor
+import "../../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
 

@@ -1,57 +1,61 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.physics.acceleration
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.physics.acceleration
 
-local BasicVelocityProperties = require("org.allbinary.game.physics.velocity.BasicVelocityProperties")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GravityUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = GravityUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  GAME_GRAVITY_VELOCITY { _GAME_GRAVITY_VELOCITY }
+  GAME_GRAVITY_VELOCITY=(value) { _GAME_GRAVITY_VELOCITY = value }
+  MAX_GAME_VELOCITY { _MAX_GAME_VELOCITY }
+  MAX_GAME_VELOCITY=(value) { _MAX_GAME_VELOCITY = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GravityUtil() {
+    _GAME_GRAVITY_VELOCITY = 0
+    _MAX_GAME_VELOCITY = 0
+        _GAME_GRAVITY_VELOCITY = 1800
+        _MAX_GAME_VELOCITY = 18000
+  }
 
-local GravityUtil = {}
-GravityUtil.__index = GravityUtil
-GravityUtil.className = "GravityUtil"
+  construct new() {
+    super()
+    initFields_GravityUtil()
+  }
+    
 
-function GravityUtil:_init_fields()
-    self.GAME_GRAVITY_VELOCITY = 1800
-    self.MAX_GAME_VELOCITY = 18000
-end
-
-function GravityUtil.new()
-    local self = setmetatable({}, GravityUtil)
-    self:_init_fields()
-    return self
-end
-
-
-function GravityUtil.getInstance()
+    static getInstance() {
         return GravityUtil.instance
-end
+    }
+    
 
+    process(velocityProperties, customGravity) {
+        velocityProperties.getVelocityYBasicDecimalP().addint(customGravity)
+    }
+}
 
-function GravityUtil:process(velocityProperties, customGravity)
-        velocityProperties:getVelocityYBasicDecimalP():addint(customGravity)
-end
-
-GravityUtil.instance = GravityUtil.new()
-
-return GravityUtil
+import "../../../../../org/allbinary/game/physics/velocity/BasicVelocityProperties" for BasicVelocityProperties
 

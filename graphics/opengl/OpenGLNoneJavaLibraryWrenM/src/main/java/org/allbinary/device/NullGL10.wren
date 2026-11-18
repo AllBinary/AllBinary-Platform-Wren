@@ -1,525 +1,517 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.device
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.device
 
--- local GL10 = require("javax.microedition.khronos.opengles.GL10")
--- local Buffer = require("java.nio.Buffer")
--- local FloatBuffer = require("java.nio.FloatBuffer")
--- local IntBuffer = require("java.nio.IntBuffer")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NullGL10 is JObject {
+    static NULL_GL10 {
+    if (__NULL_GL10_set == null) {
+      __NULL_GL10_set = true
+      __NULL_GL10 = NullGL10.new()
+    }
+    return __NULL_GL10
+  }
+  static NULL_GL10=(value) {
+    __NULL_GL10_set = true
+    __NULL_GL10 = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NullGL10() {
+  }
 
-local NullGL10 = {}
-NullGL10.__index = NullGL10
-NullGL10.className = "NullGL10"
+  construct new() {
+    super()
+    initFields_NullGL10()
+  }
+    
 
-function NullGL10.new()
-    local self = setmetatable({}, NullGL10)
-    return self
-end
-
-
-function NullGL10:glActiveTexture(texture)
+    glActiveTexture(texture) {
         return
-end
+    }
+    
 
-
-function NullGL10:glAlphaFunc(func, ref)
+    glAlphaFunc(func, ref) {
         return
-end
+    }
+    
 
-
-function NullGL10:glBindTexture(target, texture)
+    glBindTexture(target, texture) {
         return
-end
+    }
+    
 
-
-function NullGL10:glBlendFunc(sfactor, dfactor)
+    glBlendFunc(sfactor, dfactor) {
         return
-end
+    }
+    
 
-
-function NullGL10:glClear(mask)
+    glClear(mask) {
         return
-end
+    }
+    
 
-
-function NullGL10:glClearColor(red, green, blue, alpha)
+    glClearColor(red, green, blue, alpha) {
         return
-end
+    }
+    
 
-
-function NullGL10:glClearDepthf(depth)
+    glClearDepthf(depth) {
         return
-end
+    }
+    
 
-
-function NullGL10:glClearStencil(s)
+    glClearStencil(s) {
         return
-end
+    }
+    
 
-
-function NullGL10:glClientActiveTexture(texture)
+    glClientActiveTexture(texture) {
         return
-end
+    }
+    
 
-
-function NullGL10:glColor4f(red, green, blue, alpha)
+    glColor4f(red, green, blue, alpha) {
         return
-end
+    }
+    
 
-
-function NullGL10:glColorMask(red, green, blue, alpha)
+    glColorMask(red, green, blue, alpha) {
         return
-end
+    }
+    
 
-
-function NullGL10:glColorPointer(size, type, stride, pointer)
+    glColorPointer(size, type, stride, pointer) {
         return
-end
+    }
+    
 
-
-function NullGL10:glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, data)
+    glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, data) {
         return
-end
+    }
+    
 
-
-function NullGL10:glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, imageSize, data)
+    glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, imageSize, data) {
         return
-end
+    }
+    
 
-
-function NullGL10:glCopyTexImage2D(target, level, internalformat, x, y, width, height, border)
+    glCopyTexImage2D(target, level, internalformat, x, y, width, height, border) {
         return
-end
+    }
+    
 
-
-function NullGL10:glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height)
+    glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height) {
         return
-end
+    }
+    
 
-
-function NullGL10:glCullFace(mode)
+    glCullFace(mode) {
         return
-end
+    }
+    
 
-
-function NullGL10:glDeleteTextures(n, textures, offset)
+    glDeleteTextures(n, textures, offset) {
         return
-end
+    }
+    
 
-
--- Java overloaded method: Lua keeps the last definition
-function NullGL10:glDeleteTextures(n, textures)
+    glDeleteTextures(n, textures) {
         return
-end
+    }
+    
 
-
-function NullGL10:glDepthFunc(func)
+    glDepthFunc(func) {
         return
-end
+    }
+    
 
-
-function NullGL10:glDepthMask(flag)
+    glDepthMask(flag) {
         return
-end
+    }
+    
 
-
-function NullGL10:glDepthRangef(zNear, zFar)
+    glDepthRangef(zNear, zFar) {
         return
-end
+    }
+    
 
-
-function NullGL10:glDisable(cap)
+    glDisable(cap) {
         return
-end
+    }
+    
 
-
-function NullGL10:glDisableClientState(array)
+    glDisableClientState(array) {
         return
-end
+    }
+    
 
-
-function NullGL10:glDrawArrays(mode, first, count)
+    glDrawArrays(mode, first, count) {
         return
-end
+    }
+    
 
-
-function NullGL10:glDrawElements(mode, count, type, indices)
+    glDrawElements(mode, count, type, indices) {
         return
-end
+    }
+    
 
-
-function NullGL10:glEnable(cap)
+    glEnable(cap) {
         return
-end
+    }
+    
 
-
-function NullGL10:glEnableClientState(array)
+    glEnableClientState(array) {
         return
-end
+    }
+    
 
-
-function NullGL10:glFinish()
+    glFinish() {
         return
-end
+    }
+    
 
-
-function NullGL10:glFlush()
+    glFlush() {
         return
-end
+    }
+    
 
-
-function NullGL10:glFogf(pname, param)
+    glFogf(pname, param) {
         return
-end
+    }
+    
 
-
-function NullGL10:glFogfv(pname, params, offset)
+    glFogfv(pname, params, offset) {
         return
-end
+    }
+    
 
-
--- Java overloaded method: Lua keeps the last definition
-function NullGL10:glFogfv(pname, params)
+    glFogfv(pname, params) {
         return
-end
+    }
+    
 
-
-function NullGL10:glFrontFace(mode)
+    glFrontFace(mode) {
         return
-end
+    }
+    
 
-
-function NullGL10:glFrustumf(left, right, bottom, top, zNear, zFar)
+    glFrustumf(left, right, bottom, top, zNear, zFar) {
         return
-end
+    }
+    
 
-
-function NullGL10:glGenTextures(n, textures, offset)
+    glGenTextures(n, textures, offset) {
         return
-end
+    }
+    
 
-
--- Java overloaded method: Lua keeps the last definition
-function NullGL10:glGenTextures(n, textures)
+    glGenTextures(n, textures) {
         return
-end
+    }
+    
 
-
-function NullGL10:glGetError()
+    glGetError() {
         return 0
-end
+    }
+    
 
-
-function NullGL10:glGetIntegerv(pname, params, offset)
+    glGetIntegerv(pname, params, offset) {
         return
-end
+    }
+    
 
-
--- Java overloaded method: Lua keeps the last definition
-function NullGL10:glGetIntegerv(pname, params)
+    glGetIntegerv(pname, params) {
         return
-end
+    }
+    
 
-
-function NullGL10:glGetString(name)
+    glGetString(name) {
         return StringUtil.getInstance().EMPTY_STRING
-end
+    }
+    
 
-
-function NullGL10:glHint(target, mode)
+    glHint(target, mode) {
         return
-end
+    }
+    
 
-
-function NullGL10:glLightModelf(pname, param)
+    glLightModelf(pname, param) {
         return
-end
+    }
+    
 
-
-function NullGL10:glLightModelfv(pname, params, offset)
+    glLightModelfv(pname, params, offset) {
         return
-end
+    }
+    
 
-
--- Java overloaded method: Lua keeps the last definition
-function NullGL10:glLightModelfv(pname, params)
+    glLightModelfv(pname, params) {
         return
-end
+    }
+    
 
-
-function NullGL10:glLightf(light, pname, param)
+    glLightf(light, pname, param) {
         return
-end
+    }
+    
 
-
-function NullGL10:glLightfv(light, pname, params, offset)
+    glLightfv(light, pname, params, offset) {
         return
-end
+    }
+    
 
-
--- Java overloaded method: Lua keeps the last definition
-function NullGL10:glLightfv(light, pname, params)
+    glLightfv(light, pname, params) {
         return
-end
+    }
+    
 
-
-function NullGL10:glLineWidth(width)
+    glLineWidth(width) {
         return
-end
+    }
+    
 
-
-function NullGL10:glLoadIdentity()
+    glLoadIdentity() {
         return
-end
+    }
+    
 
-
-function NullGL10:glLoadMatrixf(m, offset)
+    glLoadMatrixf(m, offset) {
         return
-end
+    }
+    
 
-
--- Java overloaded method: Lua keeps the last definition
-function NullGL10:glLoadMatrixf(m)
+    glLoadMatrixf(m) {
         return
-end
+    }
+    
 
-
-function NullGL10:glLogicOp(opcode)
+    glLogicOp(opcode) {
         return
-end
+    }
+    
 
-
-function NullGL10:glMaterialf(face, pname, param)
+    glMaterialf(face, pname, param) {
         return
-end
+    }
+    
 
-
-function NullGL10:glMaterialfv(face, pname, params, offset)
+    glMaterialfv(face, pname, params, offset) {
         return
-end
+    }
+    
 
-
--- Java overloaded method: Lua keeps the last definition
-function NullGL10:glMaterialfv(face, pname, params)
+    glMaterialfv(face, pname, params) {
         return
-end
+    }
+    
 
-
-function NullGL10:glMatrixMode(mode)
+    glMatrixMode(mode) {
         return
-end
+    }
+    
 
-
-function NullGL10:glMultMatrixf(m, offset)
+    glMultMatrixf(m, offset) {
         return
-end
+    }
+    
 
-
--- Java overloaded method: Lua keeps the last definition
-function NullGL10:glMultMatrixf(m)
+    glMultMatrixf(m) {
         return
-end
+    }
+    
 
-
-function NullGL10:glMultiTexCoord4f(target, s, t, r, q)
+    glMultiTexCoord4f(target, s, t, r, q) {
         return
-end
+    }
+    
 
-
-function NullGL10:glNormal3f(nx, ny, nz)
+    glNormal3f(nx, ny, nz) {
         return
-end
+    }
+    
 
-
-function NullGL10:glNormalPointer(type, stride, pointer)
+    glNormalPointer(type, stride, pointer) {
         return
-end
+    }
+    
 
-
-function NullGL10:glOrthof(left, right, bottom, top, zNear, zFar)
+    glOrthof(left, right, bottom, top, zNear, zFar) {
         return
-end
+    }
+    
 
-
-function NullGL10:glPixelStorei(pname, param)
+    glPixelStorei(pname, param) {
         return
-end
+    }
+    
 
-
-function NullGL10:glPointSize(size)
+    glPointSize(size) {
         return
-end
+    }
+    
 
-
-function NullGL10:glPolygonOffset(factor, units)
+    glPolygonOffset(factor, units) {
         return
-end
+    }
+    
 
-
-function NullGL10:glPopMatrix()
+    glPopMatrix() {
         return
-end
+    }
+    
 
-
-function NullGL10:glPushMatrix()
+    glPushMatrix() {
         return
-end
+    }
+    
 
-
-function NullGL10:glReadPixels(x, y, width, height, format, type, pixels)
+    glReadPixels(x, y, width, height, format, type, pixels) {
         return
-end
+    }
+    
 
-
-function NullGL10:glRotatef(angle, x, y, z)
+    glRotatef(angle, x, y, z) {
         return
-end
+    }
+    
 
-
-function NullGL10:glRotatex(angle, x, y, z)
+    glRotatex(angle, x, y, z) {
         return
-end
+    }
+    
 
-
-function NullGL10:glSampleCoverage(value, invert)
+    glSampleCoverage(value, invert) {
         return
-end
+    }
+    
 
-
-function NullGL10:glScalef(x, y, z)
+    glScalef(x, y, z) {
         return
-end
+    }
+    
 
-
-function NullGL10:glScalex(x, y, z)
+    glScalex(x, y, z) {
         return
-end
+    }
+    
 
-
-function NullGL10:glScissor(x, y, width, height)
+    glScissor(x, y, width, height) {
         return
-end
+    }
+    
 
-
-function NullGL10:glShadeModel(mode)
+    glShadeModel(mode) {
         return
-end
+    }
+    
 
-
-function NullGL10:glStencilFunc(func, ref, mask)
+    glStencilFunc(func, ref, mask) {
         return
-end
+    }
+    
 
-
-function NullGL10:glStencilMask(mask)
+    glStencilMask(mask) {
         return
-end
+    }
+    
 
-
-function NullGL10:glStencilOp(fail, zfail, zpass)
+    glStencilOp(fail, zfail, zpass) {
         return
-end
+    }
+    
 
-
-function NullGL10:glTexCoordPointer(size, type, stride, pointer)
+    glTexCoordPointer(size, type, stride, pointer) {
         return
-end
+    }
+    
 
-
-function NullGL10:glTexEnvf(target, pname, param)
+    glTexEnvf(target, pname, param) {
         return
-end
+    }
+    
 
-
-function NullGL10:glTexEnvfv(target, pname, params, offset)
+    glTexEnvfv(target, pname, params, offset) {
         return
-end
+    }
+    
 
-
--- Java overloaded method: Lua keeps the last definition
-function NullGL10:glTexEnvfv(target, pname, params)
+    glTexEnvfv(target, pname, params) {
         return
-end
+    }
+    
 
-
-function NullGL10:glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels)
+    glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels) {
         return
-end
+    }
+    
 
-
-function NullGL10:glTexParameterf(target, pname, param)
+    glTexParameterf(target, pname, param) {
         return
-end
+    }
+    
 
-
-function NullGL10:glTexParameteri(target, pname, param)
+    glTexParameteri(target, pname, param) {
         return
-end
+    }
+    
 
-
-function NullGL10:glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)
+    glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels) {
         return
-end
+    }
+    
 
-
-function NullGL10:glTranslatef(x, y, z)
+    glTranslatef(x, y, z) {
         return
-end
+    }
+    
 
-
-function NullGL10:glVertexPointer(size, type, stride, pointer)
+    glVertexPointer(size, type, stride, pointer) {
         return
-end
+    }
+    
 
-
-function NullGL10:glViewport(x, y, width, height)
+    glViewport(x, y, width, height) {
         return
-end
+    }
+    
 
-
-function NullGL10:glBegin(i)
+    glBegin(i) {
         return
-end
+    }
+    
 
-
-function NullGL10:glEnd()
+    glEnd() {
         return
-end
+    }
+    
 
-
-function NullGL10:glVertex3f(f, f2, f3)
+    glVertex3f(f, f2, f3) {
         return
-end
+    }
+    
 
-
-function NullGL10:glPolygonMode(i, i1)
+    glPolygonMode(i, i1) {
         return
-end
+    }
+}
 
-NullGL10.NULL_GL10 = NullGL10.new()
-
-return NullGL10
+import "../../../javax/microedition/khronos/opengles/GL10" for GL10
+import "../../../java/nio/Buffer" for Buffer
+import "../../../java/nio/FloatBuffer" for FloatBuffer
+import "../../../java/nio/IntBuffer" for IntBuffer
+import "../../../org/allbinary/logic/string/StringUtil" for StringUtil
 

@@ -1,53 +1,52 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.font
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.font
 
--- local Font = require("javax.microedition.lcdui.Font")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//OpenGLESBaseJ2MEJavaLibrary
+class FontDebugBase is JObject {
+    static instanceBase {
+    if (__instanceBase_set == null) {
+      __instanceBase_set = true
+      __instanceBase = FontDebugBase.new()
+    }
+    return __instanceBase
+  }
+  static instanceBase=(value) {
+    __instanceBase_set = true
+    __instanceBase = value
+  }
+  SET_FONT { _SET_FONT }
+  SET_FONT=(value) { _SET_FONT = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_FontDebugBase() {
+    _SET_FONT = null
+        _SET_FONT = "setFont"
+  }
 
---OpenGLESBaseJ2MEJavaLibrary
-local FontDebugBase = {}
-FontDebugBase.__index = FontDebugBase
-FontDebugBase.className = "FontDebugBase"
+  construct new() {
+    super()
+    initFields_FontDebugBase()
+  }
+    
 
-function FontDebugBase:_init_fields()
-    self.SET_FONT = "setFont"
-end
-
-function FontDebugBase.new()
-    local self = setmetatable({}, FontDebugBase)
-    self:_init_fields()
-    return self
-end
-
-
-function FontDebugBase.getInstance()
+    static getInstance() {
         return FontDebugBase.instanceBase
-end
+    }
+    
 
+    debugMetrics(currentFont, convertedTextSize, displayMetrics, stringBuffer) {
+    }
+    
 
-function FontDebugBase:debugMetrics(currentFont, convertedTextSize, displayMetrics, stringBuffer)
-end
+    debugDpi(densityDpi, stringBuffer) {
+    }
+    
 
+    debugDimension(currentFont, convertedTextSize, longestDimensionTotalPixels, stringBuffer) {
+    }
+}
 
-function FontDebugBase:debugDpi(densityDpi, stringBuffer)
-end
-
-
-function FontDebugBase:debugDimension(currentFont, convertedTextSize, longestDimensionTotalPixels, stringBuffer)
-end
-
-FontDebugBase.instanceBase = FontDebugBase.new()
-
-return FontDebugBase
+import "../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
 

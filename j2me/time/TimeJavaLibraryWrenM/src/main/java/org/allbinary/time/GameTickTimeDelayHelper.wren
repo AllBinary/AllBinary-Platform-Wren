@@ -53,7 +53,7 @@ class GameTickTimeDelayHelper is JObject {
         if ((_lastStartTime == Long.MIN_VALUE)) {
             _timeDelta = 0
         } else {
-            _timeDelta = (JR.currentTimeMillis() - _lastStartTime)
+            _timeDelta = JR.i32(JR.currentTimeMillis() - _lastStartTime)
         }
     }
     

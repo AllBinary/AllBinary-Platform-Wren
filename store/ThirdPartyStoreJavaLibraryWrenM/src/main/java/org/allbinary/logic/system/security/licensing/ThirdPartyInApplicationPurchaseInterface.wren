@@ -1,94 +1,84 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.system.security.licensing
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.system.security.licensing
 
+import "../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ThirdPartyInApplicationPurchaseInterface is JObject {
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    isPurchased(lockableFeature) {
+        Fiber.abort(JR.exception("AbstractMethodError", "isPurchased"))
+    }
+    
 
--- Java interface
-local ThirdPartyInApplicationPurchaseInterface = {}
-ThirdPartyInApplicationPurchaseInterface.__index = ThirdPartyInApplicationPurchaseInterface
-ThirdPartyInApplicationPurchaseInterface.className = "ThirdPartyInApplicationPurchaseInterface"
+    onCreate(anyType, stateObject) {
+        Fiber.abort(JR.exception("AbstractMethodError", "onCreate"))
+    }
+    
 
+    onDestroy() {
+        Fiber.abort(JR.exception("AbstractMethodError", "onDestroy"))
+    }
+    
 
-function ThirdPartyInApplicationPurchaseInterface:isPurchased(lockableFeature)
-    error("abstract method isPurchased")
-end
+    onStart() {
+        Fiber.abort(JR.exception("AbstractMethodError", "onStart"))
+    }
+    
 
+    onActivityResult(requestCode, resultCode, dataObject) {
+        Fiber.abort(JR.exception("AbstractMethodError", "onActivityResult"))
+    }
+    
 
-function ThirdPartyInApplicationPurchaseInterface:onCreate(anyType, stateObject)
-    error("abstract method onCreate")
-end
+    onSaveInstanceState(anyType) {
+        Fiber.abort(JR.exception("AbstractMethodError", "onSaveInstanceState"))
+    }
+    
 
+    onStop() {
+        Fiber.abort(JR.exception("AbstractMethodError", "onStop"))
+    }
+    
 
-function ThirdPartyInApplicationPurchaseInterface:onDestroy()
-    error("abstract method onDestroy")
-end
+    requestPurchase(lockableFeature) {
+        Fiber.abort(JR.exception("AbstractMethodError", "requestPurchase"))
+    }
+    
 
+    requestReceipts() {
+        Fiber.abort(JR.exception("AbstractMethodError", "requestReceipts"))
+    }
+    
 
-function ThirdPartyInApplicationPurchaseInterface:onStart()
-    error("abstract method onStart")
-end
+    add(lockableFeature) {
+        Fiber.abort(JR.exception("AbstractMethodError", "add"))
+    }
+    
 
+    getUserName() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getUserName"))
+    }
+    
 
-function ThirdPartyInApplicationPurchaseInterface:onActivityResult(requestCode, resultCode, dataObject)
-    error("abstract method onActivityResult")
-end
+    isEnabled() {
+        Fiber.abort(JR.exception("AbstractMethodError", "isEnabled"))
+    }
+}
 
-
-function ThirdPartyInApplicationPurchaseInterface:onSaveInstanceState(anyType)
-    error("abstract method onSaveInstanceState")
-end
-
-
-function ThirdPartyInApplicationPurchaseInterface:onStop()
-    error("abstract method onStop")
-end
-
-
-function ThirdPartyInApplicationPurchaseInterface:requestPurchase(lockableFeature)
-    error("abstract method requestPurchase")
-end
-
-
-function ThirdPartyInApplicationPurchaseInterface:requestReceipts()
-    error("abstract method requestReceipts")
-end
-
-
-function ThirdPartyInApplicationPurchaseInterface:add(lockableFeature)
-    error("abstract method add")
-end
-
-
-function ThirdPartyInApplicationPurchaseInterface:getUserName()
-    error("abstract method getUserName")
-end
-
-
-function ThirdPartyInApplicationPurchaseInterface:isEnabled()
-    error("abstract method isEnabled")
-end
-
-return ThirdPartyInApplicationPurchaseInterface
+import "./LockableFeature" for LockableFeature
 

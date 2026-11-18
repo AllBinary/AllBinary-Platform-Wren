@@ -1,62 +1,67 @@
--- Generated Code Do Not Modify
--- package org.allbinary.game
+// Generated Code Do Not Modify
+// package org.allbinary.game
 
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BasicGameInfoFactory is JObject {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = BasicGameInfoFactory.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
+  currentReleaseIndex { _currentReleaseIndex }
+  currentReleaseIndex=(value) { _currentReleaseIndex = value }
+  currentDestroyIndex { _currentDestroyIndex }
+  currentDestroyIndex=(value) { _currentDestroyIndex = value }
+  total { _total }
+  total=(value) { _total = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BasicGameInfoFactory() {
+    _currentReleaseIndex = 0
+    _currentDestroyIndex = 0
+    _total = 0
+        _currentReleaseIndex = 0
+        _currentDestroyIndex = 0
+        _total = 0
+  }
+    
 
-local BasicGameInfoFactory = {}
-BasicGameInfoFactory.__index = BasicGameInfoFactory
-BasicGameInfoFactory.className = "BasicGameInfoFactory"
-
-function BasicGameInfoFactory:_init_fields()
-    self.currentReleaseIndex = 0
-    self.currentDestroyIndex = 0
-    self.total = 0
-end
-
-
-function BasicGameInfoFactory.getInstance()
+    static getInstance() {
         return BasicGameInfoFactory.SINGLETON
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_BasicGameInfoFactory()
+    }
+    
 
-function BasicGameInfoFactory.new()
-    local self = setmetatable({}, BasicGameInfoFactory)
-    self:_init_fields()
-    return self
-end
+    init(total) {
+        _currentReleaseIndex = 0
+        _currentDestroyIndex = 0
+        _total = total
+    }
+    
 
-
-function BasicGameInfoFactory:init(total)
-        self.currentReleaseIndex = 0
-        self.currentDestroyIndex = 0
-        self.total = total
-end
-
-
-function BasicGameInfoFactory:isPeaked()
-        if self.currentDestroyIndex >= self.total then
+    isPeaked() {
+        if ((_currentDestroyIndex >= _total)) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+    
 
+    howManyLeft() {
+        return JR.i32(_total - _currentDestroyIndex)
+    }
+}
 
-function BasicGameInfoFactory:howManyLeft()
-        return self.total - self.currentDestroyIndex
-end
-
-BasicGameInfoFactory.SINGLETON = BasicGameInfoFactory.new()
-
-return BasicGameInfoFactory
 

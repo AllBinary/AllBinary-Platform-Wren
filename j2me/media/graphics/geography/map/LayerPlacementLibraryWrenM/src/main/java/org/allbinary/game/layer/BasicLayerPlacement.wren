@@ -1,69 +1,68 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BasicLayerPlacement is JObject {
+  layerType { _layerType }
+  layerType=(value) { _layerType = value }
+  width { _width }
+  width=(value) { _width = value }
+  height { _height }
+  height=(value) { _height = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BasicLayerPlacement() {
+    _layerType = null
+    _width = 0
+    _height = 0
+        
+        
+        
+  }
+    
 
-local BasicLayerPlacement = {}
-BasicLayerPlacement.__index = BasicLayerPlacement
-BasicLayerPlacement.className = "BasicLayerPlacement"
+    construct new(layerType, width, height) {
+    super()
+    initFields_BasicLayerPlacement()
+        _layerType = layerType
+        _width = width
+        _height = height
+    }
+    
 
-function BasicLayerPlacement:_init_fields()
-    self.layerType = nil
-    self.width = nil
-    self.height = nil
-end
+    getWidth() {
+        return _width
+    }
+    
 
+    getHeight() {
+        return _height
+    }
+    
 
-function BasicLayerPlacement.new(layerType, width, height)
-    local self = setmetatable({}, BasicLayerPlacement)
-    self:_init_fields()
-        self.layerType = layerType
-        self.width = width
-        self.height = height
-    return self
-end
+    getLayerType() {
+        return _layerType
+    }
+    
 
+    setLayerType(layerType) {
+        _layerType = layerType
+    }
+}
 
-function BasicLayerPlacement:getWidth()
-        return self.width
-end
-
-
-function BasicLayerPlacement:getHeight()
-        return self.height
-end
-
-
-function BasicLayerPlacement:getLayerType()
-        return self.layerType
-end
-
-
-function BasicLayerPlacement:setLayerType(layerType)
-        self.layerType = layerType
-end
-
-return BasicLayerPlacement
+import "./LayerPlacementType" for LayerPlacementType
 

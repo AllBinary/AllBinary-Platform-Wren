@@ -1,48 +1,40 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.io.path
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.io.path
 
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local AbPath = require("org.allbinary.logic.io.path.AbPath")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./AbPath" for AbPath
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AbFilePath is AbPath {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AbFilePath() {
+  }
+    
 
-local AbFilePath = {}
-AbFilePath.__index = AbFilePath
-AbFilePath.className = "AbFilePath"
-setmetatable(AbFilePath, {__index = AbPath})
+    construct new(aPath) {
+        super(StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING)
+        var pathData = AbPathData.getInstance()
+        var abPathUtil = PathUtil.getInstance()
+        this.schema = this.getSchema(aPath)
+        this.setName(pathData.getNameFromPath(aPath))
+        this.setPath(abPathUtil.adjust(this.getPathFromPath(abPathUtil.removeNameFromPath(aPath).toString())))
+    }
+}
 
-
-function AbFilePath.new(aPath)
-    local self = setmetatable(AbPath.new(StringUtil.getInstance().EMPTY_STRING, StringUtil.getInstance().EMPTY_STRING), AbFilePath)
-        -- super(...) made self above
-        local pathData = AbPathData.getInstance()
-        local abPathUtil = PathUtil.getInstance()
-        self.schema = self:getSchema(aPath)
-        self:setName(pathData:getNameFromPath(aPath))
-        self:setPath(abPathUtil:adjust(self:getPathFromPath(tostring(abPathUtil:removeNameFromPath(aPath)))))
-    return self
-end
-
-return AbFilePath
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "./AbPathData" for AbPathData
+import "./PathUtil" for PathUtil
 

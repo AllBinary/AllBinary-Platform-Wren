@@ -1,67 +1,82 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer.special
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer.special
 
--- local Canvas = require("javax.microedition.lcdui.Canvas")
-local GameInputProcessor = require("org.allbinary.game.input.GameInputProcessor")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AnalogInputBuilder is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = AnalogInputBuilder.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AnalogInputBuilder() {
+  }
 
-local AnalogInputBuilder = {}
-AnalogInputBuilder.__index = AnalogInputBuilder
-AnalogInputBuilder.className = "AnalogInputBuilder"
+  construct new() {
+    super()
+    initFields_AnalogInputBuilder()
+  }
+    
 
-function AnalogInputBuilder.new()
-    local self = setmetatable({}, AnalogInputBuilder)
-    return self
-end
-
-
-function AnalogInputBuilder.getInstance()
+    static getInstance() {
         return AnalogInputBuilder.instance
-end
+    }
+    
 
+    disable(inputProcessorArray, collidableDestroyableDamageableLayer) {
+        inputProcessorArray[Canvas.UP] = SpecialUpGameInputProcessor.new(collidableDestroyableDamageableLayer)
+        inputProcessorArray[Canvas.DOWN] = SpecialDownGameInputProcessor.new(collidableDestroyableDamageableLayer)
+        inputProcessorArray[Canvas.RIGHT] = SpecialRightGameInputProcessor.new(collidableDestroyableDamageableLayer)
+        inputProcessorArray[Canvas.LEFT] = SpecialLeftGameInputProcessor.new(collidableDestroyableDamageableLayer)
+        inputProcessorArray[Canvas.KEY_NUM0] = Special1GameInputProcessor.new(collidableDestroyableDamageableLayer)
+        inputProcessorArray[Canvas.KEY_NUM5] = Special3GameInputProcessor.new(collidableDestroyableDamageableLayer)
+    }
+    
 
-function AnalogInputBuilder:disable(inputProcessorArray, collidableDestroyableDamageableLayer)
-        inputProcessorArray[Canvas.UP + 1] = SpecialUpGameInputProcessor.new(collidableDestroyableDamageableLayer)
-        inputProcessorArray[Canvas.DOWN + 1] = SpecialDownGameInputProcessor.new(collidableDestroyableDamageableLayer)
-        inputProcessorArray[Canvas.RIGHT + 1] = SpecialRightGameInputProcessor.new(collidableDestroyableDamageableLayer)
-        inputProcessorArray[Canvas.LEFT + 1] = SpecialLeftGameInputProcessor.new(collidableDestroyableDamageableLayer)
-        inputProcessorArray[Canvas.KEY_NUM0 + 1] = Special1GameInputProcessor.new(collidableDestroyableDamageableLayer)
-        inputProcessorArray[Canvas.KEY_NUM5 + 1] = Special3GameInputProcessor.new(collidableDestroyableDamageableLayer)
-end
+    enable(inputProcessorArray, collidableDestroyableDamageableLayer) {
+        inputProcessorArray[Canvas.UP] = SpecialAnalogUpGameInputProcessor.new(collidableDestroyableDamageableLayer)
+        inputProcessorArray[Canvas.DOWN] = SpecialAnalogDownGameInputProcessor.new(collidableDestroyableDamageableLayer)
+        inputProcessorArray[Canvas.RIGHT] = SpecialAnalogRightGameInputProcessor.new(collidableDestroyableDamageableLayer)
+        inputProcessorArray[Canvas.LEFT] = SpecialAnalogLeftGameInputProcessor.new(collidableDestroyableDamageableLayer)
+        inputProcessorArray[Canvas.KEY_NUM0] = SpecialAnalogLeftTriggerGameInputProcessor.new(collidableDestroyableDamageableLayer)
+        inputProcessorArray[Canvas.KEY_NUM5] = SpecialAnalogRightTriggerGameInputProcessor.new(collidableDestroyableDamageableLayer)
+    }
+}
 
-
-function AnalogInputBuilder:enable(inputProcessorArray, collidableDestroyableDamageableLayer)
-        inputProcessorArray[Canvas.UP + 1] = SpecialAnalogUpGameInputProcessor.new(collidableDestroyableDamageableLayer)
-        inputProcessorArray[Canvas.DOWN + 1] = SpecialAnalogDownGameInputProcessor.new(collidableDestroyableDamageableLayer)
-        inputProcessorArray[Canvas.RIGHT + 1] = SpecialAnalogRightGameInputProcessor.new(collidableDestroyableDamageableLayer)
-        inputProcessorArray[Canvas.LEFT + 1] = SpecialAnalogLeftGameInputProcessor.new(collidableDestroyableDamageableLayer)
-        inputProcessorArray[Canvas.KEY_NUM0 + 1] = SpecialAnalogLeftTriggerGameInputProcessor.new(collidableDestroyableDamageableLayer)
-        inputProcessorArray[Canvas.KEY_NUM5 + 1] = SpecialAnalogRightTriggerGameInputProcessor.new(collidableDestroyableDamageableLayer)
-end
-
-AnalogInputBuilder.instance = AnalogInputBuilder.new()
-
-return AnalogInputBuilder
+import "../../../../../javax/microedition/lcdui/Canvas" for Canvas
+import "../../../../../org/allbinary/game/input/GameInputProcessor" for GameInputProcessor
+import "./SpecialUpGameInputProcessor" for SpecialUpGameInputProcessor
+import "./SpecialDownGameInputProcessor" for SpecialDownGameInputProcessor
+import "./SpecialRightGameInputProcessor" for SpecialRightGameInputProcessor
+import "./SpecialLeftGameInputProcessor" for SpecialLeftGameInputProcessor
+import "./Special1GameInputProcessor" for Special1GameInputProcessor
+import "./Special3GameInputProcessor" for Special3GameInputProcessor
+import "./CollidableDestroyableDamageableLayer" for CollidableDestroyableDamageableLayer
+import "./SpecialAnalogUpGameInputProcessor" for SpecialAnalogUpGameInputProcessor
+import "./SpecialAnalogDownGameInputProcessor" for SpecialAnalogDownGameInputProcessor
+import "./SpecialAnalogRightGameInputProcessor" for SpecialAnalogRightGameInputProcessor
+import "./SpecialAnalogLeftGameInputProcessor" for SpecialAnalogLeftGameInputProcessor
+import "./SpecialAnalogLeftTriggerGameInputProcessor" for SpecialAnalogLeftTriggerGameInputProcessor
+import "./SpecialAnalogRightTriggerGameInputProcessor" for SpecialAnalogRightTriggerGameInputProcessor
 

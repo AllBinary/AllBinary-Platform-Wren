@@ -1,59 +1,60 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.image.opengles
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.image.opengles
 
--- local GL10 = require("javax.microedition.khronos.opengles.GL10")
-local OpenGLESImageTranslate = require("org.allbinary.image.opengles.OpenGLESImageTranslate")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./OpenGLESImageTranslate" for OpenGLESImageTranslate
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class OpenGLESDeviceImageTranslate is OpenGLESImageTranslate {
+  translateX { _translateX }
+  translateX=(value) { _translateX = value }
+  translateY { _translateY }
+  translateY=(value) { _translateY = value }
+  translateX2 { _translateX2 }
+  translateX2=(value) { _translateX2 = value }
+  translateY2 { _translateY2 }
+  translateY2=(value) { _translateY2 = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_OpenGLESDeviceImageTranslate() {
+    _translateX = 0.0
+    _translateY = 0.0
+    _translateX2 = 0.0
+    _translateY2 = 0.0
+        _translateX = 0.0
+        _translateY = 0.0
+        _translateX2 = 0.0
+        _translateY2 = 0.0
+  }
 
-local OpenGLESDeviceImageTranslate = {}
-OpenGLESDeviceImageTranslate.__index = OpenGLESDeviceImageTranslate
-OpenGLESDeviceImageTranslate.className = "OpenGLESDeviceImageTranslate"
-setmetatable(OpenGLESDeviceImageTranslate, {__index = OpenGLESImageTranslate})
+  construct new() {
+    super()
+    initFields_OpenGLESDeviceImageTranslate()
+  }
+    
 
-function OpenGLESDeviceImageTranslate:_init_fields()
-    self.translateX = 0.0
-    self.translateY = 0.0
-    self.translateX2 = 0.0
-    self.translateY2 = 0.0
-end
+    translate(gl, openGLESImage, x, y) {
+        openGLESImage.imageProcessor.translate(gl, (_translateX + ((openGLESImage.openGLESImageProperties.scaleX * x))), (_translateY + ((openGLESImage.openGLESImageProperties.scaleY * y))))
+    }
+    
 
-function OpenGLESDeviceImageTranslate.new()
-    local self = setmetatable(OpenGLESImageTranslate.new(), OpenGLESDeviceImageTranslate)
-    self:_init_fields()
-    return self
-end
+    translate2(gl, openGLESImage) {
+        openGLESImage.imageProcessor.translate(gl, _translateX2, _translateY2)
+    }
+}
 
-
-function OpenGLESDeviceImageTranslate:translate(gl, openGLESImage, x, y)
-        openGLESImage.imageProcessor:translate(gl, self.translateX + (openGLESImage.openGLESImageProperties.scaleX * x), self.translateY + (openGLESImage.openGLESImageProperties.scaleY * y))
-end
-
-
-function OpenGLESDeviceImageTranslate:translate2(gl, openGLESImage)
-        openGLESImage.imageProcessor:translate(gl, self.translateX2, self.translateY2)
-end
-
-return OpenGLESDeviceImageTranslate
+import "../../../../javax/microedition/khronos/opengles/GL10" for GL10
+import "./OpenGLESImage" for OpenGLESImage
 

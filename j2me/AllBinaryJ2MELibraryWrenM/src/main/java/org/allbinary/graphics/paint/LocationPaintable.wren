@@ -1,51 +1,53 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.paint
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.paint
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local LocationPaintableInterface = require("org.allbinary.graphics.paint.LocationPaintableInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LocationPaintable is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = LocationPaintable.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LocationPaintable() {
+  }
 
-local LocationPaintable = {}
-LocationPaintable.__index = LocationPaintable
-LocationPaintable.className = "LocationPaintable"
+  construct new() {
+    super()
+    initFields_LocationPaintable()
+  }
+    
 
-function LocationPaintable.new()
-    local self = setmetatable({}, LocationPaintable)
-    return self
-end
-
-
-function LocationPaintable.getInstance()
+    static getInstance() {
         return LocationPaintable.instance
-end
+    }
+    
 
+    paintXY(graphics, x, y) {
+    }
+}
 
-function LocationPaintable:paintXY(graphics, x, y)
-end
-
-LocationPaintable.instance = LocationPaintable.new()
-
-return LocationPaintable
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "./LocationPaintableInterface" for LocationPaintableInterface
 

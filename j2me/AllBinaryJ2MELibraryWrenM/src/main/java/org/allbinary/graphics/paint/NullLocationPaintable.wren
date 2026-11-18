@@ -1,47 +1,48 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.paint
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.paint
 
-local LocationPaintable = require("org.allbinary.graphics.paint.LocationPaintable")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./LocationPaintable" for LocationPaintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NullLocationPaintable is LocationPaintable {
+    static instanceC {
+    if (__instanceC_set == null) {
+      __instanceC_set = true
+      __instanceC = NullLocationPaintable.new()
+    }
+    return __instanceC
+  }
+  static instanceC=(value) {
+    __instanceC_set = true
+    __instanceC = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NullLocationPaintable() {
+  }
 
-local NullLocationPaintable = {}
-NullLocationPaintable.__index = NullLocationPaintable
-NullLocationPaintable.className = "NullLocationPaintable"
-setmetatable(NullLocationPaintable, {__index = LocationPaintable})
+  construct new() {
+    super()
+    initFields_NullLocationPaintable()
+  }
+    
 
-function NullLocationPaintable.new()
-    local self = setmetatable(LocationPaintable.new(), NullLocationPaintable)
-    return self
-end
-
-
-function NullLocationPaintable.getInstance()
+    static getInstance() {
         return NullLocationPaintable.instanceC
-end
+    }
+}
 
-NullLocationPaintable.instanceC = NullLocationPaintable.new()
-
-return NullLocationPaintable
 

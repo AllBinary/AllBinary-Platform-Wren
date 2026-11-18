@@ -1,60 +1,61 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.resources
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.resources
 
-local StdUtil = require("org.allbinary.logic.StdUtil")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class KeyValueFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = KeyValueFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  MAP { _MAP }
+  MAP=(value) { _MAP = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_KeyValueFactory() {
+    _MAP = null
+        _MAP = StdUtil.getInstance().createHashtable()
+  }
 
-local KeyValueFactory = {}
-KeyValueFactory.__index = KeyValueFactory
-KeyValueFactory.className = "KeyValueFactory"
+  construct new() {
+    super()
+    initFields_KeyValueFactory()
+  }
+    
 
-function KeyValueFactory:_init_fields()
-    self.MAP = StdUtil.getInstance():createHashtable()
-end
-
-function KeyValueFactory.new()
-    local self = setmetatable({}, KeyValueFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function KeyValueFactory.getInstance()
+    static getInstance() {
         return KeyValueFactory.instance
-end
+    }
+    
 
-
-function KeyValueFactory:get(key)
-        if not self.MAP:containsKey(key) then
+    get(key) {
+        if (!_MAP.containsKey(key)) {
             return key
-        end
-        return self.MAP:get(key)
-end
+        }
+        return _MAP.get(key)
+    }
+}
 
-KeyValueFactory.instance = KeyValueFactory.new()
-
-return KeyValueFactory
+import "../../../org/allbinary/logic/StdUtil" for StdUtil
+import "../../../org/allbinary/util/ABHashtable" for ABHashtable
 

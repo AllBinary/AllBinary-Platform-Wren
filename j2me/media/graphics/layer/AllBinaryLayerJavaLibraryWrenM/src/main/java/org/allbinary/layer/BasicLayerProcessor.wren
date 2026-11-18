@@ -1,82 +1,74 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.layer
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.layer
 
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../allbinary_java" for JObject, JException, JR
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class BasicLayerProcessor is JObject {
+    static NULL_LAYER_PROCESSOR {
+    if (__NULL_LAYER_PROCESSOR_set == null) {
+      __NULL_LAYER_PROCESSOR_set = true
+      __NULL_LAYER_PROCESSOR = BasicLayerProcessor.new()
+    }
+    return __NULL_LAYER_PROCESSOR
+  }
+  static NULL_LAYER_PROCESSOR=(value) {
+    __NULL_LAYER_PROCESSOR_set = true
+    __NULL_LAYER_PROCESSOR = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  list { _list }
+  list=(value) { _list = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_BasicLayerProcessor() {
+    _logUtil = null
+    _list = null
+        _logUtil = LogUtil.getInstance()
+        _list = BasicArrayListD.new()
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new() {
+    super()
+    initFields_BasicLayerProcessor()
+    }
+    
 
-local BasicLayerProcessor = {}
-BasicLayerProcessor.__index = BasicLayerProcessor
-BasicLayerProcessor.className = "BasicLayerProcessor"
+    add(layerInterface) {
+        if (!_list.contains(layerInterface)) {
+            _list.add(layerInterface)
+        }
+    }
+    
 
-function BasicLayerProcessor:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.list = BasicArrayListD.new()
-end
+    process(allBinaryLayerManager) {
+        Fiber.abort(JR.exception("Exception", CommonStrings.getInstance().NOT_IMPLEMENTED))
+    }
+    
 
+    getList() {
+        return _list
+    }
+}
 
-function BasicLayerProcessor.new()
-    local self = setmetatable({}, BasicLayerProcessor)
-    self:_init_fields()
-    return self
-end
-
-
-function BasicLayerProcessor:add(layerInterface)
-        if not self.list:contains(layerInterface) then
-            self.list:add(layerInterface)
-        end
-end
-
-
--- throws Exception
-function BasicLayerProcessor:process(allBinaryLayerManager)
-        error(java_exception("Exception", CommonStrings.getInstance().NOT_IMPLEMENTED), 0)
-end
-
-
-function BasicLayerProcessor:getList()
-        return self.list
-end
-
-BasicLayerProcessor.NULL_LAYER_PROCESSOR = BasicLayerProcessor.new()
-
-return BasicLayerProcessor
+import "../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./AllBinaryLayer" for AllBinaryLayer
+import "./AllBinaryLayerManager" for AllBinaryLayerManager
 

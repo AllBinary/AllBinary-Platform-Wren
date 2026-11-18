@@ -1,157 +1,193 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.draw
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.draw
 
--- local Font = require("javax.microedition.lcdui.Font")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local AndroidUtil = require("org.allbinary.AndroidUtil")
-local J2MEUtil = require("org.allbinary.J2MEUtil")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local OpenGLFeatureUtil = require("org.allbinary.graphics.opengles.OpenGLFeatureUtil")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local PreLogUtil = require("org.allbinary.logic.communication.log.PreLogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class DrawVerticalStringUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = DrawVerticalStringUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  EMPTY_STRING { _EMPTY_STRING }
+  EMPTY_STRING=(value) { _EMPTY_STRING = value }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
+  charHeight { _charHeight }
+  charHeight=(value) { _charHeight = value }
+  offsetY { _offsetY }
+  offsetY=(value) { _offsetY = value }
+  offsetXArray { _offsetXArray }
+  offsetXArray=(value) { _offsetXArray = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_DrawVerticalStringUtil() {
+    _EMPTY_STRING = null
+    _anchor = 0
+    _charHeight = 0
+    _offsetY = 0
+    _offsetXArray = null
+        _EMPTY_STRING = StringUtil.getInstance().EMPTY_STRING
+        _anchor = Anchor.TOP_LEFT
+        _charHeight = 0
+        _offsetY = 0
+        _offsetXArray = NullUtil.getInstance().NULL_INT_ARRAY
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  construct new() {
+    super()
+    initFields_DrawVerticalStringUtil()
+  }
+    
 
-local DrawVerticalStringUtil = {}
-DrawVerticalStringUtil.__index = DrawVerticalStringUtil
-DrawVerticalStringUtil.className = "DrawVerticalStringUtil"
-
-function DrawVerticalStringUtil:_init_fields()
-    self.EMPTY_STRING = StringUtil.getInstance().EMPTY_STRING
-    self.anchor = Anchor.TOP_LEFT
-    self.charHeight = 0
-    self.offsetY = 0
-    self.offsetXArray = NullUtil.getInstance().NULL_INT_ARRAY
-end
-
-function DrawVerticalStringUtil.new()
-    local self = setmetatable({}, DrawVerticalStringUtil)
-    self:_init_fields()
-    return self
-end
-
-
-function DrawVerticalStringUtil.getInstance()
+    static getInstance() {
         return DrawVerticalStringUtil.instance
-end
+    }
+    
 
+    updateMeasurement(graphics, string) {
+        var openGLFeatureUtil = OpenGLFeatureUtil.getInstance()
+        var font = graphics.getFont()
+        _charHeight = font.getHeight()
+        _offsetY = 0
+        if (J2MEUtil.isHTML()) {
+            _charHeight = JR.i32(_charHeight + 1)
+        } else if (openGLFeatureUtil.isAnyThreed()) {
+            _charHeight = JR.i32(_charHeight + 2)
+            if (AndroidUtil.isAndroid()) {
+            } else {
+                _offsetY = JR.i32(2 + (JR.idiv(JR.i32(_charHeight * 2), 3)))
+            }
+        }
+        var size = JR.length(string)
+        var aChar = 0
+        var offsetXArray = List.filled(size, 0)
+        if (true) {
+            var index = JR.i32(size - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            aChar = JR.charAt(string, index)
+            if (openGLFeatureUtil.isAnyThreed()) {
+                offsetXArray[index] = (font.charWidth(aChar) / 2)
+            }
+            }
+        }
+        _offsetXArray = offsetXArray
+    }
+    
 
-function DrawVerticalStringUtil:updateMeasurement(graphics, string)
-        local openGLFeatureUtil = OpenGLFeatureUtil.getInstance()
-        local font = graphics:getFont()
-        self.charHeight = font:getHeight()
-        self.offsetY = 0
-        if J2MEUtil.isHTML() then
-            self.charHeight = self.charHeight + (1)
-        elseif openGLFeatureUtil:isAnyThreed() then
-            self.charHeight = self.charHeight + (2)
-            if AndroidUtil.isAndroid() then
-            else
-                self.offsetY = 2 + (java_idiv(self.charHeight * 2, 3))
-            end
-        end
-        local size = #string
-        local aChar = "\0"
-        local offsetXArray = java_new_array(0, size)
-        for index = size - 1, 0, -1 do
-            aChar = string.sub(string, (index) + 1, (index) + 1)
-            if openGLFeatureUtil:isAnyThreed() then
-                offsetXArray[index + 1] = font:charWidth(aChar) / 2
-            end
-        end
-        self.offsetXArray = offsetXArray
-end
+    paintVerticle(graphics, string, x, y, anchor) {
+        var size = JR.length(string)
+        var aChar = 0
+        if (true) {
+            var index = JR.i32(size - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            aChar = JR.charAt(string, index)
+            graphics.drawChar(aChar, JR.i32(x + _offsetXArray[index]), JR.i32(JR.i32(y + (JR.i32(_charHeight * index))) + _offsetY), anchor)
+            }
+        }
+    }
+    
 
+    drawCenterString(graphics, string, offset, length, x, y) {
+        var width = (JR.shr(graphics.getFont().substringWidth(string, offset, length), 1))
+        var jerror0 = Fiber.new {
+            graphics.drawSubstring(string, offset, length, JR.i32(x - width), y, _anchor)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            PreLogUtil.put(StringMaker.new().append("Exception: stringLength: ").appendint(JR.length(string)).append(" offset: ").appendint(offset).append(" currentLength: ").appendint(length).toString(), this, "drawCenterString")
+        }
+    }
+    
 
-function DrawVerticalStringUtil:paintVerticle(graphics, string, x, y, anchor)
-        local size = #string
-        local aChar = "\0"
-        for index = size - 1, 0, -1 do
-            aChar = string.sub(string, (index) + 1, (index) + 1)
-            graphics:drawChar(aChar, x + self.offsetXArray[index + 1], y + (self.charHeight * index) + self.offsetY, anchor)
-        end
-end
-
-
-function DrawVerticalStringUtil:drawCenterString(graphics, string, offset, length, x, y)
-        local width = (((graphics:getFont():substringWidth(string, offset, length)) // (1 << (1))))
-        local try_ok, try_error = pcall(function()
-            graphics:drawSubstring(string, offset, length, x - width, y, self.anchor)
-        end)
-        if not try_ok then
-            local e = try_error
-            PreLogUtil.put(tostring(StringMaker.new():append("Exception: stringLength: "):appendint(#string):append(" offset: "):appendint(offset):append(" currentLength: "):appendint(length)), self, "drawCenterString")
-        end
-end
-
-
-function DrawVerticalStringUtil:drawCenterStrings(graphics, stringArray, maxWidth, x, y)
-        local extraLines = 0
-        for index = 0, (stringArray.n or #stringArray) - 1 do
-            local string = stringArray[index + 1]
-            if string ~= self.EMPTY_STRING then
-                local width = graphics:getFont():stringWidth(string)
-                local minTotalLines = 1
-                if width > maxWidth then
-                    minTotalLines = (java_idiv(width, maxWidth)) + 1
-                end
-                local linePortion = java_idiv(#string, minTotalLines)
-                local offset = 0
-                local currentLength = linePortion
-                local size = #string
-                while offset < size do
-                    if offset + currentLength > size then
-                        currentLength = size - offset
-                    end
-                    if offset + currentLength ~= size then
-                        while currentLength > 0 and stringArray[index + 1]:charAt(offset + currentLength) ~= " " do
-                            currentLength = currentLength - 1
-                        end
-                        if currentLength <= 4 then
+    drawCenterStrings(graphics, stringArray, maxWidth, x, y) {
+        var extraLines = 0
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < stringArray.count))) break
+            var string = stringArray[index]
+            if ((string != _EMPTY_STRING)) {
+                var width = graphics.getFont().stringWidth(string)
+                var minTotalLines = 1
+                if ((width > maxWidth)) {
+                    minTotalLines = JR.i32((JR.idiv(width, maxWidth)) + 1)
+                }
+                var linePortion = JR.idiv(JR.length(string), minTotalLines)
+                var offset = 0
+                var currentLength = linePortion
+                var size = JR.length(string)
+                while ((offset < size)) {
+                    if ((JR.i32(offset + currentLength) > size)) {
+                        currentLength = JR.i32(size - offset)
+                    }
+                    if ((JR.i32(offset + currentLength) != size)) {
+                        while (((currentLength > 0) && (stringArray[index].charAt(JR.i32(offset + currentLength)) != " ".bytes[0]))) {
+                            currentLength = JR.i32(currentLength - 1)
+                        }
+                        if ((currentLength <= 4)) {
                             currentLength = linePortion
-                        end
-                    end
-                    self:drawCenterString(graphics, string, offset, currentLength, x, y + ((index + (function() local value = extraLines extraLines = value + 1 return value end)()) * self.charHeight))
-                    offset = offset + currentLength
+                        }
+                    }
+                    this.drawCenterString(graphics, string, offset, currentLength, x, JR.i32(y + (JR.i32((JR.i32(index + Fn.new {
+var jold = extraLines
+extraLines = JR.i32(jold + 1)
+return jold
+}.call())) * _charHeight))))
+                    offset = JR.i32(offset + currentLength)
                     currentLength = linePortion
-                end
-                extraLines = extraLines - 1
-            end
-        end
-end
+                }
+                extraLines = JR.i32(extraLines - 1)
+            }
+            }
+        }
+    }
+}
 
-DrawVerticalStringUtil.instance = DrawVerticalStringUtil.new()
-
-return DrawVerticalStringUtil
+import "../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/AndroidUtil" for AndroidUtil
+import "../../../../org/allbinary/J2MEUtil" for J2MEUtil
+import "../../../../org/allbinary/graphics/Anchor" for Anchor
+import "../../../../org/allbinary/graphics/opengles/OpenGLFeatureUtil" for OpenGLFeatureUtil
+import "../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../org/allbinary/logic/communication/log/PreLogUtil" for PreLogUtil
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
 

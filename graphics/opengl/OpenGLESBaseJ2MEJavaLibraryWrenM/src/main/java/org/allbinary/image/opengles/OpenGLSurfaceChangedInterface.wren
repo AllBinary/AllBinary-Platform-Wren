@@ -1,29 +1,15 @@
--- Generated Code Do Not Modify
--- package org.allbinary.image.opengles
+// Generated Code Do Not Modify
+// package org.allbinary.image.opengles
 
--- local GL = require("javax.microedition.khronos.opengles.GL")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class OpenGLSurfaceChangedInterface is JObject {
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    set(gl) {
+        Fiber.abort(JR.exception("AbstractMethodError", "set"))
+    }
+}
 
--- Java interface
-local OpenGLSurfaceChangedInterface = {}
-OpenGLSurfaceChangedInterface.__index = OpenGLSurfaceChangedInterface
-OpenGLSurfaceChangedInterface.className = "OpenGLSurfaceChangedInterface"
-
-
--- throws Exception
-function OpenGLSurfaceChangedInterface:set(gl)
-    error("abstract method set")
-end
-
-return OpenGLSurfaceChangedInterface
+import "../../../../javax/microedition/khronos/opengles/GL" for GL
 

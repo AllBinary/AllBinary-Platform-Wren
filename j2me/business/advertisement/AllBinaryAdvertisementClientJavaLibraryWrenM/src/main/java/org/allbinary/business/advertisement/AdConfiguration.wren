@@ -1,85 +1,75 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.business.advertisement
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.business.advertisement
 
-local Direction = require("org.allbinary.direction.Direction")
-local GameState = require("org.allbinary.game.state.GameState")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class AdConfiguration is JObject {
+  INNERACTIVE { _INNERACTIVE }
+  INNERACTIVE=(value) { _INNERACTIVE = value }
+  LEADBOLT { _LEADBOLT }
+  LEADBOLT=(value) { _LEADBOLT = value }
+  ADMOB { _ADMOB }
+  ADMOB=(value) { _ADMOB = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_AdConfiguration() {
+    _INNERACTIVE = null
+    _LEADBOLT = null
+    _ADMOB = null
+        
+        
+        
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(advertIdArray) {
+    super()
+    initFields_AdConfiguration()
+        _INNERACTIVE = advertIdArray[0]
+        _ADMOB = advertIdArray[1]
+        _LEADBOLT = advertIdArray[2]
+    }
+    
 
-local AdConfiguration = {}
-AdConfiguration.__index = AdConfiguration
-AdConfiguration.className = "AdConfiguration"
+    getValidAdSpots() {
+        return List.filled(0, null)
+    }
+    
 
-function AdConfiguration:_init_fields()
-    self.INNERACTIVE = nil
-    self.LEADBOLT = nil
-    self.ADMOB = nil
-end
+    process(gameState) {
+    }
+    
 
+    processDemo(state) {
+    }
+    
 
-function AdConfiguration.new(advertIdArray)
-    local self = setmetatable({}, AdConfiguration)
-    self:_init_fields()
-        self.INNERACTIVE = advertIdArray[1]
-        self.ADMOB = advertIdArray[2]
-        self.LEADBOLT = advertIdArray[3]
-    return self
-end
+    setShowAds() {
+    }
+    
 
+    setToggleAds(showAds) {
+    }
+    
 
-function AdConfiguration:getValidAdSpots()
-        return java_new_array(nil, 0)
-end
-
-
-function AdConfiguration:process(gameState)
-end
-
-
-function AdConfiguration:processDemo(state)
-end
-
-
-function AdConfiguration:setShowAds()
-end
-
-
-function AdConfiguration:setToggleAds(showAds)
-end
-
-
-function AdConfiguration:isShowAds()
+    isShowAds() {
         return true
-end
+    }
+}
 
-return AdConfiguration
+import "../../../../org/allbinary/direction/Direction" for Direction
+import "../../../../org/allbinary/game/state/GameState" for GameState
 

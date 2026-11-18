@@ -1,109 +1,101 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.ai.tactical
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.ai.tactical
 
--- local Canvas = require("javax.microedition.lcdui.Canvas")
-local BasicAI = require("org.allbinary.game.ai.BasicAI")
-local GameInput = require("org.allbinary.game.input.GameInput")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/game/ai/BasicAI" for BasicAI
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class HorizontalManeuverAI is BasicAI {
+  currentRelativeAngle { _currentRelativeAngle }
+  currentRelativeAngle=(value) { _currentRelativeAngle = value }
+  currentSpeed { _currentSpeed }
+  currentSpeed=(value) { _currentSpeed = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_HorizontalManeuverAI() {
+    _currentRelativeAngle = 0
+    _currentSpeed = 0
+        _currentRelativeAngle = 0
+        
+  }
+    
 
-local HorizontalManeuverAI = {}
-HorizontalManeuverAI.__index = HorizontalManeuverAI
-HorizontalManeuverAI.className = "HorizontalManeuverAI"
-setmetatable(HorizontalManeuverAI, {__index = BasicAI})
+    construct new(ownerLayerInterface, gameInput) {
+        super(ownerLayerInterface, gameInput)
+        initFields_HorizontalManeuverAI()
+        _currentSpeed = 5
+    }
+    
 
-function HorizontalManeuverAI:_init_fields()
-    self.currentRelativeAngle = 0
-    self.currentSpeed = nil
-end
+    processAI(allBinaryLayerManager) {
+        var ownerLayerInterface = this.getOwnerLayerInterface()
+        var x = ownerLayerInterface.getXP()
+        if (((ownerLayerInterface.getXP() - _currentSpeed) <= 0)) {
+            this.reverse()
+            this.drop()
+        }
+        if (((ownerLayerInterface.getX2() + _currentSpeed) > DisplayInfoSingleton.getInstance().getLastWidth())) {
+            this.reverse()
+            this.accelerate()
+            this.drop()
+        }
+        if ((_currentRelativeAngle == 0)) {
+            x = JR.i32(x + _currentSpeed)
+        } else if ((_currentRelativeAngle == 180)) {
+            x = JR.i32(x - _currentSpeed)
+        }
+        ownerLayerInterface.setPosition(x, ownerLayerInterface.getYP(), ownerLayerInterface.getZP())
+        if ((_currentRelativeAngle == 0)) {
+            super.processKeyAI(Canvas.KEY_NUM0)
+        } else if ((_currentRelativeAngle == 180)) {
+            super.processKeyAI(Canvas.KEY_POUND)
+        }
+    }
+    
 
+    reverse() {
+        if ((_currentRelativeAngle == 180)) {
+            _currentRelativeAngle = 0
+        } else if ((_currentRelativeAngle == 0)) {
+            _currentRelativeAngle = 180
+        }
+    }
+    
 
-function HorizontalManeuverAI.new(ownerLayerInterface, gameInput)
-    local self = setmetatable(BasicAI.new(ownerLayerInterface, gameInput), HorizontalManeuverAI)
-    self:_init_fields()
-        -- super(...) made self above
-        self.currentSpeed = 5
-    return self
-end
+    accelerate() {
+        if ((_currentSpeed < 20)) {
+            _currentSpeed = JR.i32(_currentSpeed + 1)
+        }
+    }
+    
 
-
--- throws Exception
-function HorizontalManeuverAI:processAI(allBinaryLayerManager)
-        local ownerLayerInterface = self:getOwnerLayerInterface()
-        local x = ownerLayerInterface:getXP()
-        if ownerLayerInterface:getXP() - self.currentSpeed <= 0 then
-            self:reverse()
-            self:drop()
-        end
-        if ownerLayerInterface:getX2() + self.currentSpeed > DisplayInfoSingleton.getInstance():getLastWidth() then
-            self:reverse()
-            self:accelerate()
-            self:drop()
-        end
-        if self.currentRelativeAngle == 0 then
-            x = x + (self.currentSpeed)
-        elseif self.currentRelativeAngle == 180 then
-            x = x - (self.currentSpeed)
-        end
-        ownerLayerInterface:setPosition(x, ownerLayerInterface:getYP(), ownerLayerInterface:getZP())
-        if self.currentRelativeAngle == 0 then
-            BasicAI.processKeyAI(self, Canvas.KEY_NUM0)
-        elseif self.currentRelativeAngle == 180 then
-            BasicAI.processKeyAI(self, Canvas.KEY_POUND)
-        end
-end
-
-
-function HorizontalManeuverAI:reverse()
-        if self.currentRelativeAngle == 180 then
-            self.currentRelativeAngle = 0
-        elseif self.currentRelativeAngle == 0 then
-            self.currentRelativeAngle = 180
-        end
-end
-
-
-function HorizontalManeuverAI:accelerate()
-        if self.currentSpeed < 20 then
-            self.currentSpeed = self.currentSpeed + 1
-        end
-end
-
-
-function HorizontalManeuverAI:drop()
-        local ownerLayerInterface = self:getOwnerLayerInterface()
-        local y = ownerLayerInterface:getYP()
-        if ownerLayerInterface:getY2() + ownerLayerInterface:getHeight() > DisplayInfoSingleton.getInstance():getLastHeight() then
+    drop() {
+        var ownerLayerInterface = this.getOwnerLayerInterface()
+        var y = ownerLayerInterface.getYP()
+        if (((ownerLayerInterface.getY2() + ownerLayerInterface.getHeight()) > DisplayInfoSingleton.getInstance().getLastHeight())) {
             y = 0
-        else
-            y = y + (ownerLayerInterface:getHeight() + 1)
-        end
-        ownerLayerInterface:setPosition(ownerLayerInterface:getXP(), y, ownerLayerInterface:getZP())
-end
+        } else {
+            y = JR.i32(y + (ownerLayerInterface.getHeight() + 1))
+        }
+        ownerLayerInterface.setPosition(ownerLayerInterface.getXP(), y, ownerLayerInterface.getZP())
+    }
+}
 
-return HorizontalManeuverAI
+import "../../../../../../javax/microedition/lcdui/Canvas" for Canvas
+import "../../../../../../org/allbinary/game/input/GameInput" for GameInput
+import "../../../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "../../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
 

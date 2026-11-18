@@ -1,87 +1,90 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.globals
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.globals
 
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringValidationUtil = require("org.allbinary.logic.string.StringValidationUtil")
-local WebappClassLoaderInfo = require("org.allbinary.logic.system.loader.WebappClassLoaderInfo")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Globals is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = Globals.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Globals() {
+    _logUtil = null
+        _logUtil = LogUtil.getInstance()
+  }
+    
 
-local Globals = {}
-Globals.__index = Globals
-Globals.className = "Globals"
-
-function Globals:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-end
-
-
-function Globals.getInstance()
+    static getInstance() {
         return Globals.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_Globals()
+    }
+    
 
-function Globals.new()
-    local self = setmetatable({}, Globals)
-    self:_init_fields()
-    return self
-end
-
-
-function Globals:init(classLoader, pathString)
-        local commonStrings = CommonStrings.getInstance()
-        local appUrlGlobals = AppUrlGlobals.new()
-        appUrlGlobals:setWebappPath(pathString)
-        self.URLGLOBALS:init(appUrlGlobals)
+    init(classLoader, pathString) {
+        var commonStrings = CommonStrings.getInstance()
+        var appUrlGlobals = AppUrlGlobals.new()
+        appUrlGlobals.setWebappPath(pathString)
+        URLGLOBALS.init(appUrlGlobals)
         WebappClassLoaderInfo.setLoader(classLoader)
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append("Setting Up AllBinary System Configuration Args: ")
-        stringBuffer:append(pathString)
-        stringBuffer:append(" ClassLoader: ")
-        stringBuffer:append(getmetatable(classLoader).className)
-        self.logUtil:putF(tostring(stringBuffer), self, commonStrings.INIT)
-        local stringValidationUtil = StringValidationUtil.getInstance()
-        if stringValidationUtil:isEmpty(pathString) then
-            stringBuffer:delete(0, stringBuffer:length())
-            stringBuffer:append("No Path Provided. Using Process Path: ")
-            stringBuffer:append(pathString)
-            stringBuffer:append(CommonSeps.getInstance().SPACE)
-            stringBuffer:append(CommonSeps.getInstance().EQUALS)
-            stringBuffer:append(CommonSeps.getInstance().SPACE)
-            stringBuffer:append(self.URLGLOBALS:getWebappPath())
-            self.logUtil:putF(tostring(stringBuffer), self, commonStrings.INIT)
-        end
-        stringBuffer:delete(0, stringBuffer:length())
-        stringBuffer:append("Webapp Path Set To: ")
-        stringBuffer:append(self.URLGLOBALS:getWebappPath())
-        self.logUtil:putF(tostring(stringBuffer), self, commonStrings.INIT)
-end
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append("Setting Up AllBinary System Configuration Args: ")
+        stringBuffer.append(pathString)
+        stringBuffer.append(" ClassLoader: ")
+        stringBuffer.append(JR.className(classLoader))
+        _logUtil.putF(stringBuffer.toString(), this, commonStrings.INIT)
+        var stringValidationUtil = StringValidationUtil.getInstance()
+        if (stringValidationUtil.isEmpty(pathString)) {
+            stringBuffer.delete(0, stringBuffer.length())
+            stringBuffer.append("No Path Provided. Using Process Path: ")
+            stringBuffer.append(pathString)
+            stringBuffer.append(CommonSeps.getInstance().SPACE)
+            stringBuffer.append(CommonSeps.getInstance().EQUALS)
+            stringBuffer.append(CommonSeps.getInstance().SPACE)
+            stringBuffer.append(URLGLOBALS.getWebappPath())
+            _logUtil.putF(stringBuffer.toString(), this, commonStrings.INIT)
+        }
+        stringBuffer.delete(0, stringBuffer.length())
+        stringBuffer.append("Webapp Path Set To: ")
+        stringBuffer.append(URLGLOBALS.getWebappPath())
+        _logUtil.putF(stringBuffer.toString(), this, commonStrings.INIT)
+    }
+}
 
-Globals.instance = Globals.new()
-
-return Globals
+import "../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../org/allbinary/logic/string/StringValidationUtil" for StringValidationUtil
+import "../../../org/allbinary/logic/system/loader/WebappClassLoaderInfo" for WebappClassLoaderInfo
+import "../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./AppUrlGlobals" for AppUrlGlobals
+import "./URLGLOBALS" for URLGLOBALS
 

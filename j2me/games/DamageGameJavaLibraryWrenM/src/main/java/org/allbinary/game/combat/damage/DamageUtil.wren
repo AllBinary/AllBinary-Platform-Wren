@@ -1,79 +1,82 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.combat.damage
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.combat.damage
 
-local CollidableCompositeLayer = require("org.allbinary.game.layer.CollidableCompositeLayer")
-local CollidableDestroyableDamageableLayer = require("org.allbinary.game.layer.special.CollidableDestroyableDamageableLayer")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class DamageUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = DamageUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  COLLIDE { _COLLIDE }
+  COLLIDE=(value) { _COLLIDE = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_DamageUtil() {
+    _logUtil = null
+    _COLLIDE = null
+        _logUtil = LogUtil.getInstance()
+        _COLLIDE = "collide"
+  }
+    
 
-local DamageUtil = {}
-DamageUtil.__index = DamageUtil
-DamageUtil.className = "DamageUtil"
-
-function DamageUtil:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.COLLIDE = "collide"
-end
-
-
-function DamageUtil.getInstance()
+    static getInstance() {
         return DamageUtil.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_DamageUtil()
+    }
+    
 
-function DamageUtil.new()
-    local self = setmetatable({}, DamageUtil)
-    self:_init_fields()
-    return self
-end
+    process(damageableInterface, damageableInterface2) {
+        damageableInterface.damage(damageableInterface2.getDamage(0), 0)
+    }
+    
 
+    debugDamage(collidableInterfaceCompositeInterface1, collidableInterfaceCompositeInterface) {
+        var collidableDestroyableDamageableLayer = collidableInterfaceCompositeInterface
+        var damage = collidableDestroyableDamageableLayer.getDamage(0)
+        if ((damage > 20000)) {
+            var stringBuffer = StringMaker.new()
+            stringBuffer.append("Collision ")
+            stringBuffer.append(collidableInterfaceCompositeInterface1.toString())
+            stringBuffer.append(" with: ")
+            stringBuffer.append(collidableInterfaceCompositeInterface.toString())
+            stringBuffer.append(" damage: ")
+            stringBuffer.appendint(damage)
+            _logUtil.putF(stringBuffer.toString(), collidableInterfaceCompositeInterface1, _COLLIDE)
+        }
+    }
+}
 
--- throws Exception
-function DamageUtil:process(damageableInterface, damageableInterface2)
-        damageableInterface:damage(damageableInterface2:getDamage(0), 0)
-end
-
-
--- throws Exception
-function DamageUtil:debugDamage(collidableInterfaceCompositeInterface1, collidableInterfaceCompositeInterface)
-        local collidableDestroyableDamageableLayer = collidableInterfaceCompositeInterface
-        local damage = collidableDestroyableDamageableLayer:getDamage(0)
-        if damage > 20000 then
-            local stringBuffer = StringMaker.new()
-            stringBuffer:append("Collision ")
-            stringBuffer:append(tostring(collidableInterfaceCompositeInterface1))
-            stringBuffer:append(" with: ")
-            stringBuffer:append(tostring(collidableInterfaceCompositeInterface))
-            stringBuffer:append(" damage: ")
-            stringBuffer:appendint(damage)
-            self.logUtil:putF(tostring(stringBuffer), collidableInterfaceCompositeInterface1, self.COLLIDE)
-        end
-end
-
-DamageUtil.instance = DamageUtil.new()
-
-return DamageUtil
+import "../../../../../org/allbinary/game/layer/CollidableCompositeLayer" for CollidableCompositeLayer
+import "../../../../../org/allbinary/game/layer/special/CollidableDestroyableDamageableLayer" for CollidableDestroyableDamageableLayer
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "./DamageableInterface" for DamageableInterface
 

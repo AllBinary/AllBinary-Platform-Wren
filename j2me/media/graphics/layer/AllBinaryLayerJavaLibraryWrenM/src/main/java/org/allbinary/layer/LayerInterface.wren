@@ -1,129 +1,117 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.layer
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.layer
 
-local GroupInterfaceCompositeInterface = require("org.allbinary.game.identification.GroupInterfaceCompositeInterface")
-local PaintableInterface = require("org.allbinary.graphics.paint.PaintableInterface")
-local NamedInterface = require("org.allbinary.layer.NamedInterface")
-local PositionInterface = require("org.allbinary.layer.PositionInterface")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./NamedInterface" for NamedInterface
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LayerInterface is JObject {
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    getHeight() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getHeight"))
+    }
+    
 
--- Java interface
-local LayerInterface = {}
-LayerInterface.__index = LayerInterface
-LayerInterface.className = "LayerInterface"
-setmetatable(LayerInterface, {__index = NamedInterface})
+    getWidth() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getWidth"))
+    }
+    
 
+    getHalfHeight() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getHalfHeight"))
+    }
+    
 
-function LayerInterface:getHeight()
-    error("abstract method getHeight")
-end
+    getHalfWidth() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getHalfWidth"))
+    }
+    
 
+    getXP() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getXP"))
+    }
+    
 
-function LayerInterface:getWidth()
-    error("abstract method getWidth")
-end
+    getYP() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getYP"))
+    }
+    
 
+    getZP() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getZP"))
+    }
+    
 
-function LayerInterface:getHalfHeight()
-    error("abstract method getHalfHeight")
-end
+    getX2() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getX2"))
+    }
+    
 
+    getY2() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getY2"))
+    }
+    
 
-function LayerInterface:getHalfWidth()
-    error("abstract method getHalfWidth")
-end
+    getZ2() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getZ2"))
+    }
+    
 
+    isVisible() {
+        Fiber.abort(JR.exception("AbstractMethodError", "isVisible"))
+    }
+    
 
-function LayerInterface:getXP()
-    error("abstract method getXP")
-end
+    moveDXYZ(dx, dy, dz) {
+        Fiber.abort(JR.exception("AbstractMethodError", "moveDXYZ"))
+    }
+    
 
+    setVisible(visible) {
+        Fiber.abort(JR.exception("AbstractMethodError", "setVisible"))
+    }
+    
 
-function LayerInterface:getYP()
-    error("abstract method getYP")
-end
+    implmentsTickableInterface() {
+        Fiber.abort(JR.exception("AbstractMethodError", "implmentsTickableInterface"))
+    }
+    
 
+    implmentsCollidableInterface() {
+        Fiber.abort(JR.exception("AbstractMethodError", "implmentsCollidableInterface"))
+    }
+    
 
-function LayerInterface:getZP()
-    error("abstract method getZP")
-end
+    implmentsGameInputInterface() {
+        Fiber.abort(JR.exception("AbstractMethodError", "implmentsGameInputInterface"))
+    }
+    
 
+    implmentsArtificialIntelligenceCompositeInterface() {
+        Fiber.abort(JR.exception("AbstractMethodError", "implmentsArtificialIntelligenceCompositeInterface"))
+    }
+    
 
-function LayerInterface:getX2()
-    error("abstract method getX2")
-end
+    getType() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getType"))
+    }
+}
 
-
-function LayerInterface:getY2()
-    error("abstract method getY2")
-end
-
-
-function LayerInterface:getZ2()
-    error("abstract method getZ2")
-end
-
-
-function LayerInterface:isVisible()
-    error("abstract method isVisible")
-end
-
-
-function LayerInterface:moveDXYZ(dx, dy, dz)
-    error("abstract method moveDXYZ")
-end
-
-
-function LayerInterface:setVisible(visible)
-    error("abstract method setVisible")
-end
-
-
-function LayerInterface:implmentsTickableInterface()
-    error("abstract method implmentsTickableInterface")
-end
-
-
-function LayerInterface:implmentsCollidableInterface()
-    error("abstract method implmentsCollidableInterface")
-end
-
-
-function LayerInterface:implmentsGameInputInterface()
-    error("abstract method implmentsGameInputInterface")
-end
-
-
-function LayerInterface:implmentsArtificialIntelligenceCompositeInterface()
-    error("abstract method implmentsArtificialIntelligenceCompositeInterface")
-end
-
-
-function LayerInterface:getType()
-    error("abstract method getType")
-end
-
-return LayerInterface
+import "../../../org/allbinary/game/identification/GroupInterfaceCompositeInterface" for GroupInterfaceCompositeInterface
+import "../../../org/allbinary/graphics/paint/PaintableInterface" for PaintableInterface
+import "./PositionInterface" for PositionInterface
 

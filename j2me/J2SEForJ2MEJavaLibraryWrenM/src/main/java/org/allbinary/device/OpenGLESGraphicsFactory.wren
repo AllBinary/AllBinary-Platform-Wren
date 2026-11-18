@@ -1,31 +1,24 @@
--- Generated Code Do Not Modify
--- package org.allbinary.device
+// Generated Code Do Not Modify
+// package org.allbinary.device
 
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class OpenGLESGraphicsFactory is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_OpenGLESGraphicsFactory() {
+  }
 
-local OpenGLESGraphicsFactory = {}
-OpenGLESGraphicsFactory.__index = OpenGLESGraphicsFactory
-OpenGLESGraphicsFactory.className = "OpenGLESGraphicsFactory"
+  construct new() {
+    super()
+    initFields_OpenGLESGraphicsFactory()
+  }
+    
 
-function OpenGLESGraphicsFactory.new()
-    local self = setmetatable({}, OpenGLESGraphicsFactory)
-    return self
-end
-
-
-function OpenGLESGraphicsFactory:getOpenGLESGraphicsInstance()
+    getOpenGLESGraphicsInstance() {
         return OpenGLESNullGraphicsFactory.getInstance()
-end
+    }
+}
 
-return OpenGLESGraphicsFactory
+import "./OpenGLESNullGraphicsFactory" for OpenGLESNullGraphicsFactory
+import "./OpenGLESGraphics" for OpenGLESGraphics
 

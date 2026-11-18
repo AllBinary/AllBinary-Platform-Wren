@@ -1,103 +1,116 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
--- local Canvas = require("javax.microedition.lcdui.Canvas")
-local GameKey = require("org.allbinary.game.input.GameKey")
-local GameKeyEventSourceInterface = require("org.allbinary.game.input.GameKeyEventSourceInterface")
-local GameKeyFactory = require("org.allbinary.game.input.GameKeyFactory")
-local Input = require("org.allbinary.game.input.Input")
-local InputFactory = require("org.allbinary.game.input.InputFactory")
-local InputProcessor = require("org.allbinary.game.input.InputProcessor")
-local PlatformKeyFactory = require("org.allbinary.game.input.PlatformKeyFactory")
-local DownKeyEventHandler = require("org.allbinary.game.input.event.DownKeyEventHandler")
-local GameKeyEvent = require("org.allbinary.game.input.event.GameKeyEvent")
-local GameKeyEventFactory = require("org.allbinary.game.input.event.GameKeyEventFactory")
-local UpGameKeyEventHandler = require("org.allbinary.game.input.event.UpGameKeyEventHandler")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local PreLogUtil = require("org.allbinary.logic.communication.log.PreLogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/game/input/InputProcessor" for InputProcessor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class FormInputProcessor is InputProcessor {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  gameKeyEventFactory { _gameKeyEventFactory }
+  gameKeyEventFactory=(value) { _gameKeyEventFactory = value }
+  downKeyEventHandler { _downKeyEventHandler }
+  downKeyEventHandler=(value) { _downKeyEventHandler = value }
+  upGameKeyEventHandler { _upGameKeyEventHandler }
+  upGameKeyEventHandler=(value) { _upGameKeyEventHandler = value }
+  inputFactory { _inputFactory }
+  inputFactory=(value) { _inputFactory = value }
+  platformKeyFactory { _platformKeyFactory }
+  platformKeyFactory=(value) { _platformKeyFactory = value }
+  allBinaryGameCanvas { _allBinaryGameCanvas }
+  allBinaryGameCanvas=(value) { _allBinaryGameCanvas = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_FormInputProcessor() {
+    _logUtil = null
+    _commonStrings = null
+    _gameKeyEventFactory = null
+    _downKeyEventHandler = null
+    _upGameKeyEventHandler = null
+    _inputFactory = null
+    _platformKeyFactory = null
+    _allBinaryGameCanvas = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        _gameKeyEventFactory = GameKeyEventFactory.getInstance()
+        _downKeyEventHandler = DownKeyEventHandler.getInstance()
+        _upGameKeyEventHandler = UpGameKeyEventHandler.getInstance()
+        _inputFactory = InputFactory.getInstance()
+        _platformKeyFactory = PlatformKeyFactory.getInstance()
+        
+  }
+    
 
-local FormInputProcessor = {}
-FormInputProcessor.__index = FormInputProcessor
-FormInputProcessor.className = "FormInputProcessor"
-setmetatable(FormInputProcessor, {__index = InputProcessor})
+    construct new(allBinaryGameCanvas) {
+    super()
+    initFields_FormInputProcessor()
+        _allBinaryGameCanvas = allBinaryGameCanvas
+    }
+    
 
-function FormInputProcessor:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.gameKeyEventFactory = GameKeyEventFactory.getInstance()
-    self.downKeyEventHandler = DownKeyEventHandler.getInstance()
-    self.upGameKeyEventHandler = UpGameKeyEventHandler.getInstance()
-    self.inputFactory = InputFactory.getInstance()
-    self.platformKeyFactory = PlatformKeyFactory.getInstance()
-    self.allBinaryGameCanvas = nil
-end
+    keyPressedByDevice(keyCode, deviceId) {
+        var jerror0 = Fiber.new {
+            PreLogUtil.put(StringMaker.new().append(_inputFactory.KEY_CODE_LABEL).appendint(keyCode).append(CommonSeps.getInstance().SPACE).append(_inputFactory.DEVICE_ID_LABEL).appendint(deviceId).toString(), this, this.gameInputStrings.KEY_PRESSED)
+            var input = _inputFactory.getInstanceById(keyCode)
+            var gameKeyEvent = _gameKeyEventFactory.getInstanceForInput(_allBinaryGameCanvas, input)
+            _downKeyEventHandler.fireEventForGameKeyEvent(gameKeyEvent)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            _logUtil.put(_commonStrings.EXCEPTION, this, this.gameInputStrings.ADD_KEY_EVENT, e)
+        }
+    }
+    
 
+    keyReleasedByDevice(canvas, keyCode, deviceId) {
+        var jerror1 = Fiber.new {
+            var input = _inputFactory.getInstanceById(keyCode)
+            if (_platformKeyFactory.isEnter(input)) {
+                PreLogUtil.put(StringMaker.new().append(_inputFactory.KEY_CODE_LABEL).appendint(keyCode).append(CommonSeps.getInstance().SPACE).append(_inputFactory.DEVICE_ID_LABEL).appendint(deviceId).toString(), this, this.gameInputStrings.KEY_RELEASED)
+                var gameKey = GameKeyFactory.getInstance().KEY_NUM0
+                var gameKeyEventSourceInterface = canvas
+                var gameKeyEvent = _gameKeyEventFactory.getInstanceForInput(gameKeyEventSourceInterface, gameKey)
+                _upGameKeyEventHandler.fireEvent(gameKeyEvent)
+                _upGameKeyEventHandler.getInstanceForDevice(deviceId).fireEvent(gameKeyEvent)
+            }
+        }.try()
+        if (jerror1 != null) {
+            var e = jerror1
+            _logUtil.put(_commonStrings.EXCEPTION, this, this.gameInputStrings.ADD_KEY_EVENT, e)
+        }
+    }
+}
 
-function FormInputProcessor.new(allBinaryGameCanvas)
-    local self = setmetatable(InputProcessor.new(), FormInputProcessor)
-    self:_init_fields()
-        self.allBinaryGameCanvas = allBinaryGameCanvas
-    return self
-end
-
-
-function FormInputProcessor:keyPressedByDevice(keyCode, deviceId)
-        local try_ok, try_error = pcall(function()
-            PreLogUtil.put(tostring(StringMaker.new():append(self.inputFactory.KEY_CODE_LABEL):appendint(keyCode):append(CommonSeps.getInstance().SPACE):append(self.inputFactory.DEVICE_ID_LABEL):appendint(deviceId)), self, self.gameInputStrings.KEY_PRESSED)
-            local input = self.inputFactory:getInstanceById(keyCode)
-            local gameKeyEvent = self.gameKeyEventFactory:getInstanceForInput(self.allBinaryGameCanvas, input)
-            self.downKeyEventHandler:fireEventForGameKeyEvent(gameKeyEvent)
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.gameInputStrings.ADD_KEY_EVENT, e)
-        end
-end
-
-
-function FormInputProcessor:keyReleasedByDevice(canvas, keyCode, deviceId)
-        local try_ok, try_error = pcall(function()
-            local input = self.inputFactory:getInstanceById(keyCode)
-            if self.platformKeyFactory:isEnter(input) then
-                PreLogUtil.put(tostring(StringMaker.new():append(self.inputFactory.KEY_CODE_LABEL):appendint(keyCode):append(CommonSeps.getInstance().SPACE):append(self.inputFactory.DEVICE_ID_LABEL):appendint(deviceId)), self, self.gameInputStrings.KEY_RELEASED)
-                local gameKey = GameKeyFactory.getInstance().KEY_NUM0
-                local gameKeyEventSourceInterface = canvas
-                local gameKeyEvent = self.gameKeyEventFactory:getInstanceForInput(gameKeyEventSourceInterface, gameKey)
-                self.upGameKeyEventHandler:fireEvent(gameKeyEvent)
-                self.upGameKeyEventHandler:getInstanceForDevice(deviceId):fireEvent(gameKeyEvent)
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.gameInputStrings.ADD_KEY_EVENT, e)
-        end
-end
-
-return FormInputProcessor
+import "../../../../../javax/microedition/lcdui/Canvas" for Canvas
+import "../../../../../org/allbinary/game/input/GameKey" for GameKey
+import "../../../../../org/allbinary/game/input/GameKeyEventSourceInterface" for GameKeyEventSourceInterface
+import "../../../../../org/allbinary/game/input/GameKeyFactory" for GameKeyFactory
+import "../../../../../org/allbinary/game/input/Input" for Input
+import "../../../../../org/allbinary/game/input/InputFactory" for InputFactory
+import "../../../../../org/allbinary/game/input/PlatformKeyFactory" for PlatformKeyFactory
+import "../../../../../org/allbinary/game/input/event/DownKeyEventHandler" for DownKeyEventHandler
+import "../../../../../org/allbinary/game/input/event/GameKeyEvent" for GameKeyEvent
+import "../../../../../org/allbinary/game/input/event/GameKeyEventFactory" for GameKeyEventFactory
+import "../../../../../org/allbinary/game/input/event/UpGameKeyEventHandler" for UpGameKeyEventHandler
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/communication/log/PreLogUtil" for PreLogUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./AllBinaryGameCanvas" for AllBinaryGameCanvas
 

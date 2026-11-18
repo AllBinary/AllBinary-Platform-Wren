@@ -1,87 +1,88 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer.hud.event
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer.hud.event
 
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameNotificationEvent is AllBinaryEventObject {
+  string { _string }
+  string=(value) { _string = value }
+  seconds { _seconds }
+  seconds=(value) { _seconds = value }
+  basicColor { _basicColor }
+  basicColor=(value) { _basicColor = value }
+  removeable { _removeable }
+  removeable=(value) { _removeable = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameNotificationEvent() {
+    _string = null
+    _seconds = null
+    _basicColor = null
+    _removeable = null
+        _string = StringUtil.getInstance().EMPTY_STRING
+        
+        _basicColor = BasicColorFactory.getInstance().BLACK
+        
+  }
+    
 
-local GameNotificationEvent = {}
-GameNotificationEvent.__index = GameNotificationEvent
-GameNotificationEvent.className = "GameNotificationEvent"
-setmetatable(GameNotificationEvent, {__index = AllBinaryEventObject})
+    construct new(anyType, string, seconds, basicColor, permanent) {
+        super(anyType)
+        initFields_GameNotificationEvent()
+        this.setString(string)
+        _seconds = seconds
+        this.setBasicColorP(basicColor)
+        _removeable = permanent
+    }
+    
 
-function GameNotificationEvent:_init_fields()
-    self.string = StringUtil.getInstance().EMPTY_STRING
-    self.seconds = nil
-    self.basicColor = BasicColorFactory.getInstance().BLACK
-    self.removeable = nil
-end
+    getString() {
+        return _string
+    }
+    
 
+    getSeconds() {
+        return _seconds
+    }
+    
 
-function GameNotificationEvent.new(anyType, string, seconds, basicColor, permanent)
-    local self = setmetatable(AllBinaryEventObject.new(anyType), GameNotificationEvent)
-    self:_init_fields()
-        -- super(...) made self above
-        self:setString(string)
-        self.seconds = seconds
-        self:setBasicColorP(basicColor)
-        self.removeable = permanent
-    return self
-end
+    getBasicColorP() {
+        return _basicColor
+    }
+    
 
+    getPermanent() {
+        return _removeable
+    }
+    
 
-function GameNotificationEvent:getString()
-        return self.string
-end
+    setString(string) {
+        _string = string
+    }
+    
 
+    setBasicColorP(basicColor) {
+        _basicColor = basicColor
+    }
+}
 
-function GameNotificationEvent:getSeconds()
-        return self.seconds
-end
-
-
-function GameNotificationEvent:getBasicColorP()
-        return self.basicColor
-end
-
-
-function GameNotificationEvent:getPermanent()
-        return self.removeable
-end
-
-
-function GameNotificationEvent:setString(string)
-        self.string = string
-end
-
-
-function GameNotificationEvent:setBasicColorP(basicColor)
-        self.basicColor = basicColor
-end
-
-return GameNotificationEvent
+import "../../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../../java/lang/Integer" for Integer
+import "../../../../../../java/lang/Boolean" for Boolean
 

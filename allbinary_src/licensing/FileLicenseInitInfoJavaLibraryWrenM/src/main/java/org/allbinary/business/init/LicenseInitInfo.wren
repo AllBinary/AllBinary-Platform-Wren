@@ -1,97 +1,92 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.business.init
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.business.init
 
-local DebugFactory = require("org.allbinary.debug.DebugFactory")
-local NoDebug = require("org.allbinary.debug.NoDebug")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LicenseInitInfo is JObject {
+  id { _id }
+  id=(value) { _id = value }
+  serverVector { _serverVector }
+  serverVector=(value) { _serverVector = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LicenseInitInfo() {
+    _id = null
+    _serverVector = null
+        _id = StringUtil.getInstance().EMPTY_STRING
+        _serverVector = BasicArrayListD.new()
+  }
+    
 
-local LicenseInitInfo = {}
-LicenseInitInfo.__index = LicenseInitInfo
-LicenseInitInfo.className = "LicenseInitInfo"
+    construct new() {
+    super()
+    initFields_LicenseInitInfo()
+    }
+    
 
-function LicenseInitInfo:_init_fields()
-    self.id = StringUtil.getInstance().EMPTY_STRING
-    self.serverVector = BasicArrayListD.new()
-end
+    getLicenseId() {
+        return _id
+    }
+    
 
+    getServer(index) {
+        return _serverVector.objectArray[index]
+    }
+    
 
-function LicenseInitInfo.new()
-    local self = setmetatable({}, LicenseInitInfo)
-    self:_init_fields()
-    return self
-end
+    getNumberOfServers() {
+        return _serverVector.size()
+    }
+    
 
+    setLicenseId(value) {
+        _id = value
+    }
+    
 
-function LicenseInitInfo:getLicenseId()
-        return self.id
-end
+    clearServers() {
+        _serverVector = BasicArrayListD.new()
+    }
+    
 
+    setServer(value, index) {
+        _serverVector.addAt(index, value)
+    }
+    
 
-function LicenseInitInfo:getServer(index)
-        return self.serverVector.objectArray[index + 1]
-end
+    addServer(value) {
+        _serverVector.add(value)
+    }
+    
 
+    getServerList() {
+        return _serverVector
+    }
+    
 
-function LicenseInitInfo:getNumberOfServers()
-        return self.serverVector:size()
-end
+    setServerList(servers) {
+        if ((DebugFactory.getInstance() == NoDebug.getInstance())) {
+            _serverVector = servers
+        }
+    }
+}
 
-
-function LicenseInitInfo:setLicenseId(value)
-        self.id = value
-end
-
-
-function LicenseInitInfo:clearServers()
-        self.serverVector = BasicArrayListD.new()
-end
-
-
-function LicenseInitInfo:setServer(value, index)
-        self.serverVector:addAt(index, value)
-end
-
-
-function LicenseInitInfo:addServer(value)
-        self.serverVector:add(value)
-end
-
-
-function LicenseInitInfo:getServerList()
-        return self.serverVector
-end
-
-
-function LicenseInitInfo:setServerList(servers)
-        if DebugFactory.getInstance() == NoDebug.getInstance() then
-            self.serverVector = servers
-        end
-end
-
-return LicenseInitInfo
+import "../../../../org/allbinary/debug/DebugFactory" for DebugFactory
+import "../../../../org/allbinary/debug/NoDebug" for NoDebug
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
 

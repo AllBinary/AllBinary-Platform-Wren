@@ -1,136 +1,186 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
--- local Font = require("javax.microedition.lcdui.Font")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local BasicColorSetUtil = require("org.allbinary.graphics.color.BasicColorSetUtil")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
-local FontDebugFactory = require("org.allbinary.graphics.font.FontDebugFactory")
-local MyFontProcessor = require("org.allbinary.graphics.font.MyFontProcessor")
-local UpdateMyFontInterface = require("org.allbinary.graphics.font.UpdateMyFontInterface")
-local UpdateMyFontProcessor = require("org.allbinary.graphics.font.UpdateMyFontProcessor")
-local InitUpdatePaintable = require("org.allbinary.graphics.paint.InitUpdatePaintable")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/graphics/paint/InitUpdatePaintable" for InitUpdatePaintable
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class StartIntermissionPaintable is InitUpdatePaintable {
+  fontDebugFactory { _fontDebugFactory }
+  fontDebugFactory=(value) { _fontDebugFactory = value }
+  basicSetColorUtil { _basicSetColorUtil }
+  basicSetColorUtil=(value) { _basicSetColorUtil = value }
+  gameCanvas { _gameCanvas }
+  gameCanvas=(value) { _gameCanvas = value }
+  stringArray { _stringArray }
+  stringArray=(value) { _stringArray = value }
+  fontSize { _fontSize }
+  fontSize=(value) { _fontSize = value }
+  font { _font }
+  font=(value) { _font = value }
+  lastWidth { _lastWidth }
+  lastWidth=(value) { _lastWidth = value }
+  updateMyFontProcessor { _updateMyFontProcessor }
+  updateMyFontProcessor=(value) { _updateMyFontProcessor = value }
+  myFontProcessor { _myFontProcessor }
+  myFontProcessor=(value) { _myFontProcessor = value }
+  basicColor { _basicColor }
+  basicColor=(value) { _basicColor = value }
+  color { _color }
+  color=(value) { _color = value }
+  lineYOffsetArray { _lineYOffsetArray }
+  lineYOffsetArray=(value) { _lineYOffsetArray = value }
+  hasChanged { _hasChanged }
+  hasChanged=(value) { _hasChanged = value }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
+  fontHeightP { _fontHeightP }
+  fontHeightP=(value) { _fontHeightP = value }
+  BEGIN_LEVEL { _BEGIN_LEVEL }
+  BEGIN_LEVEL=(value) { _BEGIN_LEVEL = value }
+  EMPTY_STRING { _EMPTY_STRING }
+  EMPTY_STRING=(value) { _EMPTY_STRING = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_StartIntermissionPaintable() {
+    _fontDebugFactory = null
+    _basicSetColorUtil = null
+    _gameCanvas = null
+    _stringArray = null
+    _fontSize = 0
+    _font = null
+    _lastWidth = null
+    _updateMyFontProcessor = null
+    _myFontProcessor = null
+    _basicColor = null
+    _color = 0
+    _lineYOffsetArray = null
+    _hasChanged = false
+    _anchor = 0
+    _fontHeightP = 0
+    _BEGIN_LEVEL = null
+    _EMPTY_STRING = null
+        _fontDebugFactory = FontDebugFactory.getInstance()
+        _basicSetColorUtil = BasicColorSetUtil.getInstance()
+        
+        
+        
+        
+        
+        _updateMyFontProcessor = UpdateMyFontProcessor.new(this)
+        _myFontProcessor = _updateMyFontProcessor
+        _basicColor = BasicColorFactory.getInstance().BLACK
+        
+        _lineYOffsetArray = NullUtil.getInstance().NULL_INT_ARRAY
+        _hasChanged = true
+        _anchor = Anchor.TOP_LEFT
+        _fontHeightP = 0
+        _BEGIN_LEVEL = "Begin Level "
+        _EMPTY_STRING = StringUtil.getInstance().EMPTY_STRING
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(gameCanvas, stringArray, basicColor, font) {
+    super()
+    initFields_StartIntermissionPaintable()
+        _gameCanvas = gameCanvas
+        _stringArray = stringArray
+        _lastWidth = List.filled(_stringArray.count, 0)
+        this.setBasicColorP(basicColor)
+        _color = basicColor.intValue()
+        _fontSize = font.getSize()
+        _font = font
+    }
+    
 
-local StartIntermissionPaintable = {}
-StartIntermissionPaintable.__index = StartIntermissionPaintable
-StartIntermissionPaintable.className = "StartIntermissionPaintable"
-setmetatable(StartIntermissionPaintable, {__index = InitUpdatePaintable})
+    updateMeasurement(graphics) {
+        var font = graphics.getFont()
+        _fontHeightP = font.getHeight()
+        _myFontProcessor = MyFontProcessor.getInstance()
+    }
+    
 
-function StartIntermissionPaintable:_init_fields()
-    self.fontDebugFactory = FontDebugFactory.getInstance()
-    self.basicSetColorUtil = BasicColorSetUtil.getInstance()
-    self.gameCanvas = nil
-    self.stringArray = nil
-    self.fontSize = nil
-    self.font = nil
-    self.lastWidth = nil
-    self.updateMyFontProcessor = UpdateMyFontProcessor.new(self)
-    self.myFontProcessor = self.updateMyFontProcessor
-    self.basicColor = BasicColorFactory.getInstance().BLACK
-    self.color = nil
-    self.lineYOffsetArray = NullUtil.getInstance().NULL_INT_ARRAY
-    self.hasChanged = true
-    self.anchor = Anchor.TOP_LEFT
-    self.fontHeightP = 0
-    self.BEGIN_LEVEL = "Begin Level "
-    self.EMPTY_STRING = StringUtil.getInstance().EMPTY_STRING
-end
+    paint(graphics) {
+        _myFontProcessor.process(graphics)
+        var existingFont = graphics.getFont()
+        _fontDebugFactory.setFont(_font, graphics)
+        var displayInfo = DisplayInfoSingleton.getInstance()
+        _basicSetColorUtil.setBasicColorP3(graphics, _basicColor, _color)
+        var beginWidth = 0
+        if (true) {
+            var index = JR.i32(_lineYOffsetArray.count - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            if (_hasChanged) {
+                _lastWidth[index] = (JR.shr(graphics.getFont().stringWidth(_stringArray[index]), 1))
+            }
+            beginWidth = _lastWidth[index]
+            graphics.drawString(_stringArray[index], (displayInfo.getLastHalfWidth() - beginWidth), (displayInfo.getLastHalfHeight() - _lineYOffsetArray[index]), _anchor)
+            }
+        }
+        _hasChanged = false
+        _fontDebugFactory.setFont(existingFont, graphics)
+    }
+    
 
+    update() {
+        var level = _gameCanvas.getLayerManager().getGameInfo().getCurrentLevel()
+        _stringArray[0] = StringMaker.new().append(_BEGIN_LEVEL).appendint(level).toString()
+        if (true) {
+            var index = JR.i32(_stringArray.count - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 1))) break
+            _stringArray[index] = _EMPTY_STRING
+            }
+        }
+    }
+    
 
-function StartIntermissionPaintable.new(gameCanvas, stringArray, basicColor, font)
-    local self = setmetatable(InitUpdatePaintable.new(), StartIntermissionPaintable)
-    self:_init_fields()
-        self.gameCanvas = gameCanvas
-        self.stringArray = stringArray
-        self.lastWidth = java_new_array(0, (self.stringArray.n or #self.stringArray))
-        self:setBasicColorP(basicColor)
-        self.color = math.tointeger(basicColor // 1)
-        self.fontSize = font:getSize()
-        self.font = font
-    return self
-end
+    setBasicColorP(basicColor) {
+        _basicColor = basicColor
+    }
+    
 
+    getBasicColorP() {
+        return _basicColor
+    }
+}
 
-function StartIntermissionPaintable:updateMeasurement(graphics)
-        local font = graphics:getFont()
-        self.fontHeightP = font:getHeight()
-        self.myFontProcessor = MyFontProcessor.getInstance()
-end
-
-
-function StartIntermissionPaintable:paint(graphics)
-        self.myFontProcessor:process(graphics)
-        local existingFont = graphics:getFont()
-        self.fontDebugFactory:setFont(self.font, graphics)
-        local displayInfo = DisplayInfoSingleton.getInstance()
-        self.basicSetColorUtil:setBasicColorP3(graphics, self.basicColor, self.color)
-        local beginWidth = 0
-        for index = (self.lineYOffsetArray.n or #self.lineYOffsetArray) - 1, 0, -1 do
-            if self.hasChanged then
-                self.lastWidth[index + 1] = (((graphics:getFont():stringWidth(self.stringArray[index + 1])) // (1 << (1))))
-            end
-            beginWidth = self.lastWidth[index + 1]
-            graphics:drawString(self.stringArray[index + 1], displayInfo:getLastHalfWidth() - beginWidth, displayInfo:getLastHalfHeight() - self.lineYOffsetArray[index + 1], self.anchor)
-        end
-        self.hasChanged = false
-        self.fontDebugFactory:setFont(existingFont, graphics)
-end
-
-
-function StartIntermissionPaintable:update()
-        local level = self.gameCanvas:getLayerManager():getGameInfo():getCurrentLevel()
-        self.stringArray[1] = tostring(StringMaker.new():append(self.BEGIN_LEVEL):appendint(level))
-        for index = (self.stringArray.n or #self.stringArray) - 1, 1, -1 do
-            self.stringArray[index + 1] = self.EMPTY_STRING
-        end
-end
-
-
-function StartIntermissionPaintable:setBasicColorP(basicColor)
-        self.basicColor = basicColor
-end
-
-
-function StartIntermissionPaintable:getBasicColorP()
-        return self.basicColor
-end
-
-return StartIntermissionPaintable
+import "../../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../org/allbinary/graphics/Anchor" for Anchor
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../org/allbinary/graphics/color/BasicColorSetUtil" for BasicColorSetUtil
+import "../../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "../../../../../org/allbinary/graphics/font/FontDebugFactory" for FontDebugFactory
+import "../../../../../org/allbinary/graphics/font/MyFontProcessor" for MyFontProcessor
+import "../../../../../org/allbinary/graphics/font/UpdateMyFontInterface" for UpdateMyFontInterface
+import "../../../../../org/allbinary/graphics/font/UpdateMyFontProcessor" for UpdateMyFontProcessor
+import "../../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "./AllBinaryGameCanvas" for AllBinaryGameCanvas
 

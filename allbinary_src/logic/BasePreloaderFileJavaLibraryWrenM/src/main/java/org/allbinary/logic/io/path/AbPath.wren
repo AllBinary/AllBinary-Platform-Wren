@@ -1,192 +1,194 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.io.path
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.io.path
 
-local FilePathData = require("org.allbinary.logic.io.file.FilePathData")
-local FilePathUtil = require("org.allbinary.logic.io.file.FilePathUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local StringValidationUtil = require("org.allbinary.logic.string.StringValidationUtil")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class AbPath is JObject {
+    static NETWORK_SEP { ":/" }
+  commonSeps { _commonSeps }
+  commonSeps=(value) { _commonSeps = value }
+  abPathData { _abPathData }
+  abPathData=(value) { _abPathData = value }
+  abPathUtil { _abPathUtil }
+  abPathUtil=(value) { _abPathUtil = value }
+  EMPTY_STRING { _EMPTY_STRING }
+  EMPTY_STRING=(value) { _EMPTY_STRING = value }
+  schema { _schema }
+  schema=(value) { _schema = value }
+  path { _path }
+  path=(value) { _path = value }
+  nameP { _nameP }
+  nameP=(value) { _nameP = value }
+  hasSchemaP { _hasSchemaP }
+  hasSchemaP=(value) { _hasSchemaP = value }
+  numberOfSeps { _numberOfSeps }
+  numberOfSeps=(value) { _numberOfSeps = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_AbPath() {
+    _commonSeps = null
+    _abPathData = null
+    _abPathUtil = null
+    _EMPTY_STRING = null
+    _schema = null
+    _path = null
+    _nameP = null
+    _hasSchemaP = false
+    _numberOfSeps = 0
+        _commonSeps = CommonSeps.getInstance()
+        _abPathData = AbPathData.getInstance()
+        _abPathUtil = PathUtil.getInstance()
+        _EMPTY_STRING = StringUtil.getInstance().EMPTY_STRING
+        _schema = _EMPTY_STRING
+        _path = _EMPTY_STRING
+        _nameP = _EMPTY_STRING
+        _hasSchemaP = false
+        _numberOfSeps = 0
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local AbPath = {}
-AbPath.__index = AbPath
-AbPath.className = "AbPath"
-
-function AbPath:_init_fields()
-    self.commonSeps = CommonSeps.getInstance()
-    self.abPathData = AbPathData.getInstance()
-    self.abPathUtil = PathUtil.getInstance()
-    self.EMPTY_STRING = StringUtil.getInstance().EMPTY_STRING
-    self.schema = self.EMPTY_STRING
-    self.path = self.EMPTY_STRING
-    self.nameP = self.EMPTY_STRING
-    self.hasSchemaP = false
-    self.numberOfSeps = 0
-end
-
-
-function AbPath.createAbPath()
-        local try_ok, try_error = pcall(function()
-            local EMPTY_STRING = StringUtil.getInstance().EMPTY_STRING
+    static createAbPath() {
+        var jerror0 = Fiber.new {
+            var EMPTY_STRING = StringUtil.getInstance().EMPTY_STRING
             return AbPath.new(EMPTY_STRING, EMPTY_STRING)
-        end)
-        if not try_ok then
-            local ex = try_error
-            error(java_exception("RuntimeException"), 0)
-        end
-end
+        }.try()
+        if (jerror0 != null) {
+            var ex = jerror0
+            Fiber.abort(JR.exception("RuntimeException", ""))
+        }
+    }
+    
 
+    construct new(aPath, name) {
+    super()
+    initFields_AbPath()
+        var stringValidationUtil = StringValidationUtil.getInstance()
+        if (!stringValidationUtil.isEmpty(aPath)) {
+            _schema = this.getSchema(aPath)
+            _nameP = name
+            _path = _abPathUtil.adjustEnd(_abPathUtil.adjust(this.getPathFromPath(aPath)))
+        } else {
+            this.init()
+            if (!stringValidationUtil.isEmpty(name)) {
+                _nameP = name
+            }
+        }
+    }
+    
 
-function AbPath.new(aPath, name)
-    local self = setmetatable({}, AbPath)
-    self:_init_fields()
-        local stringValidationUtil = StringValidationUtil.getInstance()
-        if not stringValidationUtil:isEmpty(aPath) then
-            self.schema = self:getSchema(aPath)
-            self.nameP = name
-            self.path = self.abPathUtil:adjustEnd(self.abPathUtil:adjust(self:getPathFromPath(aPath)))
-        else
-            self:init()
-            if not stringValidationUtil:isEmpty(name) then
-                self.nameP = name
-            end
-        end
-    return self
-end
+    init() {
+        _schema = _EMPTY_STRING
+        this.setPath(_abPathData.SEPARATOR)
+        _nameP = _EMPTY_STRING
+    }
+    
 
+    getSchema(aPath) {
+        var beginIndex = JR.indexOf(aPath, _commonSeps.COLON)
+        if ((beginIndex >= 0)) {
+            _hasSchemaP = true
+            return JR.substring(aPath, 0, beginIndex)
+        }
+        _hasSchemaP = false
+        return _EMPTY_STRING
+    }
+    
 
-function AbPath:init()
-        self.schema = self.EMPTY_STRING
-        self:setPath(self.abPathData.SEPARATOR)
-        self.nameP = self.EMPTY_STRING
-end
+    hasSchema() {
+        return _hasSchemaP
+    }
+    
 
-
-function AbPath:getSchema(aPath)
-        local beginIndex = ((string.find(aPath, self.commonSeps.COLON, 1, true) or 0) - 1)
-        if beginIndex >= 0 then
-            self.hasSchemaP = true
-            return string.sub(aPath, (0) + 1, beginIndex)
-        end
-        self.hasSchemaP = false
-        return self.EMPTY_STRING
-end
-
-
-function AbPath:hasSchema()
-        return self.hasSchemaP
-end
-
-
--- throws Exception
-function AbPath:getPathFromPath(aPath)
-        local filePathData = FilePathData.getInstance()
-        local tempPath = aPath
-        if not self:hasSchema() then
-            tempPath = self.abPathUtil:adjustStart(tempPath)
-        else
-            local beginIndex = ((string.find(tempPath, self.commonSeps.COLON, 1, true) or 0) - 1)
-            if beginIndex >= 0 then
-                beginIndex = beginIndex + 1
-                while string.sub(tempPath, (beginIndex) + 1, (beginIndex) + 1) == self.abPathData.SEPARATORCHAR or string.sub(tempPath, (beginIndex) + 1, (beginIndex) + 1) == filePathData.SEPARATORCHAR do
-                    beginIndex = beginIndex + 1
-                    self.numberOfSeps = self.numberOfSeps + 1
-                    if self.numberOfSeps > 2 then
-                        error(java_exception("Exception", "Should Not Have More Than Two Seps"), 0)
-                    end
-                end
-                tempPath = string.sub(tempPath, (beginIndex) + 1, #tempPath)
-            end
-        end
+    getPathFromPath(aPath) {
+        var filePathData = FilePathData.getInstance()
+        var tempPath = aPath
+        if (!this.hasSchema()) {
+            tempPath = _abPathUtil.adjustStart(tempPath)
+        } else {
+            var beginIndex = JR.indexOf(tempPath, _commonSeps.COLON)
+            if ((beginIndex >= 0)) {
+                beginIndex = JR.i32(beginIndex + 1)
+                while (((JR.charAt(tempPath, beginIndex) == _abPathData.SEPARATORCHAR) || (JR.charAt(tempPath, beginIndex) == filePathData.SEPARATORCHAR))) {
+                    beginIndex = JR.i32(beginIndex + 1)
+                    _numberOfSeps = JR.i32(_numberOfSeps + 1)
+                    if ((_numberOfSeps > 2)) {
+                        Fiber.abort(JR.exception("Exception", "Should Not Have More Than Two Seps"))
+                    }
+                }
+                tempPath = JR.substring(tempPath, beginIndex, JR.length(tempPath))
+            }
+        }
         return tempPath
-end
+    }
+    
 
+    setName(name) {
+        _nameP = name
+    }
+    
 
-function AbPath:setName(name)
-        self.nameP = name
-end
+    getName() {
+        return _nameP
+    }
+    
 
+    toString() {
+        var stringBuffer = StringMaker.new()
+        if (this.hasSchema()) {
+            stringBuffer.append(_schema)
+            stringBuffer.append(AbPath.NETWORK_SEP)
+        }
+        stringBuffer.append(this.getPath())
+        stringBuffer.append(_nameP)
+        return stringBuffer.toString()
+    }
+    
 
-function AbPath:getName()
-        return self.nameP
-end
+    toFileSystemString() {
+        if (this.hasSchema()) {
+            var filePathData = FilePathData.getInstance()
+            var stringBuffer = StringMaker.new()
+            stringBuffer.append(_schema)
+            stringBuffer.append(_commonSeps.COLON)
+            stringBuffer.append(filePathData.PATH_START)
+            stringBuffer.append(FilePathUtil.adjust(this.getPath()))
+            stringBuffer.append(_nameP)
+            return stringBuffer.toString()
+        } else {
+            return JR.str(FilePathUtil.adjust(this.getPath())) + _nameP
+        }
+    }
+    
 
+    getPath() {
+        return _path
+    }
+    
 
-function AbPath:toString()
-        local stringBuffer = StringMaker.new()
-        if self:hasSchema() then
-            stringBuffer:append(self.schema)
-            stringBuffer:append(AbPath.NETWORK_SEP)
-        end
-        stringBuffer:append(self:getPath())
-        stringBuffer:append(self.nameP)
-        return tostring(stringBuffer)
-end
-AbPath.__tostring = function(self) return self:toString() end
+    setPath(path) {
+        _path = path
+    }
+}
 
-
-function AbPath:toFileSystemString()
-        if self:hasSchema() then
-            local filePathData = FilePathData.getInstance()
-            local stringBuffer = StringMaker.new()
-            stringBuffer:append(self.schema)
-            stringBuffer:append(self.commonSeps.COLON)
-            stringBuffer:append(filePathData.PATH_START)
-            stringBuffer:append(FilePathUtil.adjust(self:getPath()))
-            stringBuffer:append(self.nameP)
-            return tostring(stringBuffer)
-        else
-            return tostring(FilePathUtil.adjust(self:getPath())) .. self.nameP
-        end
-end
-
-
-function AbPath:getPath()
-        return self.path
-end
-
-
-function AbPath:setPath(path)
-        self.path = path
-end
-
-AbPath.NETWORK_SEP = ":/"
-
-return AbPath
+import "../../../../../org/allbinary/logic/io/file/FilePathData" for FilePathData
+import "../../../../../org/allbinary/logic/io/file/FilePathUtil" for FilePathUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/logic/string/StringValidationUtil" for StringValidationUtil
+import "../../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "./AbPathData" for AbPathData
+import "./PathUtil" for PathUtil
 

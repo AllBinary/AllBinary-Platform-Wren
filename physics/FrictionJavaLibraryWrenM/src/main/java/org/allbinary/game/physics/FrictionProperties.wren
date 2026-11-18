@@ -1,47 +1,40 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.physics
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.physics
 
-local FrictionData = require("org.allbinary.game.physics.friction.FrictionData")
-local DragVelocityBehavior = require("org.allbinary.game.physics.velocity.DragVelocityBehavior")
-local VelocityProperties = require("org.allbinary.game.physics.velocity.VelocityProperties")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class FrictionProperties is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_FrictionProperties() {
+  }
+    
 
-local FrictionProperties = {}
-FrictionProperties.__index = FrictionProperties
-FrictionProperties.className = "FrictionProperties"
+    construct new() {
+    super()
+    initFields_FrictionProperties()
+    }
+    
 
+    friction(velocityProperties, nominator) {
+        DragVelocityBehavior.instance.reduce(velocityProperties, nominator, FrictionData.getFrictionDenominator())
+    }
+}
 
-function FrictionProperties.new()
-    local self = setmetatable({}, FrictionProperties)
-    return self
-end
-
-
-function FrictionProperties:friction(velocityProperties, nominator)
-        DragVelocityBehavior.instance:reduce(velocityProperties, nominator, FrictionData.getFrictionDenominator())
-end
-
-return FrictionProperties
+import "../../../../org/allbinary/game/physics/friction/FrictionData" for FrictionData
+import "../../../../org/allbinary/game/physics/velocity/DragVelocityBehavior" for DragVelocityBehavior
+import "../../../../org/allbinary/game/physics/velocity/VelocityProperties" for VelocityProperties
 

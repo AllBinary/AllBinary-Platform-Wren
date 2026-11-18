@@ -1,50 +1,40 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer.special
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer.special
 
-local GameKeyEvent = require("org.allbinary.game.input.event.GameKeyEvent")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local SpecialGameInputInterfaceProcessor = require("org.allbinary.game.layer.special.SpecialGameInputInterfaceProcessor")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./SpecialGameInputInterfaceProcessor" for SpecialGameInputInterfaceProcessor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class SpecialStrafeRightGameInputInterfaceProcessor is SpecialGameInputInterfaceProcessor {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_SpecialStrafeRightGameInputInterfaceProcessor() {
+  }
+    
 
-local SpecialStrafeRightGameInputInterfaceProcessor = {}
-SpecialStrafeRightGameInputInterfaceProcessor.__index = SpecialStrafeRightGameInputInterfaceProcessor
-SpecialStrafeRightGameInputInterfaceProcessor.className = "SpecialStrafeRightGameInputInterfaceProcessor"
-setmetatable(SpecialStrafeRightGameInputInterfaceProcessor, {__index = SpecialGameInputInterfaceProcessor})
+    construct new(collidableDestroyableDamageableLayer) {
+        super(collidableDestroyableDamageableLayer)
+    }
+    
 
+    processEvent(allbinaryLayerManager, gameKeyEvent) {
+        this.specialGameInputInterface.strafeRight()
+    }
+}
 
-function SpecialStrafeRightGameInputInterfaceProcessor.new(collidableDestroyableDamageableLayer)
-    local self = setmetatable(SpecialGameInputInterfaceProcessor.new(collidableDestroyableDamageableLayer), SpecialStrafeRightGameInputInterfaceProcessor)
-        -- super(...) made self above
-    return self
-end
-
-
--- throws Exception
-function SpecialStrafeRightGameInputInterfaceProcessor:processEvent(allbinaryLayerManager, gameKeyEvent)
-        self.specialGameInputInterface:strafeRight()
-end
-
-return SpecialStrafeRightGameInputInterfaceProcessor
+import "../../../../../org/allbinary/game/input/event/GameKeyEvent" for GameKeyEvent
+import "../../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "./SpecialGameInputInterface" for SpecialGameInputInterface
 

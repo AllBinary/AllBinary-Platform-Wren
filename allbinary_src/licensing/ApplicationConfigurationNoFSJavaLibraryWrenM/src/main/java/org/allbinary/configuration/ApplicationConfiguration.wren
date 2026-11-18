@@ -1,136 +1,140 @@
--- Generated Code Do Not Modify
--- package org.allbinary.configuration
+// Generated Code Do Not Modify
+// package org.allbinary.configuration
 
-local Feature = require("org.allbinary.game.configuration.feature.Feature")
-local Features = require("org.allbinary.game.configuration.feature.Features")
-local MainFeatureFactory = require("org.allbinary.game.configuration.feature.MainFeatureFactory")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ApplicationConfiguration is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  fullscreen { _fullscreen }
+  fullscreen=(value) { _fullscreen = value }
+  showTitleBar { _showTitleBar }
+  showTitleBar=(value) { _showTitleBar = value }
+  progressBarView { _progressBarView }
+  progressBarView=(value) { _progressBarView = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ApplicationConfiguration() {
+    _logUtil = null
+    _fullscreen = false
+    _showTitleBar = false
+    _progressBarView = false
+        _logUtil = LogUtil.getInstance()
+        _fullscreen = true
+        _showTitleBar = false
+        _progressBarView = false
+  }
+    
 
-local ApplicationConfiguration = {}
-ApplicationConfiguration.__index = ApplicationConfiguration
-ApplicationConfiguration.className = "ApplicationConfiguration"
-
-function ApplicationConfiguration:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.fullscreen = true
-    self.showTitleBar = false
-    self.progressBarView = false
-end
-
-
-function ApplicationConfiguration.getInstance()
-        if ApplicationConfiguration.instance == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((ApplicationConfiguration.instance == NullUtil.getInstance().NULL_OBJECT)) {
             ApplicationConfiguration.instance = ApplicationConfiguration.new()
-        end
+        }
         return ApplicationConfiguration.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_ApplicationConfiguration()
+        var jerror0 = Fiber.new {
+            this.read()
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, commonStrings.CONSTRUCTOR, e)
+        }
+    }
+    
 
-function ApplicationConfiguration.new()
-    local self = setmetatable({}, ApplicationConfiguration)
-    self:_init_fields()
-        local try_ok, try_error = pcall(function()
-            self:read()
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, commonStrings.CONSTRUCTOR, e)
-        end
-    return self
-end
+    read() {
+        this.setFullscreen(true)
+        this.setProgressBarView(false)
+        this.setShowTitleBar(false)
+        _logUtil.putF("Read Configuration: " + this.toString(), this, "read")
+    }
+    
 
+    write() {
+    }
+    
 
--- throws Exception
-function ApplicationConfiguration:read()
-        self:setFullscreen(true)
-        self:setProgressBarView(false)
-        self:setShowTitleBar(false)
-        self.logUtil:putF("Read Configuration: " .. tostring(self), self, "read")
-end
+    update(gameFeature) {
+        if ((gameFeature == MainFeatureFactory.getInstance().FULL_SCREEN)) {
+            var features = Features.getInstance()
+            if (features.isFeature(gameFeature)) {
+                if (!this.isFullscreen()) {
+                    this.setFullscreen(true)
+                    this.write()
+                }
+            } else {
+                if (this.isFullscreen()) {
+                    this.setFullscreen(false)
+                    this.write()
+                }
+            }
+        }
+    }
+    
 
+    setFullscreen(fullscreen) {
+        _fullscreen = fullscreen
+    }
+    
 
--- throws Exception
-function ApplicationConfiguration:write()
-end
+    isFullscreen() {
+        return _fullscreen
+    }
+    
 
+    setShowTitleBar(showTitleBar) {
+        _showTitleBar = showTitleBar
+    }
+    
 
--- throws Exception
-function ApplicationConfiguration:update(gameFeature)
-        if gameFeature == MainFeatureFactory.getInstance().FULL_SCREEN then
-            local features = Features.getInstance()
-            if features:isFeature(gameFeature) then
-                if not self:isFullscreen() then
-                    self:setFullscreen(true)
-                    self:write()
-                end
-            else
-                if self:isFullscreen() then
-                    self:setFullscreen(false)
-                    self:write()
-                end
-            end
-        end
-end
+    isShowTitleBar() {
+        return _showTitleBar
+    }
+    
 
+    setProgressBarView(progressBarView) {
+        _progressBarView = progressBarView
+    }
+    
 
-function ApplicationConfiguration:setFullscreen(fullscreen)
-        self.fullscreen = fullscreen
-end
+    isProgressBarView() {
+        return _progressBarView
+    }
+    
 
+    toString() {
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append("isFullscreen: ")
+        stringBuffer.appendboolean(this.isFullscreen())
+        stringBuffer.append(" isProgressBarView: ")
+        stringBuffer.appendboolean(this.isProgressBarView())
+        stringBuffer.append(" isShowTitleBar: ")
+        stringBuffer.appendboolean(this.isShowTitleBar())
+        return stringBuffer.toString()
+    }
+}
 
-function ApplicationConfiguration:isFullscreen()
-        return self.fullscreen
-end
-
-
-function ApplicationConfiguration:setShowTitleBar(showTitleBar)
-        self.showTitleBar = showTitleBar
-end
-
-
-function ApplicationConfiguration:isShowTitleBar()
-        return self.showTitleBar
-end
-
-
-function ApplicationConfiguration:setProgressBarView(progressBarView)
-        self.progressBarView = progressBarView
-end
-
-
-function ApplicationConfiguration:isProgressBarView()
-        return self.progressBarView
-end
-
-
-function ApplicationConfiguration:toString()
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append("isFullscreen: ")
-        stringBuffer:appendboolean(self:isFullscreen())
-        stringBuffer:append(" isProgressBarView: ")
-        stringBuffer:appendboolean(self:isProgressBarView())
-        stringBuffer:append(" isShowTitleBar: ")
-        stringBuffer:appendboolean(self:isShowTitleBar())
-        return tostring(stringBuffer)
-end
-ApplicationConfiguration.__tostring = function(self) return self:toString() end
-
-ApplicationConfiguration.instance = NullUtil.getInstance().NULL_OBJECT
-
-return ApplicationConfiguration
+import "../../../org/allbinary/game/configuration/feature/Feature" for Feature
+import "../../../org/allbinary/game/configuration/feature/Features" for Features
+import "../../../org/allbinary/game/configuration/feature/MainFeatureFactory" for MainFeatureFactory
+import "../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../org/allbinary/string/CommonStrings" for CommonStrings
 

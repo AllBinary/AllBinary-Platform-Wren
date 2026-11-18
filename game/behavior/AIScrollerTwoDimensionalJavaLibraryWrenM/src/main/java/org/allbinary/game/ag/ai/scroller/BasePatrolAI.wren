@@ -1,105 +1,147 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.ai.scroller
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.ai.scroller
 
--- local Canvas = require("javax.microedition.lcdui.Canvas")
-local BasicAI = require("org.allbinary.game.ai.BasicAI")
-local GameInput = require("org.allbinary.game.input.GameInput")
-local BasicVelocityProperties = require("org.allbinary.game.physics.velocity.BasicVelocityProperties")
-local VelocityInterfaceCompositeInterface = require("org.allbinary.game.physics.velocity.VelocityInterfaceCompositeInterface")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local MathUtil = require("org.allbinary.logic.math.MathUtil")
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/game/ai/BasicAI" for BasicAI
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BasePatrolAI is BasicAI {
+    static MAX_DISTANCE {
+    if (__MAX_DISTANCE_set == null) {
+      __MAX_DISTANCE_set = true
+      __MAX_DISTANCE = SmallIntegerSingletonFactory.getInstance().getAt(2)
+    }
+    return __MAX_DISTANCE
+  }
+  static MAX_DISTANCE=(value) {
+    __MAX_DISTANCE_set = true
+    __MAX_DISTANCE = value
+  }
+    static DIRECTION_ARRAY {
+    if (__DIRECTION_ARRAY_set == null) {
+      __DIRECTION_ARRAY_set = true
+      __DIRECTION_ARRAY = SmallIntegerSingletonFactory.getInstance().getAt(3)
+    }
+    return __DIRECTION_ARRAY
+  }
+  static DIRECTION_ARRAY=(value) {
+    __DIRECTION_ARRAY_set = true
+    __DIRECTION_ARRAY = value
+  }
+    static FIRING_DISTANCE {
+    if (__FIRING_DISTANCE_set == null) {
+      __FIRING_DISTANCE_set = true
+      __FIRING_DISTANCE = SmallIntegerSingletonFactory.getInstance().getAt(4)
+    }
+    return __FIRING_DISTANCE
+  }
+  static FIRING_DISTANCE=(value) {
+    __FIRING_DISTANCE_set = true
+    __FIRING_DISTANCE = value
+  }
+    static SPEED {
+    if (__SPEED_set == null) {
+      __SPEED_set = true
+      __SPEED = SmallIntegerSingletonFactory.getInstance().getAt(5)
+    }
+    return __SPEED
+  }
+  static SPEED=(value) {
+    __SPEED_set = true
+    __SPEED = value
+  }
+  maxDistance { _maxDistance }
+  maxDistance=(value) { _maxDistance = value }
+  currentDistance { _currentDistance }
+  currentDistance=(value) { _currentDistance = value }
+  xTotalDistance { _xTotalDistance }
+  xTotalDistance=(value) { _xTotalDistance = value }
+  lastKeyDirection { _lastKeyDirection }
+  lastKeyDirection=(value) { _lastKeyDirection = value }
+  keyDirection { _keyDirection }
+  keyDirection=(value) { _keyDirection = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BasePatrolAI() {
+    _maxDistance = null
+    _currentDistance = 0
+    _xTotalDistance = 0
+    _lastKeyDirection = 0
+    _keyDirection = 0
+        
+        
+        _xTotalDistance = 0
+        _lastKeyDirection = Canvas.RIGHT
+        _keyDirection = Canvas.RIGHT
+  }
+    
 
-local BasePatrolAI = {}
-BasePatrolAI.__index = BasePatrolAI
-BasePatrolAI.className = "BasePatrolAI"
-setmetatable(BasePatrolAI, {__index = BasicAI})
+    construct new(hashtable, ownerLayerInterface, gameInput) {
+        super(ownerLayerInterface, gameInput)
+        initFields_BasePatrolAI()
+        _maxDistance = hashtable.get(BasePatrolAI.MAX_DISTANCE)
+        _currentDistance = _maxDistance.intValue()
+    }
+    
 
-function BasePatrolAI:_init_fields()
-    self.maxDistance = nil
-    self.currentDistance = nil
-    self.xTotalDistance = 0
-    self.lastKeyDirection = Canvas.RIGHT
-    self.keyDirection = Canvas.RIGHT
-end
+    update() {
+        this.updateTotalDistance()
+        this.changeDirectionIfReachedPacingAreaMax()
+    }
+    
 
+    updateTotalDistance() {
+        var velocityInterfaceCompositeInterface = this.getOwnerLayerInterface()
+        var velocityProperties = velocityInterfaceCompositeInterface.getVelocityProperties()
+        _xTotalDistance = JR.i32(_xTotalDistance + velocityProperties.getVelocityXBasicDecimalP().getScaled())
+    }
+    
 
-function BasePatrolAI.new(hashtable, ownerLayerInterface, gameInput)
-    local self = setmetatable(BasicAI.new(ownerLayerInterface, gameInput), BasePatrolAI)
-    self:_init_fields()
-        -- super(...) made self above
-        self.maxDistance = hashtable:get(BasePatrolAI.MAX_DISTANCE)
-        self.currentDistance = math.tointeger(self.maxDistance // 1)
-    return self
-end
+    changeDirectionIfReachedPacingAreaMax() {
+        var mathUtil = MathUtil.getInstance()
+        var totalDistance = mathUtil.abs(_xTotalDistance)
+        if ((totalDistance > _currentDistance)) {
+            this.nextDirection()
+        }
+    }
+    
 
+    nextDirection() {
+        if ((_lastKeyDirection == Canvas.LEFT)) {
+            _keyDirection = Canvas.RIGHT
+            _lastKeyDirection = _keyDirection
+            _xTotalDistance = 0
+        } else if ((_lastKeyDirection == Canvas.RIGHT)) {
+            _keyDirection = Canvas.LEFT
+            _lastKeyDirection = _keyDirection
+            _xTotalDistance = 0
+        }
+    }
+    
 
-function BasePatrolAI:update()
-        self:updateTotalDistance()
-        self:changeDirectionIfReachedPacingAreaMax()
-end
+    disable() {
+    }
+}
 
-
-function BasePatrolAI:updateTotalDistance()
-        local velocityInterfaceCompositeInterface = self:getOwnerLayerInterface()
-        local velocityProperties = velocityInterfaceCompositeInterface:getVelocityProperties()
-        self.xTotalDistance = self.xTotalDistance + (velocityProperties:getVelocityXBasicDecimalP():getScaled())
-end
-
-
-function BasePatrolAI:changeDirectionIfReachedPacingAreaMax()
-        local mathUtil = MathUtil.getInstance()
-        local totalDistance = mathUtil:abs(self.xTotalDistance)
-        if totalDistance > self.currentDistance then
-            self:nextDirection()
-        end
-end
-
-
-function BasePatrolAI:nextDirection()
-        if self.lastKeyDirection == Canvas.LEFT then
-            self.keyDirection = Canvas.RIGHT
-            self.lastKeyDirection = self.keyDirection
-            self.xTotalDistance = 0
-        elseif self.lastKeyDirection == Canvas.RIGHT then
-            self.keyDirection = Canvas.LEFT
-            self.lastKeyDirection = self.keyDirection
-            self.xTotalDistance = 0
-        end
-end
-
-
-function BasePatrolAI:disable()
-end
-
-BasePatrolAI.MAX_DISTANCE = SmallIntegerSingletonFactory.getInstance():getAt(2)
-BasePatrolAI.DIRECTION_ARRAY = SmallIntegerSingletonFactory.getInstance():getAt(3)
-BasePatrolAI.FIRING_DISTANCE = SmallIntegerSingletonFactory.getInstance():getAt(4)
-BasePatrolAI.SPEED = SmallIntegerSingletonFactory.getInstance():getAt(5)
-
-return BasePatrolAI
+import "../../../../../../javax/microedition/lcdui/Canvas" for Canvas
+import "../../../../../../org/allbinary/game/input/GameInput" for GameInput
+import "../../../../../../org/allbinary/game/physics/velocity/BasicVelocityProperties" for BasicVelocityProperties
+import "../../../../../../org/allbinary/game/physics/velocity/VelocityInterfaceCompositeInterface" for VelocityInterfaceCompositeInterface
+import "../../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../../org/allbinary/logic/math/MathUtil" for MathUtil
+import "../../../../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "../../../../../../java/lang/Integer" for Integer
 

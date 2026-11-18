@@ -1,58 +1,49 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Image = require("javax.microedition.lcdui.Image")
-local Animation = require("org.allbinary.animation.Animation")
-local AnimationBehaviorFactory = require("org.allbinary.animation.AnimationBehaviorFactory")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
-local BaseImageAnimationFactory = require("org.allbinary.animation.image.BaseImageAnimationFactory")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./BaseImageAnimationFactory" for BaseImageAnimationFactory
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RightToLeftImageAnimationFactory is BaseImageAnimationFactory {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RightToLeftImageAnimationFactory() {
+  }
+    
 
-local RightToLeftImageAnimationFactory = {}
-RightToLeftImageAnimationFactory.__index = RightToLeftImageAnimationFactory
-RightToLeftImageAnimationFactory.className = "RightToLeftImageAnimationFactory"
-setmetatable(RightToLeftImageAnimationFactory, {__index = BaseImageAnimationFactory})
+    construct new(image, dx, dy, animationBehaviorFactory) {
+        super(image, PrimitiveIntUtil.getArrayInstance(), image.getWidth(), image.getHeight(), dx, dy, animationBehaviorFactory)
+    }
+    
 
+    getInstance(instanceId) {
+        var scaledImage = this.animationFactoryImageScaleUtil.createImage(this.getImage(), this.animationFactoryInitializationVisitor.width, this.animationFactoryInitializationVisitor.height, this.scaleProperties.scaleWidth, this.scaleProperties.scaleHeight)
+        if (((this.animationFactoryInitializationVisitor.dx != 0) || (this.animationFactoryInitializationVisitor.dy != 0))) {
+            this.animationFactoryImageScaleUtil.processAdjust(this)
+            return AdjustedRightToLeftImageAnimation.new(scaledImage, this.animationFactoryInitializationVisitor.dx, this.animationFactoryInitializationVisitor.dy, this.animationBehaviorFactory.getOrCreateInstance())
+        } else {
+            return RightToLeftImageAnimation.new(scaledImage, this.animationBehaviorFactory.getOrCreateInstance())
+        }
+    }
+}
 
-function RightToLeftImageAnimationFactory.new(image, dx, dy, animationBehaviorFactory)
-    local self = setmetatable(BaseImageAnimationFactory.new(image, PrimitiveIntUtil.getArrayInstance(), image:getWidth(), image:getHeight(), dx, dy, animationBehaviorFactory), RightToLeftImageAnimationFactory)
-        -- super(...) made self above
-    return self
-end
-
-
--- throws Exception
-function RightToLeftImageAnimationFactory:getInstance(instanceId)
-        local scaledImage = self.animationFactoryImageScaleUtil:createImage(self:getImage(), self.animationFactoryInitializationVisitor.width, self.animationFactoryInitializationVisitor.height, self.scaleProperties.scaleWidth, self.scaleProperties.scaleHeight)
-        if self.animationFactoryInitializationVisitor.dx ~= 0 or self.animationFactoryInitializationVisitor.dy ~= 0 then
-            self.animationFactoryImageScaleUtil:processAdjust(self)
-            return AdjustedRightToLeftImageAnimation.new(scaledImage, self.animationFactoryInitializationVisitor.dx, self.animationFactoryInitializationVisitor.dy, self.animationBehaviorFactory:getOrCreateInstance())
-        else
-            return RightToLeftImageAnimation.new(scaledImage, self.animationBehaviorFactory:getOrCreateInstance())
-        end
-end
-
-return RightToLeftImageAnimationFactory
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../org/allbinary/animation/AnimationBehaviorFactory" for AnimationBehaviorFactory
+import "../../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
+import "./RightToLeftImageAnimation" for RightToLeftImageAnimation
+import "./AdjustedRightToLeftImageAnimation" for AdjustedRightToLeftImageAnimation
 

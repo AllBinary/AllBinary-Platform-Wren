@@ -1,64 +1,66 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.io
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.io
 
-local AbFile = require("org.allbinary.logic.io.file.AbFile")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class DataOutputStreamFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = DataOutputStreamFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_DataOutputStreamFactory() {
+  }
 
-local DataOutputStreamFactory = {}
-DataOutputStreamFactory.__index = DataOutputStreamFactory
-DataOutputStreamFactory.className = "DataOutputStreamFactory"
+  construct new() {
+    super()
+    initFields_DataOutputStreamFactory()
+  }
+    
 
-function DataOutputStreamFactory.new()
-    local self = setmetatable({}, DataOutputStreamFactory)
-    return self
-end
-
-
-function DataOutputStreamFactory.getInstance()
+    static getInstance() {
         return DataOutputStreamFactory.instance
-end
+    }
+    
 
-
--- throws Exception
-function DataOutputStreamFactory:getInstanceForAbFile(file)
-        local idFileOutputStream = AbFileOutputStream.createFromAbFile(file)
-        local idOutData = AbDataOutputStream.new(idFileOutputStream)
+    getInstanceForAbFile(file) {
+        var idFileOutputStream = AbFileOutputStream.createFromAbFile(file)
+        var idOutData = AbDataOutputStream.new(idFileOutputStream)
         return idOutData
-end
+    }
+    
 
-
--- throws Exception
--- Java overloaded method: Lua keeps the last definition
-function DataOutputStreamFactory:getInstance(filePath, fileName)
-        local fileStreamFactory = FileStreamFactory.getInstance()
-        local fileOutputStream = fileStreamFactory:getFileOutputStreamInstance(filePath, fileName)
-        local idOutData = AbDataOutputStream.new(fileOutputStream)
+    getInstance(filePath, fileName) {
+        var fileStreamFactory = FileStreamFactory.getInstance()
+        var fileOutputStream = fileStreamFactory.getFileOutputStreamInstance(filePath, fileName)
+        var idOutData = AbDataOutputStream.new(fileOutputStream)
         return idOutData
-end
+    }
+}
 
-DataOutputStreamFactory.instance = DataOutputStreamFactory.new()
-
-return DataOutputStreamFactory
+import "../../../../org/allbinary/logic/io/file/AbFile" for AbFile
+import "./AbFileOutputStream" for AbFileOutputStream
+import "./AbDataOutputStream" for AbDataOutputStream
+import "./FileStreamFactory" for FileStreamFactory
 

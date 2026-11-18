@@ -1,71 +1,75 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.graphics
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics
 
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RendererStateFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = RendererStateFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  loaded { _loaded }
+  loaded=(value) { _loaded = value }
+  surfaceChanged { _surfaceChanged }
+  surfaceChanged=(value) { _surfaceChanged = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RendererStateFactory() {
+    _loaded = false
+    _surfaceChanged = false
+        _loaded = false
+        _surfaceChanged = false
+  }
 
-local RendererStateFactory = {}
-RendererStateFactory.__index = RendererStateFactory
-RendererStateFactory.className = "RendererStateFactory"
+  construct new() {
+    super()
+    initFields_RendererStateFactory()
+  }
+    
 
-function RendererStateFactory:_init_fields()
-    self.loaded = false
-    self.surfaceChanged = false
-end
-
-function RendererStateFactory.new()
-    local self = setmetatable({}, RendererStateFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function RendererStateFactory.getInstance()
+    static getInstance() {
         return RendererStateFactory.instance
-end
+    }
+    
 
+    setLoaded(loaded) {
+        _loaded = loaded
+    }
+    
 
-function RendererStateFactory:setLoaded(loaded)
-        self.loaded = loaded
-end
+    isLoaded() {
+        return _loaded
+    }
+    
 
+    setSurfaceChanged(initialized) {
+        _surfaceChanged = initialized
+    }
+    
 
-function RendererStateFactory:isLoaded()
-        return self.loaded
-end
+    isSurfaceChanged() {
+        return _surfaceChanged
+    }
+}
 
-
-function RendererStateFactory:setSurfaceChanged(initialized)
-        self.surfaceChanged = initialized
-end
-
-
-function RendererStateFactory:isSurfaceChanged()
-        return self.surfaceChanged
-end
-
-RendererStateFactory.instance = RendererStateFactory.new()
-
-return RendererStateFactory
 

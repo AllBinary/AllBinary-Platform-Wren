@@ -1,79 +1,79 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.pickup.points
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.pickup.points
 
-local FeaturedAnimationInterfaceFactoryInterfaceFactory = require("org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory")
-local GameConfigurationUtil = require("org.allbinary.game.configuration.GameConfigurationUtil")
-local CountedPickedUpLayerInterfaceFactory = require("org.allbinary.game.layer.pickup.CountedPickedUpLayerInterfaceFactory")
-local IconLayerFactory = require("org.allbinary.game.layer.pickup.IconLayerFactory")
-local PickedUpLayerInterfaceFactory = require("org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactory")
-local PickedUpLayerInterfaceFactoryInterface = require("org.allbinary.game.layer.pickup.PickedUpLayerInterfaceFactoryInterface")
-local PickedUpLayerTypeFactory = require("org.allbinary.game.layer.pickup.PickedUpLayerTypeFactory")
-local PickupProcessorInterface = require("org.allbinary.game.layer.pickup.PickupProcessorInterface")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
+import "../../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../../org/allbinary/game/layer/pickup/PickedUpLayerInterfaceFactory" for PickedUpLayerInterfaceFactory
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Points30kPickedUpLayerInterfaceFactory is PickedUpLayerInterfaceFactory {
+    static pickedUpLayerInterfaceFactoryInterface {
+    if (__pickedUpLayerInterfaceFactoryInterface_set == null) {
+      __pickedUpLayerInterfaceFactoryInterface_set = true
+      __pickedUpLayerInterfaceFactoryInterface = CountedPickedUpLayerInterfaceFactory.NULL_COUNTED_PICKUP_LAYER_FACTORY
+    }
+    return __pickedUpLayerInterfaceFactoryInterface
+  }
+  static pickedUpLayerInterfaceFactoryInterface=(value) {
+    __pickedUpLayerInterfaceFactoryInterface_set = true
+    __pickedUpLayerInterfaceFactoryInterface = value
+  }
+  pool { _pool }
+  pool=(value) { _pool = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Points30kPickedUpLayerInterfaceFactory() {
+    _pool = null
+        _pool = PointsLayerCircularStaticPool.new(PointsLayerFactory.new((GameConfigurationUtil.getInstance().getCompetitionValue() * 30000)), 1)
+  }
+    
 
-local Points30kPickedUpLayerInterfaceFactory = {}
-Points30kPickedUpLayerInterfaceFactory.__index = Points30kPickedUpLayerInterfaceFactory
-Points30kPickedUpLayerInterfaceFactory.className = "Points30kPickedUpLayerInterfaceFactory"
-setmetatable(Points30kPickedUpLayerInterfaceFactory, {__index = PickedUpLayerInterfaceFactory})
-
-function Points30kPickedUpLayerInterfaceFactory:_init_fields()
-    self.pool = PointsLayerCircularStaticPool.new(PointsLayerFactory.new(GameConfigurationUtil.getInstance():getCompetitionValue() * 30000), 1)
-end
-
-
--- throws Exception
-function Points30kPickedUpLayerInterfaceFactory.init()
+    static init() {
         Points30kPickedUpLayerInterfaceFactory.pickedUpLayerInterfaceFactoryInterface = Points30kPickedUpLayerInterfaceFactory.new()
-end
+    }
+    
 
+    construct new() {
+        super(PickedUpLayerTypeFactory.getInstance().POINTS, IconLayerFactory.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(PointsResources.getInstance().RESOURCE_3).getInstance(0), 10, 10), FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().get(PointsResources.getInstance().RESOURCE_3).getInstance(0))
+        initFields_Points30kPickedUpLayerInterfaceFactory()
+    }
+    
 
-function Points30kPickedUpLayerInterfaceFactory.new()
-    local self = setmetatable(PickedUpLayerInterfaceFactory.new(PickedUpLayerTypeFactory.getInstance().POINTS, IconLayerFactory.getInstance(FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance():get(PointsResources.getInstance().RESOURCE_3):getInstance(0), 10, 10), FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance():get(PointsResources.getInstance().RESOURCE_3):getInstance(0)), Points30kPickedUpLayerInterfaceFactory)
-    self:_init_fields()
-        -- super(...) made self above
-    return self
-end
-
-
-function Points30kPickedUpLayerInterfaceFactory:getTotal()
+    getTotal() {
         return 1
-end
+    }
+    
 
-
-function Points30kPickedUpLayerInterfaceFactory.getInstance()
+    static getInstance() {
         return Points30kPickedUpLayerInterfaceFactory.pickedUpLayerInterfaceFactoryInterface
-end
+    }
+    
 
+    process(sourceLayerInterface) {
+        _pool.visit(sourceLayerInterface)
+    }
+}
 
--- throws Exception
-function Points30kPickedUpLayerInterfaceFactory:process(sourceLayerInterface)
-        self.pool:visit(sourceLayerInterface)
-end
-
-Points30kPickedUpLayerInterfaceFactory.pickedUpLayerInterfaceFactoryInterface = CountedPickedUpLayerInterfaceFactory.NULL_COUNTED_PICKUP_LAYER_FACTORY
-
-return Points30kPickedUpLayerInterfaceFactory
+import "../../../../../../../org/allbinary/animation/FeaturedAnimationInterfaceFactoryInterfaceFactory" for FeaturedAnimationInterfaceFactoryInterfaceFactory
+import "../../../../../../../org/allbinary/game/configuration/GameConfigurationUtil" for GameConfigurationUtil
+import "../../../../../../../org/allbinary/game/layer/pickup/CountedPickedUpLayerInterfaceFactory" for CountedPickedUpLayerInterfaceFactory
+import "../../../../../../../org/allbinary/game/layer/pickup/IconLayerFactory" for IconLayerFactory
+import "../../../../../../../org/allbinary/game/layer/pickup/PickedUpLayerInterfaceFactoryInterface" for PickedUpLayerInterfaceFactoryInterface
+import "../../../../../../../org/allbinary/game/layer/pickup/PickedUpLayerTypeFactory" for PickedUpLayerTypeFactory
+import "../../../../../../../org/allbinary/game/layer/pickup/PickupProcessorInterface" for PickupProcessorInterface
+import "../../../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "./PointsLayerCircularStaticPool" for PointsLayerCircularStaticPool
+import "./PointsLayerFactory" for PointsLayerFactory
+import "./PointsResources" for PointsResources
 

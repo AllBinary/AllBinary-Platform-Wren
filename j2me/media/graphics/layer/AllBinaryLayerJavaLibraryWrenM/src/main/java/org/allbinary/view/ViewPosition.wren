@@ -1,88 +1,78 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.view
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.view
 
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local ViewPositionBase = require("org.allbinary.view.ViewPositionBase")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./ViewPositionBase" for ViewPositionBase
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ViewPosition is ViewPositionBase {
+  allbinaryLayer { _allbinaryLayer }
+  allbinaryLayer=(value) { _allbinaryLayer = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ViewPosition() {
+    _allbinaryLayer = null
+        _allbinaryLayer = AllBinaryLayer.NULL_ALLBINARY_LAYER
+  }
+    
 
-local ViewPosition = {}
-ViewPosition.__index = ViewPosition
-ViewPosition.className = "ViewPosition"
-setmetatable(ViewPosition, {__index = ViewPositionBase})
-
-function ViewPosition:_init_fields()
-    self.allbinaryLayer = AllBinaryLayer.NULL_ALLBINARY_LAYER
-end
-
-
-function ViewPosition.getInstanceD()
+    static getInstanceD() {
         return ViewPosition.new(0, 0, 0)
-end
+    }
+    
 
+    construct new(x, y, z) {
+        super(x, y, z)
+        initFields_ViewPosition()
+    }
+    
 
-function ViewPosition.new(x, y, z)
-    local self = setmetatable(ViewPositionBase.new(x, y, z), ViewPosition)
-    self:_init_fields()
-        -- super(...) made self above
-    return self
-end
+    getX() {
+        return _allbinaryLayer.getXP()
+    }
+    
 
+    getY() {
+        return _allbinaryLayer.getYP()
+    }
+    
 
-function ViewPosition:getX()
-        return self.allbinaryLayer:getXP()
-end
+    getZ() {
+        return _allbinaryLayer.getZP()
+    }
+    
 
+    getX2() {
+        return (this.getX() + _allbinaryLayer.getWidth())
+    }
+    
 
-function ViewPosition:getY()
-        return self.allbinaryLayer:getYP()
-end
+    getY2() {
+        return (this.getY() + _allbinaryLayer.getHeight())
+    }
+    
 
+    getZ2() {
+        return JR.i32(((this.getZ() + _allbinaryLayer.getDepth())))
+    }
+    
 
-function ViewPosition:getZ()
-        return self.allbinaryLayer:getZP()
-end
+    setAllbinaryLayer(allbinaryLayer) {
+        _allbinaryLayer = allbinaryLayer
+    }
+}
 
-
-function ViewPosition:getX2()
-        return self:getX() + self.allbinaryLayer:getWidth()
-end
-
-
-function ViewPosition:getY2()
-        return self:getY() + self.allbinaryLayer:getHeight()
-end
-
-
-function ViewPosition:getZ2()
-        return java_int((self:getZ() + self.allbinaryLayer:getDepth()))
-end
-
-
-function ViewPosition:setAllbinaryLayer(allbinaryLayer)
-        self.allbinaryLayer = allbinaryLayer
-end
-
-return ViewPosition
+import "../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
 

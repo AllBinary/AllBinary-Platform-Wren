@@ -1,57 +1,59 @@
--- Generated Code Do Not Modify
--- package org.allbinary.game.midlet
+// Generated Code Do Not Modify
+// package org.allbinary.game.midlet
 
-local GameState = require("org.allbinary.game.state.GameState")
-local GameStateFactory = require("org.allbinary.game.state.GameStateFactory")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameMidletStateFactory is JObject {
+    static INSTANCE {
+    if (__INSTANCE_set == null) {
+      __INSTANCE_set = true
+      __INSTANCE = GameMidletStateFactory.new()
+    }
+    return __INSTANCE
+  }
+  static INSTANCE=(value) {
+    __INSTANCE_set = true
+    __INSTANCE = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  currentGameState { _currentGameState }
+  currentGameState=(value) { _currentGameState = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameMidletStateFactory() {
+    _logUtil = null
+    _currentGameState = null
+        _logUtil = LogUtil.getInstance()
+        _currentGameState = GameStateFactory.getInstance().NO_GAME_STATE
+  }
+    
 
-local GameMidletStateFactory = {}
-GameMidletStateFactory.__index = GameMidletStateFactory
-GameMidletStateFactory.className = "GameMidletStateFactory"
+    construct new() {
+    super()
+    initFields_GameMidletStateFactory()
+    }
+    
 
-function GameMidletStateFactory:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.currentGameState = GameStateFactory.getInstance().NO_GAME_STATE
-end
-
-
-function GameMidletStateFactory.new()
-    local self = setmetatable({}, GameMidletStateFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function GameMidletStateFactory.getInstance()
+    static getInstance() {
         return GameMidletStateFactory.INSTANCE
-end
+    }
+    
 
+    getCurrentGameState() {
+        return _currentGameState
+    }
+    
 
-function GameMidletStateFactory:getCurrentGameState()
-        return self.currentGameState
-end
+    setCurrentGameState(currentGameState) {
+        _logUtil.putF(StringMaker.new().append(CommonLabels.getInstance().CURRENT).append(" GameState: ").append(StringUtil.getInstance().toString(currentGameState)).toString(), this, "setCurrentGameState")
+        _currentGameState = currentGameState
+    }
+}
 
-
-function GameMidletStateFactory:setCurrentGameState(currentGameState)
-        self.logUtil:putF(tostring(StringMaker.new():append(CommonLabels.getInstance().CURRENT):append(" GameState: "):append(StringUtil.getInstance():toString(currentGameState))), self, "setCurrentGameState")
-        self.currentGameState = currentGameState
-end
-
-GameMidletStateFactory.INSTANCE = GameMidletStateFactory.new()
-
-return GameMidletStateFactory
+import "../../../../org/allbinary/game/state/GameState" for GameState
+import "../../../../org/allbinary/game/state/GameStateFactory" for GameStateFactory
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/string/CommonLabels" for CommonLabels
 

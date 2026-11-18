@@ -1,38 +1,28 @@
--- Generated Code Do Not Modify
--- package org.allbinary.game.collision
+// Generated Code Do Not Modify
+// package org.allbinary.game.collision
 
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local CollisionProcessor = require("org.allbinary.game.collision.CollisionProcessor")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./CollisionProcessor" for CollisionProcessor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Collision2DProcessor is CollisionProcessor {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Collision2DProcessor() {
+  }
 
-local Collision2DProcessor = {}
-Collision2DProcessor.__index = Collision2DProcessor
-Collision2DProcessor.className = "Collision2DProcessor"
-setmetatable(Collision2DProcessor, {__index = CollisionProcessor})
+  construct new() {
+    super()
+    initFields_Collision2DProcessor()
+  }
+    
 
-function Collision2DProcessor.new()
-    local self = setmetatable(CollisionProcessor.new(), Collision2DProcessor)
-    return self
-end
-
-
-function Collision2DProcessor:isCollision(myLayer, myLayer2)
-        if myLayer2:getXP() >= myLayer:getX2() or myLayer2:getYP() >= myLayer:getY2() or myLayer2:getX2() <= myLayer:getXP() or myLayer2:getY2() <= myLayer:getYP() then
+    isCollision(myLayer, myLayer2) {
+        if (((((myLayer2.getXP() >= myLayer.getX2()) || (myLayer2.getYP() >= myLayer.getY2())) || (myLayer2.getX2() <= myLayer.getXP())) || (myLayer2.getY2() <= myLayer.getYP()))) {
             return false
-        else
+        } else {
             return true
-        end
-end
+        }
+    }
+}
 
-return Collision2DProcessor
+import "../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
 

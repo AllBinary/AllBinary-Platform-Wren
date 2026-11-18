@@ -1,98 +1,113 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.paint
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.paint
 
--- local Font = require("javax.microedition.lcdui.Font")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
-local MyFontProcessor = require("org.allbinary.graphics.font.MyFontProcessor")
-local UpdateMyFontInterface = require("org.allbinary.graphics.font.UpdateMyFontInterface")
-local UpdateMyFontProcessor = require("org.allbinary.graphics.font.UpdateMyFontProcessor")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/graphics/paint/Paintable" for Paintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//J2SEForJ2ME
+class OwnershipPaintable is Paintable {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  displayInfo { _displayInfo }
+  displayInfo=(value) { _displayInfo = value }
+  myFontProcessor { _myFontProcessor }
+  myFontProcessor=(value) { _myFontProcessor = value }
+  COPYRIGHT { _COPYRIGHT }
+  COPYRIGHT=(value) { _COPYRIGHT = value }
+  basicColor { _basicColor }
+  basicColor=(value) { _basicColor = value }
+  color { _color }
+  color=(value) { _color = value }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
+  COPYRIGHT_Y { _COPYRIGHT_Y }
+  COPYRIGHT_Y=(value) { _COPYRIGHT_Y = value }
+  beginWidth { _beginWidth }
+  beginWidth=(value) { _beginWidth = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_OwnershipPaintable() {
+    _logUtil = null
+    _displayInfo = null
+    _myFontProcessor = null
+    _COPYRIGHT = null
+    _basicColor = null
+    _color = 0
+    _anchor = 0
+    _COPYRIGHT_Y = 0
+    _beginWidth = 0
+        _logUtil = LogUtil.getInstance()
+        _displayInfo = DisplayInfoSingleton.getInstance()
+        _myFontProcessor = UpdateMyFontProcessor.new(this)
+        _COPYRIGHT = "AllBinary Copyright (c) 2011"
+        _basicColor = BasicColorFactory.getInstance().WHITE
+        _color = _basicColor.intValue()
+        _anchor = Anchor.TOP_LEFT
+        _COPYRIGHT_Y = 0
+        _beginWidth = 0
+  }
+    
 
---J2SEForJ2ME
-local OwnershipPaintable = {}
-OwnershipPaintable.__index = OwnershipPaintable
-OwnershipPaintable.className = "OwnershipPaintable"
-setmetatable(OwnershipPaintable, {__index = Paintable})
-
-function OwnershipPaintable:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.displayInfo = DisplayInfoSingleton.getInstance()
-    self.myFontProcessor = UpdateMyFontProcessor.new(self)
-    self.COPYRIGHT = "AllBinary Copyright (c) 2011"
-    self.basicColor = BasicColorFactory.getInstance().WHITE
-    self.color = math.tointeger(self.basicColor // 1)
-    self.anchor = Anchor.TOP_LEFT
-    self.COPYRIGHT_Y = 0
-    self.beginWidth = 0
-end
-
-
-function OwnershipPaintable.getInstance()
+    static getInstance() {
         return OwnershipPaintable.new()
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_OwnershipPaintable()
+    }
+    
 
-function OwnershipPaintable.new()
-    local self = setmetatable(Paintable.new(), OwnershipPaintable)
-    self:_init_fields()
-    return self
-end
+    updateMeasurement(graphics) {
+        var font = graphics.getFont()
+        _COPYRIGHT_Y = (2 * font.getHeight())
+        _beginWidth = (JR.shr(font.stringWidth(_COPYRIGHT), 1))
+        _myFontProcessor = MyFontProcessor.getInstance()
+    }
+    
 
+    setBasicColorP(basicColor) {
+        _basicColor = basicColor
+        _color = basicColor.intValue()
+    }
+    
 
-function OwnershipPaintable:updateMeasurement(graphics)
-        local font = graphics:getFont()
-        self.COPYRIGHT_Y = 2 * font:getHeight()
-        self.beginWidth = (((font:stringWidth(self.COPYRIGHT)) // (1 << (1))))
-        self.myFontProcessor = MyFontProcessor.getInstance()
-end
+    getBasicColorP() {
+        return _basicColor
+    }
+    
 
+    paint(graphics) {
+        _myFontProcessor.process(graphics)
+        graphics.setColor(_color)
+        var halfWidth = _displayInfo.getLastHalfWidth()
+        var height = _displayInfo.getLastHeight()
+        graphics.drawString(_COPYRIGHT, JR.i32(halfWidth - _beginWidth), JR.i32(height - _COPYRIGHT_Y), _anchor)
+    }
+}
 
-function OwnershipPaintable:setBasicColorP(basicColor)
-        self.basicColor = basicColor
-        self.color = math.tointeger(basicColor // 1)
-end
-
-
-function OwnershipPaintable:getBasicColorP()
-        return self.basicColor
-end
-
-
-function OwnershipPaintable:paint(graphics)
-        self.myFontProcessor:process(graphics)
-        graphics:setColor(self.color)
-        local halfWidth = self.displayInfo:getLastHalfWidth()
-        local height = self.displayInfo:getLastHeight()
-        graphics:drawString(self.COPYRIGHT, halfWidth - self.beginWidth, height - self.COPYRIGHT_Y, self.anchor)
-end
-
-return OwnershipPaintable
+import "../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/graphics/Anchor" for Anchor
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "../../../../org/allbinary/graphics/font/MyFontProcessor" for MyFontProcessor
+import "../../../../org/allbinary/graphics/font/UpdateMyFontInterface" for UpdateMyFontInterface
+import "../../../../org/allbinary/graphics/font/UpdateMyFontProcessor" for UpdateMyFontProcessor
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
 

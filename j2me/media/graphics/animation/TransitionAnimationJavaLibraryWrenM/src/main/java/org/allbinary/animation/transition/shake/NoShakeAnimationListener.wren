@@ -1,42 +1,43 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.transition.shake
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.transition.shake
 
-local ShakeAnimationListener = require("org.allbinary.animation.transition.shake.ShakeAnimationListener")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./ShakeAnimationListener" for ShakeAnimationListener
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NoShakeAnimationListener is ShakeAnimationListener {
+    static NO_SHAKE_ANIMATION_LISTENER {
+    if (__NO_SHAKE_ANIMATION_LISTENER_set == null) {
+      __NO_SHAKE_ANIMATION_LISTENER_set = true
+      __NO_SHAKE_ANIMATION_LISTENER = NoShakeAnimationListener.new()
+    }
+    return __NO_SHAKE_ANIMATION_LISTENER
+  }
+  static NO_SHAKE_ANIMATION_LISTENER=(value) {
+    __NO_SHAKE_ANIMATION_LISTENER_set = true
+    __NO_SHAKE_ANIMATION_LISTENER = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NoShakeAnimationListener() {
+  }
 
-local NoShakeAnimationListener = {}
-NoShakeAnimationListener.__index = NoShakeAnimationListener
-NoShakeAnimationListener.className = "NoShakeAnimationListener"
-setmetatable(NoShakeAnimationListener, {__index = ShakeAnimationListener})
+  construct new() {
+    super()
+    initFields_NoShakeAnimationListener()
+  }
+}
 
-function NoShakeAnimationListener.new()
-    local self = setmetatable(ShakeAnimationListener.new(), NoShakeAnimationListener)
-    return self
-end
-
-NoShakeAnimationListener.NO_SHAKE_ANIMATION_LISTENER = NoShakeAnimationListener.new()
-
-return NoShakeAnimationListener
 

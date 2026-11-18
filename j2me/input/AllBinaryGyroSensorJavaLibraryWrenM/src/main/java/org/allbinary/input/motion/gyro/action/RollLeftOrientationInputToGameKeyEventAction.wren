@@ -1,55 +1,54 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.gyro.action
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.gyro.action
 
-local PlatformInputMappingFactory = require("org.allbinary.game.input.PlatformInputMappingFactory")
-local GameKeyCompleteMotionGestureInputEvent = require("org.allbinary.game.input.motion.action.GameKeyCompleteMotionGestureInputEvent")
-local OrientationMotionGestureFactory = require("org.allbinary.input.gyro.OrientationMotionGestureFactory")
-local NullUtil = require("org.allbinary.logic.NullUtil")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/game/input/motion/action/GameKeyCompleteMotionGestureInputEvent" for GameKeyCompleteMotionGestureInputEvent
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RollLeftOrientationInputToGameKeyEventAction is GameKeyCompleteMotionGestureInputEvent {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RollLeftOrientationInputToGameKeyEventAction() {
+  }
+    
 
-local RollLeftOrientationInputToGameKeyEventAction = {}
-RollLeftOrientationInputToGameKeyEventAction.__index = RollLeftOrientationInputToGameKeyEventAction
-RollLeftOrientationInputToGameKeyEventAction.className = "RollLeftOrientationInputToGameKeyEventAction"
-setmetatable(RollLeftOrientationInputToGameKeyEventAction, {__index = GameKeyCompleteMotionGestureInputEvent})
-
-
-function RollLeftOrientationInputToGameKeyEventAction.getInstance()
-        if RollLeftOrientationInputToGameKeyEventAction.instance == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((RollLeftOrientationInputToGameKeyEventAction.instance == NullUtil.getInstance().NULL_OBJECT)) {
             RollLeftOrientationInputToGameKeyEventAction.instance = RollLeftOrientationInputToGameKeyEventAction.new()
-        end
+        }
         return RollLeftOrientationInputToGameKeyEventAction.instance
-end
+    }
+    
 
+    construct new() {
+        super("Roll Left Action", OrientationMotionGestureFactory.getInstance().ROLL_LEFT, PlatformInputMappingFactory.getInstance().getPersistentInputMappingInstance().getInputMapping())
+    }
+}
 
-function RollLeftOrientationInputToGameKeyEventAction.new()
-    local self = setmetatable(GameKeyCompleteMotionGestureInputEvent.new("Roll Left Action", OrientationMotionGestureFactory.getInstance().ROLL_LEFT, PlatformInputMappingFactory.getInstance():getPersistentInputMappingInstance():getInputMapping()), RollLeftOrientationInputToGameKeyEventAction)
-        -- super(...) made self above
-    return self
-end
-
-RollLeftOrientationInputToGameKeyEventAction.instance = NullUtil.getInstance().NULL_OBJECT
-
-return RollLeftOrientationInputToGameKeyEventAction
+import "../../../../../../org/allbinary/game/input/PlatformInputMappingFactory" for PlatformInputMappingFactory
+import "../../../../../../org/allbinary/input/gyro/OrientationMotionGestureFactory" for OrientationMotionGestureFactory
+import "../../../../../../org/allbinary/logic/NullUtil" for NullUtil
 

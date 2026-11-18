@@ -1,100 +1,86 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2011 AllBinary 
--- 
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
--- 
--- Created By: Travis Berthelot 
---  
--- Generated Code Do Not Modify
--- package org.allbinary.emulator.device
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2011 AllBinary 
+ * 
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ * 
+ * Created By: Travis Berthelot 
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.emulator.device
 
--- local GL10 = require("javax.microedition.khronos.opengles.GL10")
--- local Image = require("javax.microedition.lcdui.Image")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local OpenGLESImage = require("org.allbinary.image.opengles.OpenGLESImage")
-local TrueTypeFontUtilBase = require("org.allbinary.emulator.device.TrueTypeFontUtilBase")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./TrueTypeFontUtilBase" for TrueTypeFontUtilBase
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class TrueTypeFontUtil is TrueTypeFontUtilBase {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = TrueTypeFontUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  fontImage { _fontImage }
+  fontImage=(value) { _fontImage = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_TrueTypeFontUtil() {
+    _fontImage = null
+        _fontImage = OpenGLESImage.NULL_OPENGL_IMAGE
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local TrueTypeFontUtil = {}
-TrueTypeFontUtil.__index = TrueTypeFontUtil
-TrueTypeFontUtil.className = "TrueTypeFontUtil"
-setmetatable(TrueTypeFontUtil, {__index = TrueTypeFontUtilBase})
-
-function TrueTypeFontUtil:_init_fields()
-    self.fontImage = OpenGLESImage.NULL_OPENGL_IMAGE
-end
-
-
-function TrueTypeFontUtil.getInstance()
+    static getInstance() {
         return TrueTypeFontUtil.instance
-end
+    }
+    
 
+    construct new() {
+        super(1)
+        initFields_TrueTypeFontUtil()
+    }
+    
 
-function TrueTypeFontUtil.new()
-    local self = setmetatable(TrueTypeFontUtilBase.new(1), TrueTypeFontUtil)
-    self:_init_fields()
-        -- super(...) made self above
-    return self
-end
+    getAsTextureSize(textureSize) {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+    
 
+    getCellSize(cellSize) {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+    
 
-function TrueTypeFontUtil:getAsTextureSize(textureSize)
-        error(java_exception("RuntimeException"), 0)
-end
+    getFontBitmap(filename, fontSize, cellSize, basicColor) {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+    
 
+    saveFontAtlasAsFile() {
+    }
+    
 
-function TrueTypeFontUtil:getCellSize(cellSize)
-        error(java_exception("RuntimeException"), 0)
-end
+    getFontBitmapGL(gl, filename, cellSize, basicColor) {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+    
 
+    getFontWidths(filename, fontSize) {
+        Fiber.abort(JR.exception("RuntimeException", ""))
+    }
+}
 
-function TrueTypeFontUtil:getFontBitmap(filename, fontSize, cellSize, basicColor)
-        error(java_exception("RuntimeException"), 0)
-end
-
-
-function TrueTypeFontUtil:saveFontAtlasAsFile()
-end
-
-
-function TrueTypeFontUtil:getFontBitmapGL(gl, filename, cellSize, basicColor)
-        error(java_exception("RuntimeException"), 0)
-end
-
-
-function TrueTypeFontUtil:getFontWidths(filename, fontSize)
-        error(java_exception("RuntimeException"), 0)
-end
-
-TrueTypeFontUtil.instance = TrueTypeFontUtil.new()
-
-return TrueTypeFontUtil
+import "../../../../javax/microedition/khronos/opengles/GL10" for GL10
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/image/opengles/OpenGLESImage" for OpenGLESImage
 

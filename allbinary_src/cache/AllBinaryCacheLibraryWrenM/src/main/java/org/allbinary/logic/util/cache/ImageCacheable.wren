@@ -1,56 +1,47 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.util.cache
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.util.cache
 
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ImageCacheable is JObject {
+  name { _name }
+  name=(value) { _name = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImageCacheable() {
+    _name = null
+        _name = StringUtil.getInstance().EMPTY_STRING
+  }
+    
 
-local ImageCacheable = {}
-ImageCacheable.__index = ImageCacheable
-ImageCacheable.className = "ImageCacheable"
+    construct new(name, anyType) {
+    super()
+    initFields_ImageCacheable()
+    }
+    
 
-function ImageCacheable:_init_fields()
-    self.name = StringUtil.getInstance().EMPTY_STRING
-end
+    getKey() {
+        return _name
+    }
+    
 
+    toString() {
+        return _name
+    }
+}
 
-function ImageCacheable.new(name, anyType)
-    local self = setmetatable({}, ImageCacheable)
-    self:_init_fields()
-    return self
-end
-
-
-function ImageCacheable:getKey()
-        return self.name
-end
-
-
-function ImageCacheable:toString()
-        return self.name
-end
-ImageCacheable.__tostring = function(self) return self:toString() end
-
-return ImageCacheable
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
 

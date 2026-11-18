@@ -1,147 +1,176 @@
--- Generated Code Do Not Modify
--- package org.allbinary.layer
+// Generated Code Do Not Modify
+// package org.allbinary.layer
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local TsUtil = require("org.allbinary.TsUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local SynchObject = require("org.allbinary.thread.SynchObject")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local ABSystemWrapper = require("org.allbinary.logic.ABSystemWrapper")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LayerManager is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  systemWrapper { _systemWrapper }
+  systemWrapper=(value) { _systemWrapper = value }
+  tsUtil { _tsUtil }
+  tsUtil=(value) { _tsUtil = value }
+  layerManagerLogging { _layerManagerLogging }
+  layerManagerLogging=(value) { _layerManagerLogging = value }
+  list { _list }
+  list=(value) { _list = value }
+  anyType { _anyType }
+  anyType=(value) { _anyType = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LayerManager() {
+    _logUtil = null
+    _commonStrings = null
+    _systemWrapper = null
+    _tsUtil = null
+    _layerManagerLogging = null
+    _list = null
+    _anyType = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        _systemWrapper = ABSystemWrapper.getInstance()
+        _tsUtil = TsUtil.getInstance()
+        
+        _list = BasicArrayListD.new()
+        _anyType = SynchObject.new()
+  }
+    
 
-local LayerManager = {}
-LayerManager.__index = LayerManager
-LayerManager.className = "LayerManager"
+    construct new(layerManagerLogging) {
+    super()
+    initFields_LayerManager()
+        _logUtil.putF(_commonStrings.START, this, _commonStrings.CONSTRUCTOR)
+        _layerManagerLogging = layerManagerLogging
+    }
+    
 
-function LayerManager:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.systemWrapper = ABSystemWrapper.getInstance()
-    self.tsUtil = TsUtil.getInstance()
-    self.layerManagerLogging = nil
-    self.list = BasicArrayListD.new()
-    self.anyType = SynchObject.new()
-end
+    contains(layerInterface) {
+        return _list.contains(layerInterface)
+    }
+    
 
-
-function LayerManager.new(layerManagerLogging)
-    local self = setmetatable({}, LayerManager)
-    self:_init_fields()
-        self.logUtil:putF(self.commonStrings.START, self, self.commonStrings.CONSTRUCTOR)
-        self.layerManagerLogging = layerManagerLogging
-    return self
-end
-
-
-function LayerManager:contains(layerInterface)
-        return self.list:contains(layerInterface)
-end
-
-
--- throws Exception
-function LayerManager:update(layerInterface)
-        local had = self.list:remove(layerInterface)
-        if had then
-            local nextLayerInterface = nil
-            local size = self.list:size()
-            for index = 0, size - 1 do
-                nextLayerInterface = self.list:get(index)
-                if layerInterface:getZP() > nextLayerInterface:getZP() then
-                    self.list:addAt(index, layerInterface)
+    update(layerInterface) {
+        var had = _list.remove(layerInterface)
+        if (had) {
+            var nextLayerInterface = null
+            var size = _list.size()
+            if (true) {
+                var index = 0
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        index = JR.i32(index + 1)
+                    }
+                    jfirst = false
+                    if (!((index < size))) break
+                nextLayerInterface = _list.get(index)
+                if ((layerInterface.getZP() > nextLayerInterface.getZP())) {
+                    _list.addAt(index, layerInterface)
                     return
-                end
-            end
-            self.list:add(layerInterface)
-        end
-end
+                }
+                }
+            }
+            _list.add(layerInterface)
+        }
+    }
+    
 
-
--- throws Exception
-function LayerManager:insert(layerInterface)
-        local nextLayerInterface = nil
-        local size = self.list:size()
-        for index = 0, size - 1 do
-            nextLayerInterface = self.list:get(index)
-            if layerInterface:getZP() > nextLayerInterface:getZP() then
-                self:appendAt(layerInterface, index)
+    insert(layerInterface) {
+        var nextLayerInterface = null
+        var size = _list.size()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            nextLayerInterface = _list.get(index)
+            if ((layerInterface.getZP() > nextLayerInterface.getZP())) {
+                this.appendAt(layerInterface, index)
                 return
-            end
-        end
-        self:append(layerInterface)
-end
+            }
+            }
+        }
+        this.append(layerInterface)
+    }
+    
 
+    append(layerInterface) {
+        _layerManagerLogging.append(layerInterface)
+        _list.add(layerInterface)
+    }
+    
 
--- throws Exception
-function LayerManager:append(layerInterface)
-        self.layerManagerLogging:append(layerInterface)
-        self.list:add(layerInterface)
-end
+    appendAt(layerInterface, index) {
+        _layerManagerLogging.appendAt(layerInterface, index)
+        _list.addAt(index, layerInterface)
+    }
+    
 
+    remove(layerInterface) {
+        if (true) {
+            _layerManagerLogging.remove(layerInterface)
+            var result = _list.remove(layerInterface)
+            _layerManagerLogging.removeResult(this, layerInterface, result)
+        }
+    }
+    
 
--- throws Exception
-function LayerManager:appendAt(layerInterface, index)
-        self.layerManagerLogging:appendAt(layerInterface, index)
-        self.list:addAt(index, layerInterface)
-end
+    getLayerAt(index) {
+        return _list.objectArray[index]
+    }
+    
 
+    getSize() {
+        return _list.size()
+    }
+    
 
--- throws Exception
-function LayerManager:remove(layerInterface)
-        do -- synchronized (self.anyType)
-            self.layerManagerLogging:remove(layerInterface)
-            local result = self.list:remove(layerInterface)
-            self.layerManagerLogging:removeResult(self, layerInterface, result)
-        end
-end
+    cleanup() {
+        if (true) {
+            _list.clear()
+            _layerManagerLogging.clear()
+            _tsUtil.gc()
+            _tsUtil.gc()
+        }
+    }
+    
 
+    paint(g, x, y) {
+        if (true) {
+            var comp = null
+            if (true) {
+                var index = _list.size()
+                var jfirst = true
+                while (true) {
+                    jfirst = false
+                    if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+                comp = _list.objectArray[index]
+                if (((comp != null) && comp.isVisible())) {
+                    comp.paint(g)
+                }
+                }
+            }
+        }
+    }
+}
 
-function LayerManager:getLayerAt(index)
-        return self.list.objectArray[index + 1]
-end
-
-
-function LayerManager:getSize()
-        return self.list:size()
-end
-
-
--- throws Exception
-function LayerManager:cleanup()
-        do -- synchronized (self.anyType)
-            self.list:clear()
-            self.layerManagerLogging:clear()
-            self.tsUtil:gc()
-            self.tsUtil:gc()
-        end
-end
-
-
-function LayerManager:paint(g, x, y)
-        do -- synchronized (self.anyType)
-            local comp = nil
-            do
-                local index = self.list:size()
-                while (function() index = index - 1 return index end)() >= 0 do
-                comp = self.list.objectArray[index + 1]
-                if comp ~= nil and comp:isVisible() then
-                    comp:paint(g)
-                end
-                end
-            end
-        end
-end
-
-return LayerManager
+import "../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../org/allbinary/TsUtil" for TsUtil
+import "../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../org/allbinary/thread/SynchObject" for SynchObject
+import "../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "../../../org/allbinary/logic/ABSystemWrapper" for ABSystemWrapper
+import "./LayerManagerLoggingBase" for LayerManagerLoggingBase
+import "./AllBinaryLayer" for AllBinaryLayer
+import "./Layer" for Layer
 

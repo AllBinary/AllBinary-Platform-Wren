@@ -1,91 +1,94 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.hud.basic.notification
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.hud.basic.notification
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicHud = require("org.allbinary.game.graphics.hud.BasicHud")
-local BasicHudFactory = require("org.allbinary.game.graphics.hud.BasicHudFactory")
-local GameNotificationEvent = require("org.allbinary.game.layer.hud.event.GameNotificationEvent")
-local GameNotificationListenerInterface = require("org.allbinary.game.layer.hud.event.GameNotificationListenerInterface")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventStrings = require("org.allbinary.logic.util.event.EventStrings")
+import "../../../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../../../org/allbinary/game/graphics/hud/BasicHud" for BasicHud
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameNotificationHud is BasicHud {
+    static NULL_GAME_NOTIFICATION {
+    if (__NULL_GAME_NOTIFICATION_set == null) {
+      __NULL_GAME_NOTIFICATION_set = true
+      __NULL_GAME_NOTIFICATION = GameNotificationHud.new(BasicHudFactory.getInstance().TOPCENTER, BasicHudFactory.getInstance().HORIZONTAL, 0, BasicColorFactory.getInstance().RED)
+    }
+    return __NULL_GAME_NOTIFICATION
+  }
+  static NULL_GAME_NOTIFICATION=(value) {
+    __NULL_GAME_NOTIFICATION_set = true
+    __NULL_GAME_NOTIFICATION = value
+  }
+  METHOD_NAME { _METHOD_NAME }
+  METHOD_NAME=(value) { _METHOD_NAME = value }
+  lastGameNotificationEvent { _lastGameNotificationEvent }
+  lastGameNotificationEvent=(value) { _lastGameNotificationEvent = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameNotificationHud() {
+    _METHOD_NAME = null
+    _lastGameNotificationEvent = null
+        _METHOD_NAME = "onGameNotificationEvent"
+        _lastGameNotificationEvent = GameNotification.NULL_GAME_NOTIFICATION_EVENT
+  }
+    
 
-local GameNotificationHud = {}
-GameNotificationHud.__index = GameNotificationHud
-GameNotificationHud.className = "GameNotificationHud"
-setmetatable(GameNotificationHud, {__index = BasicHud})
+    construct new(location, direction, bufferZone, basicColor) {
+        super(location, direction, bufferZone, basicColor)
+        initFields_GameNotificationHud()
+    }
+    
 
-function GameNotificationHud:_init_fields()
-    self.METHOD_NAME = "onGameNotificationEvent"
-    self.lastGameNotificationEvent = GameNotification.NULL_GAME_NOTIFICATION_EVENT
-end
+    onEvent(eventObject) {
+        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, this)
+    }
+    
 
+    onGameNotificationEvent(gameNotificationEvent) {
+        if ((_lastGameNotificationEvent != gameNotificationEvent)) {
+            _lastGameNotificationEvent = gameNotificationEvent
+            this.logUtil.putF(gameNotificationEvent.getString(), this, _METHOD_NAME)
+        }
+        this.add(gameNotificationEvent.getString(), gameNotificationEvent.getSeconds(), gameNotificationEvent.getBasicColorP(), gameNotificationEvent.getPermanent())
+    }
+    
 
-function GameNotificationHud.new(location, direction, bufferZone, basicColor)
-    local self = setmetatable(BasicHud.new(location, direction, bufferZone, basicColor), GameNotificationHud)
-    self:_init_fields()
-        -- super(...) made self above
-    return self
-end
+    add(string, seconds, basicColor, permanent) {
+    }
+    
 
+    processTick() {
+    }
+    
 
-function GameNotificationHud:onEvent(eventObject)
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-end
+    paint(graphics) {
+    }
+    
 
+    clear() {
+    }
+}
 
--- throws Exception
-function GameNotificationHud:onGameNotificationEvent(gameNotificationEvent)
-        if self.lastGameNotificationEvent ~= gameNotificationEvent then
-            self.lastGameNotificationEvent = gameNotificationEvent
-            self.logUtil:putF(gameNotificationEvent:getString(), self, self.METHOD_NAME)
-        end
-        self:add(gameNotificationEvent:getString(), gameNotificationEvent:getSeconds(), gameNotificationEvent:getBasicColorP(), gameNotificationEvent:getPermanent())
-end
-
-
-function GameNotificationHud:add(string, seconds, basicColor, permanent)
-end
-
-
--- throws Exception
-function GameNotificationHud:processTick()
-end
-
-
-function GameNotificationHud:paint(graphics)
-end
-
-
-function GameNotificationHud:clear()
-end
-
-GameNotificationHud.NULL_GAME_NOTIFICATION = GameNotificationHud.new(BasicHudFactory.getInstance().TOPCENTER, BasicHudFactory.getInstance().HORIZONTAL, 0, BasicColorFactory.getInstance().RED)
-
-return GameNotificationHud
+import "../../../../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../../../../org/allbinary/game/graphics/hud/BasicHudFactory" for BasicHudFactory
+import "../../../../../../../../org/allbinary/game/layer/hud/event/GameNotificationEvent" for GameNotificationEvent
+import "../../../../../../../../org/allbinary/game/layer/hud/event/GameNotificationListenerInterface" for GameNotificationListenerInterface
+import "../../../../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../../../../org/allbinary/logic/communication/log/ForcedLogUtil" for ForcedLogUtil
+import "../../../../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
+import "../../../../../../../../java/lang/Integer" for Integer
+import "../../../../../../../../java/lang/Boolean" for Boolean
+import "./GameNotification" for GameNotification
 

@@ -1,50 +1,48 @@
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
--- local Canvas = require("javax.microedition.lcdui.Canvas")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BaseGameStatistics = require("org.allbinary.canvas.BaseGameStatistics")
-local GameStatisticsFactory = require("org.allbinary.canvas.GameStatisticsFactory")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../javax/microedition/lcdui/Canvas" for Canvas
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//J2MEForJ2ME
+class NullDisplayable is Canvas {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = NullDisplayable.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
+  baseGameStatistics { _baseGameStatistics }
+  baseGameStatistics=(value) { _baseGameStatistics = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NullDisplayable() {
+    _baseGameStatistics = null
+        _baseGameStatistics = GameStatisticsFactory.getInstance()
+  }
+    
 
---J2MEForJ2ME
-local NullDisplayable = {}
-NullDisplayable.__index = NullDisplayable
-NullDisplayable.className = "NullDisplayable"
-setmetatable(NullDisplayable, {__index = Canvas})
-
-function NullDisplayable:_init_fields()
-    self.baseGameStatistics = GameStatisticsFactory.getInstance()
-end
-
-
-function NullDisplayable.getInstance()
+    static getInstance() {
         return NullDisplayable.SINGLETON
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_NullDisplayable()
+    }
+    
 
-function NullDisplayable.new()
-    local self = setmetatable(Canvas.new(), NullDisplayable)
-    self:_init_fields()
-    return self
-end
+    paint(graphics) {
+        _baseGameStatistics.nextRefresh()
+    }
+}
 
-
-function NullDisplayable:paint(graphics)
-        self.baseGameStatistics:nextRefresh()
-end
-
-NullDisplayable.SINGLETON = NullDisplayable.new()
-
-return NullDisplayable
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../org/allbinary/canvas/BaseGameStatistics" for BaseGameStatistics
+import "../../../../../org/allbinary/canvas/GameStatisticsFactory" for GameStatisticsFactory
 

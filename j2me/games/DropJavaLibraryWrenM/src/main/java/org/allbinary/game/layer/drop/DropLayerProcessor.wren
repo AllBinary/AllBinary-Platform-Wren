@@ -1,67 +1,77 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer.drop
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer.drop
 
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local BasicLayerProcessor = require("org.allbinary.layer.BasicLayerProcessor")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/layer/BasicLayerProcessor" for BasicLayerProcessor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class DropLayerProcessor is BasicLayerProcessor {
+    static LAYER_PROCESSOR {
+    if (__LAYER_PROCESSOR_set == null) {
+      __LAYER_PROCESSOR_set = true
+      __LAYER_PROCESSOR = DropLayerProcessor.new()
+    }
+    return __LAYER_PROCESSOR
+  }
+  static LAYER_PROCESSOR=(value) {
+    __LAYER_PROCESSOR_set = true
+    __LAYER_PROCESSOR = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_DropLayerProcessor() {
+  }
+    
 
-local DropLayerProcessor = {}
-DropLayerProcessor.__index = DropLayerProcessor
-DropLayerProcessor.className = "DropLayerProcessor"
-setmetatable(DropLayerProcessor, {__index = BasicLayerProcessor})
+    construct new() {
+    super()
+    initFields_DropLayerProcessor()
+    }
+    
 
-
-function DropLayerProcessor.new()
-    local self = setmetatable(BasicLayerProcessor.new(), DropLayerProcessor)
-    return self
-end
-
-
-function DropLayerProcessor.getInstance()
+    static getInstance() {
         return DropLayerProcessor.LAYER_PROCESSOR
-end
+    }
+    
 
-
--- throws Exception
-function DropLayerProcessor:process(allBinaryLayerManager)
-        local list = self:getList()
-        local size = list:size()
-        local layerInterface = nil
-        local dropLayerInterface = nil
-        for index = 0, size - 1 do
-            layerInterface = list.objectArray[index + 1]
+    process(allBinaryLayerManager) {
+        var list = this.getList()
+        var size = list.size()
+        var layerInterface = null
+        var dropLayerInterface = null
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            layerInterface = list.objectArray[index]
             dropLayerInterface = layerInterface
-            layerInterface = dropLayerInterface:getDroppedLayer()
-            allBinaryLayerManager:append(layerInterface)
-        end
-        list:clear()
-end
+            layerInterface = dropLayerInterface.getDroppedLayer()
+            allBinaryLayerManager.append(layerInterface)
+            }
+        }
+        list.clear()
+    }
+}
 
-DropLayerProcessor.LAYER_PROCESSOR = DropLayerProcessor.new()
-
-return DropLayerProcessor
+import "../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "./DropLayerInterface" for DropLayerInterface
 

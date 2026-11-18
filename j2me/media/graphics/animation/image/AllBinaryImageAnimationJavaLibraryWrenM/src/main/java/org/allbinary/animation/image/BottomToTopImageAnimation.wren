@@ -1,85 +1,81 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Image = require("javax.microedition.lcdui.Image")
--- local Sprite = require("javax.microedition.lcdui.game.Sprite")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
-local ImageSegmentAnimation = require("org.allbinary.animation.image.ImageSegmentAnimation")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./ImageSegmentAnimation" for ImageSegmentAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BottomToTopImageAnimation is ImageSegmentAnimation {
+  startHeight { _startHeight }
+  startHeight=(value) { _startHeight = value }
+  currentHeight { _currentHeight }
+  currentHeight=(value) { _currentHeight = value }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BottomToTopImageAnimation() {
+    _startHeight = 0
+    _currentHeight = 0
+    _anchor = 0
+        _startHeight = 0
+        _currentHeight = 0
+        _anchor = Anchor.TOP_LEFT
+  }
+    
 
-local BottomToTopImageAnimation = {}
-BottomToTopImageAnimation.__index = BottomToTopImageAnimation
-BottomToTopImageAnimation.className = "BottomToTopImageAnimation"
-setmetatable(BottomToTopImageAnimation, {__index = ImageSegmentAnimation})
+    construct new(image, animationBehavior) {
+        super(image, PrimitiveIntUtil.getArrayInstance(), animationBehavior)
+        initFields_BottomToTopImageAnimation()
+        this.setFrame((this.getSize() - 1))
+    }
+    
 
-function BottomToTopImageAnimation:_init_fields()
-    self.startHeight = 0
-    self.currentHeight = 0
-    self.anchor = Anchor.TOP_LEFT
-end
+    nextFrame() {
+        super.previousFrame()
+        this.update()
+    }
+    
 
+    previousFrame() {
+        super.nextFrame()
+        this.update()
+    }
+    
 
-function BottomToTopImageAnimation.new(image, animationBehavior)
-    local self = setmetatable(ImageSegmentAnimation.new(image, PrimitiveIntUtil.getArrayInstance(), animationBehavior), BottomToTopImageAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self:setFrame(self:getSize() - 1)
-    return self
-end
+    setFrame(index) {
+        super.setFrame(index)
+        this.update()
+    }
+    
 
+    update() {
+        _startHeight = ((this.getDrawHeight() * this.getFrame()) / this.getSize())
+        _currentHeight = (this.getDrawHeight() - _startHeight)
+    }
+    
 
-function BottomToTopImageAnimation:nextFrame()
-        ImageSegmentAnimation.previousFrame(self)
-        self:update()
-end
+    paintXY(graphics, x, y) {
+        graphics.drawRegion(this.getImage(), this.getStartX(), _startHeight, this.getDrawWidth(), _currentHeight, Sprite.TRANS_NONE, x, JR.i32(y + _startHeight), _anchor)
+    }
+}
 
-
-function BottomToTopImageAnimation:previousFrame()
-        ImageSegmentAnimation.nextFrame(self)
-        self:update()
-end
-
-
-function BottomToTopImageAnimation:setFrame(index)
-        ImageSegmentAnimation.setFrame(self, index)
-        self:update()
-end
-
-
-function BottomToTopImageAnimation:update()
-        self.startHeight = self:getDrawHeight() * self:getFrame() / self:getSize()
-        self.currentHeight = self:getDrawHeight() - self.startHeight
-end
-
-
-function BottomToTopImageAnimation:paintXY(graphics, x, y)
-        graphics:drawRegion(self:getImage(), self:getStartX(), self.startHeight, self:getDrawWidth(), self.currentHeight, Sprite.TRANS_NONE, x, y + self.startHeight, self.anchor)
-end
-
-return BottomToTopImageAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../javax/microedition/lcdui/game/Sprite" for Sprite
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/graphics/Anchor" for Anchor
+import "../../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
 

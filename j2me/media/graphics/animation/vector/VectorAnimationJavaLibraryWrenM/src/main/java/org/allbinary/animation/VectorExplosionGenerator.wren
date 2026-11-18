@@ -1,179 +1,191 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
-local GPoint = require("org.allbinary.graphics.GPoint")
-local PointFactory = require("org.allbinary.graphics.PointFactory")
-local RandomRotationFactory = require("org.allbinary.graphics.pipeline.RandomRotationFactory")
-local RandomTranslation = require("org.allbinary.graphics.pipeline.RandomTranslation")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local BasicArrayListS = require("org.allbinary.util.BasicArrayListS")
+import "../../../allbinary_java" for JObject, JException, JR
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class VectorExplosionGenerator is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = VectorExplosionGenerator.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  RANDOM { _RANDOM }
+  RANDOM=(value) { _RANDOM = value }
+  ROTATION { _ROTATION }
+  ROTATION=(value) { _ROTATION = value }
+  vectorAnimationUtil { _vectorAnimationUtil }
+  vectorAnimationUtil=(value) { _vectorAnimationUtil = value }
+  randomRotationFactory { _randomRotationFactory }
+  randomRotationFactory=(value) { _randomRotationFactory = value }
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+  initFields_VectorExplosionGenerator() {
+    _RANDOM = null
+    _ROTATION = null
+    _vectorAnimationUtil = null
+    _randomRotationFactory = null
+        _RANDOM = VectorExplosionType.new()
+        _ROTATION = VectorExplosionType.new()
+        _vectorAnimationUtil = VectorAnimationUtil.getInstance()
+        _randomRotationFactory = RandomRotationFactory.getInstance()
+  }
+    
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
-
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local VectorExplosionGenerator = {}
-VectorExplosionGenerator.__index = VectorExplosionGenerator
-VectorExplosionGenerator.className = "VectorExplosionGenerator"
-
-function VectorExplosionGenerator:_init_fields()
-    self.RANDOM = VectorExplosionType.new()
-    self.ROTATION = VectorExplosionType.new()
-    self.vectorAnimationUtil = VectorAnimationUtil.getInstance()
-    self.randomRotationFactory = RandomRotationFactory.getInstance()
-end
-
-
-function VectorExplosionGenerator.getInstance()
+    static getInstance() {
         return VectorExplosionGenerator.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_VectorExplosionGenerator()
+    }
+    
 
-function VectorExplosionGenerator.new()
-    local self = setmetatable({}, VectorExplosionGenerator)
-    self:_init_fields()
-    return self
-end
+    createList(list, howMuch, type) {
+        var point = null
+        var size = list.size()
+        var points = JR.listOf(size, Fn.new { List.filled(2, 0) })
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            point = list.objectArray[index]
+            points[index][0] = point.getX()
+            points[index][1] = point.getY()
+            }
+        }
+        return this.createListFromPoints(list, points, howMuch, type)
+    }
+    
 
-
--- throws Exception
-function VectorExplosionGenerator:createList(list, howMuch, type)
-        local point = nil
-        local size = list:size()
-        local points = java_new_array(0, size, 2)
-        for index = 0, size - 1 do
-            point = list.objectArray[index + 1]
-            points[index + 1][1] = point:getX()
-            points[index + 1][2] = point:getY()
-        end
-        return self:createListFromPoints(list, points, howMuch, type)
-end
-
-
--- throws Exception
--- Java overloaded method: Lua keeps the last definition
-function VectorExplosionGenerator:getInstance(points, howMuch, type)
-        local pointsBasicArrayList = self:getInstanceStartFrame(points, howMuch, type, true)
-        local tempBasicArrayList = pointsBasicArrayList.objectArray[1]
-        local newPoints = self.vectorAnimationUtil:toAnimationArrayFromListOfPointListWithPointsPerFrame(pointsBasicArrayList, tempBasicArrayList:size())
+    getInstance(points, howMuch, type) {
+        var pointsBasicArrayList = this.getInstanceStartFrame(points, howMuch, type, true)
+        var tempBasicArrayList = pointsBasicArrayList.objectArray[0]
+        var newPoints = _vectorAnimationUtil.toAnimationArrayFromListOfPointListWithPointsPerFrame(pointsBasicArrayList, tempBasicArrayList.size())
         return newPoints
-end
+    }
+    
 
-
--- throws Exception
-function VectorExplosionGenerator:getInstanceStartFrame(points, howMuch, type, startFrame)
-        local try_ok, try_error = pcall(function()
-            local pointsBasicArrayList = BasicArrayListS.new(howMuch)
-            pointsBasicArrayList:add(self:createPointsBasicArrayList(points))
-            local frameIndex = 0
-            local tempBasicArrayList = nil
-            local pointBasicArrayList = nil
-            while frameIndex < howMuch do
-                tempBasicArrayList = pointsBasicArrayList.objectArray[frameIndex + 1]
-                pointBasicArrayList = self:createListFromPoints(tempBasicArrayList, points, howMuch, type)
-                pointsBasicArrayList:add(pointBasicArrayList)
-                frameIndex = frameIndex + 1
-            end
-            if not startFrame then
-                pointsBasicArrayList:removeAt(0)
-            end
+    getInstanceStartFrame(points, howMuch, type, startFrame) {
+        var jerror0 = Fiber.new {
+            var pointsBasicArrayList = BasicArrayListS.new(howMuch)
+            pointsBasicArrayList.add(this.createPointsBasicArrayList(points))
+            var frameIndex = 0
+            var tempBasicArrayList = null
+            var pointBasicArrayList = null
+            while ((frameIndex < howMuch)) {
+                tempBasicArrayList = pointsBasicArrayList.objectArray[frameIndex]
+                pointBasicArrayList = this.createListFromPoints(tempBasicArrayList, points, howMuch, type)
+                pointsBasicArrayList.add(pointBasicArrayList)
+                frameIndex = JR.i32(frameIndex + 1)
+            }
+            if (!startFrame) {
+                pointsBasicArrayList.removeAt(0)
+            }
             return pointsBasicArrayList
-        end)
-        if not try_ok then
-            local e = try_error
-            error(e, 0)
-        end
-end
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            Fiber.abort(e)
+        }
+    }
+    
 
-
--- throws Exception
-function VectorExplosionGenerator:createListFromPoints(tempBasicArrayList, points, howMuch, type)
-        local index = 0
-        local pointBasicArrayList = BasicArrayListD.new()
-        local sectionBasicArrayList = nil
-        while index < (points.n or #points) do
+    createListFromPoints(tempBasicArrayList, points, howMuch, type) {
+        var index = 0
+        var pointBasicArrayList = BasicArrayListD.new()
+        var sectionBasicArrayList = null
+        while ((index < points.count)) {
             sectionBasicArrayList = BasicArrayListD.new()
-            while points[index + 1][1] ~= 1000 do
-                sectionBasicArrayList:add(tempBasicArrayList.objectArray[index + 1])
-                index = index + 1
-                if index >= (points.n or #points) then
+            while ((points[index][0] != 1000)) {
+                sectionBasicArrayList.add(tempBasicArrayList.objectArray[index])
+                index = JR.i32(index + 1)
+                if ((index >= points.count)) {
                     break
-                end
-            end
+                }
+            }
             sectionBasicArrayList = RandomTranslation.getInstance(sectionBasicArrayList, howMuch)
-            if type == self.ROTATION then
-                sectionBasicArrayList = self.randomRotationFactory:getInstanceList(sectionBasicArrayList, howMuch)
-            end
-            local size = sectionBasicArrayList:size()
-            for index2 = 0, size - 1 do
-                pointBasicArrayList:add(sectionBasicArrayList.objectArray[index2 + 1])
-            end
-            if index >= (points.n or #points) then
+            if ((type == _ROTATION)) {
+                sectionBasicArrayList = _randomRotationFactory.getInstanceList(sectionBasicArrayList, howMuch)
+            }
+            var size = sectionBasicArrayList.size()
+            if (true) {
+                var index2 = 0
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        index2 = JR.i32(index2 + 1)
+                    }
+                    jfirst = false
+                    if (!((index2 < size))) break
+                pointBasicArrayList.add(sectionBasicArrayList.objectArray[index2])
+                }
+            }
+            if ((index >= points.count)) {
                 break
-            elseif points[index + 1][1] == 1000 then
-                pointBasicArrayList:add(tempBasicArrayList.objectArray[index + 1])
-                index = index + 1
-            end
-        end
+            } else if ((points[index][0] == 1000)) {
+                pointBasicArrayList.add(tempBasicArrayList.objectArray[index])
+                index = JR.i32(index + 1)
+            }
+        }
         return pointBasicArrayList
-end
+    }
+    
 
-
--- throws Exception
-function VectorExplosionGenerator:createPointsBasicArrayList(points)
-        if (points.n or #points) == 0 then
-            error(java_exception("Exception", "Not Points Provided"), 0)
-        end
-        local firstPointBasicArrayList = BasicArrayListS.new((points.n or #points))
-        local pointFactory = PointFactory.getInstance()
-        for index = 0, (points.n or #points) - 1 do
-            firstPointBasicArrayList:add(pointFactory:createXY(points[index + 1][1], points[index + 1][2]))
-        end
+    createPointsBasicArrayList(points) {
+        if ((points.count == 0)) {
+            Fiber.abort(JR.exception("Exception", "Not Points Provided"))
+        }
+        var firstPointBasicArrayList = BasicArrayListS.new(points.count)
+        var pointFactory = PointFactory.getInstance()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < points.count))) break
+            firstPointBasicArrayList.add(pointFactory.createXY(points[index][0], points[index][1]))
+            }
+        }
         return firstPointBasicArrayList
-end
+    }
+}
 
-VectorExplosionGenerator.instance = VectorExplosionGenerator.new()
-
-return VectorExplosionGenerator
+import "../../../org/allbinary/graphics/GPoint" for GPoint
+import "../../../org/allbinary/graphics/PointFactory" for PointFactory
+import "../../../org/allbinary/graphics/pipeline/RandomRotationFactory" for RandomRotationFactory
+import "../../../org/allbinary/graphics/pipeline/RandomTranslation" for RandomTranslation
+import "../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "../../../org/allbinary/util/BasicArrayListS" for BasicArrayListS
+import "./VectorExplosionType" for VectorExplosionType
+import "./VectorAnimationUtil" for VectorAnimationUtil
 

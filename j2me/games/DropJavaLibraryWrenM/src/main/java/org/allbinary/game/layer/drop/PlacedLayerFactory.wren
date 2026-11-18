@@ -1,64 +1,66 @@
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer.drop
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer.drop
 
-local AllBinaryLayerFactoryInterface = require("org.allbinary.layer.AllBinaryLayerFactoryInterface")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local BasicArrayListUtil = require("org.allbinary.util.BasicArrayListUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PlacedLayerFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = PlacedLayerFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  list { _list }
+  list=(value) { _list = value }
+  basicArrayListUtil { _basicArrayListUtil }
+  basicArrayListUtil=(value) { _basicArrayListUtil = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PlacedLayerFactory() {
+    _list = null
+    _basicArrayListUtil = null
+        _list = BasicArrayListD.new()
+        _basicArrayListUtil = BasicArrayListUtil.getInstance()
+  }
+    
 
-local PlacedLayerFactory = {}
-PlacedLayerFactory.__index = PlacedLayerFactory
-PlacedLayerFactory.className = "PlacedLayerFactory"
+    construct new() {
+    super()
+    initFields_PlacedLayerFactory()
+    }
+    
 
-function PlacedLayerFactory:_init_fields()
-    self.list = BasicArrayListD.new()
-    self.basicArrayListUtil = BasicArrayListUtil.getInstance()
-end
+    clear() {
+        _list.clear()
+    }
+    
 
-
-function PlacedLayerFactory.new()
-    local self = setmetatable({}, PlacedLayerFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function PlacedLayerFactory:clear()
-        self.list:clear()
-end
-
-
-function PlacedLayerFactory.getInstance()
+    static getInstance() {
         return PlacedLayerFactory.instance
-end
+    }
+    
 
+    getSize() {
+        return _list.size()
+    }
+    
 
-function PlacedLayerFactory:getSize()
-        return self.list:size()
-end
+    getRandomInstance() {
+        return _basicArrayListUtil.getRandom(_list)
+    }
+    
 
+    add(layerInterfaceFactoryInterface) {
+        _list.add(layerInterfaceFactoryInterface)
+    }
+}
 
-function PlacedLayerFactory:getRandomInstance()
-        return self.basicArrayListUtil:getRandom(self.list)
-end
-
-
-function PlacedLayerFactory:add(layerInterfaceFactoryInterface)
-        self.list:add(layerInterfaceFactoryInterface)
-end
-
-PlacedLayerFactory.instance = PlacedLayerFactory.new()
-
-return PlacedLayerFactory
+import "../../../../../org/allbinary/layer/AllBinaryLayerFactoryInterface" for AllBinaryLayerFactoryInterface
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "../../../../../org/allbinary/util/BasicArrayListUtil" for BasicArrayListUtil
 

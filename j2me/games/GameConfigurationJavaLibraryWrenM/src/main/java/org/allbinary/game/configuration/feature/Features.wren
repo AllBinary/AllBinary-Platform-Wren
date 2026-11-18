@@ -1,162 +1,173 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration.feature
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration.feature
 
-local GameFeatureEvent = require("org.allbinary.game.configuration.event.GameFeatureEvent")
-local GameFeatureEventHandler = require("org.allbinary.game.configuration.event.GameFeatureEventHandler")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local PreLogUtil = require("org.allbinary.logic.communication.log.PreLogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local GenericOperatingSystem = require("org.allbinary.logic.system.os.GenericOperatingSystem")
-local OperatingSystemFactory = require("org.allbinary.logic.system.os.OperatingSystemFactory")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Features is JObject {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  list { _list }
+  list=(value) { _list = value }
+  defaultList { _defaultList }
+  defaultList=(value) { _defaultList = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Features() {
+    _logUtil = null
+    _commonStrings = null
+    _list = null
+    _defaultList = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        
+        
+  }
+    
 
-local Features = {}
-Features.__index = Features
-Features.className = "Features"
-
-function Features:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.list = nil
-    self.defaultList = nil
-end
-
-
-function Features.getInstance()
-        if Features.SINGLETON == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((Features.SINGLETON == NullUtil.getInstance().NULL_OBJECT)) {
             Features.SINGLETON = Features.new()
-        end
+        }
         return Features.SINGLETON
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_Features()
+        _list = BasicArrayListD.new()
+        _defaultList = BasicArrayListD.new()
+        this.init()
+    }
+    
 
-function Features.new()
-    local self = setmetatable({}, Features)
-    self:_init_fields()
-        self.list = BasicArrayListD.new()
-        self.defaultList = BasicArrayListD.new()
-        self:init()
-    return self
-end
+    addDefault(gameFeature) {
+        this.add(gameFeature)
+        if (!_defaultList.contains(gameFeature)) {
+            _defaultList.add(gameFeature)
+        }
+    }
+    
 
+    add(gameFeature) {
+        if (!_list.contains(gameFeature)) {
+            _logUtil.putF(StringMaker.new().append(CommonLabels.getInstance().START_LABEL).append(gameFeature.toString()).toString(), this, _commonStrings.ADD)
+            _list.add(gameFeature)
+            GameFeatureEventHandler.getInstance().fireEvent(GameFeatureEvent.new(gameFeature, gameFeature.toString()))
+        }
+    }
+    
 
--- throws Exception
-function Features:addDefault(gameFeature)
-        self:add(gameFeature)
-        if not self.defaultList:contains(gameFeature) then
-            self.defaultList:add(gameFeature)
-        end
-end
+    removeDefault(gameFeature) {
+        _logUtil.putF(StringMaker.new().append(CommonLabels.getInstance().START_LABEL).append(gameFeature.toString()).toString(), this, "removeDefault")
+        this.remove(gameFeature)
+        _defaultList.remove(gameFeature)
+    }
+    
 
+    remove(gameFeature) {
+        if (_list.contains(gameFeature)) {
+            _logUtil.putF(_commonStrings.START, this, _commonStrings.REMOVE)
+            _list.remove(gameFeature)
+            GameFeatureEventHandler.getInstance().fireEvent(GameFeatureEvent.new(gameFeature, gameFeature.toString()))
+        }
+    }
+    
 
--- throws Exception
-function Features:add(gameFeature)
-        if not self.list:contains(gameFeature) then
-            self.logUtil:putF(tostring(StringMaker.new():append(CommonLabels.getInstance().START_LABEL):append(tostring(gameFeature))), self, self.commonStrings.ADD)
-            self.list:add(gameFeature)
-            GameFeatureEventHandler.getInstance():fireEvent(GameFeatureEvent.new(gameFeature, tostring(gameFeature)))
-        end
-end
+    init() {
+        var jerror0 = Fiber.new {
+            var gameFeatureFactory = GameFeatureFactory.getInstance()
+            var inputFeatureFactory = InputFeatureFactory.getInstance()
+            var sensorFeatureFactory = SensorFeatureFactory.getInstance()
+            var touchFeatureFactory = TouchFeatureFactory.getInstance()
+            this.addDefault(gameFeatureFactory.ARTIFICIAL_INTELLEGENCE_PROCESSOR)
+            this.addDefault(gameFeatureFactory.COLLIDABLE_INTERFACE_LAYER_PROCESSOR)
+            this.addDefault(gameFeatureFactory.GAME_INPUT_LAYER_PROCESSOR)
+            this.addDefault(gameFeatureFactory.TICKABLE_LAYER_PROCESSOR)
+            this.addDefault(inputFeatureFactory.MULTI_KEY_PRESS)
+            this.addDefault(inputFeatureFactory.REMOVE_DUPLICATE_KEY_PRESSES)
+            this.addDefault(gameFeatureFactory.SCREEN_SHAKE)
+            this.addDefault(gameFeatureFactory.POST_IMAGE_LOADING_MODIFICATION)
+            var operatingSystemInterface = OperatingSystemFactory.getInstance().getOperatingSystemInstance()
+            if (operatingSystemInterface.isOverScan()) {
+                this.addDefault(sensorFeatureFactory.NO_ORIENTATION)
+                this.addDefault(touchFeatureFactory.HIDE_SCREEN_BUTTONS)
+            } else {
+                this.addDefault(sensorFeatureFactory.ORIENTATION_SENSORS)
+                this.addDefault(touchFeatureFactory.AUTO_HIDE_SHOW_SCREEN_BUTTONS)
+            }
+            this.addDefault(touchFeatureFactory.TOUCH_ENABLED)
+            this.addDefault(MainFeatureFactory.getInstance().FULL_SCREEN)
+            this.addDefault(MainFeatureFactory.getInstance().LOAD_ONDEMAND)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            PreLogUtil.putOE(_commonStrings.EXCEPTION, this, _commonStrings.INIT, e)
+        }
+    }
+    
 
+    isDefault(gameFeature) {
+        return _defaultList.contains(gameFeature)
+    }
+    
 
--- throws Exception
-function Features:removeDefault(gameFeature)
-        self.logUtil:putF(tostring(StringMaker.new():append(CommonLabels.getInstance().START_LABEL):append(tostring(gameFeature))), self, "removeDefault")
-        self:remove(gameFeature)
-        self.defaultList:remove(gameFeature)
-end
+    isFeature(gameFeature) {
+        return _list.contains(gameFeature)
+    }
+    
 
+    toggle(gameFeature) {
+        if (this.isFeature(gameFeature)) {
+            this.remove(gameFeature)
+        } else {
+            this.add(gameFeature)
+        }
+    }
+}
 
--- throws Exception
-function Features:remove(gameFeature)
-        if self.list:contains(gameFeature) then
-            self.logUtil:putF(self.commonStrings.START, self, self.commonStrings.REMOVE)
-            self.list:remove(gameFeature)
-            GameFeatureEventHandler.getInstance():fireEvent(GameFeatureEvent.new(gameFeature, tostring(gameFeature)))
-        end
-end
-
-
-function Features:init()
-        local try_ok, try_error = pcall(function()
-            local gameFeatureFactory = GameFeatureFactory.getInstance()
-            local inputFeatureFactory = InputFeatureFactory.getInstance()
-            local sensorFeatureFactory = SensorFeatureFactory.getInstance()
-            local touchFeatureFactory = TouchFeatureFactory.getInstance()
-            self:addDefault(gameFeatureFactory.ARTIFICIAL_INTELLEGENCE_PROCESSOR)
-            self:addDefault(gameFeatureFactory.COLLIDABLE_INTERFACE_LAYER_PROCESSOR)
-            self:addDefault(gameFeatureFactory.GAME_INPUT_LAYER_PROCESSOR)
-            self:addDefault(gameFeatureFactory.TICKABLE_LAYER_PROCESSOR)
-            self:addDefault(inputFeatureFactory.MULTI_KEY_PRESS)
-            self:addDefault(inputFeatureFactory.REMOVE_DUPLICATE_KEY_PRESSES)
-            self:addDefault(gameFeatureFactory.SCREEN_SHAKE)
-            self:addDefault(gameFeatureFactory.POST_IMAGE_LOADING_MODIFICATION)
-            local operatingSystemInterface = OperatingSystemFactory.getInstance():getOperatingSystemInstance()
-            if operatingSystemInterface:isOverScan() then
-                self:addDefault(sensorFeatureFactory.NO_ORIENTATION)
-                self:addDefault(touchFeatureFactory.HIDE_SCREEN_BUTTONS)
-            else
-                self:addDefault(sensorFeatureFactory.ORIENTATION_SENSORS)
-                self:addDefault(touchFeatureFactory.AUTO_HIDE_SHOW_SCREEN_BUTTONS)
-            end
-            self:addDefault(touchFeatureFactory.TOUCH_ENABLED)
-            self:addDefault(MainFeatureFactory.getInstance().FULL_SCREEN)
-            self:addDefault(MainFeatureFactory.getInstance().LOAD_ONDEMAND)
-        end)
-        if not try_ok then
-            local e = try_error
-            PreLogUtil.putOE(self.commonStrings.EXCEPTION, self, self.commonStrings.INIT, e)
-        end
-end
-
-
-function Features:isDefault(gameFeature)
-        return self.defaultList:contains(gameFeature)
-end
-
-
-function Features:isFeature(gameFeature)
-        return self.list:contains(gameFeature)
-end
-
-
--- throws Exception
-function Features:toggle(gameFeature)
-        if self:isFeature(gameFeature) then
-            self:remove(gameFeature)
-        else
-            self:add(gameFeature)
-        end
-end
-
-Features.SINGLETON = NullUtil.getInstance().NULL_OBJECT
-
-return Features
+import "../../../../../org/allbinary/game/configuration/event/GameFeatureEvent" for GameFeatureEvent
+import "../../../../../org/allbinary/game/configuration/event/GameFeatureEventHandler" for GameFeatureEventHandler
+import "../../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/communication/log/PreLogUtil" for PreLogUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/system/os/GenericOperatingSystem" for GenericOperatingSystem
+import "../../../../../org/allbinary/logic/system/os/OperatingSystemFactory" for OperatingSystemFactory
+import "../../../../../org/allbinary/string/CommonLabels" for CommonLabels
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./Feature" for Feature
+import "./GameFeatureFactory" for GameFeatureFactory
+import "./InputFeatureFactory" for InputFeatureFactory
+import "./SensorFeatureFactory" for SensorFeatureFactory
+import "./TouchFeatureFactory" for TouchFeatureFactory
+import "./MainFeatureFactory" for MainFeatureFactory
 

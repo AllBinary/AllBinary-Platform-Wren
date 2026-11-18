@@ -1,64 +1,55 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
-local ScaleProperties = require("org.allbinary.media.ScaleProperties")
-local AnimationInterfaceFactoryInterface = require("org.allbinary.animation.AnimationInterfaceFactoryInterface")
-local ProceduralAnimationInterfaceFactoryInterface = require("org.allbinary.animation.ProceduralAnimationInterfaceFactoryInterface")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class SingletonAnimationInterfaceFactory is JObject {
+  animationInterface { _animationInterface }
+  animationInterface=(value) { _animationInterface = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_SingletonAnimationInterfaceFactory() {
+    _animationInterface = null
+        
+  }
+    
 
-local SingletonAnimationInterfaceFactory = {}
-SingletonAnimationInterfaceFactory.__index = SingletonAnimationInterfaceFactory
-SingletonAnimationInterfaceFactory.className = "SingletonAnimationInterfaceFactory"
+    construct new(animationInterface) {
+    super()
+    initFields_SingletonAnimationInterfaceFactory()
+        _animationInterface = animationInterface
+    }
+    
 
-function SingletonAnimationInterfaceFactory:_init_fields()
-    self.animationInterface = nil
-end
+    getInstance(instanceId) {
+        return _animationInterface
+    }
+    
 
+    getInstanceAnimation(animationInterface) {
+        return _animationInterface
+    }
+    
 
-function SingletonAnimationInterfaceFactory.new(animationInterface)
-    local self = setmetatable({}, SingletonAnimationInterfaceFactory)
-    self:_init_fields()
-        self.animationInterface = animationInterface
-    return self
-end
+    setInitialScale(scaleProperties) {
+    }
+}
 
-
--- throws Exception
-function SingletonAnimationInterfaceFactory:getInstance(instanceId)
-        return self.animationInterface
-end
-
-
--- throws Exception
-function SingletonAnimationInterfaceFactory:getInstanceAnimation(animationInterface)
-        return self.animationInterface
-end
-
-
-function SingletonAnimationInterfaceFactory:setInitialScale(scaleProperties)
-end
-
-return SingletonAnimationInterfaceFactory
+import "../../../org/allbinary/media/ScaleProperties" for ScaleProperties
+import "./AnimationInterfaceFactoryInterface" for AnimationInterfaceFactoryInterface
+import "./ProceduralAnimationInterfaceFactoryInterface" for ProceduralAnimationInterfaceFactoryInterface
+import "./Animation" for Animation
 

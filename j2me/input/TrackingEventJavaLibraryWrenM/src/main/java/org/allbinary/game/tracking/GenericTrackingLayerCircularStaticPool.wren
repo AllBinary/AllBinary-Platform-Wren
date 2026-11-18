@@ -1,48 +1,49 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.tracking
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.tracking
 
-local AllBinaryLayerCircularPool = require("org.allbinary.layer.AllBinaryLayerCircularPool")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/layer/AllBinaryLayerCircularPool" for AllBinaryLayerCircularPool
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GenericTrackingLayerCircularStaticPool is AllBinaryLayerCircularPool {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = GenericTrackingLayerCircularStaticPool.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GenericTrackingLayerCircularStaticPool() {
+  }
+    
 
-local GenericTrackingLayerCircularStaticPool = {}
-GenericTrackingLayerCircularStaticPool.__index = GenericTrackingLayerCircularStaticPool
-GenericTrackingLayerCircularStaticPool.className = "GenericTrackingLayerCircularStaticPool"
-setmetatable(GenericTrackingLayerCircularStaticPool, {__index = AllBinaryLayerCircularPool})
+    construct new() {
+    super()
+    initFields_GenericTrackingLayerCircularStaticPool()
+    }
+    
 
-
-function GenericTrackingLayerCircularStaticPool.new()
-    local self = setmetatable(AllBinaryLayerCircularPool.new(), GenericTrackingLayerCircularStaticPool)
-    return self
-end
-
-
-function GenericTrackingLayerCircularStaticPool.getInstance()
+    static getInstance() {
         return GenericTrackingLayerCircularStaticPool.SINGLETON
-end
+    }
+}
 
-GenericTrackingLayerCircularStaticPool.SINGLETON = GenericTrackingLayerCircularStaticPool.new()
-
-return GenericTrackingLayerCircularStaticPool
 

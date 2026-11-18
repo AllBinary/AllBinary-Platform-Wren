@@ -1,83 +1,68 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration.feature
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration.feature
 
--- local Command = require("javax.microedition.lcdui.Command")
--- local Item = require("javax.microedition.lcdui.Item")
--- local ItemCommandListener = require("javax.microedition.lcdui.ItemCommandListener")
-local GameConfigurationGauge = require("org.allbinary.game.configuration.GameConfigurationGauge")
-local GameConfigurationUtil = require("org.allbinary.game.configuration.GameConfigurationUtil")
-local GameOptionsForm = require("org.allbinary.game.configuration.GameOptionsForm")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local MidletStrings = require("org.allbinary.midlet.MidletStrings")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_instanceof(object, class)
-    local metatable = getmetatable(object)
-    while metatable do
-        if metatable == class then return true end
-        local parent = getmetatable(metatable)
-        metatable = parent and parent.__index
-    end
-    return false
-end
+class GameFeatureItemCommandListener is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  gameOptionsForm { _gameOptionsForm }
+  gameOptionsForm=(value) { _gameOptionsForm = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_GameFeatureItemCommandListener() {
+    _logUtil = null
+    _gameOptionsForm = null
+        _logUtil = LogUtil.getInstance()
+        
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(gameOptionsForm) {
+    super()
+    initFields_GameFeatureItemCommandListener()
+        _gameOptionsForm = gameOptionsForm
+    }
+    
 
-local GameFeatureItemCommandListener = {}
-GameFeatureItemCommandListener.__index = GameFeatureItemCommandListener
-GameFeatureItemCommandListener.className = "GameFeatureItemCommandListener"
+    commandAction(command, item) {
+        var jerror0 = Fiber.new {
+            var itemLabel = item.getLabel()
+            _logUtil.putF(StringMaker.new().append(CommonLabels.getInstance().ITEM_LABEL).append(itemLabel).toString(), this, MidletStrings.getInstance().COMMAND_ACTION)
+            if ((item is GameConfigurationGauge)) {
+                GameConfigurationUtil.getInstance().change(_gameOptionsForm, item)
+            }
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, MidletStrings.getInstance().COMMAND_ACTION, e)
+        }
+    }
+}
 
-function GameFeatureItemCommandListener:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.gameOptionsForm = nil
-end
-
-
-function GameFeatureItemCommandListener.new(gameOptionsForm)
-    local self = setmetatable({}, GameFeatureItemCommandListener)
-    self:_init_fields()
-        self.gameOptionsForm = gameOptionsForm
-    return self
-end
-
-
-function GameFeatureItemCommandListener:commandAction(command, item)
-        local try_ok, try_error = pcall(function()
-            local itemLabel = item:getLabel()
-            self.logUtil:putF(tostring(StringMaker.new():append(CommonLabels.getInstance().ITEM_LABEL):append(itemLabel)), self, MidletStrings.getInstance().COMMAND_ACTION)
-            if java_instanceof(item, GameConfigurationGauge) then
-                GameConfigurationUtil.getInstance():change(self.gameOptionsForm, item)
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, MidletStrings.getInstance().COMMAND_ACTION, e)
-        end
-end
-
-return GameFeatureItemCommandListener
+import "../../../../../javax/microedition/lcdui/Command" for Command
+import "../../../../../javax/microedition/lcdui/Item" for Item
+import "../../../../../javax/microedition/lcdui/ItemCommandListener" for ItemCommandListener
+import "../../../../../org/allbinary/game/configuration/GameConfigurationGauge" for GameConfigurationGauge
+import "../../../../../org/allbinary/game/configuration/GameConfigurationUtil" for GameConfigurationUtil
+import "../../../../../org/allbinary/game/configuration/GameOptionsForm" for GameOptionsForm
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/midlet/MidletStrings" for MidletStrings
+import "../../../../../org/allbinary/string/CommonLabels" for CommonLabels
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
 

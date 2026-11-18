@@ -1,64 +1,56 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Image = require("javax.microedition.lcdui.Image")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local RightToLeftImageAnimation = require("org.allbinary.animation.image.RightToLeftImageAnimation")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./RightToLeftImageAnimation" for RightToLeftImageAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AdjustedRightToLeftImageAnimation is RightToLeftImageAnimation {
+  dx { _dx }
+  dx=(value) { _dx = value }
+  dy { _dy }
+  dy=(value) { _dy = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AdjustedRightToLeftImageAnimation() {
+    _dx = 0
+    _dy = 0
+        _dx = 0
+        _dy = 0
+  }
+    
 
-local AdjustedRightToLeftImageAnimation = {}
-AdjustedRightToLeftImageAnimation.__index = AdjustedRightToLeftImageAnimation
-AdjustedRightToLeftImageAnimation.className = "AdjustedRightToLeftImageAnimation"
-setmetatable(AdjustedRightToLeftImageAnimation, {__index = RightToLeftImageAnimation})
+    construct new(image, dx, dy, animationBehavior) {
+        super(image, animationBehavior)
+        initFields_AdjustedRightToLeftImageAnimation()
+        this.init(dx, dy)
+    }
+    
 
-function AdjustedRightToLeftImageAnimation:_init_fields()
-    self.dx = 0
-    self.dy = 0
-end
+    init(dx, dy) {
+        _dx = dx
+        _dy = dy
+    }
+    
 
+    paintXY(graphics, x, y) {
+        super.paintXY(graphics, JR.i32(x + _dx), JR.i32(y + _dy))
+    }
+}
 
-function AdjustedRightToLeftImageAnimation.new(image, dx, dy, animationBehavior)
-    local self = setmetatable(RightToLeftImageAnimation.new(image, animationBehavior), AdjustedRightToLeftImageAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self:init(dx, dy)
-    return self
-end
-
-
--- throws Exception
-function AdjustedRightToLeftImageAnimation:init(dx, dy)
-        self.dx = dx
-        self.dy = dy
-end
-
-
-function AdjustedRightToLeftImageAnimation:paintXY(graphics, x, y)
-        RightToLeftImageAnimation.paintXY(self, graphics, x + self.dx, y + self.dy)
-end
-
-return AdjustedRightToLeftImageAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
 

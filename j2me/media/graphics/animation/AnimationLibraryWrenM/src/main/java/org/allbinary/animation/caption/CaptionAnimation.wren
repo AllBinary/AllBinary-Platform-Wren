@@ -1,75 +1,80 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.caption
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.caption
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Animation = require("org.allbinary.animation.Animation")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/animation/Animation" for Animation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CaptionAnimation is Animation {
+  animationInterface { _animationInterface }
+  animationInterface=(value) { _animationInterface = value }
+  overlayAnimationInterface { _overlayAnimationInterface }
+  overlayAnimationInterface=(value) { _overlayAnimationInterface = value }
+  captionDx { _captionDx }
+  captionDx=(value) { _captionDx = value }
+  captionDy { _captionDy }
+  captionDy=(value) { _captionDy = value }
+  dx { _dx }
+  dx=(value) { _dx = value }
+  dy { _dy }
+  dy=(value) { _dy = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CaptionAnimation() {
+    _animationInterface = null
+    _overlayAnimationInterface = null
+    _captionDx = 0
+    _captionDy = 0
+    _dx = 0
+    _dy = 0
+        
+        
+        
+        
+        
+        
+  }
+    
 
-local CaptionAnimation = {}
-CaptionAnimation.__index = CaptionAnimation
-CaptionAnimation.className = "CaptionAnimation"
-setmetatable(CaptionAnimation, {__index = Animation})
+    construct new(animationInterface, overlayAnimationInterface, captionDx, captionDy, dx, dy) {
+    super()
+    initFields_CaptionAnimation()
+        _animationInterface = animationInterface
+        _overlayAnimationInterface = overlayAnimationInterface
+        _captionDx = captionDx
+        _captionDy = captionDy
+        _dx = dx
+        _dy = dy
+    }
+    
 
-function CaptionAnimation:_init_fields()
-    self.animationInterface = nil
-    self.overlayAnimationInterface = nil
-    self.captionDx = nil
-    self.captionDy = nil
-    self.dx = nil
-    self.dy = nil
-end
+    nextFrame() {
+    }
+    
 
+    paintXY(graphics, x, y) {
+        _animationInterface.paintXY(graphics, JR.i32(x + _captionDx), JR.i32(y + _captionDy))
+        _overlayAnimationInterface.paintXY(graphics, JR.i32(JR.i32(x + _captionDx) + _dx), JR.i32(JR.i32(y + _captionDy) + _dy))
+    }
+    
 
-function CaptionAnimation.new(animationInterface, overlayAnimationInterface, captionDx, captionDy, dx, dy)
-    local self = setmetatable(Animation.new(), CaptionAnimation)
-    self:_init_fields()
-        self.animationInterface = animationInterface
-        self.overlayAnimationInterface = overlayAnimationInterface
-        self.captionDx = captionDx
-        self.captionDy = captionDy
-        self.dx = dx
-        self.dy = dy
-    return self
-end
+    paintThreedXYZ(graphics, x, y, z) {
+        _animationInterface.paintThreedXYZ(graphics, JR.i32(x + _captionDx), JR.i32(y + _captionDy), z)
+        _overlayAnimationInterface.paintThreedXYZ(graphics, JR.i32(JR.i32(x + _captionDx) + _dx), JR.i32(JR.i32(y + _captionDy) + _dy), z)
+    }
+}
 
-
--- throws Exception
-function CaptionAnimation:nextFrame()
-end
-
-
-function CaptionAnimation:paintXY(graphics, x, y)
-        self.animationInterface:paintXY(graphics, x + self.captionDx, y + self.captionDy)
-        self.overlayAnimationInterface:paintXY(graphics, x + self.captionDx + self.dx, y + self.captionDy + self.dy)
-end
-
-
-function CaptionAnimation:paintThreedXYZ(graphics, x, y, z)
-        self.animationInterface:paintThreedXYZ(graphics, x + self.captionDx, y + self.captionDy, z)
-        self.overlayAnimationInterface:paintThreedXYZ(graphics, x + self.captionDx + self.dx, y + self.captionDy + self.dy, z)
-end
-
-return CaptionAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
 

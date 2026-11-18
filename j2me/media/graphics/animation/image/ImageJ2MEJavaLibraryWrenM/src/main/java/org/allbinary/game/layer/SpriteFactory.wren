@@ -1,59 +1,60 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer
 
--- local Image = require("javax.microedition.lcdui.Image")
--- local Sprite = require("javax.microedition.lcdui.game.Sprite")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local SpriteFactoryInterface = require("org.allbinary.game.layer.SpriteFactoryInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class SpriteFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = SpriteFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_SpriteFactory() {
+    _logUtil = null
+        _logUtil = LogUtil.getInstance()
+  }
 
-local SpriteFactory = {}
-SpriteFactory.__index = SpriteFactory
-SpriteFactory.className = "SpriteFactory"
+  construct new() {
+    super()
+    initFields_SpriteFactory()
+  }
+    
 
-function SpriteFactory:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-end
-
-function SpriteFactory.new()
-    local self = setmetatable({}, SpriteFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function SpriteFactory.getInstance()
+    static getInstance() {
         return SpriteFactory.instance
-end
+    }
+    
 
-
-function SpriteFactory:createSprite(image, frameWidth, frameHeight)
+    createSprite(image, frameWidth, frameHeight) {
         return Sprite.new(image, frameWidth, frameHeight)
-end
+    }
+}
 
-SpriteFactory.instance = SpriteFactory.new()
-
-return SpriteFactory
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../javax/microedition/lcdui/game/Sprite" for Sprite
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "./SpriteFactoryInterface" for SpriteFactoryInterface
 

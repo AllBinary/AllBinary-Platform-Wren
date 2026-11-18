@@ -1,133 +1,135 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration
 
--- local Choice = require("javax.microedition.lcdui.Choice")
--- local ChoiceGroup = require("javax.microedition.lcdui.ChoiceGroup")
--- local CommandListener = require("javax.microedition.lcdui.CommandListener")
--- local Item = require("javax.microedition.lcdui.Item")
--- local NullImage = require("javax.microedition.lcdui.NullImage")
--- local StringItem = require("javax.microedition.lcdui.StringItem")
-local MIDPUtil = require("org.allbinary.MIDPUtil")
-local GameCommandsFactory = require("org.allbinary.game.commands.GameCommandsFactory")
-local GamePersistanceSingleton = require("org.allbinary.game.configuration.persistance.GamePersistanceSingleton")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local CommandForm = require("org.allbinary.graphics.displayable.screen.CommandForm")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/graphics/displayable/screen/CommandForm" for CommandForm
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LoadGameForm is CommandForm {
+  meUtil { _meUtil }
+  meUtil=(value) { _meUtil = value }
+  areChoices { _areChoices }
+  areChoices=(value) { _areChoices = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LoadGameForm() {
+    _meUtil = null
+    _areChoices = false
+        _meUtil = MIDPUtil.getInstance()
+        _areChoices = false
+  }
+    
 
-local LoadGameForm = {}
-LoadGameForm.__index = LoadGameForm
-LoadGameForm.className = "LoadGameForm"
-setmetatable(LoadGameForm, {__index = CommandForm})
+    construct new(commandListener, title, backgrounBasicColor, foregroundBasicColor) {
+        super(commandListener, title, backgrounBasicColor, foregroundBasicColor)
+        initFields_LoadGameForm()
+        this.logUtil.putF(this.commonStrings.START, this, this.commonStrings.CONSTRUCTOR)
+        this.update()
+        this.initCommands(commandListener)
+    }
+    
 
-function LoadGameForm:_init_fields()
-    self.meUtil = MIDPUtil.getInstance()
-    self.areChoices = false
-end
+    initCommands(cmdListener) {
+        var gameCommandsFactory = GameCommandsFactory.getInstance()
+        this.removeAllCommands()
+        this.addCommand(gameCommandsFactory.LOAD_FILE)
+        this.addCommand(gameCommandsFactory.DELETE_FILE)
+        this.addCommand(gameCommandsFactory.CLOSE_AND_SHOW_GAME_CANVAS)
+        this.setCommandListener(cmdListener)
+    }
+    
 
+    update() {
+        var list = GamePersistanceSingleton.getInstance().getIds()
+        this.deleteAll()
+        if ((list.size() > 0)) {
+            this.add(list, "Select A Saved Game", Choice.EXCLUSIVE)
+            _areChoices = true
+        } else {
+            _meUtil.appendItem(this, StringItem.new("No Saved Games", StringUtil.getInstance().EMPTY_STRING, Item.PLAIN))
+            _areChoices = false
+        }
+        super.update()
+    }
+    
 
-function LoadGameForm.new(commandListener, title, backgrounBasicColor, foregroundBasicColor)
-    local self = setmetatable(CommandForm.new(commandListener, title, backgrounBasicColor, foregroundBasicColor), LoadGameForm)
-    self:_init_fields()
-        -- super(...) made self above
-        self.logUtil:putF(self.commonStrings.START, self, self.commonStrings.CONSTRUCTOR)
-        self:update()
-        self:initCommands(commandListener)
-    return self
-end
+    add(list, name, option) {
+        var choiceGroup = this.getChoiceGroup(list, name, option)
+        if ((list.size() > 0)) {
+            choiceGroup.setSelectedIndex(0, true)
+        }
+        _meUtil.appendItem(this, choiceGroup)
+    }
+    
 
-
-function LoadGameForm:initCommands(cmdListener)
-        local gameCommandsFactory = GameCommandsFactory.getInstance()
-        self:removeAllCommands()
-        self:addCommand(gameCommandsFactory.LOAD_FILE)
-        self:addCommand(gameCommandsFactory.DELETE_FILE)
-        self:addCommand(gameCommandsFactory.CLOSE_AND_SHOW_GAME_CANVAS)
-        self:setCommandListener(cmdListener)
-end
-
-
--- throws Exception
-function LoadGameForm:update()
-        local list = GamePersistanceSingleton.getInstance():getIds()
-        self:deleteAll()
-        if list:size() > 0 then
-            self:add(list, "Select A Saved Game", Choice.EXCLUSIVE)
-            self.areChoices = true
-        else
-            self.meUtil:appendItem(self, StringItem.new("No Saved Games", StringUtil.getInstance().EMPTY_STRING, Item.PLAIN))
-            self.areChoices = false
-        end
-        CommandForm.update(self)
-end
-
-
-function LoadGameForm:add(list, name, option)
-        local choiceGroup = self:getChoiceGroup(list, name, option)
-        if list:size() > 0 then
-            choiceGroup:setSelectedIndex(0, true)
-        end
-        self.meUtil:appendItem(self, choiceGroup)
-end
-
-
-function LoadGameForm:getChoiceGroup(list, name, option)
-        local METHOD_NAME = "getChoiceGroup"
-        local ADDING_CHOICE = "Adding Choice: "
-        local choiceGroup = ChoiceGroup.new(name, option, StringUtil.getInstance():getArrayInstance(), NullImage.NULL_IMAGE_ARRAY)
-        local size = list:size()
-        for index = 0, size - 1 do
-            local anyType = list.objectArray[index + 1]
-            self.logUtil:putF(tostring(StringMaker.new():append(ADDING_CHOICE):append(tostring(anyType))), self, METHOD_NAME)
-            choiceGroup:append(tostring(anyType), NullImage.NULL_IMAGE)
-        end
+    getChoiceGroup(list, name, option) {
+        var METHOD_NAME = "getChoiceGroup"
+        var ADDING_CHOICE = "Adding Choice: "
+        var choiceGroup = ChoiceGroup.new(name, option, StringUtil.getInstance().getArrayInstance(), NullImage.NULL_IMAGE_ARRAY)
+        var size = list.size()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            var anyType = list.objectArray[index]
+            this.logUtil.putF(StringMaker.new().append(ADDING_CHOICE).append(anyType.toString()).toString(), this, METHOD_NAME)
+            choiceGroup.append(anyType.toString(), NullImage.NULL_IMAGE)
+            }
+        }
         return choiceGroup
-end
+    }
+    
 
-
-function LoadGameForm:getSelectedId()
-        if self.areChoices then
-            local choiceGroup = self:get(0)
-            return choiceGroup:getSelectedIndex()
-        else
+    getSelectedId() {
+        if (_areChoices) {
+            var choiceGroup = this.get(0)
+            return choiceGroup.getSelectedIndex()
+        } else {
             return -1
-        end
-end
+        }
+    }
+    
 
-
-function LoadGameForm:getSelectedText()
-        if self.areChoices then
-            local choiceGroup = self:get(0)
-            local value = math.tointeger(tostring(choiceGroup:getString(choiceGroup:getSelectedIndex())) // 1)
+    getSelectedText() {
+        if (_areChoices) {
+            var choiceGroup = this.get(0)
+            var value = JR.str(choiceGroup.getString(choiceGroup.getSelectedIndex())).intValue()
             return value
-        else
+        } else {
             return -1
-        end
-end
+        }
+    }
+}
 
-return LoadGameForm
+import "../../../../javax/microedition/lcdui/Choice" for Choice
+import "../../../../javax/microedition/lcdui/ChoiceGroup" for ChoiceGroup
+import "../../../../javax/microedition/lcdui/CommandListener" for CommandListener
+import "../../../../javax/microedition/lcdui/Item" for Item
+import "../../../../javax/microedition/lcdui/NullImage" for NullImage
+import "../../../../javax/microedition/lcdui/StringItem" for StringItem
+import "../../../../org/allbinary/MIDPUtil" for MIDPUtil
+import "../../../../org/allbinary/game/commands/GameCommandsFactory" for GameCommandsFactory
+import "../../../../org/allbinary/game/configuration/persistance/GamePersistanceSingleton" for GamePersistanceSingleton
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../java/lang/Integer" for Integer
 

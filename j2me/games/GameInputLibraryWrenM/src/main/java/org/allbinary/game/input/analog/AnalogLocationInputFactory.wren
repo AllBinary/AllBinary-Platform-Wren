@@ -1,63 +1,63 @@
--- Generated Code Do Not Modify
--- package org.allbinary.game.input.analog
+// Generated Code Do Not Modify
+// package org.allbinary.game.input.analog
 
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AnalogLocationInputFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = AnalogLocationInputFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  list { _list }
+  list=(value) { _list = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AnalogLocationInputFactory() {
+    _list = null
+        _list = BasicArrayListD.new()
+  }
+    
 
-local AnalogLocationInputFactory = {}
-AnalogLocationInputFactory.__index = AnalogLocationInputFactory
-AnalogLocationInputFactory.className = "AnalogLocationInputFactory"
-
-function AnalogLocationInputFactory:_init_fields()
-    self.list = BasicArrayListD.new()
-end
-
-
-function AnalogLocationInputFactory.getInstance()
+    static getInstance() {
         return AnalogLocationInputFactory.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_AnalogLocationInputFactory()
+    }
+    
 
-function AnalogLocationInputFactory.new()
-    local self = setmetatable({}, AnalogLocationInputFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function AnalogLocationInputFactory:addPlayer(playerInputId)
-        local analogLocationInput = AnalogLocationInput.NULL_ANALOG_LOCATION_INPUT
-        if playerInputId < self.list:size() then
-            analogLocationInput = self.list:get(playerInputId)
-        end
-        if analogLocationInput == AnalogLocationInput.NULL_ANALOG_LOCATION_INPUT then
+    addPlayer(playerInputId) {
+        var analogLocationInput = AnalogLocationInput.NULL_ANALOG_LOCATION_INPUT
+        if ((playerInputId < _list.size())) {
+            analogLocationInput = _list.get(playerInputId)
+        }
+        if ((analogLocationInput == AnalogLocationInput.NULL_ANALOG_LOCATION_INPUT)) {
             analogLocationInput = AnalogLocationInput.new(playerInputId)
-            self.list:add(analogLocationInput)
-        end
-end
+            _list.add(analogLocationInput)
+        }
+    }
+    
 
+    getInstanceForPlayer(playerInputId) {
+        return _list.get(playerInputId)
+    }
+    
 
-function AnalogLocationInputFactory:getInstanceForPlayer(playerInputId)
-        return self.list:get(playerInputId)
-end
+    getList() {
+        return _list
+    }
+}
 
-
-function AnalogLocationInputFactory:getList()
-        return self.list
-end
-
-AnalogLocationInputFactory.instance = AnalogLocationInputFactory.new()
-
-return AnalogLocationInputFactory
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./AnalogLocationInput" for AnalogLocationInput
 

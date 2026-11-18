@@ -1,32 +1,23 @@
--- Generated Code Do Not Modify
--- package org.allbinary.game.collision
+// Generated Code Do Not Modify
+// package org.allbinary.game.collision
 
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CollisionProcessor is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CollisionProcessor() {
+  }
 
-local CollisionProcessor = {}
-CollisionProcessor.__index = CollisionProcessor
-CollisionProcessor.className = "CollisionProcessor"
+  construct new() {
+    super()
+    initFields_CollisionProcessor()
+  }
+    
 
-function CollisionProcessor.new()
-    local self = setmetatable({}, CollisionProcessor)
-    return self
-end
-
-
-function CollisionProcessor:isCollision(myLayer, myLayer2)
+    isCollision(myLayer, myLayer2) {
         return false
-end
+    }
+}
 
-return CollisionProcessor
+import "../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
 

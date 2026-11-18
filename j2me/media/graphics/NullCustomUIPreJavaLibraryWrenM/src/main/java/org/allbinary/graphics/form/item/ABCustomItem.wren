@@ -1,101 +1,101 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form.item
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form.item
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Screen = require("javax.microedition.lcdui.Screen")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ABCustomItem is JObject {
+    static NULL_CUSTOM_ITEM {
+    if (__NULL_CUSTOM_ITEM_set == null) {
+      __NULL_CUSTOM_ITEM_set = true
+      __NULL_CUSTOM_ITEM = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __NULL_CUSTOM_ITEM
+  }
+  static NULL_CUSTOM_ITEM=(value) {
+    __NULL_CUSTOM_ITEM_set = true
+    __NULL_CUSTOM_ITEM = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ABCustomItem() {
+  }
+    
 
-local ABCustomItem = {}
-ABCustomItem.__index = ABCustomItem
-ABCustomItem.className = "ABCustomItem"
-
-
-function ABCustomItem.getNullInstance()
-        if ABCustomItem.NULL_CUSTOM_ITEM == NullUtil.getInstance().NULL_OBJECT then
+    static getNullInstance() {
+        if ((ABCustomItem.NULL_CUSTOM_ITEM == NullUtil.getInstance().NULL_OBJECT)) {
             ABCustomItem.NULL_CUSTOM_ITEM = ABCustomItem.new(StringUtil.getInstance().EMPTY_STRING, BasicColorFactory.getInstance().BLACK, BasicColorFactory.getInstance().WHITE)
-        end
+        }
         return ABCustomItem.NULL_CUSTOM_ITEM
-end
+    }
+    
 
+    construct new(label, backgroundBasicColor, foregroundBasicColor) {
+    super()
+    initFields_ABCustomItem()
+    }
+    
 
-function ABCustomItem.new(label, backgroundBasicColor, foregroundBasicColor)
-    local self = setmetatable({}, ABCustomItem)
-    return self
-end
+    setOwner(owner) {
+    }
+    
 
+    paintXY(graphics, x, y) {
+    }
+    
 
-function ABCustomItem:setOwner(owner)
-end
+    paintUnselected(graphics, x, y) {
+    }
+    
 
-
-function ABCustomItem:paintXY(graphics, x, y)
-end
-
-
-function ABCustomItem:paintUnselected(graphics, x, y)
-end
-
-
-function ABCustomItem:isFocusable()
+    isFocusable() {
         return false
-end
+    }
+    
 
-
-function ABCustomItem:getLabel()
+    getLabel() {
         return StringUtil.getInstance().EMPTY_STRING
-end
+    }
+    
 
+    setLabel(label) {
+    }
+    
 
-function ABCustomItem:setLabel(label)
-end
-
-
-function ABCustomItem:getHeight()
+    getHeight() {
         return 0
-end
+    }
+    
 
+    setHeight(height) {
+    }
+    
 
-function ABCustomItem:setHeight(height)
-end
-
-
-function ABCustomItem:getValue()
+    getValue() {
         return 0.0
-end
+    }
+    
 
+    setValue(value) {
+    }
+    
 
-function ABCustomItem:setValue(value)
-end
-
-
-function ABCustomItem:getMinimumWidth()
+    getMinimumWidth() {
         return 0
-end
+    }
+    
 
-
-function ABCustomItem:getMinimumHeight()
+    getMinimumHeight() {
         return 0
-end
+    }
+    
 
+    preMeasurement(graphics) {
+    }
+}
 
-function ABCustomItem:preMeasurement(graphics)
-end
-
-ABCustomItem.NULL_CUSTOM_ITEM = NullUtil.getInstance().NULL_OBJECT
-
-return ABCustomItem
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../javax/microedition/lcdui/Screen" for Screen
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
 

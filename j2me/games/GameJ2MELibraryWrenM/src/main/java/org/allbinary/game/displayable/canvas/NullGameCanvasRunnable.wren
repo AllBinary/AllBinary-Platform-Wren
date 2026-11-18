@@ -1,163 +1,158 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
--- local CommandListener = require("javax.microedition.lcdui.CommandListener")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Item = require("javax.microedition.lcdui.Item")
-local GameState = require("org.allbinary.game.state.GameState")
-local GameStateFactory = require("org.allbinary.game.state.GameStateFactory")
-local StdUtil = require("org.allbinary.logic.StdUtil")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
-local GameCanvasRunnableInterface = require("org.allbinary.game.displayable.canvas.GameCanvasRunnableInterface")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NullGameCanvasRunnable is JObject {
+    static NULL_GAME_CANVAS_RUNNABLE {
+    if (__NULL_GAME_CANVAS_RUNNABLE_set == null) {
+      __NULL_GAME_CANVAS_RUNNABLE_set = true
+      __NULL_GAME_CANVAS_RUNNABLE = NullGameCanvasRunnable.new()
+    }
+    return __NULL_GAME_CANVAS_RUNNABLE
+  }
+  static NULL_GAME_CANVAS_RUNNABLE=(value) {
+    __NULL_GAME_CANVAS_RUNNABLE_set = true
+    __NULL_GAME_CANVAS_RUNNABLE = value
+  }
+  gameStateFactory { _gameStateFactory }
+  gameStateFactory=(value) { _gameStateFactory = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NullGameCanvasRunnable() {
+    _gameStateFactory = null
+        _gameStateFactory = GameStateFactory.getInstance()
+  }
 
-local NullGameCanvasRunnable = {}
-NullGameCanvasRunnable.__index = NullGameCanvasRunnable
-NullGameCanvasRunnable.className = "NullGameCanvasRunnable"
+  construct new() {
+    super()
+    initFields_NullGameCanvasRunnable()
+  }
+    
 
-function NullGameCanvasRunnable:_init_fields()
-    self.gameStateFactory = GameStateFactory.getInstance()
-end
-
-function NullGameCanvasRunnable.new()
-    local self = setmetatable({}, NullGameCanvasRunnable)
-    self:_init_fields()
-    return self
-end
-
-
-function NullGameCanvasRunnable:getTitle()
+    getTitle() {
         return StringUtil.getInstance().EMPTY_STRING
-end
+    }
+    
 
-
-function NullGameCanvasRunnable:isInitialized()
+    isInitialized() {
         return false
-end
+    }
+    
 
-
-function NullGameCanvasRunnable:isPaused()
+    isPaused() {
         return false
-end
+    }
+    
 
+    unPause() {
+    }
+    
 
-function NullGameCanvasRunnable:unPause()
-end
+    pause() {
+    }
+    
 
-
-function NullGameCanvasRunnable:pause()
-end
-
-
-function NullGameCanvasRunnable:isHighScoreSubmitted()
+    isHighScoreSubmitted() {
         return false
-end
+    }
+    
 
+    setHighScoreSubmitted(highScoreSubmitted) {
+    }
+    
 
--- throws Exception
-function NullGameCanvasRunnable:setHighScoreSubmitted(highScoreSubmitted)
-end
+    processGameOver() {
+    }
+    
 
-
--- throws Exception
-function NullGameCanvasRunnable:processGameOver()
-end
-
-
-function NullGameCanvasRunnable:isGameOver()
+    isGameOver() {
         return false
-end
+    }
+    
 
+    initCommands(cmdListener) {
+    }
+    
 
-function NullGameCanvasRunnable:initCommands(cmdListener)
-end
-
-
--- throws Exception
-function NullGameCanvasRunnable:getCurrentStateHashtable()
+    getCurrentStateHashtable() {
         return StdUtil.getInstance().NULL_TABLE
-end
+    }
+    
 
-
--- throws Exception
-function NullGameCanvasRunnable:getLoadStateHashtable()
+    getLoadStateHashtable() {
         return StdUtil.getInstance().NULL_TABLE
-end
+    }
+    
 
+    setLoadStateHashtable(hashtable) {
+    }
+    
 
--- throws Exception
-function NullGameCanvasRunnable:setLoadStateHashtable(hashtable)
-end
-
-
-function NullGameCanvasRunnable:getType()
+    getType() {
         return -1
-end
+    }
+    
 
+    setGameState(gameState) {
+    }
+    
 
--- throws Exception
-function NullGameCanvasRunnable:setGameState(gameState)
-end
+    getGameState() {
+        return _gameStateFactory.NO_GAME_STATE
+    }
+    
 
+    itemStateChanged(item) {
+    }
+    
 
-function NullGameCanvasRunnable:getGameState()
-        return self.gameStateFactory.NO_GAME_STATE
-end
+    paint(graphics) {
+    }
+    
 
+    paintThreed(graphics) {
+    }
+    
 
-function NullGameCanvasRunnable:itemStateChanged(item)
-end
-
-
-function NullGameCanvasRunnable:paint(graphics)
-end
-
-
-function NullGameCanvasRunnable:paintThreed(graphics)
-end
-
-
-function NullGameCanvasRunnable:isRunning()
+    isRunning() {
         return false
-end
+    }
+    
 
+    setRunning(isRunning) {
+    }
+    
 
-function NullGameCanvasRunnable:setRunning(isRunning)
-end
+    setThread(thread) {
+    }
+    
 
+    run() {
+    }
+}
 
--- throws Exception
-function NullGameCanvasRunnable:setThread(thread)
-end
-
-
-function NullGameCanvasRunnable:run()
-end
-
-NullGameCanvasRunnable.NULL_GAME_CANVAS_RUNNABLE = NullGameCanvasRunnable.new()
-
-return NullGameCanvasRunnable
+import "../../../../../javax/microedition/lcdui/CommandListener" for CommandListener
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../javax/microedition/lcdui/Item" for Item
+import "../../../../../org/allbinary/game/state/GameState" for GameState
+import "../../../../../org/allbinary/game/state/GameStateFactory" for GameStateFactory
+import "../../../../../org/allbinary/logic/StdUtil" for StdUtil
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "../../../../../java/lang/Thread" for Thread
+import "./GameCanvasRunnableInterface" for GameCanvasRunnableInterface
 

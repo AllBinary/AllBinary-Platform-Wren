@@ -1,58 +1,59 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.persistance
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.persistance
 
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local AbeClientInformationInterface = require("org.allbinary.logic.system.security.licensing.AbeClientInformationInterface")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PlatformRecordIdUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = PlatformRecordIdUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  PLATFORM_SHORT_NAME { _PLATFORM_SHORT_NAME }
+  PLATFORM_SHORT_NAME=(value) { _PLATFORM_SHORT_NAME = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PlatformRecordIdUtil() {
+    _PLATFORM_SHORT_NAME = null
+        _PLATFORM_SHORT_NAME = "AVN"
+  }
 
-local PlatformRecordIdUtil = {}
-PlatformRecordIdUtil.__index = PlatformRecordIdUtil
-PlatformRecordIdUtil.className = "PlatformRecordIdUtil"
+  construct new() {
+    super()
+    initFields_PlatformRecordIdUtil()
+  }
+    
 
-function PlatformRecordIdUtil:_init_fields()
-    self.PLATFORM_SHORT_NAME = "AVN"
-end
-
-function PlatformRecordIdUtil.new()
-    local self = setmetatable({}, PlatformRecordIdUtil)
-    self:_init_fields()
-    return self
-end
-
-
-function PlatformRecordIdUtil.getInstance()
+    static getInstance() {
         return PlatformRecordIdUtil.instance
-end
+    }
+    
 
+    getRecordId(abeClientInformation, baseRecordId) {
+        return StringMaker.new().append(abeClientInformation.toShortString()).append(CommonSeps.getInstance().UNDERSCORE).append(_PLATFORM_SHORT_NAME).append(baseRecordId).toString()
+    }
+}
 
-function PlatformRecordIdUtil:getRecordId(abeClientInformation, baseRecordId)
-        return tostring(StringMaker.new():append(abeClientInformation:toShortString()):append(CommonSeps.getInstance().UNDERSCORE):append(self.PLATFORM_SHORT_NAME):append(baseRecordId))
-end
-
-PlatformRecordIdUtil.instance = PlatformRecordIdUtil.new()
-
-return PlatformRecordIdUtil
+import "../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../org/allbinary/logic/system/security/licensing/AbeClientInformationInterface" for AbeClientInformationInterface
 

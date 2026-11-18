@@ -1,169 +1,188 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.business.init
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.business.init
 
-local TsUtil = require("org.allbinary.TsUtil")
-local PATH_GLOBALS = require("org.allbinary.globals.PATH_GLOBALS")
-local URLGLOBALS = require("org.allbinary.globals.URLGLOBALS")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local AbDataInputStream = require("org.allbinary.logic.io.AbDataInputStream")
-local AbDataOutputStream = require("org.allbinary.logic.io.AbDataOutputStream")
-local AbFileInputStream = require("org.allbinary.logic.io.AbFileInputStream")
-local DataOutputStreamFactory = require("org.allbinary.logic.io.DataOutputStreamFactory")
-local FileStreamFactory = require("org.allbinary.logic.io.FileStreamFactory")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local DatabaseEncoder = require("org.allbinary.logic.system.security.crypt.DatabaseEncoder")
-local WeakCrypt = require("org.allbinary.logic.system.security.crypt.WeakCrypt")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
+import "../../../../allbinary_java" for JObject, JException, JR
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class LicenseInitInfoUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = LicenseInitInfoUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  stringUtil { _stringUtil }
+  stringUtil=(value) { _stringUtil = value }
+  INITFILENAME { _INITFILENAME }
+  INITFILENAME=(value) { _INITFILENAME = value }
+  ABOUT { _ABOUT }
+  ABOUT=(value) { _ABOUT = value }
+  PRIVACY_POLICY { _PRIVACY_POLICY }
+  PRIVACY_POLICY=(value) { _PRIVACY_POLICY = value }
+  filePath { _filePath }
+  filePath=(value) { _filePath = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_LicenseInitInfoUtil() {
+    _logUtil = null
+    _stringUtil = null
+    _INITFILENAME = null
+    _ABOUT = null
+    _PRIVACY_POLICY = null
+    _filePath = null
+        _logUtil = LogUtil.getInstance()
+        _stringUtil = StringUtil.getInstance()
+        _INITFILENAME = "licenseinitdata.dat"
+        _ABOUT = "about"
+        _PRIVACY_POLICY = "privacy_policy"
+        _filePath = _stringUtil.EMPTY_STRING
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  construct new() {
+    super()
+    initFields_LicenseInitInfoUtil()
+  }
+    
 
-local LicenseInitInfoUtil = {}
-LicenseInitInfoUtil.__index = LicenseInitInfoUtil
-LicenseInitInfoUtil.className = "LicenseInitInfoUtil"
-
-function LicenseInitInfoUtil:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.stringUtil = StringUtil.getInstance()
-    self.INITFILENAME = "licenseinitdata.dat"
-    self.ABOUT = "about"
-    self.PRIVACY_POLICY = "privacy_policy"
-    self.filePath = self.stringUtil.EMPTY_STRING
-end
-
-function LicenseInitInfoUtil.new()
-    local self = setmetatable({}, LicenseInitInfoUtil)
-    self:_init_fields()
-    return self
-end
-
-
-function LicenseInitInfoUtil.getInstance()
+    static getInstance() {
         return LicenseInitInfoUtil.instance
-end
+    }
+    
 
+    setFilePath(filePath) {
+        _filePath = filePath
+    }
+    
 
-function LicenseInitInfoUtil:setFilePath(filePath)
-        self.filePath = filePath
-end
+    write(initData) {
+        if ((_filePath == _stringUtil.EMPTY_STRING)) {
+            _filePath = (URLGLOBALS.getMainPath() + PATH_GLOBALS.getInstance().INIT_PATH)
+        }
+        var jerror0 = Fiber.new {
+            var tsUtil = TsUtil.getInstance()
+            var dataOutputStream = DataOutputStreamFactory.getInstance().getInstance(_filePath, _INITFILENAME)
+            var licenseIdCrypted = tsUtil.getByteArray(WeakCrypt.new(1).encrypt(initData.getLicenseId()))
+            dataOutputStream.writeUTF(DatabaseEncoder.encode(licenseIdCrypted))
+            var numberOfLicenseServers = initData.getNumberOfServers()
+            dataOutputStream.writeInt(numberOfLicenseServers)
+            var licenseServerCrypted = null
+            if (true) {
+                var index = 0
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        index = JR.i32(index + 1)
+                    }
+                    jfirst = false
+                    if (!((index < numberOfLicenseServers))) break
+                licenseServerCrypted = tsUtil.getByteArray(WeakCrypt.new(3).encrypt(initData.getServer(index)))
+                dataOutputStream.writeUTF(DatabaseEncoder.encode(licenseServerCrypted))
+                }
+            }
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            _logUtil.put("Command Failed: " + _INITFILENAME, this, "write", e)
+            FileStreamFactory.getInstance().delete(_filePath, _INITFILENAME)
+            Fiber.abort(e)
+        }
+    }
+    
 
+    read() {
+        return this.readAgain(0)
+    }
+    
 
--- throws Exception
-function LicenseInitInfoUtil:write(initData)
-        if self.filePath == self.stringUtil.EMPTY_STRING then
-            self.filePath = self.URLGLOBALS:getMainPath() + self.PATH_GLOBALS:getInstance().INIT_PATH
-        end
-        local try_ok, try_error = pcall(function()
-            local tsUtil = TsUtil.getInstance()
-            local dataOutputStream = DataOutputStreamFactory.getInstance():getInstance(self.filePath, self.INITFILENAME)
-            local licenseIdCrypted = tsUtil:getByteArray(WeakCrypt.new(1):encrypt(initData:getLicenseId()))
-            dataOutputStream:writeUTF(DatabaseEncoder.encode(licenseIdCrypted))
-            local numberOfLicenseServers = initData:getNumberOfServers()
-            dataOutputStream:writeInt(numberOfLicenseServers)
-            local licenseServerCrypted = nil
-            for index = 0, numberOfLicenseServers - 1 do
-                licenseServerCrypted = tsUtil:getByteArray(WeakCrypt.new(3):encrypt(initData:getServer(index)))
-                dataOutputStream:writeUTF(DatabaseEncoder.encode(licenseServerCrypted))
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put("Command Failed: " .. self.INITFILENAME, self, "write", e)
-            FileStreamFactory.getInstance():delete(self.filePath, self.INITFILENAME)
-            error(e, 0)
-        end
-end
-
-
--- throws Exception
-function LicenseInitInfoUtil:read()
-        return self:readAgain(0)
-end
-
-
--- throws Exception
-function LicenseInitInfoUtil:readAgain(initializeCounter)
-        local METHOD_NAME = "readAgain"
-        if self.filePath == self.stringUtil.EMPTY_STRING then
-            self.filePath = self.URLGLOBALS:getMainPath() + self.PATH_GLOBALS:getInstance().INIT_PATH
-        end
-        local try_ok, try_error = pcall(function()
-            self.logUtil:putF("LicenseInitInfo File: " .. self.INITFILENAME, self, METHOD_NAME)
-            local fileStreamFactory = FileStreamFactory.getInstance()
-            local iFile = fileStreamFactory:getFileInputStreamInstance(self.filePath, self.INITFILENAME)
-            if iFile ~= nil then
-                local iData = AbDataInputStream.new(iFile)
-                local initInfo = LicenseInitInfo.new()
-                local decodedByteArray = DatabaseEncoder.decode(iData:readUTF())
-                local licenseIdDecoded = string.char(table.unpack(decodedByteArray))
-                initInfo:setLicenseId(WeakCrypt.new(1):decrypt(licenseIdDecoded))
-                local numberOfLicenseServers = iData:readInt()
-                local NEXT_FILE = tostring(StringMaker.new():append(CommonLabels.getInstance().NEXT):append(" License Server From File: "))
-                local licenseServerDecoded = nil
-                for index = 0, numberOfLicenseServers - 1 do
-                    decodedByteArray = DatabaseEncoder.decode(iData:readUTF())
-                    licenseServerDecoded = string.char(table.unpack(decodedByteArray))
-                    initInfo:setServer(WeakCrypt.new(3):decrypt(licenseServerDecoded), index)
-                    self.logUtil:putF(NEXT_FILE .. tostring(initInfo:getServer(index)), self, METHOD_NAME)
-                end
+    readAgain(initializeCounter) {
+        var METHOD_NAME = "readAgain"
+        if ((_filePath == _stringUtil.EMPTY_STRING)) {
+            _filePath = (URLGLOBALS.getMainPath() + PATH_GLOBALS.getInstance().INIT_PATH)
+        }
+        var jerror1 = Fiber.new {
+            _logUtil.putF("LicenseInitInfo File: " + _INITFILENAME, this, METHOD_NAME)
+            var fileStreamFactory = FileStreamFactory.getInstance()
+            var iFile = fileStreamFactory.getFileInputStreamInstance(_filePath, _INITFILENAME)
+            if ((iFile != null)) {
+                var iData = AbDataInputStream.new(iFile)
+                var initInfo = LicenseInitInfo.new()
+                var decodedByteArray = DatabaseEncoder.decode(iData.readUTF())
+                var licenseIdDecoded = decodedByteArray
+                initInfo.setLicenseId(WeakCrypt.new(1).decrypt(licenseIdDecoded))
+                var numberOfLicenseServers = iData.readInt()
+                var NEXT_FILE = StringMaker.new().append(CommonLabels.getInstance().NEXT).append(" License Server From File: ").toString()
+                var licenseServerDecoded = null
+                if (true) {
+                    var index = 0
+                    var jfirst = true
+                    while (true) {
+                        if (!jfirst) {
+                            index = JR.i32(index + 1)
+                        }
+                        jfirst = false
+                        if (!((index < numberOfLicenseServers))) break
+                    decodedByteArray = DatabaseEncoder.decode(iData.readUTF())
+                    licenseServerDecoded = decodedByteArray
+                    initInfo.setServer(WeakCrypt.new(3).decrypt(licenseServerDecoded), index)
+                    _logUtil.putF(NEXT_FILE + JR.str(initInfo.getServer(index)), this, METHOD_NAME)
+                    }
+                }
                 return initInfo
-            else
-                error(java_exception("Exception", "Could Not Load License InitInfo: " .. self.INITFILENAME), 0)
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            local try_ok, try_error = pcall(function()
-                self.logUtil:put("Command Failed: " .. self.INITFILENAME, self, METHOD_NAME, e)
-            end)
-            if not try_ok then
-                local e2 = try_error
-                self.logUtil:put("LicenseInitInfo Read Retry: " .. self.INITFILENAME, self, "readAgain()", e2)
-            end
-            error(java_exception("Exception", "LicenseInitInfo Read Error: " .. self.INITFILENAME), 0)
-        end
-end
+            } else {
+                Fiber.abort(JR.exception("Exception", "Could Not Load License InitInfo: " + _INITFILENAME))
+            }
+        }.try()
+        if (jerror1 != null) {
+            var e = jerror1
+            var jerror2 = Fiber.new {
+                _logUtil.put("Command Failed: " + _INITFILENAME, this, METHOD_NAME, e)
+            }.try()
+            if (jerror2 != null) {
+                var e2 = jerror2
+                _logUtil.put("LicenseInitInfo Read Retry: " + _INITFILENAME, this, "readAgain()", e2)
+            }
+            Fiber.abort(JR.exception("Exception", "LicenseInitInfo Read Error: " + _INITFILENAME))
+        }
+    }
+    
 
+    getFilePath() {
+        return _filePath
+    }
+}
 
-function LicenseInitInfoUtil:getFilePath()
-        return self.filePath
-end
-
-LicenseInitInfoUtil.instance = LicenseInitInfoUtil.new()
-
-return LicenseInitInfoUtil
+import "../../../../org/allbinary/TsUtil" for TsUtil
+import "../../../../org/allbinary/globals/PATH_GLOBALS" for PATH_GLOBALS
+import "../../../../org/allbinary/globals/URLGLOBALS" for URLGLOBALS
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/logic/io/AbDataInputStream" for AbDataInputStream
+import "../../../../org/allbinary/logic/io/AbDataOutputStream" for AbDataOutputStream
+import "../../../../org/allbinary/logic/io/AbFileInputStream" for AbFileInputStream
+import "../../../../org/allbinary/logic/io/DataOutputStreamFactory" for DataOutputStreamFactory
+import "../../../../org/allbinary/logic/io/FileStreamFactory" for FileStreamFactory
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/logic/system/security/crypt/DatabaseEncoder" for DatabaseEncoder
+import "../../../../org/allbinary/logic/system/security/crypt/WeakCrypt" for WeakCrypt
+import "../../../../org/allbinary/string/CommonLabels" for CommonLabels
+import "./LicenseInitInfo" for LicenseInitInfo
 

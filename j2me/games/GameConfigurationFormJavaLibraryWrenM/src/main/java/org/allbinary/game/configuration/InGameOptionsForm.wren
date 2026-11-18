@@ -1,67 +1,86 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration
 
--- local Choice = require("javax.microedition.lcdui.Choice")
--- local Command = require("javax.microedition.lcdui.Command")
--- local CommandListener = require("javax.microedition.lcdui.CommandListener")
-local GameCommandsFactory = require("org.allbinary.game.commands.GameCommandsFactory")
-local GameFeatureFormUtil = require("org.allbinary.game.configuration.feature.GameFeatureFormUtil")
-local InGameFeatureChoiceGroups = require("org.allbinary.game.configuration.feature.InGameFeatureChoiceGroups")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local CommandForm = require("org.allbinary.graphics.displayable.screen.CommandForm")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/graphics/displayable/screen/CommandForm" for CommandForm
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class InGameOptionsForm is CommandForm {
+    static DISPLAY {
+    if (__DISPLAY_set == null) {
+      __DISPLAY_set = true
+      __DISPLAY = Command.new("Options In Game", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
+    }
+    return __DISPLAY
+  }
+  static DISPLAY=(value) {
+    __DISPLAY_set = true
+    __DISPLAY = value
+  }
+    static SAVE {
+    if (__SAVE_set == null) {
+      __SAVE_set = true
+      __SAVE = Command.new("Save", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
+    }
+    return __SAVE
+  }
+  static SAVE=(value) {
+    __SAVE_set = true
+    __SAVE = value
+  }
+    static DEFAULT {
+    if (__DEFAULT_set == null) {
+      __DEFAULT_set = true
+      __DEFAULT = Command.new("Default", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
+    }
+    return __DEFAULT
+  }
+  static DEFAULT=(value) {
+    __DEFAULT_set = true
+    __DEFAULT = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_InGameOptionsForm() {
+  }
+    
 
-local InGameOptionsForm = {}
-InGameOptionsForm.__index = InGameOptionsForm
-InGameOptionsForm.className = "InGameOptionsForm"
-setmetatable(InGameOptionsForm, {__index = CommandForm})
+    construct new(commandListener, title, backgrounBasicColor, foregroundBasicColor) {
+        super(commandListener, title, backgrounBasicColor, foregroundBasicColor)
+        this.logUtil.putF(this.commonStrings.START, this, this.commonStrings.CONSTRUCTOR)
+        var gameFeatureFormUtil = GameFeatureFormUtil.getInstance()
+        gameFeatureFormUtil.addChoiceGroup(this, InGameFeatureChoiceGroups.getExclusiveInstance().get(), Choice.EXCLUSIVE)
+        gameFeatureFormUtil.addChoiceGroup(this, InGameFeatureChoiceGroups.getMultipleInstance().get(), Choice.MULTIPLE)
+        this.initCommands(commandListener)
+    }
+    
 
+    initCommands(cmdListener) {
+        this.removeAllCommands()
+        this.addCommand(GameCommandsFactory.getInstance().CLOSE_AND_SHOW_GAME_CANVAS)
+        this.addCommand(InGameOptionsForm.DEFAULT)
+        this.setCommandListener(cmdListener)
+    }
+}
 
-function InGameOptionsForm.new(commandListener, title, backgrounBasicColor, foregroundBasicColor)
-    local self = setmetatable(CommandForm.new(commandListener, title, backgrounBasicColor, foregroundBasicColor), InGameOptionsForm)
-        -- super(...) made self above
-        self.logUtil:putF(self.commonStrings.START, self, self.commonStrings.CONSTRUCTOR)
-        local gameFeatureFormUtil = GameFeatureFormUtil.getInstance()
-        gameFeatureFormUtil:addChoiceGroup(self, InGameFeatureChoiceGroups.getExclusiveInstance():get(), Choice.EXCLUSIVE)
-        gameFeatureFormUtil:addChoiceGroup(self, InGameFeatureChoiceGroups.getMultipleInstance():get(), Choice.MULTIPLE)
-        self:initCommands(commandListener)
-    return self
-end
-
-
-function InGameOptionsForm:initCommands(cmdListener)
-        self:removeAllCommands()
-        self:addCommand(GameCommandsFactory.getInstance().CLOSE_AND_SHOW_GAME_CANVAS)
-        self:addCommand(InGameOptionsForm.DEFAULT)
-        self:setCommandListener(cmdListener)
-end
-
-InGameOptionsForm.DISPLAY = Command.new("Options In Game", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
-InGameOptionsForm.SAVE = Command.new("Save", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
-InGameOptionsForm.DEFAULT = Command.new("Default", StringUtil.getInstance().EMPTY_STRING, Command.SCREEN, 1)
-
-return InGameOptionsForm
+import "../../../../javax/microedition/lcdui/Choice" for Choice
+import "../../../../javax/microedition/lcdui/Command" for Command
+import "../../../../javax/microedition/lcdui/CommandListener" for CommandListener
+import "../../../../org/allbinary/game/commands/GameCommandsFactory" for GameCommandsFactory
+import "../../../../org/allbinary/game/configuration/feature/GameFeatureFormUtil" for GameFeatureFormUtil
+import "../../../../org/allbinary/game/configuration/feature/InGameFeatureChoiceGroups" for InGameFeatureChoiceGroups
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
 

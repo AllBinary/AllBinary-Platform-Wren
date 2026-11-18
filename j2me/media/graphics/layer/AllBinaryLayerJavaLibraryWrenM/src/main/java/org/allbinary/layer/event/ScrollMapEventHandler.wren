@@ -1,57 +1,59 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.layer.event
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.layer.event
 
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventListenerInterface = require("org.allbinary.logic.util.event.EventListenerInterface")
-local BasicEventHandler = require("org.allbinary.logic.util.event.handler.BasicEventHandler")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/logic/util/event/handler/BasicEventHandler" for BasicEventHandler
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ScrollMapEventHandler is BasicEventHandler {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = ScrollMapEventHandler.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ScrollMapEventHandler() {
+  }
+    
 
-local ScrollMapEventHandler = {}
-ScrollMapEventHandler.__index = ScrollMapEventHandler
-ScrollMapEventHandler.className = "ScrollMapEventHandler"
-setmetatable(ScrollMapEventHandler, {__index = BasicEventHandler})
+    construct new() {
+    super()
+    initFields_ScrollMapEventHandler()
+    }
+    
 
-
-function ScrollMapEventHandler.new()
-    local self = setmetatable(BasicEventHandler.new(), ScrollMapEventHandler)
-    return self
-end
-
-
-function ScrollMapEventHandler.getInstance()
+    static getInstance() {
         return ScrollMapEventHandler.SINGLETON
-end
+    }
+    
 
+    process(eventObject, eventListenerInterface) {
+        var scrollMapEventListenerInterface = (eventListenerInterface)
+        scrollMapEventListenerInterface.onMoveEvent(eventObject)
+    }
+}
 
--- throws Exception
-function ScrollMapEventHandler:process(eventObject, eventListenerInterface)
-        local scrollMapEventListenerInterface = (eventListenerInterface)
-        scrollMapEventListenerInterface:onMoveEvent(eventObject)
-end
-
-ScrollMapEventHandler.SINGLETON = ScrollMapEventHandler.new()
-
-return ScrollMapEventHandler
+import "../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../org/allbinary/logic/util/event/EventListenerInterface" for EventListenerInterface
+import "./ScrollMapEventListenerInterface" for ScrollMapEventListenerInterface
+import "./ScrollMapEvent" for ScrollMapEvent
 

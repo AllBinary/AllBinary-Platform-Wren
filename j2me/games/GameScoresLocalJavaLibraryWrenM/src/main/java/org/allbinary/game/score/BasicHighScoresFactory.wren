@@ -1,84 +1,89 @@
--- Generated Code Do Not Modify
--- package org.allbinary.game.score
+// Generated Code Do Not Modify
+// package org.allbinary.game.score
 
-local GameInfo = require("org.allbinary.game.GameInfo")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local SoftwareInformation = require("org.allbinary.logic.system.SoftwareInformation")
-local AbeClientInformationInterface = require("org.allbinary.logic.system.security.licensing.AbeClientInformationInterface")
-local HighScoresBase = require("org.allbinary.game.score.HighScoresBase")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./HighScoresBase" for HighScoresBase
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class BasicHighScoresFactory is HighScoresBase {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  abeClientInformation { _abeClientInformation }
+  abeClientInformation=(value) { _abeClientInformation = value }
+  highScoresArray { _highScoresArray }
+  highScoresArray=(value) { _highScoresArray = value }
+  TOP { _TOP }
+  TOP=(value) { _TOP = value }
+  SCORES { _SCORES }
+  SCORES=(value) { _SCORES = value }
+  PERSONAL_HIGH_SCORES { _PERSONAL_HIGH_SCORES }
+  PERSONAL_HIGH_SCORES=(value) { _PERSONAL_HIGH_SCORES = value }
+  FETCH { _FETCH }
+  FETCH=(value) { _FETCH = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_BasicHighScoresFactory() {
+    _logUtil = null
+    _abeClientInformation = null
+    _highScoresArray = null
+    _TOP = null
+    _SCORES = null
+    _PERSONAL_HIGH_SCORES = null
+    _FETCH = null
+        _logUtil = LogUtil.getInstance()
+        
+        _highScoresArray = List.filled(1, null)
+        _TOP = "Top"
+        _SCORES = "Scores"
+        _PERSONAL_HIGH_SCORES = "Personal Top Scores"
+        _FETCH = "fetchHighScores"
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(abeClientInformation, softwareInformation) {
+    super()
+    initFields_BasicHighScoresFactory()
+        _abeClientInformation = abeClientInformation
+    }
+    
 
-local BasicHighScoresFactory = {}
-BasicHighScoresFactory.__index = BasicHighScoresFactory
-BasicHighScoresFactory.className = "BasicHighScoresFactory"
-setmetatable(BasicHighScoresFactory, {__index = HighScoresBase})
+    fetchHighScores(gameInfo, highScoresResultsListener) {
+        _logUtil.putF("Getting Local HighScores", this, _FETCH)
+        this.fetchHighScoresPreload(gameInfo, highScoresResultsListener, true)
+    }
+    
 
-function BasicHighScoresFactory:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.abeClientInformation = nil
-    self.highScoresArray = java_new_array(nil, 1)
-    self.TOP = "Top"
-    self.SCORES = "Scores"
-    self.PERSONAL_HIGH_SCORES = "Personal Top Scores"
-    self.FETCH = "fetchHighScores"
-end
+    fetchHighScoresPreload(gameInfo, highScoresResultsListener, preload) {
+        var jerror0 = Fiber.new {
+            _highScoresArray[0] = RecordStoreHighScores.getInstance(_abeClientInformation, gameInfo, _TOP, _PERSONAL_HIGH_SCORES, _SCORES, ScoreComparator.new(true))
+            highScoresResultsListener.setHighScoresArray(_highScoresArray)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            _logUtil.put(this.commonStrings.EXCEPTION, this, _FETCH, e)
+        }
+    }
+    
 
-
-function BasicHighScoresFactory.new(abeClientInformation, softwareInformation)
-    local self = setmetatable(HighScoresBase.new(), BasicHighScoresFactory)
-    self:_init_fields()
-        self.abeClientInformation = abeClientInformation
-    return self
-end
-
-
-function BasicHighScoresFactory:fetchHighScores(gameInfo, highScoresResultsListener)
-        self.logUtil:putF("Getting Local HighScores", self, self.FETCH)
-        self:fetchHighScoresPreload(gameInfo, highScoresResultsListener, true)
-end
-
-
-function BasicHighScoresFactory:fetchHighScoresPreload(gameInfo, highScoresResultsListener, preload)
-        local try_ok, try_error = pcall(function()
-            self.highScoresArray[1] = RecordStoreHighScores.getInstance(self.abeClientInformation, gameInfo, self.TOP, self.PERSONAL_HIGH_SCORES, self.SCORES, ScoreComparator.new(true))
-            highScoresResultsListener:setHighScoresArray(self.highScoresArray)
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.FETCH, e)
-        end
-end
-
-
-function BasicHighScoresFactory:createHighScoresHelper()
+    createHighScoresHelper() {
         return HighScoresHelper2.new()
-end
+    }
+    
 
-
-function BasicHighScoresFactory.loaded(index2)
-        if index2 >= 0 then
+    static loaded(index2) {
+        if ((index2 >= 0)) {
             return true
-        end
+        }
         return false
-end
+    }
+}
 
-return BasicHighScoresFactory
+import "../../../../org/allbinary/game/GameInfo" for GameInfo
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/logic/system/SoftwareInformation" for SoftwareInformation
+import "../../../../org/allbinary/logic/system/security/licensing/AbeClientInformationInterface" for AbeClientInformationInterface
+import "./HighScores" for HighScores
+import "./HighScoresResultsListener" for HighScoresResultsListener
+import "./RecordStoreHighScores" for RecordStoreHighScores
+import "./ScoreComparator" for ScoreComparator
+import "./HighScoresHelper2" for HighScoresHelper2
+import "./HighScoresHelperBaseInterface" for HighScoresHelperBaseInterface
 

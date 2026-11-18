@@ -1,72 +1,69 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local GameTickTimeDelayHelper = require("org.allbinary.time.GameTickTimeDelayHelper")
-local GameTickTimeDelayHelperFactory = require("org.allbinary.time.GameTickTimeDelayHelperFactory")
-local GameRunnable = require("org.allbinary.game.displayable.canvas.GameRunnable")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./GameRunnable" for GameRunnable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class DemoGameRunnable is GameRunnable {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  demoCanvas { _demoCanvas }
+  demoCanvas=(value) { _demoCanvas = value }
+  gameTickTimeDelayHelper { _gameTickTimeDelayHelper }
+  gameTickTimeDelayHelper=(value) { _gameTickTimeDelayHelper = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_DemoGameRunnable() {
+    _logUtil = null
+    _demoCanvas = null
+    _gameTickTimeDelayHelper = null
+        _logUtil = LogUtil.getInstance()
+        
+        _gameTickTimeDelayHelper = GameTickTimeDelayHelperFactory.getInstance()
+  }
+    
 
-local DemoGameRunnable = {}
-DemoGameRunnable.__index = DemoGameRunnable
-DemoGameRunnable.className = "DemoGameRunnable"
-setmetatable(DemoGameRunnable, {__index = GameRunnable})
+    construct new(demoCanvas) {
+    super()
+    initFields_DemoGameRunnable()
+        _demoCanvas = demoCanvas
+    }
+    
 
-function DemoGameRunnable:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.demoCanvas = nil
-    self.gameTickTimeDelayHelper = GameTickTimeDelayHelperFactory.getInstance()
-end
+    run() {
+        var jerror0 = Fiber.new {
+            _demoCanvas.getLoopTimeHelperP().setStartTime(_gameTickTimeDelayHelper.setStartTime())
+            _demoCanvas.processGame()
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, commonStrings.RUN, e)
+        }
+    }
+    
 
+    processLoopSleep() {
+        _demoCanvas.processLoopSleep()
+    }
+}
 
-function DemoGameRunnable.new(demoCanvas)
-    local self = setmetatable(GameRunnable.new(), DemoGameRunnable)
-    self:_init_fields()
-        self.demoCanvas = demoCanvas
-    return self
-end
-
-
-function DemoGameRunnable:run()
-        local try_ok, try_error = pcall(function()
-            self.demoCanvas:getLoopTimeHelperP():setStartTime(self.gameTickTimeDelayHelper:setStartTime())
-            self.demoCanvas:processGame()
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, commonStrings.RUN, e)
-        end
-end
-
-
--- throws Exception
-function DemoGameRunnable:processLoopSleep()
-        self.demoCanvas:processLoopSleep()
-end
-
-return DemoGameRunnable
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../org/allbinary/time/GameTickTimeDelayHelper" for GameTickTimeDelayHelper
+import "../../../../../org/allbinary/time/GameTickTimeDelayHelperFactory" for GameTickTimeDelayHelperFactory
+import "./DemoCanvas" for DemoCanvas
 

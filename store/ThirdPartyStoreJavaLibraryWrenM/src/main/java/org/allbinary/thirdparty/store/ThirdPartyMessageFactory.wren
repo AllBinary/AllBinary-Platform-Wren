@@ -1,52 +1,59 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.thirdparty.store
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.thirdparty.store
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ThirdPartyMessageFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ThirdPartyMessageFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  AUTHORIZED { _AUTHORIZED }
+  AUTHORIZED=(value) { _AUTHORIZED = value }
+  NOT_AUTHORIZED { _NOT_AUTHORIZED }
+  NOT_AUTHORIZED=(value) { _NOT_AUTHORIZED = value }
+  LINKAGE_ERROR { _LINKAGE_ERROR }
+  LINKAGE_ERROR=(value) { _LINKAGE_ERROR = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ThirdPartyMessageFactory() {
+    _AUTHORIZED = null
+    _NOT_AUTHORIZED = null
+    _LINKAGE_ERROR = null
+        _AUTHORIZED = "Authorized"
+        _NOT_AUTHORIZED = "Not Authorized"
+        _LINKAGE_ERROR = "Linkage Error"
+  }
 
-local ThirdPartyMessageFactory = {}
-ThirdPartyMessageFactory.__index = ThirdPartyMessageFactory
-ThirdPartyMessageFactory.className = "ThirdPartyMessageFactory"
+  construct new() {
+    super()
+    initFields_ThirdPartyMessageFactory()
+  }
+    
 
-function ThirdPartyMessageFactory:_init_fields()
-    self.AUTHORIZED = "Authorized"
-    self.NOT_AUTHORIZED = "Not Authorized"
-    self.LINKAGE_ERROR = "Linkage Error"
-end
-
-function ThirdPartyMessageFactory.new()
-    local self = setmetatable({}, ThirdPartyMessageFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function ThirdPartyMessageFactory.getInstance()
+    static getInstance() {
         return ThirdPartyMessageFactory.instance
-end
+    }
+}
 
-ThirdPartyMessageFactory.instance = ThirdPartyMessageFactory.new()
-
-return ThirdPartyMessageFactory
 

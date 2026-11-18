@@ -1,47 +1,48 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
-local GameRunnable = require("org.allbinary.game.displayable.canvas.GameRunnable")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./GameRunnable" for GameRunnable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NullWaitGameRunnable is GameRunnable {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NullWaitGameRunnable.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NullWaitGameRunnable() {
+  }
 
-local NullWaitGameRunnable = {}
-NullWaitGameRunnable.__index = NullWaitGameRunnable
-NullWaitGameRunnable.className = "NullWaitGameRunnable"
-setmetatable(NullWaitGameRunnable, {__index = GameRunnable})
+  construct new() {
+    super()
+    initFields_NullWaitGameRunnable()
+  }
+    
 
-function NullWaitGameRunnable.new()
-    local self = setmetatable(GameRunnable.new(), NullWaitGameRunnable)
-    return self
-end
-
-
-function NullWaitGameRunnable.getInstance()
+    static getInstance() {
         return NullWaitGameRunnable.instance
-end
+    }
+}
 
-NullWaitGameRunnable.instance = NullWaitGameRunnable.new()
-
-return NullWaitGameRunnable
 

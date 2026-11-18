@@ -1,116 +1,99 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
--- local CommandListener = require("javax.microedition.lcdui.CommandListener")
--- local ItemStateListener = require("javax.microedition.lcdui.ItemStateListener")
-local GameStateCompositeInterface = require("org.allbinary.game.state.GameStateCompositeInterface")
-local PaintableInterface = require("org.allbinary.graphics.paint.PaintableInterface")
-local RunnableInterface = require("org.allbinary.thread.RunnableInterface")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/thread/RunnableInterface" for RunnableInterface
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameCanvasRunnableInterface is JObject {
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    getTitle() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getTitle"))
+    }
+    
 
--- Java interface
-local GameCanvasRunnableInterface = {}
-GameCanvasRunnableInterface.__index = GameCanvasRunnableInterface
-GameCanvasRunnableInterface.className = "GameCanvasRunnableInterface"
-setmetatable(GameCanvasRunnableInterface, {__index = RunnableInterface})
+    isInitialized() {
+        Fiber.abort(JR.exception("AbstractMethodError", "isInitialized"))
+    }
+    
 
+    isPaused() {
+        Fiber.abort(JR.exception("AbstractMethodError", "isPaused"))
+    }
+    
 
-function GameCanvasRunnableInterface:getTitle()
-    error("abstract method getTitle")
-end
+    unPause() {
+        Fiber.abort(JR.exception("AbstractMethodError", "unPause"))
+    }
+    
 
+    pause() {
+        Fiber.abort(JR.exception("AbstractMethodError", "pause"))
+    }
+    
 
-function GameCanvasRunnableInterface:isInitialized()
-    error("abstract method isInitialized")
-end
+    isHighScoreSubmitted() {
+        Fiber.abort(JR.exception("AbstractMethodError", "isHighScoreSubmitted"))
+    }
+    
 
+    setHighScoreSubmitted(highScoreSubmitted) {
+        Fiber.abort(JR.exception("AbstractMethodError", "setHighScoreSubmitted"))
+    }
+    
 
-function GameCanvasRunnableInterface:isPaused()
-    error("abstract method isPaused")
-end
+    processGameOver() {
+        Fiber.abort(JR.exception("AbstractMethodError", "processGameOver"))
+    }
+    
 
+    isGameOver() {
+        Fiber.abort(JR.exception("AbstractMethodError", "isGameOver"))
+    }
+    
 
-function GameCanvasRunnableInterface:unPause()
-    error("abstract method unPause")
-end
+    initCommands(cmdListener) {
+        Fiber.abort(JR.exception("AbstractMethodError", "initCommands"))
+    }
+    
 
+    getCurrentStateHashtable() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getCurrentStateHashtable"))
+    }
+    
 
-function GameCanvasRunnableInterface:pause()
-    error("abstract method pause")
-end
+    getLoadStateHashtable() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getLoadStateHashtable"))
+    }
+    
 
+    setLoadStateHashtable(hashtable) {
+        Fiber.abort(JR.exception("AbstractMethodError", "setLoadStateHashtable"))
+    }
+    
 
-function GameCanvasRunnableInterface:isHighScoreSubmitted()
-    error("abstract method isHighScoreSubmitted")
-end
+    getType() {
+        Fiber.abort(JR.exception("AbstractMethodError", "getType"))
+    }
+}
 
-
--- throws Exception
-function GameCanvasRunnableInterface:setHighScoreSubmitted(highScoreSubmitted)
-    error("abstract method setHighScoreSubmitted")
-end
-
-
--- throws Exception
-function GameCanvasRunnableInterface:processGameOver()
-    error("abstract method processGameOver")
-end
-
-
-function GameCanvasRunnableInterface:isGameOver()
-    error("abstract method isGameOver")
-end
-
-
-function GameCanvasRunnableInterface:initCommands(cmdListener)
-    error("abstract method initCommands")
-end
-
-
--- throws Exception
-function GameCanvasRunnableInterface:getCurrentStateHashtable()
-    error("abstract method getCurrentStateHashtable")
-end
-
-
--- throws Exception
-function GameCanvasRunnableInterface:getLoadStateHashtable()
-    error("abstract method getLoadStateHashtable")
-end
-
-
--- throws Exception
-function GameCanvasRunnableInterface:setLoadStateHashtable(hashtable)
-    error("abstract method setLoadStateHashtable")
-end
-
-
-function GameCanvasRunnableInterface:getType()
-    error("abstract method getType")
-end
-
-return GameCanvasRunnableInterface
+import "../../../../../javax/microedition/lcdui/CommandListener" for CommandListener
+import "../../../../../javax/microedition/lcdui/ItemStateListener" for ItemStateListener
+import "../../../../../org/allbinary/game/state/GameStateCompositeInterface" for GameStateCompositeInterface
+import "../../../../../org/allbinary/graphics/paint/PaintableInterface" for PaintableInterface
+import "../../../../../org/allbinary/util/ABHashtable" for ABHashtable
 

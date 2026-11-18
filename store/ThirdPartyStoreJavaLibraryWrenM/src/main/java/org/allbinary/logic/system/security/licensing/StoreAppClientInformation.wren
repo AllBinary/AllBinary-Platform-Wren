@@ -1,54 +1,44 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.system.security.licensing
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.system.security.licensing
 
-local LongArrayIdentifierInterface = require("org.allbinary.thirdparty.store.LongArrayIdentifierInterface")
-local AbeClientInformation = require("org.allbinary.logic.system.security.licensing.AbeClientInformation")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "./AbeClientInformation" for AbeClientInformation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class StoreAppClientInformation is AbeClientInformation {
+  longArrayIdentifier { _longArrayIdentifier }
+  longArrayIdentifier=(value) { _longArrayIdentifier = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_StoreAppClientInformation() {
+    _longArrayIdentifier = null
+        
+  }
+    
 
-local StoreAppClientInformation = {}
-StoreAppClientInformation.__index = StoreAppClientInformation
-StoreAppClientInformation.className = "StoreAppClientInformation"
-setmetatable(StoreAppClientInformation, {__index = AbeClientInformation})
+    construct new(name, version, specialName, shortName, longArrayIdentifier) {
+        super(name, version, specialName, shortName)
+        initFields_StoreAppClientInformation()
+        _longArrayIdentifier = longArrayIdentifier
+    }
+    
 
-function StoreAppClientInformation:_init_fields()
-    self.longArrayIdentifier = nil
-end
+    getLongArrayIdentifier() {
+        return _longArrayIdentifier
+    }
+}
 
-
-function StoreAppClientInformation.new(name, version, specialName, shortName, longArrayIdentifier)
-    local self = setmetatable(AbeClientInformation.new(name, version, specialName, shortName), StoreAppClientInformation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.longArrayIdentifier = longArrayIdentifier
-    return self
-end
-
-
-function StoreAppClientInformation:getLongArrayIdentifier()
-        return self.longArrayIdentifier
-end
-
-return StoreAppClientInformation
+import "../../../../../../org/allbinary/thirdparty/store/LongArrayIdentifierInterface" for LongArrayIdentifierInterface
 

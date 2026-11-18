@@ -1,69 +1,68 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.canvas
 
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local BaseGameStatistics = require("org.allbinary.canvas.BaseGameStatistics")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./BaseGameStatistics" for BaseGameStatistics
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//ActualPlatform
+class GameStatisticsFactory is BaseGameStatistics {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = GameStatisticsFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  stringBuffer { _stringBuffer }
+  stringBuffer=(value) { _stringBuffer = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameStatisticsFactory() {
+    _stringBuffer = null
+        _stringBuffer = StringMaker.new()
+  }
 
---ActualPlatform
-local GameStatisticsFactory = {}
-GameStatisticsFactory.__index = GameStatisticsFactory
-GameStatisticsFactory.className = "GameStatisticsFactory"
-setmetatable(GameStatisticsFactory, {__index = BaseGameStatistics})
+  construct new() {
+    super()
+    initFields_GameStatisticsFactory()
+  }
+    
 
-function GameStatisticsFactory:_init_fields()
-    self.stringBuffer = StringMaker.new()
-end
-
-function GameStatisticsFactory.new()
-    local self = setmetatable(BaseGameStatistics.new(), GameStatisticsFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function GameStatisticsFactory.getInstance()
+    static getInstance() {
         return GameStatisticsFactory.instance
-end
+    }
+    
 
+    add(string) {
+        if ((_stringBuffer.length() > 12000)) {
+            _stringBuffer.delete(0, _stringBuffer.length())
+            _stringBuffer.append("Old Stats Cleared")
+        }
+        _stringBuffer.append(string)
+    }
+    
 
-function GameStatisticsFactory:add(string)
-        if self.stringBuffer:length() > 12000 then
-            self.stringBuffer:delete(0, self.stringBuffer:length())
-            self.stringBuffer:append("Old Stats Cleared")
-        end
-        self.stringBuffer:append(string)
-end
+    toString() {
+        return StringMaker.new().append(super.toString()).append(_stringBuffer.toString()).toString()
+    }
+}
 
-
-function GameStatisticsFactory:toString()
-        return tostring(StringMaker.new():append(tostring(BaseGameStatistics)):append(tostring(self.stringBuffer)))
-end
-GameStatisticsFactory.__tostring = function(self) return self:toString() end
-
-GameStatisticsFactory.instance = GameStatisticsFactory.new()
-
-return GameStatisticsFactory
+import "../../../org/allbinary/logic/string/StringMaker" for StringMaker
 

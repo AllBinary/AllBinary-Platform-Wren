@@ -1,191 +1,204 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.init
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.init
 
--- local CommandListener = require("javax.microedition.lcdui.CommandListener")
-local FeaturedAnimationInterfaceFactoryInterfaceFactory = require("org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory")
-local GameConfigurationCentral = require("org.allbinary.game.configuration.GameConfigurationCentral")
-local ChangedGameFeatureListener = require("org.allbinary.game.configuration.event.ChangedGameFeatureListener")
-local InputFeatureFactory = require("org.allbinary.game.configuration.feature.InputFeatureFactory")
-local MainFeatureFactory = require("org.allbinary.game.configuration.feature.MainFeatureFactory")
-local PlatformInputMappingFactory = require("org.allbinary.game.input.PlatformInputMappingFactory")
-local GameKeyEventFactory = require("org.allbinary.game.input.event.GameKeyEventFactory")
-local FeaturedResourceRelativeRelationshipFactory = require("org.allbinary.game.resource.FeaturedResourceRelativeRelationshipFactory")
-local ResourceInitialization = require("org.allbinary.game.resource.ResourceInitialization")
-local ResourceLoadingLevelFactory = require("org.allbinary.game.resource.ResourceLoadingLevelFactory")
-local ProgressCanvas = require("org.allbinary.graphics.canvas.transition.progress.ProgressCanvas")
-local ProgressCanvasFactory = require("org.allbinary.graphics.canvas.transition.progress.ProgressCanvasFactory")
-local GameFeatureImageCacheFactory = require("org.allbinary.image.GameFeatureImageCacheFactory")
-local CompleteMotionGestureInputToGameMotionGestureInput = require("org.allbinary.input.motion.CompleteMotionGestureInputToGameMotionGestureInput")
-local BasicTouchInputFactory = require("org.allbinary.input.motion.button.BasicTouchInputFactory")
-local CancelTouchButtonInputFactory = require("org.allbinary.input.motion.button.CancelTouchButtonInputFactory")
-local AbeClientInformationInterface = require("org.allbinary.logic.system.security.licensing.AbeClientInformationInterface")
-local GameInitializationInterface = require("org.allbinary.game.init.GameInitializationInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class BaseGameInitialization is JObject {
+    static NULL_BASE_GAME_INITIALIZATION {
+    if (__NULL_BASE_GAME_INITIALIZATION_set == null) {
+      __NULL_BASE_GAME_INITIALIZATION_set = true
+      __NULL_BASE_GAME_INITIALIZATION = BaseGameInitialization.new(List.filled(0, null), 0)
+    }
+    return __NULL_BASE_GAME_INITIALIZATION
+  }
+  static NULL_BASE_GAME_INITIALIZATION=(value) {
+    __NULL_BASE_GAME_INITIALIZATION_set = true
+    __NULL_BASE_GAME_INITIALIZATION = value
+  }
+  resourceInitializationArray { _resourceInitializationArray }
+  resourceInitializationArray=(value) { _resourceInitializationArray = value }
+  portion { _portion }
+  portion=(value) { _portion = value }
+  initialized { _initialized }
+  initialized=(value) { _initialized = value }
+  EARLY_RESOURCES { _EARLY_RESOURCES }
+  EARLY_RESOURCES=(value) { _EARLY_RESOURCES = value }
+  GAME_RESOURCES { _GAME_RESOURCES }
+  GAME_RESOURCES=(value) { _GAME_RESOURCES = value }
+  EARLY_CHANGABLE_RESOURCES { _EARLY_CHANGABLE_RESOURCES }
+  EARLY_CHANGABLE_RESOURCES=(value) { _EARLY_CHANGABLE_RESOURCES = value }
+  GAME_CHANGABLE_RESOURCES { _GAME_CHANGABLE_RESOURCES }
+  GAME_CHANGABLE_RESOURCES=(value) { _GAME_CHANGABLE_RESOURCES = value }
+  gameInitialized { _gameInitialized }
+  gameInitialized=(value) { _gameInitialized = value }
+  allLoaded { _allLoaded }
+  allLoaded=(value) { _allLoaded = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_BaseGameInitialization() {
+    _resourceInitializationArray = null
+    _portion = 0
+    _initialized = false
+    _EARLY_RESOURCES = 0
+    _GAME_RESOURCES = 0
+    _EARLY_CHANGABLE_RESOURCES = 0
+    _GAME_CHANGABLE_RESOURCES = 0
+    _gameInitialized = false
+    _allLoaded = false
+        
+        
+        _initialized = false
+        _EARLY_RESOURCES = 0
+        _GAME_RESOURCES = 1
+        _EARLY_CHANGABLE_RESOURCES = 2
+        _GAME_CHANGABLE_RESOURCES = 3
+        _gameInitialized = false
+        _allLoaded = false
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(resourceInitializationArray, portion) {
+    super()
+    initFields_BaseGameInitialization()
+        _resourceInitializationArray = resourceInitializationArray
+        _portion = portion
+    }
+    
 
-local BaseGameInitialization = {}
-BaseGameInitialization.__index = BaseGameInitialization
-BaseGameInitialization.className = "BaseGameInitialization"
+    initKey(portion) {
+    }
+    
 
-function BaseGameInitialization:_init_fields()
-    self.resourceInitializationArray = nil
-    self.portion = nil
-    self.initialized = false
-    self.EARLY_RESOURCES = 0
-    self.GAME_RESOURCES = 1
-    self.EARLY_CHANGABLE_RESOURCES = 2
-    self.GAME_CHANGABLE_RESOURCES = 3
-    self.gameInitialized = false
-    self.allLoaded = false
-end
+    initKeyMapping(abeClientInformation, portion) {
+        if (ChangedGameFeatureListener.getInstance().isChangedFeature(InputFeatureFactory.getInstance().INPUT_MAPPING)) {
+            PlatformInputMappingFactory.getInstance().getPersistentInputMappingInstance().init(abeClientInformation)
+            ProgressCanvasFactory.getInstance().addNormalPortion(50, "Game Keys")
+            ChangedGameFeatureListener.getInstance().remove(InputFeatureFactory.getInstance().INPUT_MAPPING)
+        }
+    }
+    
 
-
-function BaseGameInitialization.new(resourceInitializationArray, portion)
-    local self = setmetatable({}, BaseGameInitialization)
-    self:_init_fields()
-        self.resourceInitializationArray = resourceInitializationArray
-        self.portion = portion
-    return self
-end
-
-
--- throws Exception
-function BaseGameInitialization:initKey(portion)
-end
-
-
--- throws Exception
-function BaseGameInitialization:initKeyMapping(abeClientInformation, portion)
-        if ChangedGameFeatureListener.getInstance():isChangedFeature(InputFeatureFactory.getInstance().INPUT_MAPPING) then
-            PlatformInputMappingFactory.getInstance():getPersistentInputMappingInstance():init(abeClientInformation)
-            ProgressCanvasFactory.getInstance():addNormalPortion(50, "Game Keys")
-            ChangedGameFeatureListener.getInstance():remove(InputFeatureFactory.getInstance().INPUT_MAPPING)
-        end
-end
-
-
--- throws Exception
-function BaseGameInitialization:init(abeClientInformation, commandListener, level)
-        local resourceLoadingLevelFactory = ResourceLoadingLevelFactory.getInstance()
-        if not self:isInitialized() and (level == resourceLoadingLevelFactory.LOAD_ALL:getLevel() or level == resourceLoadingLevelFactory.LOAD_EARLY:getLevel()) then
-            local localPortion = 40
-            if level == resourceLoadingLevelFactory.LOAD_EARLY:getLevel() then
+    init(abeClientInformation, commandListener, level) {
+        var resourceLoadingLevelFactory = ResourceLoadingLevelFactory.getInstance()
+        if ((!this.isInitialized() && (((level == resourceLoadingLevelFactory.LOAD_ALL.getLevel()) || (level == resourceLoadingLevelFactory.LOAD_EARLY.getLevel()))))) {
+            var localPortion = 40
+            if ((level == resourceLoadingLevelFactory.LOAD_EARLY.getLevel())) {
                 localPortion = 8
-            end
-            self:setInitialized(true)
-            self:initKey(self:getPortion())
-            self:initKeyMapping(abeClientInformation, self:getPortion())
-            GameKeyEventFactory.getInstance():init()
-            local progressCanvas = ProgressCanvasFactory.getInstance()
-            progressCanvas:addNormalPortion(localPortion, "Game Key Events")
-            BasicTouchInputFactory.getInstance():init(PlatformInputMappingFactory.getInstance():getPersistentInputMappingInstance():getInputMapping())
+            }
+            this.setInitialized(true)
+            this.initKey(this.getPortion())
+            this.initKeyMapping(abeClientInformation, this.getPortion())
+            GameKeyEventFactory.getInstance().init()
+            var progressCanvas = ProgressCanvasFactory.getInstance()
+            progressCanvas.addNormalPortion(localPortion, "Game Key Events")
+            BasicTouchInputFactory.getInstance().init(PlatformInputMappingFactory.getInstance().getPersistentInputMappingInstance().getInputMapping())
             CancelTouchButtonInputFactory.getInstance()
-            progressCanvas:addNormalPortion(localPortion, "Touch Input")
-            CompleteMotionGestureInputToGameMotionGestureInput.getInstance():init()
-            progressCanvas:addNormalPortion(localPortion, "Motion Input")
+            progressCanvas.addNormalPortion(localPortion, "Touch Input")
+            CompleteMotionGestureInputToGameMotionGestureInput.getInstance().init()
+            progressCanvas.addNormalPortion(localPortion, "Motion Input")
             GameFeatureImageCacheFactory.init()
-            progressCanvas:addNormalPortion(localPortion, "Image Cache")
-            self.resourceInitializationArray[self.EARLY_RESOURCES + 1]:init()
-        end
-end
+            progressCanvas.addNormalPortion(localPortion, "Image Cache")
+            _resourceInitializationArray[_EARLY_RESOURCES].init()
+        }
+    }
+    
 
+    resourceInitialization(level) {
+        var resourceLoadingLevelFactory = ResourceLoadingLevelFactory.getInstance()
+        if ((this.resourceAnimationChange() && (level == resourceLoadingLevelFactory.LOAD_EARLY.getLevel()))) {
+            this.clearResources()
+            _resourceInitializationArray[_EARLY_CHANGABLE_RESOURCES].init()
+        }
+        if ((this.resourceAnimationChange() && (level == resourceLoadingLevelFactory.LOAD_ALL.getLevel()))) {
+            if (_allLoaded) {
+                this.clearResources()
+            }
+            if ((FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().getList().size() == 0)) {
+                _resourceInitializationArray[_EARLY_CHANGABLE_RESOURCES].init()
+            }
+            _resourceInitializationArray[_GAME_CHANGABLE_RESOURCES].init()
+            _allLoaded = true
+        }
+    }
+    
 
--- throws Exception
-function BaseGameInitialization:resourceInitialization(level)
-        local resourceLoadingLevelFactory = ResourceLoadingLevelFactory.getInstance()
-        if self:resourceAnimationChange() and level == resourceLoadingLevelFactory.LOAD_EARLY:getLevel() then
-            self:clearResources()
-            self.resourceInitializationArray[self.EARLY_CHANGABLE_RESOURCES + 1]:init()
-        end
-        if self:resourceAnimationChange() and level == resourceLoadingLevelFactory.LOAD_ALL:getLevel() then
-            if self.allLoaded then
-                self:clearResources()
-            end
-            if FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance():getList():size() == 0 then
-                self.resourceInitializationArray[self.EARLY_CHANGABLE_RESOURCES + 1]:init()
-            end
-            self.resourceInitializationArray[self.GAME_CHANGABLE_RESOURCES + 1]:init()
-            self.allLoaded = true
-        end
-end
-
-
-function BaseGameInitialization:resourceAnimationChange()
-        local changedGameFeatureListener = ChangedGameFeatureListener.getInstance()
-        local gameConfigurationCentral = GameConfigurationCentral.getInstance()
-        if changedGameFeatureListener:isChangedGameConfiguration(gameConfigurationCentral.SCALE) then
+    resourceAnimationChange() {
+        var changedGameFeatureListener = ChangedGameFeatureListener.getInstance()
+        var gameConfigurationCentral = GameConfigurationCentral.getInstance()
+        if (changedGameFeatureListener.isChangedGameConfiguration(gameConfigurationCentral.SCALE)) {
             return true
-        end
-        if ChangedGameFeatureListener.getInstance():isChangedFeature(MainFeatureFactory.getInstance().STATIC) then
+        }
+        if (ChangedGameFeatureListener.getInstance().isChangedFeature(MainFeatureFactory.getInstance().STATIC)) {
             return true
-        end
+        }
         return false
-end
+    }
+    
 
-
-function BaseGameInitialization:clearResources()
-        self.allLoaded = false
+    clearResources() {
+        _allLoaded = false
         GameFeatureImageCacheFactory.releaseAll()
-        local featuredAnimationInterfaceFactoryInterfaceFactory = FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance()
-        featuredAnimationInterfaceFactoryInterfaceFactory:clear()
-        FeaturedResourceRelativeRelationshipFactory.getInstance():clear()
-end
+        var featuredAnimationInterfaceFactoryInterfaceFactory = FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance()
+        featuredAnimationInterfaceFactoryInterfaceFactory.clear()
+        FeaturedResourceRelativeRelationshipFactory.getInstance().clear()
+    }
+    
 
+    setGameInitialized(gameInitialized) {
+        _gameInitialized = gameInitialized
+    }
+    
 
-function BaseGameInitialization:setGameInitialized(gameInitialized)
-        self.gameInitialized = gameInitialized
-end
+    isGameInitialized() {
+        return _gameInitialized
+    }
+    
 
+    getPortion() {
+        return _portion
+    }
+    
 
-function BaseGameInitialization:isGameInitialized()
-        return self.gameInitialized
-end
+    setInitialized(initialized) {
+        _initialized = initialized
+    }
+    
 
+    isInitialized() {
+        return _initialized
+    }
+}
 
-function BaseGameInitialization:getPortion()
-        return self.portion
-end
-
-
-function BaseGameInitialization:setInitialized(initialized)
-        self.initialized = initialized
-end
-
-
-function BaseGameInitialization:isInitialized()
-        return self.initialized
-end
-
-BaseGameInitialization.NULL_BASE_GAME_INITIALIZATION = BaseGameInitialization.new(java_new_array(nil, 0), 0)
-
-return BaseGameInitialization
+import "../../../../javax/microedition/lcdui/CommandListener" for CommandListener
+import "../../../../org/allbinary/animation/FeaturedAnimationInterfaceFactoryInterfaceFactory" for FeaturedAnimationInterfaceFactoryInterfaceFactory
+import "../../../../org/allbinary/game/configuration/GameConfigurationCentral" for GameConfigurationCentral
+import "../../../../org/allbinary/game/configuration/event/ChangedGameFeatureListener" for ChangedGameFeatureListener
+import "../../../../org/allbinary/game/configuration/feature/InputFeatureFactory" for InputFeatureFactory
+import "../../../../org/allbinary/game/configuration/feature/MainFeatureFactory" for MainFeatureFactory
+import "../../../../org/allbinary/game/input/PlatformInputMappingFactory" for PlatformInputMappingFactory
+import "../../../../org/allbinary/game/input/event/GameKeyEventFactory" for GameKeyEventFactory
+import "../../../../org/allbinary/game/resource/FeaturedResourceRelativeRelationshipFactory" for FeaturedResourceRelativeRelationshipFactory
+import "../../../../org/allbinary/game/resource/ResourceInitialization" for ResourceInitialization
+import "../../../../org/allbinary/game/resource/ResourceLoadingLevelFactory" for ResourceLoadingLevelFactory
+import "../../../../org/allbinary/graphics/canvas/transition/progress/ProgressCanvas" for ProgressCanvas
+import "../../../../org/allbinary/graphics/canvas/transition/progress/ProgressCanvasFactory" for ProgressCanvasFactory
+import "../../../../org/allbinary/image/GameFeatureImageCacheFactory" for GameFeatureImageCacheFactory
+import "../../../../org/allbinary/input/motion/CompleteMotionGestureInputToGameMotionGestureInput" for CompleteMotionGestureInputToGameMotionGestureInput
+import "../../../../org/allbinary/input/motion/button/BasicTouchInputFactory" for BasicTouchInputFactory
+import "../../../../org/allbinary/input/motion/button/CancelTouchButtonInputFactory" for CancelTouchButtonInputFactory
+import "../../../../org/allbinary/logic/system/security/licensing/AbeClientInformationInterface" for AbeClientInformationInterface
+import "./GameInitializationInterface" for GameInitializationInterface
 

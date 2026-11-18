@@ -1,53 +1,45 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.pickup.points
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.pickup.points
 
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryLayerFactoryInterface = require("org.allbinary.layer.AllBinaryLayerFactoryInterface")
+import "../../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PointsLayerFactory is JObject {
+  points { _points }
+  points=(value) { _points = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PointsLayerFactory() {
+    _points = 0
+        
+  }
+    
 
-local PointsLayerFactory = {}
-PointsLayerFactory.__index = PointsLayerFactory
-PointsLayerFactory.className = "PointsLayerFactory"
+    construct new(points) {
+    super()
+    initFields_PointsLayerFactory()
+        _points = points
+    }
+    
 
-function PointsLayerFactory:_init_fields()
-    self.points = nil
-end
+    getInstance() {
+        return PointsLayer.new(_points)
+    }
+}
 
-
-function PointsLayerFactory.new(points)
-    local self = setmetatable({}, PointsLayerFactory)
-    self:_init_fields()
-        self.points = points
-    return self
-end
-
-
--- throws Exception
-function PointsLayerFactory:getInstance()
-        return PointsLayer.new(self.points)
-end
-
-return PointsLayerFactory
+import "../../../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../../../org/allbinary/layer/AllBinaryLayerFactoryInterface" for AllBinaryLayerFactoryInterface
+import "./PointsLayer" for PointsLayer
 

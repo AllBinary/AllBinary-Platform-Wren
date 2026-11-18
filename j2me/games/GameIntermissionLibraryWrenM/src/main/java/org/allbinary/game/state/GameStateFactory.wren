@@ -1,64 +1,82 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.state
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.state
 
-local NullUtil = require("org.allbinary.logic.NullUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameStateFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  index { _index }
+  index=(value) { _index = value }
+  NO_GAME_STATE { _NO_GAME_STATE }
+  NO_GAME_STATE=(value) { _NO_GAME_STATE = value }
+  PLAYING_GAME_STATE { _PLAYING_GAME_STATE }
+  PLAYING_GAME_STATE=(value) { _PLAYING_GAME_STATE = value }
+  SHOW_END_RESULT_GAME_STATE { _SHOW_END_RESULT_GAME_STATE }
+  SHOW_END_RESULT_GAME_STATE=(value) { _SHOW_END_RESULT_GAME_STATE = value }
+  SHOW_HIGH_SCORE_GAME_STATE { _SHOW_HIGH_SCORE_GAME_STATE }
+  SHOW_HIGH_SCORE_GAME_STATE=(value) { _SHOW_HIGH_SCORE_GAME_STATE = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameStateFactory() {
+    _index = 0
+    _NO_GAME_STATE = null
+    _PLAYING_GAME_STATE = null
+    _SHOW_END_RESULT_GAME_STATE = null
+    _SHOW_HIGH_SCORE_GAME_STATE = null
+        _index = 0
+        _NO_GAME_STATE = this.createGameState("NO_GAME_STATE")
+        _PLAYING_GAME_STATE = this.createGameState("PLAYING_GAME_STATE")
+        _SHOW_END_RESULT_GAME_STATE = this.createGameState("SHOW_END_RESULT_GAME_STATE")
+        _SHOW_HIGH_SCORE_GAME_STATE = this.createGameState("SHOW_HIGH_SCORE_GAME_STATE")
+  }
+    
 
-local GameStateFactory = {}
-GameStateFactory.__index = GameStateFactory
-GameStateFactory.className = "GameStateFactory"
-
-function GameStateFactory:_init_fields()
-    self.index = 0
-    self.NO_GAME_STATE = self:createGameState("NO_GAME_STATE")
-    self.PLAYING_GAME_STATE = self:createGameState("PLAYING_GAME_STATE")
-    self.SHOW_END_RESULT_GAME_STATE = self:createGameState("SHOW_END_RESULT_GAME_STATE")
-    self.SHOW_HIGH_SCORE_GAME_STATE = self:createGameState("SHOW_HIGH_SCORE_GAME_STATE")
-end
-
-
-function GameStateFactory.getInstance()
-        if GameStateFactory.instance == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((GameStateFactory.instance == NullUtil.getInstance().NULL_OBJECT)) {
             GameStateFactory.instance = GameStateFactory.new()
-        end
+        }
         return GameStateFactory.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_GameStateFactory()
+    }
+    
 
-function GameStateFactory.new()
-    local self = setmetatable({}, GameStateFactory)
-    self:_init_fields()
-    return self
-end
+    createGameState(name) {
+        return GameState.new(name, Fn.new {
+var jold = _index
+_index = JR.i32(jold + 1)
+return jold
+}.call())
+    }
+}
 
-
-function GameStateFactory:createGameState(name)
-        return GameState.new(name, (function() local value = self.index self.index = value + 1 return value end)())
-end
-
-GameStateFactory.instance = NullUtil.getInstance().NULL_OBJECT
-
-return GameStateFactory
+import "../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "./GameState" for GameState
 

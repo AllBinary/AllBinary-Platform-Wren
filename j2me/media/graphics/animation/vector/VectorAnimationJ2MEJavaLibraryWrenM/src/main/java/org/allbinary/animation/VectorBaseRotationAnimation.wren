@@ -1,146 +1,139 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
-local AngleInfo = require("org.allbinary.math.AngleInfo")
-local CircularIndexUtil = require("org.allbinary.util.CircularIndexUtil")
-local RotationAnimation = require("org.allbinary.animation.RotationAnimation")
-local VectorAnimationInterface = require("org.allbinary.animation.VectorAnimationInterface")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./RotationAnimation" for RotationAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class VectorBaseRotationAnimation is RotationAnimation {
+  currentPoints { _currentPoints }
+  currentPoints=(value) { _currentPoints = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_VectorBaseRotationAnimation() {
+    _currentPoints = null
+        _currentPoints = NullUtil.getInstance().NULL_INT_ARRAY_ARRAY_ARRAY
+  }
+    
 
-local VectorBaseRotationAnimation = {}
-VectorBaseRotationAnimation.__index = VectorBaseRotationAnimation
-VectorBaseRotationAnimation.className = "VectorBaseRotationAnimation"
-setmetatable(VectorBaseRotationAnimation, {__index = RotationAnimation})
+    construct new(angleInfo, currentPoints, basicColor, animationBehavior) {
+        super(angleInfo, CircularIndexUtil.createInstance((360 / angleInfo.getAngleIncrementInfo().getAngleIncrement())), animationBehavior)
+        initFields_VectorBaseRotationAnimation()
+        this.setPoints(currentPoints)
+        this.setBasicColorP(basicColor)
+    }
+    
 
-function VectorBaseRotationAnimation:_init_fields()
-    self.currentPoints = NullUtil.getInstance().NULL_INT_ARRAY_ARRAY_ARRAY
-end
+    getAnimationSize() {
+        return this.getSize()
+    }
+    
 
+    getFrame() {
+        return this.circularIndexUtil.getIndex()
+    }
+    
 
-function VectorBaseRotationAnimation.new(angleInfo, currentPoints, basicColor, animationBehavior)
-    local self = setmetatable(RotationAnimation.new(angleInfo, CircularIndexUtil.createInstance(360 / angleInfo:getAngleIncrementInfo():getAngleIncrement()), animationBehavior), VectorBaseRotationAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self:setPoints(currentPoints)
-        self:setBasicColorP(basicColor)
-    return self
-end
+    setFrame(index) {
+        this.circularIndexUtil.setIndex(index)
+    }
+    
 
+    nextFrame() {
+        this.circularIndexUtil.next()
+    }
+    
 
--- throws Exception
-function VectorBaseRotationAnimation:getAnimationSize()
-        return self:getSize()
-end
+    previousFrame() {
+        this.circularIndexUtil.previous()
+    }
+    
 
+    getSize() {
+        return _currentPoints.count
+    }
+    
 
-function VectorBaseRotationAnimation:getFrame()
-        return self.circularIndexUtil:getIndex()
-end
+    setSequence(sequence) {
+    }
+    
 
-
-function VectorBaseRotationAnimation:setFrame(index)
-        self.circularIndexUtil:setIndex(index)
-end
-
-
-function VectorBaseRotationAnimation:nextFrame()
-        self.circularIndexUtil:next()
-end
-
-
-function VectorBaseRotationAnimation:previousFrame()
-        self.circularIndexUtil:previous()
-end
-
-
-function VectorBaseRotationAnimation:getSize()
-        return (self.currentPoints.n or #self.currentPoints)
-end
-
-
-function VectorBaseRotationAnimation:setSequence(sequence)
-end
-
-
-function VectorBaseRotationAnimation:getSequence()
+    getSequence() {
         return PrimitiveIntUtil.getArrayInstance()
-end
+    }
+    
 
+    paintXY(graphics, x, y) {
+        this.basicSetColorUtil.setBasicColorP(graphics, this.basicColor)
+        var jerror0 = Fiber.new {
+            var nextPointX = 0
+            var nextPointY = 0
+            var nextPoint = null
+            var point = null
+            var currentPointsFrame = _currentPoints[this.circularIndexUtil.getIndex()]
+            var size = currentPointsFrame.count
+            var index = JR.i32(size - 2)
+            while ((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0)) {
+                nextPoint = currentPointsFrame[index]
+                point = currentPointsFrame[JR.i32(index + 1)]
+                nextPointX = nextPoint[0]
+                nextPointY = nextPoint[1]
+                if ((nextPointX != 1000)) {
+                    graphics.drawLine(JR.i32(point[0] + x), JR.i32(point[1] + y), JR.i32(nextPointX + x), JR.i32(nextPointY + y))
+                } else {
+                    index = JR.i32(index - 1)
+                }
+            }
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            this.logUtil.put(this.commonStrings.EXCEPTION, this, "paintVectors", e)
+        }
+    }
+    
 
-function VectorBaseRotationAnimation:paintXY(graphics, x, y)
-        self.basicSetColorUtil:setBasicColorP(graphics, self.basicColor)
-        local try_ok, try_error = pcall(function()
-            local nextPointX = 0
-            local nextPointY = 0
-            local nextPoint = nil
-            local point = nil
-            local currentPointsFrame = self.currentPoints[self.circularIndexUtil:getIndex() + 1]
-            local size = (currentPointsFrame.n or #currentPointsFrame)
-            local index = size - 2
-            while (function() index = index - 1 return index end)() >= 0 do
-                nextPoint = currentPointsFrame[index + 1]
-                point = currentPointsFrame[index + 1 + 1]
-                nextPointX = nextPoint[1]
-                nextPointY = nextPoint[2]
-                if nextPointX ~= 1000 then
-                    graphics:drawLine(point[1] + x, point[2] + y, nextPointX + x, nextPointY + y)
-                else
-                    index = index - 1
-                end
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, "paintVectors", e)
-        end
-end
+    getPoints(frame) {
+        return _currentPoints[frame]
+    }
+    
 
+    setPoints(currentPoints) {
+        _currentPoints = currentPoints
+        this.circularIndexUtil = CircularIndexUtil.createInstance(_currentPoints.count)
+    }
+    
 
-function VectorBaseRotationAnimation:getPoints(frame)
-        return self.currentPoints[frame + 1]
-end
+    getBasicColorP() {
+        return super.getBasicColorP()
+    }
+    
 
+    setBasicColorP(basicColor) {
+        super.setBasicColorP(basicColor)
+    }
+}
 
-function VectorBaseRotationAnimation:setPoints(currentPoints)
-        self.currentPoints = currentPoints
-        self.circularIndexUtil = CircularIndexUtil.createInstance((self.currentPoints.n or #self.currentPoints))
-end
-
-
-function VectorBaseRotationAnimation:getBasicColorP()
-        return RotationAnimation.getBasicColorP(self)
-end
-
-
-function VectorBaseRotationAnimation:setBasicColorP(basicColor)
-        RotationAnimation.setBasicColorP(self, basicColor)
-end
-
-return VectorBaseRotationAnimation
+import "../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
+import "../../../org/allbinary/math/AngleInfo" for AngleInfo
+import "../../../org/allbinary/util/CircularIndexUtil" for CircularIndexUtil
+import "./VectorAnimationInterface" for VectorAnimationInterface
+import "./AnimationBehavior" for AnimationBehavior
 

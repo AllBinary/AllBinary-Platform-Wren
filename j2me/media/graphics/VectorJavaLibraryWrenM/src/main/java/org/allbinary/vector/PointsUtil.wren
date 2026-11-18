@@ -1,94 +1,114 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.vector
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.vector
 
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class PointsUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = PointsUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_PointsUtil() {
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  construct new() {
+    super()
+    initFields_PointsUtil()
+  }
+    
 
-local PointsUtil = {}
-PointsUtil.__index = PointsUtil
-PointsUtil.className = "PointsUtil"
-
-function PointsUtil.new()
-    local self = setmetatable({}, PointsUtil)
-    return self
-end
-
-
-function PointsUtil.getInstance()
+    static getInstance() {
         return PointsUtil.instance
-end
+    }
+    
 
-
-function PointsUtil:adjustXY(points, x, y)
-        local size = (points.n or #points)
-        local newPoints = java_new_array(0, size, 0, 0)
-        for index = 0, size - 1 do
-            local size2 = (points[index + 1].n or #points[index + 1])
-            newPoints[index + 1] = java_new_array(0, size2, 2)
-            for index2 = 0, size2 - 1 do
-                if points[index + 1][index2 + 1][1] ~= 1000 then
-                    newPoints[index + 1][index2 + 1][1] = points[index + 1][index2 + 1][1] + x
-                    newPoints[index + 1][index2 + 1][2] = points[index + 1][index2 + 1][2] + y
-                else
-                    newPoints[index + 1][index2 + 1][1] = 1000
-                    newPoints[index + 1][index2 + 1][2] = 1000
-                end
-            end
-        end
+    adjustXY(points, x, y) {
+        var size = points.count
+        var newPoints = JR.listOf(size, Fn.new { JR.listOf(0, Fn.new { List.filled(0, 0) }) })
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            var size2 = points[index].count
+            newPoints[index] = JR.listOf(size2, Fn.new { List.filled(2, 0) })
+            if (true) {
+                var index2 = 0
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        index2 = JR.i32(index2 + 1)
+                    }
+                    jfirst = false
+                    if (!((index2 < size2))) break
+                if ((points[index][index2][0] != 1000)) {
+                    newPoints[index][index2][0] = (points[index][index2][0] + x)
+                    newPoints[index][index2][1] = (points[index][index2][1] + y)
+                } else {
+                    newPoints[index][index2][0] = 1000
+                    newPoints[index][index2][1] = 1000
+                }
+                }
+            }
+            }
+        }
         return newPoints
-end
+    }
+    
 
+    adjust(points, both) {
+        return this.adjust(points, both, both)
+    }
+    
 
-function PointsUtil:adjust(points, both)
-        return self:adjust(points, both, both)
-end
-
-
--- Java overloaded method: Lua keeps the last definition
-function PointsUtil:adjust(points, x, y)
-        local newPoints = java_new_array(0, (points.n or #points), 2)
-        for index2 = 0, (points.n or #points) - 1 do
-            if points[index2 + 1][1] ~= 1000 then
-                newPoints[index2 + 1][1] = points[index2 + 1][1] + x
-                newPoints[index2 + 1][2] = points[index2 + 1][2] + y
-            else
-                newPoints[index2 + 1][1] = 1000
-                newPoints[index2 + 1][2] = 1000
-            end
-        end
+    adjust(points, x, y) {
+        var newPoints = JR.listOf(points.count, Fn.new { List.filled(2, 0) })
+        if (true) {
+            var index2 = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index2 = JR.i32(index2 + 1)
+                }
+                jfirst = false
+                if (!((index2 < points.count))) break
+            if ((points[index2][0] != 1000)) {
+                newPoints[index2][0] = (points[index2][0] + x)
+                newPoints[index2][1] = (points[index2][1] + y)
+            } else {
+                newPoints[index2][0] = 1000
+                newPoints[index2][1] = 1000
+            }
+            }
+        }
         return newPoints
-end
+    }
+}
 
-PointsUtil.instance = PointsUtil.new()
-
-return PointsUtil
 

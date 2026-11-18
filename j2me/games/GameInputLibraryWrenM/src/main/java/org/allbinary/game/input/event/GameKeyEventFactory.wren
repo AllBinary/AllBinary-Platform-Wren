@@ -1,102 +1,118 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input.event
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input.event
 
-local GameKeyEventSourceInterface = require("org.allbinary.game.input.GameKeyEventSourceInterface")
-local Input = require("org.allbinary.game.input.Input")
-local InputFactory = require("org.allbinary.game.input.InputFactory")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class GameKeyEventFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  TOUCH_BUTTON_SOURCE_ID { _TOUCH_BUTTON_SOURCE_ID }
+  TOUCH_BUTTON_SOURCE_ID=(value) { _TOUCH_BUTTON_SOURCE_ID = value }
+  MOTION_GESTURE_SOURCE_ID { _MOTION_GESTURE_SOURCE_ID }
+  MOTION_GESTURE_SOURCE_ID=(value) { _MOTION_GESTURE_SOURCE_ID = value }
+  MAX_SOURCES { _MAX_SOURCES }
+  MAX_SOURCES=(value) { _MAX_SOURCES = value }
+  ARRAY { _ARRAY }
+  ARRAY=(value) { _ARRAY = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_GameKeyEventFactory() {
+    _logUtil = null
+    _TOUCH_BUTTON_SOURCE_ID = 0
+    _MOTION_GESTURE_SOURCE_ID = 0
+    _MAX_SOURCES = 0
+    _ARRAY = null
+        _logUtil = LogUtil.getInstance()
+        _TOUCH_BUTTON_SOURCE_ID = 2
+        _MOTION_GESTURE_SOURCE_ID = 3
+        _MAX_SOURCES = 4
+        _ARRAY = JR.listOf(_MAX_SOURCES, Fn.new { List.filled(InputFactory.getInstance().MAX, null) })
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local GameKeyEventFactory = {}
-GameKeyEventFactory.__index = GameKeyEventFactory
-GameKeyEventFactory.className = "GameKeyEventFactory"
-
-function GameKeyEventFactory:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.TOUCH_BUTTON_SOURCE_ID = 2
-    self.MOTION_GESTURE_SOURCE_ID = 3
-    self.MAX_SOURCES = 4
-    self.ARRAY = java_new_array(nil, self.MAX_SOURCES, InputFactory.getInstance().MAX)
-end
-
-
-function GameKeyEventFactory.getInstance()
-        if GameKeyEventFactory.instance == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((GameKeyEventFactory.instance == NullUtil.getInstance().NULL_OBJECT)) {
             GameKeyEventFactory.instance = GameKeyEventFactory.new()
-        end
+        }
         return GameKeyEventFactory.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_GameKeyEventFactory()
+    }
+    
 
-function GameKeyEventFactory.new()
-    local self = setmetatable({}, GameKeyEventFactory)
-    self:_init_fields()
-    return self
-end
+    init() {
+        var nullUtil = NullUtil.getInstance()
+        var size = InputFactory.getInstance().MAX
+        if (true) {
+            var index = _MAX_SOURCES
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            if (true) {
+                var index2 = size
+                var jfirst = true
+                while (true) {
+                    jfirst = false
+                    if (!((Fn.new {
+index2 = JR.i32(index2 - 1)
+return index2
+}.call() >= 0))) break
+                _ARRAY[index][index2] = GameKeyEvent.createEvent(nullUtil.NULL_OBJECT, index, index2)
+                }
+            }
+            }
+        }
+    }
+    
 
-
-function GameKeyEventFactory:init()
-        local nullUtil = NullUtil.getInstance()
-        local size = InputFactory.getInstance().MAX
-        do
-            local index = self.MAX_SOURCES
-            while (function() index = index - 1 return index end)() >= 0 do
-            do
-                local index2 = size
-                while (function() index2 = index2 - 1 return index2 end)() >= 0 do
-                self.ARRAY[index + 1][index2 + 1] = GameKeyEvent.createEvent(nullUtil.NULL_OBJECT, index, index2)
-                end
-            end
-            end
-        end
-end
-
-
--- throws Exception
-function GameKeyEventFactory:getInstanceForKey(anyType, key)
-        local gameKeyEvent = self.ARRAY[anyType:getSourceId() + 1][key + 1]
+    getInstanceForKey(anyType, key) {
+        var gameKeyEvent = _ARRAY[anyType.getSourceId()][key]
         return gameKeyEvent
-end
+    }
+    
 
-
--- throws Exception
-function GameKeyEventFactory:getInstanceForInput(anyType, input)
-        local gameKeyEvent = self.ARRAY[anyType:getSourceId() + 1][input:getId() + 1]
+    getInstanceForInput(anyType, input) {
+        var gameKeyEvent = _ARRAY[anyType.getSourceId()][input.getId()]
         return gameKeyEvent
-end
+    }
+}
 
-GameKeyEventFactory.instance = NullUtil.getInstance().NULL_OBJECT
-
-return GameKeyEventFactory
+import "../../../../../org/allbinary/game/input/GameKeyEventSourceInterface" for GameKeyEventSourceInterface
+import "../../../../../org/allbinary/game/input/Input" for Input
+import "../../../../../org/allbinary/game/input/InputFactory" for InputFactory
+import "../../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "./GameKeyEvent" for GameKeyEvent
 

@@ -1,139 +1,157 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.layer.event
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.layer.event
 
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventListenerInterface = require("org.allbinary.logic.util.event.EventListenerInterface")
-local EventStrings = require("org.allbinary.logic.util.event.EventStrings")
-local BasicEventHandler = require("org.allbinary.logic.util.event.handler.BasicEventHandler")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/logic/util/event/handler/BasicEventHandler" for BasicEventHandler
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LayerManagerEventHandler is BasicEventHandler {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = LayerManagerEventHandler.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  list { _list }
+  list=(value) { _list = value }
+  CREATE { _CREATE }
+  CREATE=(value) { _CREATE = value }
+  DELETE { _DELETE }
+  DELETE=(value) { _DELETE = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LayerManagerEventHandler() {
+    _list = null
+    _CREATE = null
+    _DELETE = null
+        _list = BasicArrayListD.new()
+        _CREATE = "Create"
+        _DELETE = "Delete"
+  }
+    
 
-local LayerManagerEventHandler = {}
-LayerManagerEventHandler.__index = LayerManagerEventHandler
-LayerManagerEventHandler.className = "LayerManagerEventHandler"
-setmetatable(LayerManagerEventHandler, {__index = BasicEventHandler})
-
-function LayerManagerEventHandler:_init_fields()
-    self.list = BasicArrayListD.new()
-    self.CREATE = "Create"
-    self.DELETE = "Delete"
-end
-
-
-function LayerManagerEventHandler.getInstance()
+    static getInstance() {
         return LayerManagerEventHandler.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_LayerManagerEventHandler()
+    }
+    
 
-function LayerManagerEventHandler.new()
-    local self = setmetatable(BasicEventHandler.new(), LayerManagerEventHandler)
-    self:_init_fields()
-    return self
-end
+    addListener(layerManagerEventListener) {
+        if (!_list.contains(layerManagerEventListener)) {
+            _list.add(layerManagerEventListener)
+        }
+    }
+    
 
+    removeAllListeners() {
+        _list.clear()
+        super.removeAllListeners()
+    }
+    
 
-function LayerManagerEventHandler:addListener(layerManagerEventListener)
-        if not self.list:contains(layerManagerEventListener) then
-            self.list:add(layerManagerEventListener)
-        end
-end
+    removeListener(eventListenerInterface) {
+        _list.remove(eventListenerInterface)
+        super.removeListener(eventListenerInterface)
+    }
+    
 
+    fireEvent(eventObject) {
+        if (true) {
+            var index = _list.size()
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            var jerror0 = Fiber.new {
+                var layerManagerEventListener = _list.objectArray[index]
+                layerManagerEventListener.onCreateLayerManagerEvent(eventObject)
+            }.try()
+            if (jerror0 != null) {
+                var e = jerror0
+                this.logUtil.put(this.commonStrings.EXCEPTION, this, EventStrings.getInstance().FIRE_EVENT, e)
+            }
+            }
+        }
+        super.fireEvent(eventObject)
+    }
+    
 
-function LayerManagerEventHandler:removeAllListeners()
-        self.list:clear()
-        BasicEventHandler.removeAllListeners(self)
-end
-
-
-function LayerManagerEventHandler:removeListener(eventListenerInterface)
-        self.list:remove(eventListenerInterface)
-        BasicEventHandler.removeListener(self, eventListenerInterface)
-end
-
-
--- throws Exception
-function LayerManagerEventHandler:fireEvent(eventObject)
-        do
-            local index = self.list:size()
-            while (function() index = index - 1 return index end)() >= 0 do
-            local try_ok, try_error = pcall(function()
-                local layerManagerEventListener = self.list.objectArray[index + 1]
-                layerManagerEventListener:onCreateLayerManagerEvent(eventObject)
-            end)
-            if not try_ok then
-                local e = try_error
-                self.logUtil:put(self.commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-            end
-            end
-        end
-        BasicEventHandler.fireEvent(self, eventObject)
-end
-
-
--- throws Exception
-function LayerManagerEventHandler:fireDeleteEvent(eventObject)
-        do
-            local index = self.list:size()
-            while (function() index = index - 1 return index end)() >= 0 do
-            local try_ok, try_error = pcall(function()
-                local layerManagerEventListener = self.list.objectArray[index + 1]
-                layerManagerEventListener:onDeleteLayerManagerEvent(eventObject)
-            end)
-            if not try_ok then
-                local e = try_error
-                self.logUtil:put(self.commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-            end
-            end
-        end
-        local eventListenerInterfaceList = self.eventListenerInterfaceList
-        local eventListenerInterface = nil
-        local layerManagerEventListenerInterface = nil
-        local listenerIndex = 0
-        while listenerIndex < eventListenerInterfaceList:size() do
-            local try_ok, try_error = pcall(function()
-                eventListenerInterface = eventListenerInterfaceList.objectArray[listenerIndex + 1]
+    fireDeleteEvent(eventObject) {
+        if (true) {
+            var index = _list.size()
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            var jerror1 = Fiber.new {
+                var layerManagerEventListener = _list.objectArray[index]
+                layerManagerEventListener.onDeleteLayerManagerEvent(eventObject)
+            }.try()
+            if (jerror1 != null) {
+                var e = jerror1
+                this.logUtil.put(this.commonStrings.EXCEPTION, this, EventStrings.getInstance().FIRE_EVENT, e)
+            }
+            }
+        }
+        var eventListenerInterfaceList = this.eventListenerInterfaceList
+        var eventListenerInterface = null
+        var layerManagerEventListenerInterface = null
+        var listenerIndex = 0
+        while ((listenerIndex < eventListenerInterfaceList.size())) {
+            var jerror2 = Fiber.new {
+                eventListenerInterface = eventListenerInterfaceList.objectArray[listenerIndex]
                 layerManagerEventListenerInterface = (eventListenerInterface)
-                layerManagerEventListenerInterface:onDeleteLayerManagerEvent(eventObject)
-            end)
-            if not try_ok then
-                local e = try_error
-                self.logUtil:put(self.commonStrings.EXCEPTION, self, EventStrings.getInstance().FIRE_EVENT, e)
-            end
-            listenerIndex = listenerIndex + 1
-        end
-end
+                layerManagerEventListenerInterface.onDeleteLayerManagerEvent(eventObject)
+            }.try()
+            if (jerror2 != null) {
+                var e = jerror2
+                this.logUtil.put(this.commonStrings.EXCEPTION, this, EventStrings.getInstance().FIRE_EVENT, e)
+            }
+            listenerIndex = JR.i32(listenerIndex + 1)
+        }
+    }
+    
 
+    process(eventObject, eventListenerInterface) {
+        var layerManagerEventListenerInterface = (eventListenerInterface)
+        layerManagerEventListenerInterface.onCreateLayerManagerEvent(eventObject)
+    }
+}
 
--- throws Exception
-function LayerManagerEventHandler:process(eventObject, eventListenerInterface)
-        local layerManagerEventListenerInterface = (eventListenerInterface)
-        layerManagerEventListenerInterface:onCreateLayerManagerEvent(eventObject)
-end
-
-LayerManagerEventHandler.instance = LayerManagerEventHandler.new()
-
-return LayerManagerEventHandler
+import "../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../org/allbinary/logic/util/event/EventListenerInterface" for EventListenerInterface
+import "../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./LayerManagerEventListener" for LayerManagerEventListener
+import "./LayerManagerEvent" for LayerManagerEvent
+import "./LayerManagerEventListenerInterface" for LayerManagerEventListenerInterface
 

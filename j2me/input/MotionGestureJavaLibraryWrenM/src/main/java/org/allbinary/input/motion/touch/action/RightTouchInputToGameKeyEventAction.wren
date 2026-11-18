@@ -1,55 +1,54 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.touch.action
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.touch.action
 
-local PlatformInputMappingFactory = require("org.allbinary.game.input.PlatformInputMappingFactory")
-local GameKeyCompleteMotionGestureInputEvent = require("org.allbinary.game.input.motion.action.GameKeyCompleteMotionGestureInputEvent")
-local TouchMotionGestureFactory = require("org.allbinary.input.motion.gesture.TouchMotionGestureFactory")
-local NullUtil = require("org.allbinary.logic.NullUtil")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/game/input/motion/action/GameKeyCompleteMotionGestureInputEvent" for GameKeyCompleteMotionGestureInputEvent
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RightTouchInputToGameKeyEventAction is GameKeyCompleteMotionGestureInputEvent {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RightTouchInputToGameKeyEventAction() {
+  }
+    
 
-local RightTouchInputToGameKeyEventAction = {}
-RightTouchInputToGameKeyEventAction.__index = RightTouchInputToGameKeyEventAction
-RightTouchInputToGameKeyEventAction.className = "RightTouchInputToGameKeyEventAction"
-setmetatable(RightTouchInputToGameKeyEventAction, {__index = GameKeyCompleteMotionGestureInputEvent})
-
-
-function RightTouchInputToGameKeyEventAction.getInstance()
-        if RightTouchInputToGameKeyEventAction.instance == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((RightTouchInputToGameKeyEventAction.instance == NullUtil.getInstance().NULL_OBJECT)) {
             RightTouchInputToGameKeyEventAction.instance = RightTouchInputToGameKeyEventAction.new()
-        end
+        }
         return RightTouchInputToGameKeyEventAction.instance
-end
+    }
+    
 
+    construct new() {
+        super("Right Action", TouchMotionGestureFactory.getInstance().RIGHT, PlatformInputMappingFactory.getInstance().getPersistentInputMappingInstance().getInputMapping())
+    }
+}
 
-function RightTouchInputToGameKeyEventAction.new()
-    local self = setmetatable(GameKeyCompleteMotionGestureInputEvent.new("Right Action", TouchMotionGestureFactory.getInstance().RIGHT, PlatformInputMappingFactory.getInstance():getPersistentInputMappingInstance():getInputMapping()), RightTouchInputToGameKeyEventAction)
-        -- super(...) made self above
-    return self
-end
-
-RightTouchInputToGameKeyEventAction.instance = NullUtil.getInstance().NULL_OBJECT
-
-return RightTouchInputToGameKeyEventAction
+import "../../../../../../org/allbinary/game/input/PlatformInputMappingFactory" for PlatformInputMappingFactory
+import "../../../../../../org/allbinary/input/motion/gesture/TouchMotionGestureFactory" for TouchMotionGestureFactory
+import "../../../../../../org/allbinary/logic/NullUtil" for NullUtil
 

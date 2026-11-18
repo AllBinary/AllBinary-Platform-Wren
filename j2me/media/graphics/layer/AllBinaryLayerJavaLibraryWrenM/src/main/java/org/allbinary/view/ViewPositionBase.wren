@@ -1,63 +1,62 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2011 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.view
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2011 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.view
 
-local GPoint = require("org.allbinary.graphics.GPoint")
+import "../../../allbinary_java" for JObject, JException, JR
+import "../../../org/allbinary/graphics/GPoint" for GPoint
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ViewPositionBase is GPoint {
+    static NULL_VIEW_POSITION {
+    if (__NULL_VIEW_POSITION_set == null) {
+      __NULL_VIEW_POSITION_set = true
+      __NULL_VIEW_POSITION = ViewPositionBase.new(0, 0, 0)
+    }
+    return __NULL_VIEW_POSITION
+  }
+  static NULL_VIEW_POSITION=(value) {
+    __NULL_VIEW_POSITION_set = true
+    __NULL_VIEW_POSITION = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ViewPositionBase() {
+  }
+    
 
-local ViewPositionBase = {}
-ViewPositionBase.__index = ViewPositionBase
-ViewPositionBase.className = "ViewPositionBase"
-setmetatable(ViewPositionBase, {__index = GPoint})
+    construct new(x, y, z) {
+        super(x, y, z)
+    }
+    
 
+    getX2() {
+        return this.getX()
+    }
+    
 
-function ViewPositionBase.new(x, y, z)
-    local self = setmetatable(GPoint.new(x, y, z), ViewPositionBase)
-        -- super(...) made self above
-    return self
-end
+    getY2() {
+        return this.getY()
+    }
+    
 
+    getZ2() {
+        return this.getZ()
+    }
+    
 
-function ViewPositionBase:getX2()
-        return self:getX()
-end
+    setAllbinaryLayer(allbinaryLayer) {
+    }
+}
 
-
-function ViewPositionBase:getY2()
-        return self:getY()
-end
-
-
-function ViewPositionBase:getZ2()
-        return self:getZ()
-end
-
-
-function ViewPositionBase:setAllbinaryLayer(allbinaryLayer)
-end
-
-ViewPositionBase.NULL_VIEW_POSITION = ViewPositionBase.new(0, 0, 0)
-
-return ViewPositionBase
 

@@ -1,157 +1,174 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration
 
--- local Item = require("javax.microedition.lcdui.Item")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_instanceof(object, class)
-    local metatable = getmetatable(object)
-    while metatable do
-        if metatable == class then return true end
-        local parent = getmetatable(metatable)
-        metatable = parent and parent.__index
-    end
-    return false
-end
+class GameConfigurationUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = GameConfigurationUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  GAUGE_UPDATE { _GAUGE_UPDATE }
+  GAUGE_UPDATE=(value) { _GAUGE_UPDATE = value }
+  FROM { _FROM }
+  FROM=(value) { _FROM = value }
+  TO { _TO }
+  TO=(value) { _TO = value }
+  COMPETITION_VALUE { _COMPETITION_VALUE }
+  COMPETITION_VALUE=(value) { _COMPETITION_VALUE = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_GameConfigurationUtil() {
+    _logUtil = null
+    _commonStrings = null
+    _GAUGE_UPDATE = null
+    _FROM = null
+    _TO = null
+    _COMPETITION_VALUE = 0
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        _GAUGE_UPDATE = "Gauge Update: "
+        _FROM = " from: "
+        _TO = " to: "
+        _COMPETITION_VALUE = 1
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  construct new() {
+    super()
+    initFields_GameConfigurationUtil()
+  }
+    
 
-local GameConfigurationUtil = {}
-GameConfigurationUtil.__index = GameConfigurationUtil
-GameConfigurationUtil.className = "GameConfigurationUtil"
-
-function GameConfigurationUtil:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.GAUGE_UPDATE = "Gauge Update: "
-    self.FROM = " from: "
-    self.TO = " to: "
-    self.COMPETITION_VALUE = 1
-end
-
-function GameConfigurationUtil.new()
-    local self = setmetatable({}, GameConfigurationUtil)
-    self:_init_fields()
-    return self
-end
-
-
-function GameConfigurationUtil.getInstance()
+    static getInstance() {
         return GameConfigurationUtil.instance
-end
+    }
+    
 
+    change(gameOptionsForm, gauge) {
+        this.update(gauge)
+        var gameConfigurationSingleton = GameConfigurationSingleton.getInstance()
+        var gameConfiguration = gameConfigurationSingleton.getInstanceByName(gauge.getLabel())
+        this.updateChallange(gameOptionsForm, gameConfiguration)
+    }
+    
 
--- throws Exception
-function GameConfigurationUtil:change(gameOptionsForm, gauge)
-        self:update(gauge)
-        local gameConfigurationSingleton = GameConfigurationSingleton.getInstance()
-        local gameConfiguration = gameConfigurationSingleton:getInstanceByName(gauge:getLabel())
-        self:updateChallange(gameOptionsForm, gameConfiguration)
-end
+    update(gauge) {
+        var gameConfigurationSingleton = GameConfigurationSingleton.getInstance()
+        var gameConfiguration = gameConfigurationSingleton.getInstanceByName(gauge.getLabel())
+        var smallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
+        var value = smallIntegerSingletonFactory.getAt((gauge.getValue() + gameConfiguration.getMinValue().intValue()))
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append(_GAUGE_UPDATE)
+        stringBuffer.append(gameConfiguration.getName())
+        stringBuffer.append(_FROM)
+        stringBuffer.appendint(JR.i32(gameConfiguration.getValue().intValue()))
+        stringBuffer.append(_TO)
+        stringBuffer.appendint(JR.i32(value.intValue()))
+        _logUtil.putF(stringBuffer.toString(), this, _commonStrings.UPDATE)
+        gameConfiguration.setValue(value)
+    }
+    
 
+    setDefault(gauge) {
+        var gameConfigurationSingleton = GameConfigurationSingleton.getInstance()
+        var gameConfiguration = gameConfigurationSingleton.getInstanceByName(gauge.getLabel())
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append("Gauge Default: ")
+        stringBuffer.append(gameConfiguration.getName())
+        stringBuffer.append(_TO)
+        stringBuffer.appendint(JR.i32(gameConfiguration.getDefaultValue().intValue()))
+        _logUtil.putF(stringBuffer.toString(), this, "setDefault")
+        gauge.setValue((gameConfiguration.getDefaultValue().intValue() - gameConfiguration.getMinValue().intValue()))
+        gameConfiguration.setValue(gameConfiguration.getDefaultValue())
+    }
+    
 
--- throws Exception
-function GameConfigurationUtil:update(gauge)
-        local gameConfigurationSingleton = GameConfigurationSingleton.getInstance()
-        local gameConfiguration = gameConfigurationSingleton:getInstanceByName(gauge:getLabel())
-        local smallIntegerSingletonFactory = SmallIntegerSingletonFactory.getInstance()
-        local value = smallIntegerSingletonFactory:getAt(gauge:getValue() + math.tointeger(gameConfiguration:getMinValue() // 1))
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append(self.GAUGE_UPDATE)
-        stringBuffer:append(gameConfiguration:getName())
-        stringBuffer:append(self.FROM)
-        stringBuffer:appendint(java_int(math.tointeger(gameConfiguration:getValue() // 1)))
-        stringBuffer:append(self.TO)
-        stringBuffer:appendint(java_int(math.tointeger(value // 1)))
-        self.logUtil:putF(tostring(stringBuffer), self, self.commonStrings.UPDATE)
-        gameConfiguration:setValue(value)
-end
+    updateChallange(gameOptionsForm, gameConfiguration) {
+        var gameConfigurationSingleton = GameConfigurationSingleton.getInstance()
+        var gameConfigurationCentral = GameConfigurationCentral.getInstance()
+        if ((gameConfiguration == gameConfigurationCentral.CHALLENGE_LEVEL)) {
+            _logUtil.putF(_commonStrings.START, this, "updateChallange")
+            gameConfigurationCentral.COLLIDE_DAMAGE.setValue(gameConfiguration.getValue())
+            gameConfigurationCentral.ATTACK_CHALLENGE_LEVEL.setValue(gameConfiguration.getValue())
+            gameConfigurationCentral.DURABILITY_CHALLENGE_LEVEL.setValue(gameConfiguration.getValue())
+            gameConfigurationCentral.SPEED_CHALLENGE_LEVEL.setValue(gameConfiguration.getValue())
+            var size = gameOptionsForm.size()
+            if (true) {
+                var index = 0
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        index = JR.i32(index + 1)
+                    }
+                    jfirst = false
+                    if (!((index < size))) break
+                var item = gameOptionsForm.get(index)
+                if ((item is GameConfigurationGauge)) {
+                    var gauge = item
+                    var name = item.getLabel()
+                    var nextGameConfiguration = gameConfigurationSingleton.getInstanceByName(name)
+                    if ((nextGameConfiguration == gameConfigurationCentral.COLLIDE_DAMAGE)) {
+                        gauge.setValue((gameConfigurationCentral.COLLIDE_DAMAGE.getValue().intValue() - gameConfiguration.getMinValue().intValue()))
+                    } else if ((nextGameConfiguration == gameConfigurationCentral.DURABILITY_CHALLENGE_LEVEL)) {
+                        gauge.setValue((gameConfigurationCentral.DURABILITY_CHALLENGE_LEVEL.getValue().intValue() - gameConfiguration.getMinValue().intValue()))
+                    } else if ((nextGameConfiguration == gameConfigurationCentral.ATTACK_CHALLENGE_LEVEL)) {
+                        gauge.setValue((gameConfigurationCentral.ATTACK_CHALLENGE_LEVEL.getValue().intValue() - gameConfiguration.getMinValue().intValue()))
+                    } else if ((nextGameConfiguration == gameConfigurationCentral.SPEED_CHALLENGE_LEVEL)) {
+                        gauge.setValue((gameConfigurationCentral.SPEED_CHALLENGE_LEVEL.getValue().intValue() - gameConfiguration.getMinValue().intValue()))
+                    }
+                }
+                }
+            }
+        }
+    }
+    
 
+    updateCompetitionValue() {
+        _logUtil.putF(_commonStrings.START, this, "updateCompetitionValue")
+        var gameConfigurationCentral = GameConfigurationCentral.getInstance()
+        _COMPETITION_VALUE = (((gameConfigurationCentral.COLLIDE_DAMAGE.getValue().intValue() + gameConfigurationCentral.ATTACK_CHALLENGE_LEVEL.getValue().intValue()) + gameConfigurationCentral.DURABILITY_CHALLENGE_LEVEL.getValue().intValue()) + gameConfigurationCentral.SPEED_CHALLENGE_LEVEL.getValue().intValue())
+        _COMPETITION_VALUE = (JR.shr(_COMPETITION_VALUE, 2))
+    }
+    
 
--- throws Exception
-function GameConfigurationUtil:setDefault(gauge)
-        local gameConfigurationSingleton = GameConfigurationSingleton.getInstance()
-        local gameConfiguration = gameConfigurationSingleton:getInstanceByName(gauge:getLabel())
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append("Gauge Default: ")
-        stringBuffer:append(gameConfiguration:getName())
-        stringBuffer:append(self.TO)
-        stringBuffer:appendint(java_int(math.tointeger(gameConfiguration:getDefaultValue() // 1)))
-        self.logUtil:putF(tostring(stringBuffer), self, "setDefault")
-        gauge:setValue(math.tointeger(gameConfiguration:getDefaultValue() // 1) - math.tointeger(gameConfiguration:getMinValue() // 1))
-        gameConfiguration:setValue(gameConfiguration:getDefaultValue())
-end
+    getCompetitionValue() {
+        return _COMPETITION_VALUE
+    }
+}
 
-
--- throws Exception
-function GameConfigurationUtil:updateChallange(gameOptionsForm, gameConfiguration)
-        local gameConfigurationSingleton = GameConfigurationSingleton.getInstance()
-        local gameConfigurationCentral = GameConfigurationCentral.getInstance()
-        if gameConfiguration == gameConfigurationCentral.CHALLENGE_LEVEL then
-            self.logUtil:putF(self.commonStrings.START, self, "updateChallange")
-            gameConfigurationCentral.COLLIDE_DAMAGE:setValue(gameConfiguration:getValue())
-            gameConfigurationCentral.ATTACK_CHALLENGE_LEVEL:setValue(gameConfiguration:getValue())
-            gameConfigurationCentral.DURABILITY_CHALLENGE_LEVEL:setValue(gameConfiguration:getValue())
-            gameConfigurationCentral.SPEED_CHALLENGE_LEVEL:setValue(gameConfiguration:getValue())
-            local size = gameOptionsForm:size()
-            for index = 0, size - 1 do
-                local item = gameOptionsForm:get(index)
-                if java_instanceof(item, GameConfigurationGauge) then
-                    local gauge = item
-                    local name = item:getLabel()
-                    local nextGameConfiguration = gameConfigurationSingleton:getInstanceByName(name)
-                    if nextGameConfiguration == gameConfigurationCentral.COLLIDE_DAMAGE then
-                        gauge:setValue(math.tointeger(gameConfigurationCentral.COLLIDE_DAMAGE:getValue() // 1) - math.tointeger(gameConfiguration:getMinValue() // 1))
-                    elseif nextGameConfiguration == gameConfigurationCentral.DURABILITY_CHALLENGE_LEVEL then
-                        gauge:setValue(math.tointeger(gameConfigurationCentral.DURABILITY_CHALLENGE_LEVEL:getValue() // 1) - math.tointeger(gameConfiguration:getMinValue() // 1))
-                    elseif nextGameConfiguration == gameConfigurationCentral.ATTACK_CHALLENGE_LEVEL then
-                        gauge:setValue(math.tointeger(gameConfigurationCentral.ATTACK_CHALLENGE_LEVEL:getValue() // 1) - math.tointeger(gameConfiguration:getMinValue() // 1))
-                    elseif nextGameConfiguration == gameConfigurationCentral.SPEED_CHALLENGE_LEVEL then
-                        gauge:setValue(math.tointeger(gameConfigurationCentral.SPEED_CHALLENGE_LEVEL:getValue() // 1) - math.tointeger(gameConfiguration:getMinValue() // 1))
-                    end
-                end
-            end
-        end
-end
-
-
-function GameConfigurationUtil:updateCompetitionValue()
-        self.logUtil:putF(self.commonStrings.START, self, "updateCompetitionValue")
-        local gameConfigurationCentral = GameConfigurationCentral.getInstance()
-        self.COMPETITION_VALUE = math.tointeger(gameConfigurationCentral.COLLIDE_DAMAGE:getValue() // 1) + math.tointeger(gameConfigurationCentral.ATTACK_CHALLENGE_LEVEL:getValue() // 1) + math.tointeger(gameConfigurationCentral.DURABILITY_CHALLENGE_LEVEL:getValue() // 1) + math.tointeger(gameConfigurationCentral.SPEED_CHALLENGE_LEVEL:getValue() // 1)
-        self.COMPETITION_VALUE = (((self.COMPETITION_VALUE) // (1 << (2))))
-end
-
-
-function GameConfigurationUtil:getCompetitionValue()
-        return self.COMPETITION_VALUE
-end
-
-GameConfigurationUtil.instance = GameConfigurationUtil.new()
-
-return GameConfigurationUtil
+import "../../../../javax/microedition/lcdui/Item" for Item
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../java/lang/Integer" for Integer
+import "./GameConfigurationSingleton" for GameConfigurationSingleton
+import "./GameConfiguration" for GameConfiguration
+import "./GameOptionsForm" for GameOptionsForm
+import "./GameConfigurationGauge" for GameConfigurationGauge
+import "./GameConfigurationCentral" for GameConfigurationCentral
 

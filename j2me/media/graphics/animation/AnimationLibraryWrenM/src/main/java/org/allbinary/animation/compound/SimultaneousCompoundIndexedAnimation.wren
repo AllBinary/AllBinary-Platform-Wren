@@ -1,134 +1,159 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.compound
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.compound
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Animation = require("org.allbinary.animation.Animation")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local IndexedAnimation = require("org.allbinary.animation.IndexedAnimation")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/animation/IndexedAnimation" for IndexedAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class SimultaneousCompoundIndexedAnimation is IndexedAnimation {
+  animationInterfaceArray { _animationInterfaceArray }
+  animationInterfaceArray=(value) { _animationInterfaceArray = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_SimultaneousCompoundIndexedAnimation() {
+    _animationInterfaceArray = null
+        
+  }
+    
 
-local SimultaneousCompoundIndexedAnimation = {}
-SimultaneousCompoundIndexedAnimation.__index = SimultaneousCompoundIndexedAnimation
-SimultaneousCompoundIndexedAnimation.className = "SimultaneousCompoundIndexedAnimation"
-setmetatable(SimultaneousCompoundIndexedAnimation, {__index = IndexedAnimation})
+    construct new(animationInterfaceArray, animationBehavior) {
+        super(animationBehavior)
+        initFields_SimultaneousCompoundIndexedAnimation()
+        _animationInterfaceArray = animationInterfaceArray
+    }
+    
 
-function SimultaneousCompoundIndexedAnimation:_init_fields()
-    self.animationInterfaceArray = nil
-end
+    setFrame(frameIndex) {
+        var indexedAnimation = null
+        if (true) {
+            var index = _animationInterfaceArray.count
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            indexedAnimation = _animationInterfaceArray[index]
+            indexedAnimation.setFrame(frameIndex)
+            }
+        }
+    }
+    
 
+    getFrame() {
+        var indexedAnimation = _animationInterfaceArray[0]
+        return indexedAnimation.getFrame()
+    }
+    
 
-function SimultaneousCompoundIndexedAnimation.new(animationInterfaceArray, animationBehavior)
-    local self = setmetatable(IndexedAnimation.new(animationBehavior), SimultaneousCompoundIndexedAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.animationInterfaceArray = animationInterfaceArray
-    return self
-end
+    getSize() {
+        var indexedAnimation = _animationInterfaceArray[0]
+        return indexedAnimation.getSize()
+    }
+    
 
+    previousFrame() {
+        var indexedAnimation = null
+        if (true) {
+            var index = _animationInterfaceArray.count
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            indexedAnimation = _animationInterfaceArray[index]
+            indexedAnimation.previousFrame()
+            }
+        }
+    }
+    
 
-function SimultaneousCompoundIndexedAnimation:setFrame(frameIndex)
-        local indexedAnimation = nil
-        do
-            local index = (self.animationInterfaceArray.n or #self.animationInterfaceArray)
-            while (function() index = index - 1 return index end)() >= 0 do
-            indexedAnimation = self.animationInterfaceArray[index + 1]
-            indexedAnimation:setFrame(frameIndex)
-            end
-        end
-end
+    setSequence(sequence) {
+    }
+    
 
-
-function SimultaneousCompoundIndexedAnimation:getFrame()
-        local indexedAnimation = self.animationInterfaceArray[1]
-        return indexedAnimation:getFrame()
-end
-
-
-function SimultaneousCompoundIndexedAnimation:getSize()
-        local indexedAnimation = self.animationInterfaceArray[1]
-        return indexedAnimation:getSize()
-end
-
-
-function SimultaneousCompoundIndexedAnimation:previousFrame()
-        local indexedAnimation = nil
-        do
-            local index = (self.animationInterfaceArray.n or #self.animationInterfaceArray)
-            while (function() index = index - 1 return index end)() >= 0 do
-            indexedAnimation = self.animationInterfaceArray[index + 1]
-            indexedAnimation:previousFrame()
-            end
-        end
-end
-
-
-function SimultaneousCompoundIndexedAnimation:setSequence(sequence)
-end
-
-
-function SimultaneousCompoundIndexedAnimation:getSequence()
+    getSequence() {
         return PrimitiveIntUtil.getArrayInstance()
-end
+    }
+    
 
+    nextFrame() {
+        if (true) {
+            var index = _animationInterfaceArray.count
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            _animationInterfaceArray[index].nextFrame()
+            }
+        }
+    }
+    
 
--- throws Exception
-function SimultaneousCompoundIndexedAnimation:nextFrame()
-        do
-            local index = (self.animationInterfaceArray.n or #self.animationInterfaceArray)
-            while (function() index = index - 1 return index end)() >= 0 do
-            self.animationInterfaceArray[index + 1]:nextFrame()
-            end
-        end
-end
+    paintXY(graphics, x, y) {
+        var size = _animationInterfaceArray.count
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            _animationInterfaceArray[index].paintXY(graphics, x, y)
+            }
+        }
+    }
+    
 
+    paintThreedXYZ(graphics, x, y, z) {
+        var size = _animationInterfaceArray.count
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            _animationInterfaceArray[index].paintThreedXYZ(graphics, x, y, z)
+            }
+        }
+    }
+    
 
-function SimultaneousCompoundIndexedAnimation:paintXY(graphics, x, y)
-        local size = (self.animationInterfaceArray.n or #self.animationInterfaceArray)
-        for index = 0, size - 1 do
-            self.animationInterfaceArray[index + 1]:paintXY(graphics, x, y)
-        end
-end
+    getAnimationInterfaceArray() {
+        return _animationInterfaceArray
+    }
+    
 
+    setAnimationInterfaceArray(animationInterfaceArray) {
+        _animationInterfaceArray = animationInterfaceArray
+    }
+}
 
-function SimultaneousCompoundIndexedAnimation:paintThreedXYZ(graphics, x, y, z)
-        local size = (self.animationInterfaceArray.n or #self.animationInterfaceArray)
-        for index = 0, size - 1 do
-            self.animationInterfaceArray[index + 1]:paintThreedXYZ(graphics, x, y, z)
-        end
-end
-
-
-function SimultaneousCompoundIndexedAnimation:getAnimationInterfaceArray()
-        return self.animationInterfaceArray
-end
-
-
-function SimultaneousCompoundIndexedAnimation:setAnimationInterfaceArray(animationInterfaceArray)
-        self.animationInterfaceArray = animationInterfaceArray
-end
-
-return SimultaneousCompoundIndexedAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
 

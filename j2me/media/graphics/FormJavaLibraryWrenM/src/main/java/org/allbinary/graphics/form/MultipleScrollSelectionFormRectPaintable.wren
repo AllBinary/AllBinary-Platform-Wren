@@ -1,53 +1,45 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/graphics/paint/Paintable" for Paintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class MultipleScrollSelectionFormRectPaintable is Paintable {
+  multipleScrollSelectionForm { _multipleScrollSelectionForm }
+  multipleScrollSelectionForm=(value) { _multipleScrollSelectionForm = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_MultipleScrollSelectionFormRectPaintable() {
+    _multipleScrollSelectionForm = null
+        
+  }
+    
 
-local MultipleScrollSelectionFormRectPaintable = {}
-MultipleScrollSelectionFormRectPaintable.__index = MultipleScrollSelectionFormRectPaintable
-MultipleScrollSelectionFormRectPaintable.className = "MultipleScrollSelectionFormRectPaintable"
-setmetatable(MultipleScrollSelectionFormRectPaintable, {__index = Paintable})
+    construct new(multipleScrollSelectionForm) {
+    super()
+    initFields_MultipleScrollSelectionFormRectPaintable()
+        _multipleScrollSelectionForm = multipleScrollSelectionForm
+    }
+    
 
-function MultipleScrollSelectionFormRectPaintable:_init_fields()
-    self.multipleScrollSelectionForm = nil
-end
+    paint(graphics) {
+        _multipleScrollSelectionForm.fillRect(graphics)
+    }
+}
 
-
-function MultipleScrollSelectionFormRectPaintable.new(multipleScrollSelectionForm)
-    local self = setmetatable(Paintable.new(), MultipleScrollSelectionFormRectPaintable)
-    self:_init_fields()
-        self.multipleScrollSelectionForm = multipleScrollSelectionForm
-    return self
-end
-
-
-function MultipleScrollSelectionFormRectPaintable:paint(graphics)
-        self.multipleScrollSelectionForm:fillRect(graphics)
-end
-
-return MultipleScrollSelectionFormRectPaintable
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "./MultipleScrollSelectionHorizontalForm" for MultipleScrollSelectionHorizontalForm
 

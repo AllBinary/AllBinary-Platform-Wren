@@ -1,68 +1,82 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form
 
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class FormTypeFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = FormTypeFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  UNK { _UNK }
+  UNK=(value) { _UNK = value }
+  NULL_FORM_TYPE { _NULL_FORM_TYPE }
+  NULL_FORM_TYPE=(value) { _NULL_FORM_TYPE = value }
+  TEMP_HORIZONTAL_FORM { _TEMP_HORIZONTAL_FORM }
+  TEMP_HORIZONTAL_FORM=(value) { _TEMP_HORIZONTAL_FORM = value }
+  HORIZONTAL_FORM { _HORIZONTAL_FORM }
+  HORIZONTAL_FORM=(value) { _HORIZONTAL_FORM = value }
+  VERTICAL_CENTER_FORM { _VERTICAL_CENTER_FORM }
+  VERTICAL_CENTER_FORM=(value) { _VERTICAL_CENTER_FORM = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_FormTypeFactory() {
+    _UNK = null
+    _NULL_FORM_TYPE = null
+    _TEMP_HORIZONTAL_FORM = null
+    _HORIZONTAL_FORM = null
+    _VERTICAL_CENTER_FORM = null
+        _UNK = "Unknown FormType"
+        _NULL_FORM_TYPE = FormType.new(StringUtil.getInstance().NULL_STRING)
+        _TEMP_HORIZONTAL_FORM = FormType.new("TempHorizontal")
+        _HORIZONTAL_FORM = FormType.new("Horizontal")
+        _VERTICAL_CENTER_FORM = FormType.new("Vertical")
+  }
 
-local FormTypeFactory = {}
-FormTypeFactory.__index = FormTypeFactory
-FormTypeFactory.className = "FormTypeFactory"
+  construct new() {
+    super()
+    initFields_FormTypeFactory()
+  }
+    
 
-function FormTypeFactory:_init_fields()
-    self.UNK = "Unknown FormType"
-    self.NULL_FORM_TYPE = FormType.new(StringUtil.getInstance().NULL_STRING)
-    self.TEMP_HORIZONTAL_FORM = FormType.new("TempHorizontal")
-    self.HORIZONTAL_FORM = FormType.new("Horizontal")
-    self.VERTICAL_CENTER_FORM = FormType.new("Vertical")
-end
-
-function FormTypeFactory.new()
-    local self = setmetatable({}, FormTypeFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function FormTypeFactory.getInstance()
+    static getInstance() {
         return FormTypeFactory.instance
-end
+    }
+    
 
-
-function FormTypeFactory:getFormType()
-        local displayInfo = DisplayInfoSingleton.getInstance()
-        local formType = nil
-        if displayInfo:isPortrait() then
-            formType = self.VERTICAL_CENTER_FORM
-        else
-            formType = self.HORIZONTAL_FORM
-        end
+    getFormType() {
+        var displayInfo = DisplayInfoSingleton.getInstance()
+        var formType = null
+        if (displayInfo.isPortrait()) {
+            formType = _VERTICAL_CENTER_FORM
+        } else {
+            formType = _HORIZONTAL_FORM
+        }
         return formType
-end
+    }
+}
 
-FormTypeFactory.instance = FormTypeFactory.new()
-
-return FormTypeFactory
+import "../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "./FormType" for FormType
 

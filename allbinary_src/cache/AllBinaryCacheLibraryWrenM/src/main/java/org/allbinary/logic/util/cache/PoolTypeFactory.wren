@@ -1,38 +1,39 @@
--- Generated Code Do Not Modify
--- package org.allbinary.logic.util.cache
+// Generated Code Do Not Modify
+// package org.allbinary.logic.util.cache
 
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PoolTypeFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = PoolTypeFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  VECTOR_POOL { _VECTOR_POOL }
+  VECTOR_POOL=(value) { _VECTOR_POOL = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PoolTypeFactory() {
+    _VECTOR_POOL = null
+        _VECTOR_POOL = PoolType.new(CacheTypeFactory.getInstance().NO_CACHE)
+  }
 
-local PoolTypeFactory = {}
-PoolTypeFactory.__index = PoolTypeFactory
-PoolTypeFactory.className = "PoolTypeFactory"
+  construct new() {
+    super()
+    initFields_PoolTypeFactory()
+  }
+    
 
-function PoolTypeFactory:_init_fields()
-    self.VECTOR_POOL = PoolType.new(CacheTypeFactory.getInstance().NO_CACHE)
-end
-
-function PoolTypeFactory.new()
-    local self = setmetatable({}, PoolTypeFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function PoolTypeFactory.getInstance()
+    static getInstance() {
         return PoolTypeFactory.instance
-end
+    }
+}
 
-PoolTypeFactory.instance = PoolTypeFactory.new()
-
-return PoolTypeFactory
+import "./PoolType" for PoolType
+import "./CacheTypeFactory" for CacheTypeFactory
 

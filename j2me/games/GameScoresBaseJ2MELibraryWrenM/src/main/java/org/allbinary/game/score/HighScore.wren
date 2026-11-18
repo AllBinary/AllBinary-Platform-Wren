@@ -1,127 +1,108 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.score
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.score
 
--- local ByteArrayOutputStream = require("java.io.ByteArrayOutputStream")
--- local DataOutputStream = require("java.io.DataOutputStream")
-local GameInfo = require("org.allbinary.game.GameInfo")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
+import "../../../../allbinary_java" for JObject, JException, JR
 
--- Java library java.io.ByteArrayOutputStream
-local function java_byte_array_output_stream()
-    local stream = {buffer = {}}
-    function stream:write(value, offset, length)
-        if type(value) == "table" then
-            local first = (offset or 0) + 1
-            local last = first + (length or #value) - 1
-            for index = first, last do self.buffer[#self.buffer + 1] = string.char(value[index] % 256) end
-        elseif type(value) == "number" then
-            self.buffer[#self.buffer + 1] = string.char(value % 256)
-        else
-            self.buffer[#self.buffer + 1] = tostring(value)
-        end
-    end
-    function stream:toString() return table.concat(self.buffer) end
-    function stream:size() return #table.concat(self.buffer) end
-    function stream:reset() self.buffer = {} end
-    function stream:flush() end
-    function stream:close() end
-    return setmetatable(stream, {__tostring = function(self) return table.concat(self.buffer) end})
-end
+class HighScore is JObject {
+  id { _id }
+  id=(value) { _id = value }
+  name { _name }
+  name=(value) { _name = value }
+  gameInfo { _gameInfo }
+  gameInfo=(value) { _gameInfo = value }
+  score { _score }
+  score=(value) { _score = value }
+  scoreString { _scoreString }
+  scoreString=(value) { _scoreString = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_HighScore() {
+    _id = 0
+    _name = null
+    _gameInfo = null
+    _score = 0
+    _scoreString = null
+        
+        
+        
+        
+        
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(id, name, gameInfo, score) {
+    super()
+    initFields_HighScore()
+        _id = id
+        _name = name
+        _gameInfo = gameInfo
+        _score = score
+        _scoreString = JR.str(_score)
+    }
+    
 
-local HighScore = {}
-HighScore.__index = HighScore
-HighScore.className = "HighScore"
+    getId() {
+        return _id
+    }
+    
 
-function HighScore:_init_fields()
-    self.id = nil
-    self.name = nil
-    self.gameInfo = nil
-    self.score = nil
-    self.scoreString = nil
-end
+    getName() {
+        return _name
+    }
+    
 
+    getScore() {
+        return _score
+    }
+    
 
-function HighScore.new(id, name, gameInfo, score)
-    local self = setmetatable({}, HighScore)
-    self:_init_fields()
-        self.id = id
-        self.name = name
-        self.gameInfo = gameInfo
-        self.score = score
-        self.scoreString = tostring(self.score)
-    return self
-end
+    getAsBytes() {
+        var byteArrayOutputStream = ByteArrayOutputStream.new()
+        var outputStream = DataOutputStream.new(byteArrayOutputStream)
+        outputStream.writeUTF(this.getName())
+        outputStream.writeLong(this.getScore())
+        return byteArrayOutputStream.toByteArray()
+    }
+    
 
+    getGameInfo() {
+        return _gameInfo
+    }
+    
 
-function HighScore:getId()
-        return self.id
-end
+    getScoreString() {
+        return _scoreString
+    }
+    
 
+    setName(name) {
+        _name = name
+    }
+    
 
-function HighScore:getName()
-        return self.name
-end
+    toString() {
+        var commonSeps = CommonSeps.getInstance()
+        return StringMaker.new().append(_name).append(commonSeps.COLON).appendlong(_score).append(commonSeps.FORWARD_SLASH).append(_scoreString).toString()
+    }
+}
 
-
-function HighScore:getScore()
-        return self.score
-end
-
-
--- throws Exception
-function HighScore:getAsBytes()
-        local byteArrayOutputStream = java_byte_array_output_stream()
-        local outputStream = DataOutputStream.new(byteArrayOutputStream)
-        outputStream:writeUTF(self:getName())
-        outputStream:writeLong(self:getScore())
-        return byteArrayOutputStream:toByteArray()
-end
-
-
-function HighScore:getGameInfo()
-        return self.gameInfo
-end
-
-
-function HighScore:getScoreString()
-        return self.scoreString
-end
-
-
-function HighScore:setName(name)
-        self.name = name
-end
-
-
-function HighScore:toString()
-        local commonSeps = CommonSeps.getInstance()
-        return tostring(StringMaker.new():append(self.name):append(commonSeps.COLON):appendlong(self.score):append(commonSeps.FORWARD_SLASH):append(self.scoreString))
-end
-HighScore.__tostring = function(self) return self:toString() end
-
-return HighScore
+import "../../../../java/io/ByteArrayOutputStream" for ByteArrayOutputStream
+import "../../../../java/io/DataOutputStream" for DataOutputStream
+import "../../../../org/allbinary/game/GameInfo" for GameInfo
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../../java/lang/Long" for Long
 

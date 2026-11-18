@@ -1,93 +1,86 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Image = require("javax.microedition.lcdui.Image")
--- local Sprite = require("javax.microedition.lcdui.game.Sprite")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local ImageSegmentAnimation = require("org.allbinary.animation.image.ImageSegmentAnimation")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./ImageSegmentAnimation" for ImageSegmentAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class TopToBottomImageAnimation is ImageSegmentAnimation {
+  currentHeight { _currentHeight }
+  currentHeight=(value) { _currentHeight = value }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TopToBottomImageAnimation() {
+    _currentHeight = 0
+    _anchor = 0
+        
+        _anchor = Anchor.TOP_LEFT
+  }
+    
 
-local TopToBottomImageAnimation = {}
-TopToBottomImageAnimation.__index = TopToBottomImageAnimation
-TopToBottomImageAnimation.className = "TopToBottomImageAnimation"
-setmetatable(TopToBottomImageAnimation, {__index = ImageSegmentAnimation})
+    construct new(image, sequenceArray, animationBehavior) {
+        super(image, sequenceArray, animationBehavior)
+        initFields_TopToBottomImageAnimation()
+        _currentHeight = 0
+        if ((this.getSequence()[0] == -1)) {
+            this.setFrame((this.getSize() - 1))
+        }
+    }
+    
 
-function TopToBottomImageAnimation:_init_fields()
-    self.currentHeight = nil
-    self.anchor = Anchor.TOP_LEFT
-end
+    nextFrame() {
+        if ((this.getSequence()[0] == -1)) {
+            super.previousFrame()
+        } else {
+            super.nextFrame()
+        }
+        this.update()
+    }
+    
 
+    previousFrame() {
+        if ((this.getSequence()[0] == -1)) {
+            super.nextFrame()
+        } else {
+            super.previousFrame()
+        }
+        this.update()
+    }
+    
 
-function TopToBottomImageAnimation.new(image, sequenceArray, animationBehavior)
-    local self = setmetatable(ImageSegmentAnimation.new(image, sequenceArray, animationBehavior), TopToBottomImageAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.currentHeight = 0
-        if self:getSequence()[1] == -1 then
-            self:setFrame(self:getSize() - 1)
-        end
-    return self
-end
+    setFrame(index) {
+        super.setFrame(index)
+        this.update()
+    }
+    
 
+    update() {
+        _currentHeight = ((this.getDrawHeight() * this.getFrame()) / this.getSize())
+    }
+    
 
-function TopToBottomImageAnimation:nextFrame()
-        if self:getSequence()[1] == -1 then
-            ImageSegmentAnimation.previousFrame(self)
-        else
-            ImageSegmentAnimation.nextFrame(self)
-        end
-        self:update()
-end
+    paintXY(graphics, x, y) {
+        graphics.drawRegion(this.getImage(), this.getStartX(), this.getStartY(), this.getDrawWidth(), _currentHeight, Sprite.TRANS_NONE, x, y, _anchor)
+    }
+}
 
-
-function TopToBottomImageAnimation:previousFrame()
-        if self:getSequence()[1] == -1 then
-            ImageSegmentAnimation.nextFrame(self)
-        else
-            ImageSegmentAnimation.previousFrame(self)
-        end
-        self:update()
-end
-
-
-function TopToBottomImageAnimation:setFrame(index)
-        ImageSegmentAnimation.setFrame(self, index)
-        self:update()
-end
-
-
-function TopToBottomImageAnimation:update()
-        self.currentHeight = self:getDrawHeight() * self:getFrame() / self:getSize()
-end
-
-
-function TopToBottomImageAnimation:paintXY(graphics, x, y)
-        graphics:drawRegion(self:getImage(), self:getStartX(), self:getStartY(), self:getDrawWidth(), self.currentHeight, Sprite.TRANS_NONE, x, y, self.anchor)
-end
-
-return TopToBottomImageAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../javax/microedition/lcdui/game/Sprite" for Sprite
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/graphics/Anchor" for Anchor
 

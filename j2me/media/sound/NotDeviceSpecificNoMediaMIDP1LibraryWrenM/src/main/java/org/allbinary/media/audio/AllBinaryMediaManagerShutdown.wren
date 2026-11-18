@@ -1,51 +1,54 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.media.audio
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media.audio
 
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AllBinaryMediaManagerShutdown is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = AllBinaryMediaManagerShutdown.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AllBinaryMediaManagerShutdown() {
+  }
 
-local AllBinaryMediaManagerShutdown = {}
-AllBinaryMediaManagerShutdown.__index = AllBinaryMediaManagerShutdown
-AllBinaryMediaManagerShutdown.className = "AllBinaryMediaManagerShutdown"
+  construct new() {
+    super()
+    initFields_AllBinaryMediaManagerShutdown()
+  }
+    
 
-function AllBinaryMediaManagerShutdown.new()
-    local self = setmetatable({}, AllBinaryMediaManagerShutdown)
-    return self
-end
-
-
--- throws Exception
-function AllBinaryMediaManagerShutdown.shutdown(soundsFactoryInterface)
-        local logUtil = LogUtil.getInstance()
-        local commonStrings = CommonStrings.getInstance()
-        logUtil:putF(commonStrings.START, AllBinaryMediaManagerShutdown.instance, "shutdown")
+    static shutdown(soundsFactoryInterface) {
+        var logUtil = LogUtil.getInstance()
+        var commonStrings = CommonStrings.getInstance()
+        logUtil.putF(commonStrings.START, AllBinaryMediaManagerShutdown.instance, "shutdown")
         AllBinaryMediaManager.shutdown(soundsFactoryInterface)
-end
+    }
+}
 
-AllBinaryMediaManagerShutdown.instance = AllBinaryMediaManagerShutdown.new()
-
-return AllBinaryMediaManagerShutdown
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./AllBinaryMediaManager" for AllBinaryMediaManager
+import "./SoundsFactoryInterface" for SoundsFactoryInterface
 

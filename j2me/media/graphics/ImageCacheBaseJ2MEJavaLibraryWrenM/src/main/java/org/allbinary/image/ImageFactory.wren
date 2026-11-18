@@ -1,75 +1,72 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.image
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.image
 
--- local InputStream = require("java.io.InputStream")
--- local Image = require("javax.microedition.lcdui.Image")
-local MIDPUtil = require("org.allbinary.MIDPUtil")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//ImageCacheBaseJavaLibrary - J2ME
+class ImageFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ImageFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImageFactory() {
+  }
 
---ImageCacheBaseJavaLibrary - J2ME
-local ImageFactory = {}
-ImageFactory.__index = ImageFactory
-ImageFactory.className = "ImageFactory"
+  construct new() {
+    super()
+    initFields_ImageFactory()
+  }
+    
 
-function ImageFactory.new()
-    local self = setmetatable({}, ImageFactory)
-    return self
-end
-
-
-function ImageFactory.getInstance()
+    static getInstance() {
         return ImageFactory.instance
-end
+    }
+    
 
-
--- throws Exception
-function ImageFactory:createImageUrl(url)
+    createImageUrl(url) {
         return Image.createImage(url)
-end
+    }
+    
 
+    createImage(caller, width, height) {
+        return MIDPUtil.getInstance().createImageWH(width, height)
+    }
+    
 
--- throws Exception
-function ImageFactory:createImage(caller, width, height)
-        return MIDPUtil.getInstance():createImageWH(width, height)
-end
-
-
--- throws Exception
-function ImageFactory:createImageFromInputStream(key, inputStream)
-        local image = MIDPUtil.getInstance():createImageFromInputStream(inputStream)
+    createImageFromInputStream(key, inputStream) {
+        var image = MIDPUtil.getInstance().createImageFromInputStream(inputStream)
         return image
-end
+    }
+    
 
+    createImageFromInputStream(inputStream) {
+        return MIDPUtil.getInstance().createImageFromInputStream(inputStream)
+    }
+}
 
--- throws Exception
--- Java overloaded method: Lua keeps the last definition
-function ImageFactory:createImageFromInputStream(inputStream)
-        return MIDPUtil.getInstance():createImageFromInputStream(inputStream)
-end
-
-ImageFactory.instance = ImageFactory.new()
-
-return ImageFactory
+import "../../../java/io/InputStream" for InputStream
+import "../../../javax/microedition/lcdui/Image" for Image
+import "../../../org/allbinary/MIDPUtil" for MIDPUtil
 

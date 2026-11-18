@@ -1,49 +1,48 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.button
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.button
 
-local TouchButtonResource = require("org.allbinary.input.motion.button.TouchButtonResource")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./TouchButtonResource" for TouchButtonResource
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class TouchButtonStartResource is TouchButtonResource {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = TouchButtonStartResource.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TouchButtonStartResource() {
+  }
+    
 
-local TouchButtonStartResource = {}
-TouchButtonStartResource.__index = TouchButtonStartResource
-TouchButtonStartResource.className = "TouchButtonStartResource"
-setmetatable(TouchButtonStartResource, {__index = TouchButtonResource})
-
-
-function TouchButtonStartResource.getInstance()
+    static getInstance() {
         return TouchButtonStartResource.instance
-end
+    }
+    
 
+    construct new() {
+        super("/touch_button_start_64_by_64.png", "/touch_button_start_hint_64_by_64.png")
+    }
+}
 
-function TouchButtonStartResource.new()
-    local self = setmetatable(TouchButtonResource.new("/touch_button_start_64_by_64.png", "/touch_button_start_hint_64_by_64.png"), TouchButtonStartResource)
-        -- super(...) made self above
-    return self
-end
-
-TouchButtonStartResource.instance = TouchButtonStartResource.new()
-
-return TouchButtonStartResource
 

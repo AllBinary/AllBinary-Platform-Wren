@@ -90,7 +90,7 @@ class TimeDelayHelper is JObject {
     
 
     getElapsedTNT() {
-        return (JR.currentTimeMillis() - _startTime)
+        return JR.i32(JR.currentTimeMillis() - _startTime)
     }
     
 
@@ -140,7 +140,7 @@ class TimeDelayHelper is JObject {
 
     resume() {
         if ((_elapsedTimeAtPause != Long.MIN_VALUE)) {
-            _startTime = (JR.currentTimeMillis() + _elapsedTimeAtPause)
+            _startTime = JR.i32(JR.currentTimeMillis() + _elapsedTimeAtPause)
             _elapsedTimeAtPause = Long.MIN_VALUE
             this.setStartTimeTNT()
             return true

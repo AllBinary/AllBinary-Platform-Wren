@@ -1,66 +1,55 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form.item
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form.item
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local CustomCustomItem = require("org.allbinary.graphics.form.item.CustomCustomItem")
-local ABCustomItemInterface = require("org.allbinary.graphics.form.item.ABCustomItemInterface")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./CustomCustomItem" for CustomCustomItem
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ABTextItem is CustomCustomItem {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ABTextItem() {
+  }
+    
 
-local ABTextItem = {}
-ABTextItem.__index = ABTextItem
-ABTextItem.className = "ABTextItem"
-setmetatable(ABTextItem, {__index = CustomCustomItem})
+    construct new(label, layout, altText, backgroundBasicColor, foregroundBasicColor) {
+        super(label, backgroundBasicColor, foregroundBasicColor)
+    }
+    
 
+    keyPressed(keyCode) {
+    }
+    
 
-function ABTextItem.new(label, layout, altText, backgroundBasicColor, foregroundBasicColor)
-    local self = setmetatable(CustomCustomItem.new(label, backgroundBasicColor, foregroundBasicColor), ABTextItem)
-        -- super(...) made self above
-    return self
-end
+    paintUnselected(graphics, x, y) {
+    }
+    
 
-
-function ABTextItem:keyPressed(keyCode)
-end
-
-
-function ABTextItem:paintUnselected(graphics, x, y)
-end
-
-
-function ABTextItem:getLabelStringComponent()
+    getLabelStringComponent() {
         return ABStringComponent.NULL_STRING_COMPONENT
-end
+    }
+    
 
+    getMinimumWidth() {
+        return super.getMinimumWidth()
+    }
+    
 
-function ABTextItem:getMinimumWidth()
-        return CustomCustomItem.getMinimumWidth(self)
-end
+    getMinimumHeight() {
+        return super.getMinimumHeight()
+    }
+    
 
+    getLabel() {
+        return super.getLabel()
+    }
+    
 
-function ABTextItem:getMinimumHeight()
-        return CustomCustomItem.getMinimumHeight(self)
-end
+    paintXY(graphics, x, y) {
+        super.paintXY(graphics, x, y)
+    }
+}
 
-
-function ABTextItem:getLabel()
-        return CustomCustomItem.getLabel(self)
-end
-
-
-function ABTextItem:paintXY(graphics, x, y)
-        CustomCustomItem.paintXY(self, graphics, x, y)
-end
-
-return ABTextItem
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "./ABCustomItemInterface" for ABCustomItemInterface
+import "./ABStringComponent" for ABStringComponent
 

@@ -1,67 +1,63 @@
--- Generated Code Do Not Modify
--- package org.allbinary.physics.movement
+// Generated Code Do Not Modify
+// package org.allbinary.physics.movement
 
-local AllBinaryGameLayer = require("org.allbinary.game.layer.AllBinaryGameLayer")
-local BasicVelocityProperties = require("org.allbinary.game.physics.velocity.BasicVelocityProperties")
-local BasicDecimal = require("org.allbinary.logic.math.BasicDecimal")
-local MathUtil = require("org.allbinary.logic.math.MathUtil")
-local ScaleFactorFactory = require("org.allbinary.logic.math.ScaleFactorFactory")
-local BasicConstantVelocityMovement = require("org.allbinary.physics.movement.BasicConstantVelocityMovement")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./BasicConstantVelocityMovement" for BasicConstantVelocityMovement
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PreciseConstantVelocityMovement is BasicConstantVelocityMovement {
+  accumulatedX { _accumulatedX }
+  accumulatedX=(value) { _accumulatedX = value }
+  accumulatedY { _accumulatedY }
+  accumulatedY=(value) { _accumulatedY = value }
+  accumulatedZ { _accumulatedZ }
+  accumulatedZ=(value) { _accumulatedZ = value }
+  factorValue { _factorValue }
+  factorValue=(value) { _factorValue = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PreciseConstantVelocityMovement() {
+    _accumulatedX = 0
+    _accumulatedY = 0
+    _accumulatedZ = 0
+    _factorValue = 0
+        _accumulatedX = 0
+        _accumulatedY = 0
+        _accumulatedZ = 0
+        _factorValue = ScaleFactorFactory.getInstance().DEFAULT_SCALE_VALUE
+  }
+    
 
-local PreciseConstantVelocityMovement = {}
-PreciseConstantVelocityMovement.__index = PreciseConstantVelocityMovement
-PreciseConstantVelocityMovement.className = "PreciseConstantVelocityMovement"
-setmetatable(PreciseConstantVelocityMovement, {__index = BasicConstantVelocityMovement})
+    construct new(basicDecimal, velocityProperties) {
+        super(basicDecimal, velocityProperties)
+        initFields_PreciseConstantVelocityMovement()
+    }
+    
 
-function PreciseConstantVelocityMovement:_init_fields()
-    self.accumulatedX = 0
-    self.accumulatedY = 0
-    self.accumulatedZ = 0
-    self.factorValue = ScaleFactorFactory.getInstance().DEFAULT_SCALE_VALUE
-end
+    init(speedBasicDecimal, angle, otherAngle) {
+    }
+    
 
+    process(layer) {
+        var mathUtil = MathUtil.getInstance()
+        var velocityProperties = this.getVelocityProperties()
+        _accumulatedX = JR.i32(((_accumulatedX + velocityProperties.getVelocityXBasicDecimalP().getUnscaled())))
+        _accumulatedY = JR.i32(((_accumulatedY + velocityProperties.getVelocityYBasicDecimalP().getUnscaled())))
+        _accumulatedZ = JR.i32(((_accumulatedZ + velocityProperties.getVelocityZBasicDecimalP().getUnscaled())))
+        layer.moveDXYZ(JR.idiv(_accumulatedX, _factorValue), JR.idiv(_accumulatedY, _factorValue), JR.idiv(_accumulatedZ, _factorValue))
+        if ((mathUtil.abs(_accumulatedX) > _factorValue)) {
+            _accumulatedX = 0
+        }
+        if ((mathUtil.abs(_accumulatedY) > _factorValue)) {
+            _accumulatedY = 0
+        }
+        if ((mathUtil.abs(_accumulatedZ) > _factorValue)) {
+            _accumulatedZ = 0
+        }
+    }
+}
 
-function PreciseConstantVelocityMovement.new(basicDecimal, velocityProperties)
-    local self = setmetatable(BasicConstantVelocityMovement.new(basicDecimal, velocityProperties), PreciseConstantVelocityMovement)
-    self:_init_fields()
-        -- super(...) made self above
-    return self
-end
-
-
-function PreciseConstantVelocityMovement:init(speedBasicDecimal, angle, otherAngle)
-end
-
-
--- throws Exception
-function PreciseConstantVelocityMovement:process(layer)
-        local mathUtil = MathUtil.getInstance()
-        local velocityProperties = self:getVelocityProperties()
-        self.accumulatedX = java_int((self.accumulatedX + velocityProperties:getVelocityXBasicDecimalP():getUnscaled()))
-        self.accumulatedY = java_int((self.accumulatedY + velocityProperties:getVelocityYBasicDecimalP():getUnscaled()))
-        self.accumulatedZ = java_int((self.accumulatedZ + velocityProperties:getVelocityZBasicDecimalP():getUnscaled()))
-        layer:moveDXYZ(java_idiv(self.accumulatedX, self.factorValue), java_idiv(self.accumulatedY, self.factorValue), java_idiv(self.accumulatedZ, self.factorValue))
-        if mathUtil:abs(self.accumulatedX) > self.factorValue then
-            self.accumulatedX = 0
-        end
-        if mathUtil:abs(self.accumulatedY) > self.factorValue then
-            self.accumulatedY = 0
-        end
-        if mathUtil:abs(self.accumulatedZ) > self.factorValue then
-            self.accumulatedZ = 0
-        end
-end
-
-return PreciseConstantVelocityMovement
+import "../../../../org/allbinary/game/layer/AllBinaryGameLayer" for AllBinaryGameLayer
+import "../../../../org/allbinary/game/physics/velocity/BasicVelocityProperties" for BasicVelocityProperties
+import "../../../../org/allbinary/logic/math/BasicDecimal" for BasicDecimal
+import "../../../../org/allbinary/logic/math/MathUtil" for MathUtil
+import "../../../../org/allbinary/logic/math/ScaleFactorFactory" for ScaleFactorFactory
 

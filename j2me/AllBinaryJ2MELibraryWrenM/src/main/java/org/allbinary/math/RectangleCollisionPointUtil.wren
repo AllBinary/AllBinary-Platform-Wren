@@ -1,73 +1,79 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.math
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.math
 
-local GPoint = require("org.allbinary.graphics.GPoint")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RectangleCollisionPointUtil is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RectangleCollisionPointUtil() {
+  }
+    
 
-local RectangleCollisionPointUtil = {}
-RectangleCollisionPointUtil.__index = RectangleCollisionPointUtil
-RectangleCollisionPointUtil.className = "RectangleCollisionPointUtil"
+    construct new() {
+    super()
+    initFields_RectangleCollisionPointUtil()
+    }
+    
 
-
-function RectangleCollisionPointUtil.new()
-    local self = setmetatable({}, RectangleCollisionPointUtil)
-    return self
-end
-
-
-function RectangleCollisionPointUtil.allPointsInside(rectX1, rectY1, rectX2, rectY2, list)
-        local rectangleCollisionUtil = RectangleCollisionUtil.getInstance()
-        local point = nil
-        do
-            local index = list:size()
-            while (function() index = index - 1 return index end)() >= 0 do
-            point = list.objectArray[index + 1]
-            if not rectangleCollisionUtil:isInside(rectX1, rectY1, rectX2, rectY2, point:getX(), point:getY()) then
+    static allPointsInside(rectX1, rectY1, rectX2, rectY2, list) {
+        var rectangleCollisionUtil = RectangleCollisionUtil.getInstance()
+        var point = null
+        if (true) {
+            var index = list.size()
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            point = list.objectArray[index]
+            if (!rectangleCollisionUtil.isInside(rectX1, rectY1, rectX2, rectY2, point.getX(), point.getY())) {
                 return false
-            end
-            end
-        end
+            }
+            }
+        }
         return true
-end
+    }
+    
 
-
-function RectangleCollisionPointUtil.allPointsInsideCell(rectX1, rectY1, rectX2, rectY2, list, xCellSize, yCellSize)
-        local rectangleCollisionUtil = RectangleCollisionUtil.getInstance()
-        local point = nil
-        do
-            local index = list:size()
-            while (function() index = index - 1 return index end)() >= 0 do
-            point = list.objectArray[index + 1]
-            if not rectangleCollisionUtil:isInside(rectX1, rectY1, rectX2, rectY2, point:getX() * xCellSize, point:getY() * yCellSize) then
+    static allPointsInsideCell(rectX1, rectY1, rectX2, rectY2, list, xCellSize, yCellSize) {
+        var rectangleCollisionUtil = RectangleCollisionUtil.getInstance()
+        var point = null
+        if (true) {
+            var index = list.size()
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            point = list.objectArray[index]
+            if (!rectangleCollisionUtil.isInside(rectX1, rectY1, rectX2, rectY2, (point.getX() * xCellSize), (point.getY() * yCellSize))) {
                 return false
-            end
-            end
-        end
+            }
+            }
+        }
         return true
-end
+    }
+}
 
-return RectangleCollisionPointUtil
+import "../../../org/allbinary/graphics/GPoint" for GPoint
+import "../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "./RectangleCollisionUtil" for RectangleCollisionUtil
 

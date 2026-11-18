@@ -1,65 +1,67 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.tracking
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.tracking
 
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryEventCircularPool = require("org.allbinary.logic.util.event.AllBinaryEventCircularPool")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class TrackingEventCircularStaticPool is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = TrackingEventCircularStaticPool.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  EVENT_POOL { _EVENT_POOL }
+  EVENT_POOL=(value) { _EVENT_POOL = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TrackingEventCircularStaticPool() {
+    _EVENT_POOL = null
+        _EVENT_POOL = AllBinaryEventCircularPool.new(20)
+  }
 
-local TrackingEventCircularStaticPool = {}
-TrackingEventCircularStaticPool.__index = TrackingEventCircularStaticPool
-TrackingEventCircularStaticPool.className = "TrackingEventCircularStaticPool"
+  construct new() {
+    super()
+    initFields_TrackingEventCircularStaticPool()
+  }
+    
 
-function TrackingEventCircularStaticPool:_init_fields()
-    self.EVENT_POOL = AllBinaryEventCircularPool.new(20)
-end
-
-function TrackingEventCircularStaticPool.new()
-    local self = setmetatable({}, TrackingEventCircularStaticPool)
-    self:_init_fields()
-    return self
-end
-
-
-function TrackingEventCircularStaticPool.getInstance()
+    static getInstance() {
         return TrackingEventCircularStaticPool.instance
-end
+    }
+    
 
+    init() {
+        _EVENT_POOL.initAllBinaryEventCircularPool(TrackingEventFactory.new())
+    }
+    
 
-function TrackingEventCircularStaticPool:init()
-        self.EVENT_POOL:initAllBinaryEventCircularPool(TrackingEventFactory.new())
-end
-
-
--- throws Exception
-function TrackingEventCircularStaticPool:getNextInstance(layerInterface)
-        local trackingEvent = self.EVENT_POOL:getNextInstance()
-        trackingEvent:setLayerInterfaceForCircularStaticPool(layerInterface)
+    getNextInstance(layerInterface) {
+        var trackingEvent = _EVENT_POOL.getNextInstance()
+        trackingEvent.setLayerInterfaceForCircularStaticPool(layerInterface)
         return trackingEvent
-end
+    }
+}
 
-TrackingEventCircularStaticPool.instance = TrackingEventCircularStaticPool.new()
-
-return TrackingEventCircularStaticPool
+import "../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../org/allbinary/logic/util/event/AllBinaryEventCircularPool" for AllBinaryEventCircularPool
+import "./TrackingEventFactory" for TrackingEventFactory
+import "./TrackingEvent" for TrackingEvent
 

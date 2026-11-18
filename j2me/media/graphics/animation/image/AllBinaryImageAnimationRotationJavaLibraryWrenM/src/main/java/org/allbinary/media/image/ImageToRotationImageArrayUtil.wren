@@ -1,68 +1,71 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.media.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media.image
 
--- local Image = require("javax.microedition.lcdui.Image")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class ImageToRotationImageArrayUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ImageToRotationImageArrayUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_ImageToRotationImageArrayUtil() {
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local ImageToRotationImageArrayUtil = {}
-ImageToRotationImageArrayUtil.__index = ImageToRotationImageArrayUtil
-ImageToRotationImageArrayUtil.className = "ImageToRotationImageArrayUtil"
-
-
-function ImageToRotationImageArrayUtil.getInstance()
+    static getInstance() {
         return ImageToRotationImageArrayUtil.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_ImageToRotationImageArrayUtil()
+    }
+    
 
-function ImageToRotationImageArrayUtil.new()
-    local self = setmetatable({}, ImageToRotationImageArrayUtil)
-    return self
-end
-
-
--- throws Exception
-function ImageToRotationImageArrayUtil:generate(image, angleIncrement, totalAngle)
-        local imageRotationUtil = ImageRotationUtil.getInstance()
-        local totalFrames = java_idiv(totalAngle, angleIncrement)
-        local imageArray = java_new_array(nil, totalFrames)
-        imageArray[1] = image
-        for index = 1, totalFrames - 1 do
-            imageArray[index + 1] = imageRotationUtil:createRotatedImage(image, index * angleIncrement)
-        end
+    generate(image, angleIncrement, totalAngle) {
+        var imageRotationUtil = ImageRotationUtil.getInstance()
+        var totalFrames = JR.idiv(totalAngle, angleIncrement)
+        var imageArray = List.filled(totalFrames, null)
+        imageArray[0] = image
+        if (true) {
+            var index = 1
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < totalFrames))) break
+            imageArray[index] = imageRotationUtil.createRotatedImage(image, JR.i32(index * angleIncrement))
+            }
+        }
         return imageArray
-end
+    }
+}
 
-ImageToRotationImageArrayUtil.instance = ImageToRotationImageArrayUtil.new()
-
-return ImageToRotationImageArrayUtil
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "./ImageRotationUtil" for ImageRotationUtil
 

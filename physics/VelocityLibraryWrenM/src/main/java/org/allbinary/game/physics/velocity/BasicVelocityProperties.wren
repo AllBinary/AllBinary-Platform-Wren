@@ -1,174 +1,180 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.physics.velocity
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.physics.velocity
 
-local Direction = require("org.allbinary.direction.Direction")
-local DirectionUtil = require("org.allbinary.direction.DirectionUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local BasicDecimal = require("org.allbinary.logic.math.BasicDecimal")
-local AxisMathVectorUtil = require("org.allbinary.logic.math.vector.AxisMathVectorUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local Angle = require("org.allbinary.math.Angle")
-local PositionStrings = require("org.allbinary.math.PositionStrings")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local BasicVelocityInterface = require("org.allbinary.game.physics.velocity.BasicVelocityInterface")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BasicVelocityProperties is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  velocityXBasicDecimal { _velocityXBasicDecimal }
+  velocityXBasicDecimal=(value) { _velocityXBasicDecimal = value }
+  velocityYBasicDecimal { _velocityYBasicDecimal }
+  velocityYBasicDecimal=(value) { _velocityYBasicDecimal = value }
+  velocityZBasicDecimal { _velocityZBasicDecimal }
+  velocityZBasicDecimal=(value) { _velocityZBasicDecimal = value }
+  axisMathVectorUtil { _axisMathVectorUtil }
+  axisMathVectorUtil=(value) { _axisMathVectorUtil = value }
+  directionUtil { _directionUtil }
+  directionUtil=(value) { _directionUtil = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BasicVelocityProperties() {
+    _logUtil = null
+    _velocityXBasicDecimal = null
+    _velocityYBasicDecimal = null
+    _velocityZBasicDecimal = null
+    _axisMathVectorUtil = null
+    _directionUtil = null
+        _logUtil = LogUtil.getInstance()
+        
+        
+        
+        _axisMathVectorUtil = AxisMathVectorUtil.getInstance()
+        _directionUtil = DirectionUtil.getInstance()
+  }
+    
 
-local BasicVelocityProperties = {}
-BasicVelocityProperties.__index = BasicVelocityProperties
-BasicVelocityProperties.className = "BasicVelocityProperties"
+    construct new() {
+    super()
+    initFields_BasicVelocityProperties()
+        _velocityXBasicDecimal = BasicDecimal.new(0)
+        _velocityYBasicDecimal = BasicDecimal.new(0)
+        _velocityZBasicDecimal = BasicDecimal.new(0)
+    }
+    
 
-function BasicVelocityProperties:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.velocityXBasicDecimal = nil
-    self.velocityYBasicDecimal = nil
-    self.velocityZBasicDecimal = nil
-    self.axisMathVectorUtil = AxisMathVectorUtil.getInstance()
-    self.directionUtil = DirectionUtil.getInstance()
-end
+    zero() {
+        _velocityXBasicDecimal.setint(0)
+        _velocityYBasicDecimal.setint(0)
+        _velocityZBasicDecimal.setint(0)
+    }
+    
 
+    getVelocityXBasicDecimalP() {
+        return _velocityXBasicDecimal
+    }
+    
 
-function BasicVelocityProperties.new()
-    local self = setmetatable({}, BasicVelocityProperties)
-    self:_init_fields()
-        self.velocityXBasicDecimal = BasicDecimal.new(0)
-        self.velocityYBasicDecimal = BasicDecimal.new(0)
-        self.velocityZBasicDecimal = BasicDecimal.new(0)
-    return self
-end
+    getVelocityYBasicDecimalP() {
+        return _velocityYBasicDecimal
+    }
+    
 
+    getVelocityZBasicDecimalP() {
+        return _velocityZBasicDecimal
+    }
+    
 
-function BasicVelocityProperties:zero()
-        self.velocityXBasicDecimal:setint(0)
-        self.velocityYBasicDecimal:setint(0)
-        self.velocityZBasicDecimal:setint(0)
-end
+    setVelocityWithBigDecimalAndDirection(magnitudeBasicDecimal, direction, otherDirection) {
+        var angle = _directionUtil.getAngle(direction)
+        var otherAngle = _directionUtil.getAngle(otherDirection)
+        this.setVelocityWithBigDecimal(magnitudeBasicDecimal, angle, otherAngle)
+    }
+    
 
+    setVelocityWithDirection(magnitude, direction, otherDirection) {
+        var angle = _directionUtil.getAngle(direction)
+        var otherAngle = _directionUtil.getAngle(otherDirection)
+        this.setVelocity(magnitude, angle, otherAngle)
+    }
+    
 
-function BasicVelocityProperties:getVelocityXBasicDecimalP()
-        return self.velocityXBasicDecimal
-end
+    addVelocityWithBigDecimalAndDirection(magnitudeBasicDecimal, direction, otherDirection) {
+        var angle = _directionUtil.getAngle(direction)
+        var otherAngle = _directionUtil.getAngle(otherDirection)
+        this.addVelocityWithBigDecimal(magnitudeBasicDecimal, angle, otherAngle)
+    }
+    
 
+    addVelocityWithDirection(magnitude, direction, otherDirection) {
+        var angle = _directionUtil.getAngle(direction)
+        var otherAngle = _directionUtil.getAngle(otherDirection)
+        this.addVelocity(magnitude, angle, otherAngle)
+    }
+    
 
-function BasicVelocityProperties:getVelocityYBasicDecimalP()
-        return self.velocityYBasicDecimal
-end
+    setVelocityWithBigDecimal(magnitudeBasicDecimal, angle, otherAngle) {
+        var magnitude = magnitudeBasicDecimal.getUnscaled()
+        this.setVelocity(magnitude, angle, otherAngle)
+    }
+    
 
+    addVelocityWithBigDecimal(magnitudeBasicDecimal, angle, otherAngle) {
+        var magnitude = magnitudeBasicDecimal.getUnscaled()
+        this.addVelocity(magnitude, angle, otherAngle)
+    }
+    
 
-function BasicVelocityProperties:getVelocityZBasicDecimalP()
-        return self.velocityZBasicDecimal
-end
+    setVelocity(magnitude, angle, otherAngle) {
+        this.setVelocityi(magnitude, JR.i32(angle.getValue()), JR.i32(otherAngle.getValue()))
+    }
+    
 
+    addVelocity(magnitude, angle, otherAngle) {
+        this.addVelocityi(magnitude, JR.i32(angle.getValue()), JR.i32(otherAngle.getValue()))
+    }
+    
 
-function BasicVelocityProperties:setVelocityWithBigDecimalAndDirection(magnitudeBasicDecimal, direction, otherDirection)
-        local angle = self.directionUtil:getAngle(direction)
-        local otherAngle = self.directionUtil:getAngle(otherDirection)
-        self:setVelocityWithBigDecimal(magnitudeBasicDecimal, angle, otherAngle)
-end
+    setVelocityi(magnitude, angle, otherAngle) {
+        var xVector = ((_axisMathVectorUtil.calculateX(magnitude, angle) / _velocityXBasicDecimal.getScaledFactorValue()))
+        var yVector = ((_axisMathVectorUtil.calculateY(magnitude, angle) / _velocityYBasicDecimal.getScaledFactorValue()))
+        var zVector = ((_axisMathVectorUtil.calculateZ(magnitude, otherAngle) / _velocityZBasicDecimal.getScaledFactorValue()))
+        _velocityXBasicDecimal.setlong(xVector)
+        _velocityYBasicDecimal.setlong(yVector)
+        _velocityZBasicDecimal.setlong(zVector)
+    }
+    
 
+    addVelocityi(magnitude, angle, otherAngle) {
+        var xVector = ((_axisMathVectorUtil.calculateX(magnitude, angle) / _velocityXBasicDecimal.getScaledFactorValue()))
+        var yVector = ((_axisMathVectorUtil.calculateY(magnitude, angle) / _velocityYBasicDecimal.getScaledFactorValue()))
+        var zVector = ((_axisMathVectorUtil.calculateZ(magnitude, otherAngle) / _velocityZBasicDecimal.getScaledFactorValue()))
+        _velocityXBasicDecimal.addlong(xVector)
+        _velocityYBasicDecimal.addlong(yVector)
+        _velocityZBasicDecimal.addlong(zVector)
+    }
+    
 
-function BasicVelocityProperties:setVelocityWithDirection(magnitude, direction, otherDirection)
-        local angle = self.directionUtil:getAngle(direction)
-        local otherAngle = self.directionUtil:getAngle(otherDirection)
-        self:setVelocity(magnitude, angle, otherAngle)
-end
+    toString() {
+        var commonSeps = CommonSeps.getInstance()
+        var positionStrings = PositionStrings.getInstance()
+        var stringBuffer = StringMaker.new()
+        var stringUtil = StringUtil.getInstance()
+        stringBuffer.append("Velocity ")
+        stringBuffer.append(positionStrings.X_LABEL)
+        stringBuffer.append(stringUtil.toString(_velocityXBasicDecimal))
+        stringBuffer.append(commonSeps.SPACE)
+        stringBuffer.append(positionStrings.Y_LABEL)
+        stringBuffer.append(stringUtil.toString(_velocityYBasicDecimal))
+        stringBuffer.append(commonSeps.SPACE)
+        stringBuffer.append(positionStrings.Z_LABEL)
+        stringBuffer.append(stringUtil.toString(_velocityZBasicDecimal))
+        return stringBuffer.toString()
+    }
+}
 
-
-function BasicVelocityProperties:addVelocityWithBigDecimalAndDirection(magnitudeBasicDecimal, direction, otherDirection)
-        local angle = self.directionUtil:getAngle(direction)
-        local otherAngle = self.directionUtil:getAngle(otherDirection)
-        self:addVelocityWithBigDecimal(magnitudeBasicDecimal, angle, otherAngle)
-end
-
-
-function BasicVelocityProperties:addVelocityWithDirection(magnitude, direction, otherDirection)
-        local angle = self.directionUtil:getAngle(direction)
-        local otherAngle = self.directionUtil:getAngle(otherDirection)
-        self:addVelocity(magnitude, angle, otherAngle)
-end
-
-
-function BasicVelocityProperties:setVelocityWithBigDecimal(magnitudeBasicDecimal, angle, otherAngle)
-        local magnitude = magnitudeBasicDecimal:getUnscaled()
-        self:setVelocity(magnitude, angle, otherAngle)
-end
-
-
-function BasicVelocityProperties:addVelocityWithBigDecimal(magnitudeBasicDecimal, angle, otherAngle)
-        local magnitude = magnitudeBasicDecimal:getUnscaled()
-        self:addVelocity(magnitude, angle, otherAngle)
-end
-
-
-function BasicVelocityProperties:setVelocity(magnitude, angle, otherAngle)
-        self:setVelocityi(magnitude, java_int(angle:getValue()), java_int(otherAngle:getValue()))
-end
-
-
-function BasicVelocityProperties:addVelocity(magnitude, angle, otherAngle)
-        self:addVelocityi(magnitude, java_int(angle:getValue()), java_int(otherAngle:getValue()))
-end
-
-
-function BasicVelocityProperties:setVelocityi(magnitude, angle, otherAngle)
-        local xVector = (self.axisMathVectorUtil:calculateX(magnitude, angle) / self.velocityXBasicDecimal:getScaledFactorValue())
-        local yVector = (self.axisMathVectorUtil:calculateY(magnitude, angle) / self.velocityYBasicDecimal:getScaledFactorValue())
-        local zVector = (self.axisMathVectorUtil:calculateZ(magnitude, otherAngle) / self.velocityZBasicDecimal:getScaledFactorValue())
-        self.velocityXBasicDecimal:setlong(xVector)
-        self.velocityYBasicDecimal:setlong(yVector)
-        self.velocityZBasicDecimal:setlong(zVector)
-end
-
-
-function BasicVelocityProperties:addVelocityi(magnitude, angle, otherAngle)
-        local xVector = (self.axisMathVectorUtil:calculateX(magnitude, angle) / self.velocityXBasicDecimal:getScaledFactorValue())
-        local yVector = (self.axisMathVectorUtil:calculateY(magnitude, angle) / self.velocityYBasicDecimal:getScaledFactorValue())
-        local zVector = (self.axisMathVectorUtil:calculateZ(magnitude, otherAngle) / self.velocityZBasicDecimal:getScaledFactorValue())
-        self.velocityXBasicDecimal:addlong(xVector)
-        self.velocityYBasicDecimal:addlong(yVector)
-        self.velocityZBasicDecimal:addlong(zVector)
-end
-
-
-function BasicVelocityProperties:toString()
-        local commonSeps = CommonSeps.getInstance()
-        local positionStrings = PositionStrings.getInstance()
-        local stringBuffer = StringMaker.new()
-        local stringUtil = StringUtil.getInstance()
-        stringBuffer:append("Velocity ")
-        stringBuffer:append(positionStrings.X_LABEL)
-        stringBuffer:append(stringUtil:toString(self.velocityXBasicDecimal))
-        stringBuffer:append(commonSeps.SPACE)
-        stringBuffer:append(positionStrings.Y_LABEL)
-        stringBuffer:append(stringUtil:toString(self.velocityYBasicDecimal))
-        stringBuffer:append(commonSeps.SPACE)
-        stringBuffer:append(positionStrings.Z_LABEL)
-        stringBuffer:append(stringUtil:toString(self.velocityZBasicDecimal))
-        return tostring(stringBuffer)
-end
-BasicVelocityProperties.__tostring = function(self) return self:toString() end
-
-return BasicVelocityProperties
+import "../../../../../org/allbinary/direction/Direction" for Direction
+import "../../../../../org/allbinary/direction/DirectionUtil" for DirectionUtil
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/math/BasicDecimal" for BasicDecimal
+import "../../../../../org/allbinary/logic/math/vector/AxisMathVectorUtil" for AxisMathVectorUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/math/Angle" for Angle
+import "../../../../../org/allbinary/math/PositionStrings" for PositionStrings
+import "../../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "./BasicVelocityInterface" for BasicVelocityInterface
 

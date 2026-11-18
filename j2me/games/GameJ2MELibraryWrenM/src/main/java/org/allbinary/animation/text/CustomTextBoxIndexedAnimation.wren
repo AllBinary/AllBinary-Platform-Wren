@@ -1,121 +1,121 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.animation.text
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.text
 
--- local Font = require("javax.microedition.lcdui.Font")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local IndexedAnimation = require("org.allbinary.animation.IndexedAnimation")
-local RawKeyEventListener = require("org.allbinary.game.input.event.RawKeyEventListener")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local UpdateMyFontInterface = require("org.allbinary.graphics.font.UpdateMyFontInterface")
-local CustomTextBox = require("org.allbinary.graphics.form.item.CustomTextBox")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local TextInterface = require("org.allbinary.animation.text.TextInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/animation/IndexedAnimation" for IndexedAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CustomTextBoxIndexedAnimation is IndexedAnimation {
+  customTextBox { _customTextBox }
+  customTextBox=(value) { _customTextBox = value }
+  lastText { _lastText }
+  lastText=(value) { _lastText = value }
+  hasChanged { _hasChanged }
+  hasChanged=(value) { _hasChanged = value }
+  textChangeListener { _textChangeListener }
+  textChangeListener=(value) { _textChangeListener = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CustomTextBoxIndexedAnimation() {
+    _customTextBox = null
+    _lastText = null
+    _hasChanged = false
+    _textChangeListener = null
+        
+        _lastText = StringUtil.getInstance().INIT_STRING
+        _hasChanged = true
+        _textChangeListener = TextChangeListener.getInstance()
+  }
+    
 
-local CustomTextBoxIndexedAnimation = {}
-CustomTextBoxIndexedAnimation.__index = CustomTextBoxIndexedAnimation
-CustomTextBoxIndexedAnimation.className = "CustomTextBoxIndexedAnimation"
-setmetatable(CustomTextBoxIndexedAnimation, {__index = IndexedAnimation})
+    construct new(customTextBox) {
+        super(AnimationBehavior.getInstance())
+        initFields_CustomTextBoxIndexedAnimation()
+        _customTextBox = customTextBox
+    }
+    
 
-function CustomTextBoxIndexedAnimation:_init_fields()
-    self.customTextBox = nil
-    self.lastText = StringUtil.getInstance().INIT_STRING
-    self.hasChanged = true
-    self.textChangeListener = TextChangeListener.getInstance()
-end
+    setBasicColorP(basicColor) {
+        _customTextBox.getTextFieldItem().setForegroundBasicColorP(basicColor)
+    }
+    
 
+    setBackgroundBasicColorP(basicColor) {
+        _customTextBox.getTextFieldItem().setBackgroundBasicColorP(basicColor)
+    }
+    
 
-function CustomTextBoxIndexedAnimation.new(customTextBox)
-    local self = setmetatable(IndexedAnimation.new(AnimationBehavior.getInstance()), CustomTextBoxIndexedAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.customTextBox = customTextBox
-    return self
-end
+    setTextWithOnMeasure(text, textChangeListener) {
+        this.setText(text)
+        _textChangeListener = textChangeListener
+    }
+    
 
+    updateMeasurement(graphics) {
+        var font = graphics.getFont()
+        _textChangeListener.onMeasure()
+        _textChangeListener = TextChangeListener.getInstance()
+    }
+    
 
-function CustomTextBoxIndexedAnimation:setBasicColorP(basicColor)
-        self.customTextBox:getTextFieldItem():setForegroundBasicColorP(basicColor)
-end
+    setText(text) {
+        if ((_lastText != text)) {
+            _hasChanged = true
+            _lastText = text
+            _customTextBox.getTextFieldItem().setString(text)
+        }
+    }
+    
 
+    getText() {
+        return _customTextBox.getTextFieldItem().getString()
+    }
+    
 
-function CustomTextBoxIndexedAnimation:setBackgroundBasicColorP(basicColor)
-        self.customTextBox:getTextFieldItem():setBackgroundBasicColorP(basicColor)
-end
+    onEventRaw(keyCode, deviceId, repeated) {
+        _customTextBox.onEventRaw(keyCode, deviceId, repeated)
+    }
+    
 
+    getFontHeight() {
+        return _customTextBox.getTextFieldItem().getFontHeight()
+    }
+    
 
-function CustomTextBoxIndexedAnimation:setTextWithOnMeasure(text, textChangeListener)
-        self:setText(text)
-        self.textChangeListener = textChangeListener
-end
+    paintXY(graphics, x, y) {
+        _customTextBox.paintXY(graphics, x, y)
+    }
+    
 
+    paintThreedXYZ(graphics, x, y, z) {
+    }
+    
 
-function CustomTextBoxIndexedAnimation:updateMeasurement(graphics)
-        local font = graphics:getFont()
-        self.textChangeListener:onMeasure()
-        self.textChangeListener = TextChangeListener.getInstance()
-end
+    getWidth() {
+        return super.getWidth()
+    }
+}
 
-
-function CustomTextBoxIndexedAnimation:setText(text)
-        if self.lastText ~= text then
-            self.hasChanged = true
-            self.lastText = text
-            self.customTextBox:getTextFieldItem():setString(text)
-        end
-end
-
-
-function CustomTextBoxIndexedAnimation:getText()
-        return self.customTextBox:getTextFieldItem():getString()
-end
-
-
-function CustomTextBoxIndexedAnimation:onEventRaw(keyCode, deviceId, repeated)
-        self.customTextBox:onEventRaw(keyCode, deviceId, repeated)
-end
-
-
-function CustomTextBoxIndexedAnimation:getFontHeight()
-        return self.customTextBox:getTextFieldItem():getFontHeight()
-end
-
-
-function CustomTextBoxIndexedAnimation:paintXY(graphics, x, y)
-        self.customTextBox:paintXY(graphics, x, y)
-end
-
-
-function CustomTextBoxIndexedAnimation:paintThreedXYZ(graphics, x, y, z)
-end
-
-
-function CustomTextBoxIndexedAnimation:getWidth()
-        return IndexedAnimation.getWidth(self)
-end
-
-return CustomTextBoxIndexedAnimation
+import "../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/game/input/event/RawKeyEventListener" for RawKeyEventListener
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/graphics/font/UpdateMyFontInterface" for UpdateMyFontInterface
+import "../../../../org/allbinary/graphics/form/item/CustomTextBox" for CustomTextBox
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "./TextInterface" for TextInterface
+import "./TextChangeListener" for TextChangeListener
 

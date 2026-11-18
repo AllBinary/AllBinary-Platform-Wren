@@ -1,160 +1,167 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2011 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.layer
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2011 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.layer
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local CanvasStrings = require("org.allbinary.graphics.displayable.CanvasStrings")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../allbinary_java" for JObject, JException, JR
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class Layer is JObject {
+    static ID {
+    if (__ID_set == null) {
+      __ID_set = true
+      __ID = SmallIntegerSingletonFactory.getInstance().getAt(0)
+    }
+    return __ID
+  }
+  static ID=(value) {
+    __ID_set = true
+    __ID = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  x { _x }
+  x=(value) { _x = value }
+  y { _y }
+  y=(value) { _y = value }
+  z { _z }
+  z=(value) { _z = value }
+  width { _width }
+  width=(value) { _width = value }
+  height { _height }
+  height=(value) { _height = value }
+  visible { _visible }
+  visible=(value) { _visible = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_Layer() {
+    _logUtil = null
+    _x = 0
+    _y = 0
+    _z = 0
+    _width = 0
+    _height = 0
+    _visible = false
+        _logUtil = LogUtil.getInstance()
+        _x = 0
+        _y = 0
+        _z = 3
+        _width = 0
+        _height = 0
+        _visible = true
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(width, height) {
+    super()
+    initFields_Layer()
+        this.setLayerWidth(width)
+        this.setLayerHeight(height)
+    }
+    
 
-local Layer = {}
-Layer.__index = Layer
-Layer.className = "Layer"
+    setPosition(x, y, z) {
+        _x = x
+        _y = y
+        _z = z
+    }
+    
 
-function Layer:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.x = 0
-    self.y = 0
-    self.z = 3
-    self.width = 0
-    self.height = 0
-    self.visible = true
-end
+    moveDXY(dx, dy) {
+        _x = JR.i32(_x + dx)
+        _y = JR.i32(_y + dy)
+    }
+    
 
+    moveDXYZ(dx, dy, dz) {
+        _x = JR.i32(_x + dx)
+        _y = JR.i32(_y + dy)
+        _z = JR.i32(_z + dz)
+    }
+    
 
-function Layer.new(width, height)
-    local self = setmetatable({}, Layer)
-    self:_init_fields()
-        self:setLayerWidth(width)
-        self:setLayerHeight(height)
-    return self
-end
+    getXP() {
+        return _x
+    }
+    
 
+    getYP() {
+        return _y
+    }
+    
 
-function Layer:setPosition(x, y, z)
-        self.x = x
-        self.y = y
-        self.z = z
-end
+    getZP() {
+        return _z
+    }
+    
 
+    getWidth() {
+        return _width
+    }
+    
 
-function Layer:moveDXY(dx, dy)
-        self.x = self.x + (dx)
-        self.y = self.y + (dy)
-end
+    getHeight() {
+        return _height
+    }
+    
 
-
-function Layer:moveDXYZ(dx, dy, dz)
-        self.x = self.x + (dx)
-        self.y = self.y + (dy)
-        self.z = self.z + (dz)
-end
-
-
-function Layer:getXP()
-        return self.x
-end
-
-
-function Layer:getYP()
-        return self.y
-end
-
-
-function Layer:getZP()
-        return self.z
-end
-
-
-function Layer:getWidth()
-        return self.width
-end
-
-
-function Layer:getHeight()
-        return self.height
-end
-
-
-function Layer:getDepth()
+    getDepth() {
         return 0
-end
+    }
+    
 
+    setVisible(visible) {
+        _visible = visible
+    }
+    
 
-function Layer:setVisible(visible)
-        self.visible = visible
-end
+    isVisible() {
+        return _visible
+    }
+    
 
+    paint(graphics) {
+        var commonStrings = CommonStrings.getInstance()
+        var canvasStrings = CanvasStrings.getInstance()
+        _logUtil.putF(commonStrings.NOT_IMPLEMENTED, this, canvasStrings.PAINT)
+    }
+    
 
-function Layer:isVisible()
-        return self.visible
-end
+    setLayerWidth(width) {
+        if ((width < 0)) {
+            Fiber.abort(JR.exception("IllegalArgumentException", ""))
+        }
+        _width = width
+    }
+    
 
+    setLayerHeight(height) {
+        if ((height < 0)) {
+            Fiber.abort(JR.exception("IllegalArgumentException", ""))
+        }
+        _height = height
+    }
+    
 
-function Layer:paint(graphics)
-        local commonStrings = CommonStrings.getInstance()
-        local canvasStrings = CanvasStrings.getInstance()
-        self.logUtil:putF(commonStrings.NOT_IMPLEMENTED, self, canvasStrings.PAINT)
-end
+    toStringAppend(stringBuffer) {
+    }
+}
 
-
-function Layer:setLayerWidth(width)
-        if width < 0 then
-            error(java_exception("IllegalArgumentException"), 0)
-        end
-        self.width = width
-end
-
-
-function Layer:setLayerHeight(height)
-        if height < 0 then
-            error(java_exception("IllegalArgumentException"), 0)
-        end
-        self.height = height
-end
-
-
-function Layer:toStringAppend(stringBuffer)
-end
-
-Layer.ID = SmallIntegerSingletonFactory.getInstance():getAt(0)
-
-return Layer
+import "../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../org/allbinary/graphics/displayable/CanvasStrings" for CanvasStrings
+import "../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../java/lang/Integer" for Integer
 

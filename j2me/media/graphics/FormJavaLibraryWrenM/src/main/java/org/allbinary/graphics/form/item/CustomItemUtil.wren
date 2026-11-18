@@ -1,58 +1,52 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form.item
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form.item
 
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class CustomItemUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = CustomItemUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  CUSTOM_ITEM_ARRAY { _CUSTOM_ITEM_ARRAY }
+  CUSTOM_ITEM_ARRAY=(value) { _CUSTOM_ITEM_ARRAY = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_CustomItemUtil() {
+    _CUSTOM_ITEM_ARRAY = null
+        _CUSTOM_ITEM_ARRAY = List.filled(0, null)
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  construct new() {
+    super()
+    initFields_CustomItemUtil()
+  }
+    
 
-local CustomItemUtil = {}
-CustomItemUtil.__index = CustomItemUtil
-CustomItemUtil.className = "CustomItemUtil"
-
-function CustomItemUtil:_init_fields()
-    self.CUSTOM_ITEM_ARRAY = java_new_array(nil, 0)
-end
-
-function CustomItemUtil.new()
-    local self = setmetatable({}, CustomItemUtil)
-    self:_init_fields()
-    return self
-end
-
-
-function CustomItemUtil.getInstance()
+    static getInstance() {
         return CustomItemUtil.instance
-end
+    }
+}
 
-CustomItemUtil.instance = CustomItemUtil.new()
-
-return CustomItemUtil
+import "./ABCustomItem" for ABCustomItem
 

@@ -1,47 +1,39 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form.item.validation
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form.item.validation
 
-local BooleanFactory = require("org.allbinary.logic.java.bool.BooleanFactory")
-local Visitor = require("org.allbinary.logic.util.visitor.Visitor")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/logic/util/visitor/Visitor" for Visitor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AllCommandsVisitor is Visitor {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AllCommandsVisitor() {
+  }
+    
 
-local AllCommandsVisitor = {}
-AllCommandsVisitor.__index = AllCommandsVisitor
-AllCommandsVisitor.className = "AllCommandsVisitor"
-setmetatable(AllCommandsVisitor, {__index = Visitor})
+    construct new() {
+    super()
+    initFields_AllCommandsVisitor()
+    }
+    
 
-
-function AllCommandsVisitor.new()
-    local self = setmetatable(Visitor.new(), AllCommandsVisitor)
-    return self
-end
-
-
-function AllCommandsVisitor:visit(anyType)
+    visit(anyType) {
         return BooleanFactory.getInstance().TRUE
-end
+    }
+}
 
-return AllCommandsVisitor
+import "../../../../../../org/allbinary/logic/java/bool/BooleanFactory" for BooleanFactory
 

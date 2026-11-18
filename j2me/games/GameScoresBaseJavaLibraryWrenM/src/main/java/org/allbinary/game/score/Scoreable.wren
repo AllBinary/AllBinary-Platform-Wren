@@ -1,69 +1,71 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.score
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.score
 
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
-local ScoreableInterface = require("org.allbinary.game.score.ScoreableInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Scoreable is JObject {
+    static ID {
+    if (__ID_set == null) {
+      __ID_set = true
+      __ID = SmallIntegerSingletonFactory.getInstance().getAt(3)
+    }
+    return __ID
+  }
+  static ID=(value) {
+    __ID_set = true
+    __ID = value
+  }
+  points { _points }
+  points=(value) { _points = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Scoreable() {
+    _points = 0
+        
+  }
+    
 
-local Scoreable = {}
-Scoreable.__index = Scoreable
-Scoreable.className = "Scoreable"
+    construct new(points) {
+    super()
+    initFields_Scoreable()
+        _points = points
+    }
+    
 
-function Scoreable:_init_fields()
-    self.points = nil
-end
+    addPoints(points) {
+        _points = JR.i32(_points + points)
+    }
+    
 
+    removePoints(points) {
+        _points = JR.i32(_points - points)
+    }
+    
 
-function Scoreable.new(points)
-    local self = setmetatable({}, Scoreable)
-    self:_init_fields()
-        self.points = points
-    return self
-end
+    setPoints(points) {
+        _points = points
+    }
+    
 
+    getPoints() {
+        return _points
+    }
+}
 
-function Scoreable:addPoints(points)
-        self.points = self.points + (points)
-end
-
-
-function Scoreable:removePoints(points)
-        self.points = self.points - (points)
-end
-
-
-function Scoreable:setPoints(points)
-        self.points = points
-end
-
-
-function Scoreable:getPoints()
-        return self.points
-end
-
-Scoreable.ID = SmallIntegerSingletonFactory.getInstance():getAt(3)
-
-return Scoreable
+import "../../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../../java/lang/Integer" for Integer
+import "./ScoreableInterface" for ScoreableInterface
 

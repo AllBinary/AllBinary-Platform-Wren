@@ -1,46 +1,49 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.paint
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.paint
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ProcessPaintableSingletonFactory is JObject {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = ProcessPaintable.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ProcessPaintableSingletonFactory() {
+  }
+    
 
-local ProcessPaintableSingletonFactory = {}
-ProcessPaintableSingletonFactory.__index = ProcessPaintableSingletonFactory
-ProcessPaintableSingletonFactory.className = "ProcessPaintableSingletonFactory"
+    construct new() {
+    super()
+    initFields_ProcessPaintableSingletonFactory()
+    }
+    
 
-
-function ProcessPaintableSingletonFactory.new()
-    local self = setmetatable({}, ProcessPaintableSingletonFactory)
-    return self
-end
-
-
-function ProcessPaintableSingletonFactory.getInstance()
+    static getInstance() {
         return ProcessPaintableSingletonFactory.SINGLETON
-end
+    }
+}
 
-ProcessPaintableSingletonFactory.SINGLETON = ProcessPaintable.new()
-
-return ProcessPaintableSingletonFactory
+import "./ProcessPaintable" for ProcessPaintable
 

@@ -1,46 +1,47 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.media
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media
 
-local AllBinaryVibrationME = require("org.allbinary.media.AllBinaryVibrationME")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./AllBinaryVibrationME" for AllBinaryVibrationME
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AllBinaryNoVibration is AllBinaryVibrationME {
+    static NO_VIBRATION {
+    if (__NO_VIBRATION_set == null) {
+      __NO_VIBRATION_set = true
+      __NO_VIBRATION = AllBinaryNoVibration.new()
+    }
+    return __NO_VIBRATION
+  }
+  static NO_VIBRATION=(value) {
+    __NO_VIBRATION_set = true
+    __NO_VIBRATION = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AllBinaryNoVibration() {
+  }
 
-local AllBinaryNoVibration = {}
-AllBinaryNoVibration.__index = AllBinaryNoVibration
-AllBinaryNoVibration.className = "AllBinaryNoVibration"
-setmetatable(AllBinaryNoVibration, {__index = AllBinaryVibrationME})
+  construct new() {
+    super()
+    initFields_AllBinaryNoVibration()
+  }
+    
 
-function AllBinaryNoVibration.new()
-    local self = setmetatable(AllBinaryVibrationME.new(), AllBinaryNoVibration)
-    return self
-end
+    vibrate(duration, type, volume) {
+    }
+}
 
-
-function AllBinaryNoVibration:vibrate(duration, type, volume)
-end
-
-AllBinaryNoVibration.NO_VIBRATION = AllBinaryNoVibration.new()
-
-return AllBinaryNoVibration
 

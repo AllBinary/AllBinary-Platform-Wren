@@ -1,52 +1,54 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.image
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Image = require("javax.microedition.lcdui.Image")
-local PaintableInterface = require("org.allbinary.graphics.paint.PaintableInterface")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PaintableToImageUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = PaintableToImageUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PaintableToImageUtil() {
+  }
 
-local PaintableToImageUtil = {}
-PaintableToImageUtil.__index = PaintableToImageUtil
-PaintableToImageUtil.className = "PaintableToImageUtil"
+  construct new() {
+    super()
+    initFields_PaintableToImageUtil()
+  }
+    
 
-function PaintableToImageUtil.new()
-    local self = setmetatable({}, PaintableToImageUtil)
-    return self
-end
-
-
--- throws Exception
-function PaintableToImageUtil.getImage(paintableInterface, width, height)
-        local image = GameFeatureImageCacheFactory.getInstance():get(getmetatable(PaintableToImageUtil.instance).className, width, height)
-        local graphics = image:getGraphics()
-        paintableInterface:paint(graphics)
+    static getImage(paintableInterface, width, height) {
+        var image = GameFeatureImageCacheFactory.getInstance().get(JR.className(PaintableToImageUtil.instance), width, height)
+        var graphics = image.getGraphics()
+        paintableInterface.paint(graphics)
         return image
-end
+    }
+}
 
-PaintableToImageUtil.instance = PaintableToImageUtil.new()
-
-return PaintableToImageUtil
+import "../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../javax/microedition/lcdui/Image" for Image
+import "../../../org/allbinary/graphics/paint/PaintableInterface" for PaintableInterface
+import "./GameFeatureImageCacheFactory" for GameFeatureImageCacheFactory
 

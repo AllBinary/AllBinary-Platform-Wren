@@ -1,72 +1,65 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration.event
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration.event
 
-local ResourceLoadingLevel = require("org.allbinary.game.resource.ResourceLoadingLevel")
-local ResourceLoadingLevelFactory = require("org.allbinary.game.resource.ResourceLoadingLevelFactory")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameInitializedEvent is AllBinaryEventObject {
+  resourceLoadingLevel { _resourceLoadingLevel }
+  resourceLoadingLevel=(value) { _resourceLoadingLevel = value }
+  level { _level }
+  level=(value) { _level = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameInitializedEvent() {
+    _resourceLoadingLevel = null
+    _level = 0
+        _resourceLoadingLevel = ResourceLoadingLevelFactory.getInstance().LEVEL
+        _level = 0
+  }
+    
 
-local GameInitializedEvent = {}
-GameInitializedEvent.__index = GameInitializedEvent
-GameInitializedEvent.className = "GameInitializedEvent"
-setmetatable(GameInitializedEvent, {__index = AllBinaryEventObject})
+    construct new(anyType) {
+        super(anyType)
+        initFields_GameInitializedEvent()
+    }
+    
 
-function GameInitializedEvent:_init_fields()
-    self.resourceLoadingLevel = ResourceLoadingLevelFactory.getInstance().LEVEL
-    self.level = 0
-end
+    setLevel(level) {
+        _level = level
+        _resourceLoadingLevel = ResourceLoadingLevelFactory.getInstance().LEVEL
+    }
+    
 
+    getLevel() {
+        return _level
+    }
+    
 
-function GameInitializedEvent.new(anyType)
-    local self = setmetatable(AllBinaryEventObject.new(anyType), GameInitializedEvent)
-    self:_init_fields()
-        -- super(...) made self above
-    return self
-end
+    setResourceLoadingLevel(resourceLoadingLevel) {
+        _resourceLoadingLevel = resourceLoadingLevel
+        _level = _resourceLoadingLevel.getLevel()
+    }
+    
 
+    getResourceLoadingLevel() {
+        return _resourceLoadingLevel
+    }
+}
 
-function GameInitializedEvent:setLevel(level)
-        self.level = level
-        self.resourceLoadingLevel = ResourceLoadingLevelFactory.getInstance().LEVEL
-end
-
-
-function GameInitializedEvent:getLevel()
-        return self.level
-end
-
-
-function GameInitializedEvent:setResourceLoadingLevel(resourceLoadingLevel)
-        self.resourceLoadingLevel = resourceLoadingLevel
-        self.level = self.resourceLoadingLevel:getLevel()
-end
-
-
-function GameInitializedEvent:getResourceLoadingLevel()
-        return self.resourceLoadingLevel
-end
-
-return GameInitializedEvent
+import "../../../../../org/allbinary/game/resource/ResourceLoadingLevel" for ResourceLoadingLevel
+import "../../../../../org/allbinary/game/resource/ResourceLoadingLevelFactory" for ResourceLoadingLevelFactory
 

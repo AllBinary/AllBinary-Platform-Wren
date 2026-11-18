@@ -1,146 +1,171 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.combat.weapon
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.combat.weapon
 
-local PreLogUtil = require("org.allbinary.logic.communication.log.PreLogUtil")
-local BasicDecimal = require("org.allbinary.logic.math.BasicDecimal")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local SimpleWeaponProperties = require("org.allbinary.game.combat.weapon.SimpleWeaponProperties")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./SimpleWeaponProperties" for SimpleWeaponProperties
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class WeaponProperties is SimpleWeaponProperties {
+    static NULL_WEAPON_PROPERTIES {
+    if (__NULL_WEAPON_PROPERTIES_set == null) {
+      __NULL_WEAPON_PROPERTIES_set = true
+      __NULL_WEAPON_PROPERTIES = WeaponProperties.new(0, 0, 0, 0, JR.i16(0))
+    }
+    return __NULL_WEAPON_PROPERTIES
+  }
+  static NULL_WEAPON_PROPERTIES=(value) {
+    __NULL_WEAPON_PROPERTIES_set = true
+    __NULL_WEAPON_PROPERTIES = value
+  }
+    static messageSent {
+    if (__messageSent_set == null) {
+      __messageSent_set = true
+      __messageSent = false
+    }
+    return __messageSent
+  }
+  static messageSent=(value) {
+    __messageSent_set = true
+    __messageSent = value
+  }
+    static DAMAGE { "Damage: " }
+    static RANGE { "Range: " }
+    static RELOAD { "Reload: " }
+  reloadTime { _reloadTime }
+  reloadTime=(value) { _reloadTime = value }
+  targetingTime { _targetingTime }
+  targetingTime=(value) { _targetingTime = value }
+  speed { _speed }
+  speed=(value) { _speed = value }
+  MAX { _MAX }
+  MAX=(value) { _MAX = value }
+  ZERO { _ZERO }
+  ZERO=(value) { _ZERO = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_WeaponProperties() {
+    _reloadTime = 0
+    _targetingTime = 0
+    _speed = null
+    _MAX = 0
+    _ZERO = 0
+        _reloadTime = 0
+        _targetingTime = 0
+        _speed = BasicDecimal.ZERO_BIGDECIMAL
+        _MAX = 10240
+        _ZERO = 0
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local WeaponProperties = {}
-WeaponProperties.__index = WeaponProperties
-WeaponProperties.className = "WeaponProperties"
-setmetatable(WeaponProperties, {__index = SimpleWeaponProperties})
-
-function WeaponProperties:_init_fields()
-    self.reloadTime = 0
-    self.targetingTime = 0
-    self.speed = BasicDecimal.ZERO_BIGDECIMAL
-    self.MAX = 10240
-    self.ZERO = 0
-end
-
-
-function WeaponProperties.new(reloadTime, targetingTime, speed, damage, dissipation)
-    local self = setmetatable(SimpleWeaponProperties.new(), WeaponProperties)
-    self:_init_fields()
-        if speed < self.MAX and speed ~= 0 and not WeaponProperties.messageSent then
-            local MESSAGE = "Danger Danger Danger: Speed probably to slow if using 1 degree calculations as velocity for a single axis could be below 1024: "
-            local commonStrings = CommonStrings.getInstance()
-            PreLogUtil.put(tostring(StringMaker.new():append(MESSAGE):appendlong(speed)), self, commonStrings.CONSTRUCTOR)
+    construct new(reloadTime, targetingTime, speed, damage, dissipation) {
+    super()
+    initFields_WeaponProperties()
+        if ((((speed < _MAX) && (speed != 0)) && !WeaponProperties.messageSent)) {
+            var MESSAGE = "Danger Danger Danger: Speed probably to slow if using 1 degree calculations as velocity for a single axis could be below 1024: "
+            var commonStrings = CommonStrings.getInstance()
+            PreLogUtil.put(StringMaker.new().append(MESSAGE).appendlong(speed).toString(), this, commonStrings.CONSTRUCTOR)
             WeaponProperties.messageSent = true
-        end
-        self:setReloadTime(reloadTime)
-        self:setTargetingTime(targetingTime)
-        self:setDamage(damage)
-        self:setDissipation(dissipation)
-        self:setSpeed(BasicDecimal.new(speed))
-        if dissipation ~= self.ZERO then
-            local unscaledDamage = self.speed:getUnscaled() * damage
-            local scaledDissipation = dissipation * self.speed:getScaledFactorValue()
-            local value = (java_idiv(unscaledDamage, scaledDissipation))
-            self:setRange(java_idiv((value * 9), 10))
-        end
-    return self
-end
+        }
+        this.setReloadTime(reloadTime)
+        this.setTargetingTime(targetingTime)
+        this.setDamage(damage)
+        this.setDissipation(dissipation)
+        this.setSpeed(BasicDecimal.new(speed))
+        if ((dissipation != _ZERO)) {
+            var unscaledDamage = (_speed.getUnscaled() * damage)
+            var scaledDissipation = (dissipation * _speed.getScaledFactorValue())
+            var value = (JR.idiv(unscaledDamage, scaledDissipation))
+            this.setRange(JR.idiv(JR.i32((JR.i32(value * 9))), 10))
+        }
+    }
+    
 
+    setReloadTime(reloadTime) {
+        _reloadTime = reloadTime
+    }
+    
 
-function WeaponProperties:setReloadTime(reloadTime)
-        self.reloadTime = reloadTime
-end
+    getReloadTime() {
+        return _reloadTime
+    }
+    
 
+    setTargetingTime(targetingTime) {
+        _targetingTime = targetingTime
+    }
+    
 
-function WeaponProperties:getReloadTime()
-        return self.reloadTime
-end
+    getTargetingTime() {
+        return _targetingTime
+    }
+    
 
+    getSpeed() {
+        return _speed
+    }
+    
 
-function WeaponProperties:setTargetingTime(targetingTime)
-        self.targetingTime = targetingTime
-end
+    setSpeed(speed) {
+        _speed = speed
+    }
+    
 
+    getDamageI(range) {
+        return (this.getDamage() - ((((this.getDissipation() * range)) / _speed.getScaled())))
+    }
+    
 
-function WeaponProperties:getTargetingTime()
-        return self.targetingTime
-end
-
-
-function WeaponProperties:getSpeed()
-        return self.speed
-end
-
-
-function WeaponProperties:setSpeed(speed)
-        self.speed = speed
-end
-
-
-function WeaponProperties:getDamageI(range)
-        return self:getDamage() - ((self:getDissipation() * range) / self.speed:getScaled())
-end
-
-
-function WeaponProperties:toStringArray()
-        local index = 0
-        local stringArray = java_new_array(nil, 3)
-        local stringBuffer = StringMaker.new()
-        stringArray[(function() local value = index index = value + 1 return value end)() + 1] = tostring(stringBuffer:append(WeaponProperties.DAMAGE):appendint(java_int(self:getDamage())))
-        stringBuffer:delete(0, stringBuffer:length())
-        stringArray[(function() local value = index index = value + 1 return value end)() + 1] = tostring(stringBuffer:append(WeaponProperties.RANGE):appendint(java_int(self:getRange())))
-        stringBuffer:delete(0, stringBuffer:length())
-        stringArray[(function() local value = index index = value + 1 return value end)() + 1] = tostring(stringBuffer:append(WeaponProperties.RELOAD):appendlong(self:getReloadTime()))
+    toStringArray() {
+        var index = 0
+        var stringArray = List.filled(3, null)
+        var stringBuffer = StringMaker.new()
+        stringArray[Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call()] = stringBuffer.append(WeaponProperties.DAMAGE).appendint(JR.i32(this.getDamage())).toString()
+        stringBuffer.delete(0, stringBuffer.length())
+        stringArray[Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call()] = stringBuffer.append(WeaponProperties.RANGE).appendint(JR.i32(this.getRange())).toString()
+        stringBuffer.delete(0, stringBuffer.length())
+        stringArray[Fn.new {
+var jold = index
+index = JR.i32(jold + 1)
+return jold
+}.call()] = stringBuffer.append(WeaponProperties.RELOAD).appendlong(this.getReloadTime()).toString()
         return stringArray
-end
+    }
+    
 
+    toString() {
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append(WeaponProperties.DAMAGE).appendint(JR.i32(this.getDamage()))
+        stringBuffer.append(CommonSeps.getInstance().SPACE)
+        stringBuffer.append(WeaponProperties.RANGE).appendint(JR.i32(this.getRange()))
+        stringBuffer.append(CommonSeps.getInstance().SPACE)
+        stringBuffer.append(WeaponProperties.RELOAD).appendlong(this.getReloadTime())
+        return stringBuffer.toString()
+    }
+}
 
-function WeaponProperties:toString()
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append(WeaponProperties.DAMAGE):appendint(java_int(self:getDamage()))
-        stringBuffer:append(CommonSeps.getInstance().SPACE)
-        stringBuffer:append(WeaponProperties.RANGE):appendint(java_int(self:getRange()))
-        stringBuffer:append(CommonSeps.getInstance().SPACE)
-        stringBuffer:append(WeaponProperties.RELOAD):appendlong(self:getReloadTime())
-        return tostring(stringBuffer)
-end
-WeaponProperties.__tostring = function(self) return self:toString() end
-
-WeaponProperties.NULL_WEAPON_PROPERTIES = WeaponProperties.new(0, 0, 0, 0, 0)
-WeaponProperties.messageSent = false
-WeaponProperties.DAMAGE = "Damage: "
-WeaponProperties.RANGE = "Range: "
-WeaponProperties.RELOAD = "Reload: "
-
-return WeaponProperties
+import "../../../../../org/allbinary/logic/communication/log/PreLogUtil" for PreLogUtil
+import "../../../../../org/allbinary/logic/math/BasicDecimal" for BasicDecimal
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
 

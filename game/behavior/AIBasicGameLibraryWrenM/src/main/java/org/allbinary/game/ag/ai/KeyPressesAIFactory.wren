@@ -1,55 +1,49 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.ai
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.ai
 
-local ArtificialIntelligenceInterface = require("org.allbinary.ai.ArtificialIntelligenceInterface")
-local ArtificialIntelligenceInterfaceFactoryInterface = require("org.allbinary.game.ai.ArtificialIntelligenceInterfaceFactoryInterface")
-local InputFeatureFactory = require("org.allbinary.game.configuration.feature.InputFeatureFactory")
-local GameInput = require("org.allbinary.game.input.GameInput")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class KeyPressesAIFactory is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_KeyPressesAIFactory() {
+  }
 
-local KeyPressesAIFactory = {}
-KeyPressesAIFactory.__index = KeyPressesAIFactory
-KeyPressesAIFactory.className = "KeyPressesAIFactory"
+  construct new() {
+    super()
+    initFields_KeyPressesAIFactory()
+  }
+    
 
-function KeyPressesAIFactory.new()
-    local self = setmetatable({}, KeyPressesAIFactory)
-    return self
-end
-
-
--- throws Exception
-function KeyPressesAIFactory:getInstance(hashtable, ownerLayerInterface, gameInput)
-        local isSingleKeyProcessing = InputFeatureFactory.getInstance():isSingleKeyProcessing()
-        if isSingleKeyProcessing then
+    getInstance(hashtable, ownerLayerInterface, gameInput) {
+        var isSingleKeyProcessing = InputFeatureFactory.getInstance().isSingleKeyProcessing()
+        if (isSingleKeyProcessing) {
             return KeyPressesAI.new(hashtable, ownerLayerInterface, gameInput)
-        else
+        } else {
             return MultiKeyPressesAI.new(hashtable, ownerLayerInterface, gameInput)
-        end
-end
+        }
+    }
+}
 
-return KeyPressesAIFactory
+import "../../../../../org/allbinary/ai/ArtificialIntelligenceInterface" for ArtificialIntelligenceInterface
+import "../../../../../org/allbinary/game/ai/ArtificialIntelligenceInterfaceFactoryInterface" for ArtificialIntelligenceInterfaceFactoryInterface
+import "../../../../../org/allbinary/game/configuration/feature/InputFeatureFactory" for InputFeatureFactory
+import "../../../../../org/allbinary/game/input/GameInput" for GameInput
+import "../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "./MultiKeyPressesAI" for MultiKeyPressesAI
+import "./KeyPressesAI" for KeyPressesAI
 

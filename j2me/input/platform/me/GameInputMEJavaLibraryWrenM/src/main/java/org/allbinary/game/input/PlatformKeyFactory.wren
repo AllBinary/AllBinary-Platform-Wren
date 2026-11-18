@@ -1,94 +1,99 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input
 
-local NullUtil = require("org.allbinary.logic.NullUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PlatformKeyFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PlatformKeyFactory() {
+  }
 
-local PlatformKeyFactory = {}
-PlatformKeyFactory.__index = PlatformKeyFactory
-PlatformKeyFactory.className = "PlatformKeyFactory"
+  construct new() {
+    super()
+    initFields_PlatformKeyFactory()
+  }
+    
 
-function PlatformKeyFactory.new()
-    local self = setmetatable({}, PlatformKeyFactory)
-    return self
-end
-
-
-function PlatformKeyFactory.getInstance()
-        if PlatformKeyFactory.instance == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((PlatformKeyFactory.instance == NullUtil.getInstance().NULL_OBJECT)) {
             PlatformKeyFactory.instance = PlatformKeyFactory.new()
-        end
+        }
         return PlatformKeyFactory.instance
-end
+    }
+    
 
-
-function PlatformKeyFactory:getString(keyCode)
+    getString(keyCode) {
         return J2MEGameKey.getString(keyCode)
-end
+    }
+    
 
+    isSubmission(input) {
+        return J2MEKeyFactory.getInstance().isSubmission(input)
+    }
+    
 
-function PlatformKeyFactory:isSubmission(input)
-        return J2MEKeyFactory.getInstance():isSubmission(input)
-end
+    isDelete(input) {
+        return J2MEKeyFactory.getInstance().isDelete(input)
+    }
+    
 
+    isBackSpace(input) {
+        return J2MEKeyFactory.getInstance().isBackSpace(input)
+    }
+    
 
-function PlatformKeyFactory:isDelete(input)
-        return J2MEKeyFactory.getInstance():isDelete(input)
-end
+    isLeft(input) {
+        return J2MEKeyFactory.getInstance().isLeft(input)
+    }
+    
 
+    isRight(input) {
+        return J2MEKeyFactory.getInstance().isRight(input)
+    }
+    
 
-function PlatformKeyFactory:isBackSpace(input)
-        return J2MEKeyFactory.getInstance():isBackSpace(input)
-end
+    isUp(input) {
+        return J2MEKeyFactory.getInstance().isUp(input)
+    }
+    
 
+    isDown(input) {
+        return J2MEKeyFactory.getInstance().isDown(input)
+    }
+    
 
-function PlatformKeyFactory:isLeft(input)
-        return J2MEKeyFactory.getInstance():isLeft(input)
-end
+    isEnter(input) {
+        return J2MEKeyFactory.getInstance().isEnter(input)
+    }
+}
 
-
-function PlatformKeyFactory:isRight(input)
-        return J2MEKeyFactory.getInstance():isRight(input)
-end
-
-
-function PlatformKeyFactory:isUp(input)
-        return J2MEKeyFactory.getInstance():isUp(input)
-end
-
-
-function PlatformKeyFactory:isDown(input)
-        return J2MEKeyFactory.getInstance():isDown(input)
-end
-
-
-function PlatformKeyFactory:isEnter(input)
-        return J2MEKeyFactory.getInstance():isEnter(input)
-end
-
-PlatformKeyFactory.instance = NullUtil.getInstance().NULL_OBJECT
-
-return PlatformKeyFactory
+import "../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "./J2MEGameKey" for J2MEGameKey
+import "./J2MEKeyFactory" for J2MEKeyFactory
+import "./Input" for Input
 

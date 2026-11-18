@@ -1,128 +1,153 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input
 
-local Features = require("org.allbinary.game.configuration.feature.Features")
-local InputFeatureFactory = require("org.allbinary.game.configuration.feature.InputFeatureFactory")
-local GameKeyEvent = require("org.allbinary.game.input.event.GameKeyEvent")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameInput is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  gameKeyEventList { _gameKeyEventList }
+  gameKeyEventList=(value) { _gameKeyEventList = value }
+  removalGameKeyEventList { _removalGameKeyEventList }
+  removalGameKeyEventList=(value) { _removalGameKeyEventList = value }
+  isRemoveDuplicateKeyPresses { _isRemoveDuplicateKeyPresses }
+  isRemoveDuplicateKeyPresses=(value) { _isRemoveDuplicateKeyPresses = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameInput() {
+    _logUtil = null
+    _commonStrings = null
+    _gameKeyEventList = null
+    _removalGameKeyEventList = null
+    _isRemoveDuplicateKeyPresses = false
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        
+        
+        
+  }
+    
 
-local GameInput = {}
-GameInput.__index = GameInput
-GameInput.className = "GameInput"
+    construct new(gameKeyEventList, removalGameKeyEventList) {
+    super()
+    initFields_GameInput()
+        _gameKeyEventList = gameKeyEventList
+        _removalGameKeyEventList = removalGameKeyEventList
+        _isRemoveDuplicateKeyPresses = Features.getInstance().isFeature(InputFeatureFactory.getInstance().REMOVE_DUPLICATE_KEY_PRESSES)
+    }
+    
 
-function GameInput:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.gameKeyEventList = nil
-    self.removalGameKeyEventList = nil
-    self.isRemoveDuplicateKeyPresses = nil
-end
-
-
-function GameInput.new(gameKeyEventList, removalGameKeyEventList)
-    local self = setmetatable({}, GameInput)
-    self:_init_fields()
-        self.gameKeyEventList = gameKeyEventList
-        self.removalGameKeyEventList = removalGameKeyEventList
-        self.isRemoveDuplicateKeyPresses = Features.getInstance():isFeature(InputFeatureFactory.getInstance().REMOVE_DUPLICATE_KEY_PRESSES)
-    return self
-end
-
-
-function GameInput:add(gameKeyEvent)
-        if self.isRemoveDuplicateKeyPresses and self.gameKeyEventList:contains(gameKeyEvent) then
+    add(gameKeyEvent) {
+        if ((_isRemoveDuplicateKeyPresses && _gameKeyEventList.contains(gameKeyEvent))) {
             return
-        end
-        if gameKeyEvent ~= nil then
-            self.gameKeyEventList:add(gameKeyEvent)
-        else
-            self.logUtil:putF("Danger Passed Null GameKeyEvent", self, self.commonStrings.ADD)
-        end
-end
+        }
+        if ((gameKeyEvent != null)) {
+            _gameKeyEventList.add(gameKeyEvent)
+        } else {
+            _logUtil.putF("Danger Passed Null GameKeyEvent", this, _commonStrings.ADD)
+        }
+    }
+    
 
+    addForRemoval(gameKeyEvent) {
+        _removalGameKeyEventList.add(gameKeyEvent)
+    }
+    
 
-function GameInput:addForRemoval(gameKeyEvent)
-        self.removalGameKeyEventList:add(gameKeyEvent)
-end
+    isForRemoval(gameKeyEvent) {
+        return _removalGameKeyEventList.contains(gameKeyEvent)
+    }
+    
 
+    clear() {
+        _gameKeyEventList.clear()
+    }
+    
 
-function GameInput:isForRemoval(gameKeyEvent)
-        return self.removalGameKeyEventList:contains(gameKeyEvent)
-end
+    removeNonAIInputGameKeyEvents() {
+        var list = _gameKeyEventList
+        var gameKeyEvent = null
+        if (true) {
+            var index = list.size()
+            var jfirst = true
+            while (true) {
+                jfirst = false
+                if (!((Fn.new {
+index = JR.i32(index - 1)
+return index
+}.call() >= 0))) break
+            gameKeyEvent = list.objectArray[index]
+            if ((gameKeyEvent.getSourceId() != 1)) {
+                list.removeAt(index)
+            }
+            }
+        }
+    }
+    
 
+    update() {
+        var removeList = _removalGameKeyEventList
+        var list = _gameKeyEventList
+        var size = removeList.size()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            var anyType = removeList.objectArray[index]
+            if (true) {
+                var index2 = list.size()
+                var jfirst = true
+                while (true) {
+                    jfirst = false
+                    if (!((Fn.new {
+index2 = JR.i32(index2 - 1)
+return index2
+}.call() >= 0))) break
+                if ((list.objectArray[index2] == anyType)) {
+                    list.removeAt(index2)
+                }
+                }
+            }
+            }
+        }
+        removeList.clear()
+    }
+    
 
-function GameInput:clear()
-        self.gameKeyEventList:clear()
-end
+    getRemovalGameKeyEventList() {
+        return _removalGameKeyEventList
+    }
+    
 
+    getGameKeyEventList() {
+        return _gameKeyEventList
+    }
+}
 
-function GameInput:removeNonAIInputGameKeyEvents()
-        local list = self.gameKeyEventList
-        local gameKeyEvent = nil
-        do
-            local index = list:size()
-            while (function() index = index - 1 return index end)() >= 0 do
-            gameKeyEvent = list.objectArray[index + 1]
-            if gameKeyEvent:getSourceId() ~= 1 then
-                list:removeAt(index)
-            end
-            end
-        end
-end
-
-
-function GameInput:update()
-        local removeList = self.removalGameKeyEventList
-        local list = self.gameKeyEventList
-        local size = removeList:size()
-        for index = 0, size - 1 do
-            local anyType = removeList.objectArray[index + 1]
-            do
-                local index2 = list:size()
-                while (function() index2 = index2 - 1 return index2 end)() >= 0 do
-                if list.objectArray[index2 + 1] == anyType then
-                    list:removeAt(index2)
-                end
-                end
-            end
-        end
-        removeList:clear()
-end
-
-
-function GameInput:getRemovalGameKeyEventList()
-        return self.removalGameKeyEventList
-end
-
-
-function GameInput:getGameKeyEventList()
-        return self.gameKeyEventList
-end
-
-return GameInput
+import "../../../../org/allbinary/game/configuration/feature/Features" for Features
+import "../../../../org/allbinary/game/configuration/feature/InputFeatureFactory" for InputFeatureFactory
+import "../../../../org/allbinary/game/input/event/GameKeyEvent" for GameKeyEvent
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
 

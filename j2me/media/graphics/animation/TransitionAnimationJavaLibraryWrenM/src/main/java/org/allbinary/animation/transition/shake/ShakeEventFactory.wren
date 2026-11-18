@@ -1,57 +1,68 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.transition.shake
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.transition.shake
 
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ShakeEventFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ShakeEventFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  MICRO { _MICRO }
+  MICRO=(value) { _MICRO = value }
+  SMALL { _SMALL }
+  SMALL=(value) { _SMALL = value }
+  MEDIUM { _MEDIUM }
+  MEDIUM=(value) { _MEDIUM = value }
+  LARGE { _LARGE }
+  LARGE=(value) { _LARGE = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ShakeEventFactory() {
+    _MICRO = null
+    _SMALL = null
+    _MEDIUM = null
+    _LARGE = null
+        _MICRO = ShakeEvent.new()
+        _SMALL = ShakeEvent.new()
+        _MEDIUM = ShakeEvent.new()
+        _LARGE = ShakeEvent.new()
+  }
 
-local ShakeEventFactory = {}
-ShakeEventFactory.__index = ShakeEventFactory
-ShakeEventFactory.className = "ShakeEventFactory"
+  construct new() {
+    super()
+    initFields_ShakeEventFactory()
+  }
+    
 
-function ShakeEventFactory:_init_fields()
-    self.MICRO = ShakeEvent.new()
-    self.SMALL = ShakeEvent.new()
-    self.MEDIUM = ShakeEvent.new()
-    self.LARGE = ShakeEvent.new()
-end
-
-function ShakeEventFactory.new()
-    local self = setmetatable({}, ShakeEventFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function ShakeEventFactory.getInstance()
+    static getInstance() {
         return ShakeEventFactory.instance
-end
+    }
+    
 
+    init() {
+    }
+}
 
-function ShakeEventFactory:init()
-end
-
-ShakeEventFactory.instance = ShakeEventFactory.new()
-
-return ShakeEventFactory
+import "./ShakeEvent" for ShakeEvent
 

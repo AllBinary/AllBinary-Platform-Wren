@@ -1,43 +1,31 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form.item
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form.item
 
--- local Image = require("javax.microedition.lcdui.Image")
--- local NullImage = require("javax.microedition.lcdui.NullImage")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local ABCustomItem = require("org.allbinary.graphics.form.item.ABCustomItem")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./ABCustomItem" for ABCustomItem
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ABCustomImageItem is ABCustomItem {
+  yOffset { _yOffset }
+  yOffset=(value) { _yOffset = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ABCustomImageItem() {
+    _yOffset = 0
+        _yOffset = 0
+  }
+    
 
-local ABCustomImageItem = {}
-ABCustomImageItem.__index = ABCustomImageItem
-ABCustomImageItem.className = "ABCustomImageItem"
-setmetatable(ABCustomImageItem, {__index = ABCustomItem})
+    construct new(label, image, layout, altText, basicColor, yOffset) {
+        super(label, basicColor, basicColor)
+        initFields_ABCustomImageItem()
+    }
+    
 
-function ABCustomImageItem:_init_fields()
-    self.yOffset = 0
-end
-
-
-function ABCustomImageItem.new(label, image, layout, altText, basicColor, yOffset)
-    local self = setmetatable(ABCustomItem.new(label, basicColor, basicColor), ABCustomImageItem)
-    self:_init_fields()
-        -- super(...) made self above
-    return self
-end
-
-
-function ABCustomImageItem:getImage()
+    getImage() {
         return NullImage.NULL_IMAGE
-end
+    }
+}
 
-return ABCustomImageItem
+import "../../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../../javax/microedition/lcdui/NullImage" for NullImage
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
 

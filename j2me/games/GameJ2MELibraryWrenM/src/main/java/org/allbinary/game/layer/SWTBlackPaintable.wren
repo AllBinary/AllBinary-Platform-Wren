@@ -1,55 +1,49 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local BasicColorSetUtil = require("org.allbinary.graphics.color.BasicColorSetUtil")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/graphics/paint/Paintable" for Paintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class SWTBlackPaintable is Paintable {
+  basicSetColorUtil { _basicSetColorUtil }
+  basicSetColorUtil=(value) { _basicSetColorUtil = value }
+  BLACK { _BLACK }
+  BLACK=(value) { _BLACK = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_SWTBlackPaintable() {
+    _basicSetColorUtil = null
+    _BLACK = null
+        _basicSetColorUtil = BasicColorSetUtil.getInstance()
+        _BLACK = BasicColorFactory.getInstance().BLACK
+  }
 
-local SWTBlackPaintable = {}
-SWTBlackPaintable.__index = SWTBlackPaintable
-SWTBlackPaintable.className = "SWTBlackPaintable"
-setmetatable(SWTBlackPaintable, {__index = Paintable})
+  construct new() {
+    super()
+    initFields_SWTBlackPaintable()
+  }
+    
 
-function SWTBlackPaintable:_init_fields()
-    self.basicSetColorUtil = BasicColorSetUtil.getInstance()
-    self.BLACK = BasicColorFactory.getInstance().BLACK
-end
+    paint(graphics) {
+        _basicSetColorUtil.setBasicColorP(graphics, _BLACK)
+    }
+}
 
-function SWTBlackPaintable.new()
-    local self = setmetatable(Paintable.new(), SWTBlackPaintable)
-    self:_init_fields()
-    return self
-end
-
-
-function SWTBlackPaintable:paint(graphics)
-        self.basicSetColorUtil:setBasicColorP(graphics, self.BLACK)
-end
-
-return SWTBlackPaintable
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../org/allbinary/graphics/color/BasicColorSetUtil" for BasicColorSetUtil
 

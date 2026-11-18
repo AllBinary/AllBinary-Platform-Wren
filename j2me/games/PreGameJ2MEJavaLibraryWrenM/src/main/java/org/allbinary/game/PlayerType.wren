@@ -1,64 +1,58 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game
 
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PlayerType is JObject {
+  id { _id }
+  id=(value) { _id = value }
+  name { _name }
+  name=(value) { _name = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PlayerType() {
+    _id = 0
+    _name = null
+        
+        _name = StringUtil.getInstance().EMPTY_STRING
+  }
+    
 
-local PlayerType = {}
-PlayerType.__index = PlayerType
-PlayerType.className = "PlayerType"
+    construct new(name, value) {
+    super()
+    initFields_PlayerType()
+        _name = name
+        _id = value
+    }
+    
 
-function PlayerType:_init_fields()
-    self.id = nil
-    self.name = StringUtil.getInstance().EMPTY_STRING
-end
+    getId() {
+        return _id
+    }
+    
 
+    getName() {
+        return _name
+    }
+    
 
-function PlayerType.new(name, value)
-    local self = setmetatable({}, PlayerType)
-    self:_init_fields()
-        self.name = name
-        self.id = value
-    return self
-end
+    toString() {
+        return this.getName()
+    }
+}
 
-
-function PlayerType:getId()
-        return self.id
-end
-
-
-function PlayerType:getName()
-        return self.name
-end
-
-
-function PlayerType:toString()
-        return self:getName()
-end
-PlayerType.__tostring = function(self) return self:toString() end
-
-return PlayerType
+import "../../../org/allbinary/logic/string/StringUtil" for StringUtil
 

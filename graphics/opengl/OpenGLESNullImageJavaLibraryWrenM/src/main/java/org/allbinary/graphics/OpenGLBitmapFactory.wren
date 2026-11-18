@@ -1,62 +1,60 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics
+// Generated Code Do Not Modify
+// package org.allbinary.graphics
 
--- local IOException = require("java.io.IOException")
--- local InputStream = require("java.io.InputStream")
--- local Image = require("javax.microedition.lcdui.Image")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local PlatformBitmapBase = require("org.allbinary.platform.graphics.PlatformBitmapBase")
-local PlatformBitmapBaseFactory = require("org.allbinary.platform.graphics.PlatformBitmapBaseFactory")
+import "../../../allbinary_java" for JObject, JException, JR
+import "../../../org/allbinary/platform/graphics/PlatformBitmapBaseFactory" for PlatformBitmapBaseFactory
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class OpenGLBitmapFactory is PlatformBitmapBaseFactory {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = OpenGLBitmapFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  ARGB_8888 { _ARGB_8888 }
+  ARGB_8888=(value) { _ARGB_8888 = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_OpenGLBitmapFactory() {
+    _ARGB_8888 = null
+        _ARGB_8888 = OpenGLBitmapConfig.new(NullUtil.getInstance().NULL_OBJECT)
+  }
 
-local OpenGLBitmapFactory = {}
-OpenGLBitmapFactory.__index = OpenGLBitmapFactory
-OpenGLBitmapFactory.className = "OpenGLBitmapFactory"
-setmetatable(OpenGLBitmapFactory, {__index = PlatformBitmapBaseFactory})
+  construct new() {
+    super()
+    initFields_OpenGLBitmapFactory()
+  }
+    
 
-function OpenGLBitmapFactory:_init_fields()
-    self.ARGB_8888 = OpenGLBitmapConfig.new(NullUtil.getInstance().NULL_OBJECT)
-end
-
-function OpenGLBitmapFactory.new()
-    local self = setmetatable(PlatformBitmapBaseFactory.new(), OpenGLBitmapFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function OpenGLBitmapFactory.getInstance()
+    static getInstance() {
         return OpenGLBitmapFactory.instance
-end
+    }
+    
 
-
-function OpenGLBitmapFactory:createBitmap(width, height, config)
+    createBitmap(width, height, config) {
         return OpenGLBitmap.new(NullUtil.getInstance().NULL_OBJECT)
-end
+    }
+    
 
-
--- throws IOException
-function OpenGLBitmapFactory:decodeStream(inputStream)
+    decodeStream(inputStream) {
         return OpenGLBitmap.new(NullUtil.getInstance().NULL_OBJECT)
-end
+    }
+    
 
-
--- Java overloaded method: Lua keeps the last definition
-function OpenGLBitmapFactory:createBitmap(image)
+    createBitmap(image) {
         return OpenGLBitmap.new(NullUtil.getInstance().NULL_OBJECT)
-end
+    }
+}
 
-OpenGLBitmapFactory.instance = OpenGLBitmapFactory.new()
-
-return OpenGLBitmapFactory
+import "../../../java/io/IOException" for IOException
+import "../../../java/io/InputStream" for InputStream
+import "../../../javax/microedition/lcdui/Image" for Image
+import "../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../org/allbinary/platform/graphics/PlatformBitmapBase" for PlatformBitmapBase
+import "./OpenGLBitmapConfig" for OpenGLBitmapConfig
+import "./OpenGLBitmap" for OpenGLBitmap
 

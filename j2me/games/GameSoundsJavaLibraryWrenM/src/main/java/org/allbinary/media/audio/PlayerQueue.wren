@@ -1,107 +1,105 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.media.audio
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.media.audio
 
-local PreLogUtil = require("org.allbinary.logic.communication.log.PreLogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PlayerQueue is JObject {
+    static TOTAL { "Sounds In Queue: " }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  list { _list }
+  list=(value) { _list = value }
+  max { _max }
+  max=(value) { _max = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PlayerQueue() {
+    _commonStrings = null
+    _list = null
+    _max = 0
+        _commonStrings = CommonStrings.getInstance()
+        _list = BasicArrayListD.new()
+        
+  }
+    
 
-local PlayerQueue = {}
-PlayerQueue.__index = PlayerQueue
-PlayerQueue.className = "PlayerQueue"
+    construct new(max) {
+    super()
+    initFields_PlayerQueue()
+        _max = max
+    }
+    
 
-function PlayerQueue:_init_fields()
-    self.commonStrings = CommonStrings.getInstance()
-    self.list = BasicArrayListD.new()
-    self.max = nil
-end
+    add(sound) {
+        var jerror0 = Fiber.new {
+            if (!_list.contains(sound)) {
+                _list.add(sound)
+            }
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            PreLogUtil.put(_commonStrings.EXCEPTION, this, _commonStrings.ADD)
+        }
+    }
+    
 
-
-function PlayerQueue.new(max)
-    local self = setmetatable({}, PlayerQueue)
-    self:_init_fields()
-        self.max = max
-    return self
-end
-
-
-function PlayerQueue:add(sound)
-        local try_ok, try_error = pcall(function()
-            if not self.list:contains(sound) then
-                self.list:add(sound)
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            PreLogUtil.put(self.commonStrings.EXCEPTION, self, self.commonStrings.ADD)
-        end
-end
-
-
-function PlayerQueue:process()
-        local sound = NoSound.getInstance()
-        local try_ok, try_error = pcall(function()
-            local played = false
-            if self.list:size() > 0 then
-                sound = self.list:removeAt(0)
-                if sound ~= nil then
-                    sound:getPlayerP():start()
-                end
-                while self.list:size() > self.max do
-                    self.list:removeAt(0)
-                end
+    process() {
+        var sound = NoSound.getInstance()
+        var jerror1 = Fiber.new {
+            var played = false
+            if ((_list.size() > 0)) {
+                sound = _list.removeAt(0)
+                if ((sound != null)) {
+                    sound.getPlayerP().start()
+                }
+                while ((_list.size() > _max)) {
+                    _list.removeAt(0)
+                }
                 played = true
-            end
+            }
             return played
-        end)
-        if not try_ok then
-            local e = try_error
-            local resource = StringUtil.getInstance().EMPTY_STRING
-            if sound ~= nil then
-                resource = sound:getResource()
-            end
-            PreLogUtil.put(tostring(StringMaker.new():append(self.commonStrings.EXCEPTION_LABEL):append(resource)), self, self.commonStrings.PROCESS)
+        }.try()
+        if (jerror1 != null) {
+            var e = jerror1
+            var resource = StringUtil.getInstance().EMPTY_STRING
+            if ((sound != null)) {
+                resource = sound.getResource()
+            }
+            PreLogUtil.put(StringMaker.new().append(_commonStrings.EXCEPTION_LABEL).append(resource).toString(), this, _commonStrings.PROCESS)
             return false
-        end
-end
+        }
+    }
+    
 
+    clear() {
+        _list.clear()
+    }
+    
 
-function PlayerQueue:clear()
-        self.list:clear()
-end
+    toString() {
+        return StringMaker.new().append(PlayerQueue.TOTAL).appendint(_list.size()).toString()
+    }
+}
 
-
-function PlayerQueue:toString()
-        return tostring(StringMaker.new():append(PlayerQueue.TOTAL):appendint(self.list:size()))
-end
-PlayerQueue.__tostring = function(self) return self:toString() end
-
-PlayerQueue.TOTAL = "Sounds In Queue: "
-
-return PlayerQueue
+import "../../../../org/allbinary/logic/communication/log/PreLogUtil" for PreLogUtil
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./Sound" for Sound
+import "./NoSound" for NoSound
 

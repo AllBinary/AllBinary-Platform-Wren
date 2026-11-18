@@ -1,59 +1,50 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.paint
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.paint
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Animation = require("org.allbinary.animation.Animation")
-local InitUpdatePaintable = require("org.allbinary.graphics.paint.InitUpdatePaintable")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./InitUpdatePaintable" for InitUpdatePaintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AnimationCompositePaintable is InitUpdatePaintable {
+  animationInterface { _animationInterface }
+  animationInterface=(value) { _animationInterface = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AnimationCompositePaintable() {
+    _animationInterface = null
+        
+  }
+    
 
-local AnimationCompositePaintable = {}
-AnimationCompositePaintable.__index = AnimationCompositePaintable
-AnimationCompositePaintable.className = "AnimationCompositePaintable"
-setmetatable(AnimationCompositePaintable, {__index = InitUpdatePaintable})
+    construct new(animationInterface) {
+    super()
+    initFields_AnimationCompositePaintable()
+        _animationInterface = animationInterface
+    }
+    
 
-function AnimationCompositePaintable:_init_fields()
-    self.animationInterface = nil
-end
+    paint(graphics) {
+        _animationInterface.paintXY(graphics, 0, 0)
+    }
+    
 
+    paintThreed(graphics) {
+        _animationInterface.paintThreedXYZ(graphics, 0, 0, 0)
+    }
+}
 
-function AnimationCompositePaintable.new(animationInterface)
-    local self = setmetatable(InitUpdatePaintable.new(), AnimationCompositePaintable)
-    self:_init_fields()
-        self.animationInterface = animationInterface
-    return self
-end
-
-
-function AnimationCompositePaintable:paint(graphics)
-        self.animationInterface:paintXY(graphics, 0, 0)
-end
-
-
-function AnimationCompositePaintable:paintThreed(graphics)
-        self.animationInterface:paintThreedXYZ(graphics, 0, 0, 0)
-end
-
-return AnimationCompositePaintable
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/animation/Animation" for Animation
 

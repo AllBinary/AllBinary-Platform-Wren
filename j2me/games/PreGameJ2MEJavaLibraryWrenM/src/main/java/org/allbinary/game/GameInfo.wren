@@ -1,166 +1,200 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game
 
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local StdUtil = require("org.allbinary.logic.StdUtil")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameInfo is JObject {
+    static NONE {
+    if (__NONE_set == null) {
+      __NONE_set = true
+      __NONE = GameInfo.new(GameTypeFactory.getInstance().NONE, GameMode.NONE, PlayerTypesFactory.getInstance().PLAYER_TYPE_ONE, -1, -1)
+    }
+    return __NONE
+  }
+  static NONE=(value) {
+    __NONE_set = true
+    __NONE = value
+  }
+    static LEVEL_NAME { "LEVEL" }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  gameInfoData { _gameInfoData }
+  gameInfoData=(value) { _gameInfoData = value }
+  gameType { _gameType }
+  gameType=(value) { _gameType = value }
+  gameMode { _gameMode }
+  gameMode=(value) { _gameMode = value }
+  playerType { _playerType }
+  playerType=(value) { _playerType = value }
+  highestLevel { _highestLevel }
+  highestLevel=(value) { _highestLevel = value }
+  currentLevel { _currentLevel }
+  currentLevel=(value) { _currentLevel = value }
+  NEW_LEVEL { _NEW_LEVEL }
+  NEW_LEVEL=(value) { _NEW_LEVEL = value }
+  SET_CURRENT_LEVEL { _SET_CURRENT_LEVEL }
+  SET_CURRENT_LEVEL=(value) { _SET_CURRENT_LEVEL = value }
+  NEXT_GAME_LEVEL { _NEXT_GAME_LEVEL }
+  NEXT_GAME_LEVEL=(value) { _NEXT_GAME_LEVEL = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameInfo() {
+    _logUtil = null
+    _gameInfoData = null
+    _gameType = null
+    _gameMode = null
+    _playerType = null
+    _highestLevel = 0
+    _currentLevel = 0
+    _NEW_LEVEL = null
+    _SET_CURRENT_LEVEL = null
+    _NEXT_GAME_LEVEL = null
+        _logUtil = LogUtil.getInstance()
+        _gameInfoData = GameInfoData.getInstance()
+        
+        
+        
+        _highestLevel = 0
+        
+        _NEW_LEVEL = "New Level: "
+        _SET_CURRENT_LEVEL = "setCurrentLevel"
+        _NEXT_GAME_LEVEL = "nextGameLevel"
+  }
+    
 
-local GameInfo = {}
-GameInfo.__index = GameInfo
-GameInfo.className = "GameInfo"
+    construct new(gameType, gameMode, playerType, highestLevel, currentLevel) {
+    super()
+    initFields_GameInfo()
+        _gameType = gameType
+        _gameMode = gameMode
+        this.setHighestLevel(highestLevel)
+        _currentLevel = currentLevel
+        _playerType = playerType
+    }
+    
 
-function GameInfo:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.gameInfoData = GameInfoData.getInstance()
-    self.gameType = nil
-    self.gameMode = nil
-    self.playerType = nil
-    self.highestLevel = 0
-    self.currentLevel = nil
-    self.NEW_LEVEL = "New Level: "
-    self.SET_CURRENT_LEVEL = "setCurrentLevel"
-    self.NEXT_GAME_LEVEL = "nextGameLevel"
-end
+    getGameType() {
+        return _gameType
+    }
+    
 
+    getGameMode() {
+        return _gameMode
+    }
+    
 
-function GameInfo.new(gameType, gameMode, playerType, highestLevel, currentLevel)
-    local self = setmetatable({}, GameInfo)
-    self:_init_fields()
-        self.gameType = gameType
-        self.gameMode = gameMode
-        self:setHighestLevel(highestLevel)
-        self.currentLevel = currentLevel
-        self.playerType = playerType
-    return self
-end
+    getPlayerType() {
+        return _playerType
+    }
+    
 
+    getHighestLevel() {
+        return _highestLevel
+    }
+    
 
-function GameInfo:getGameType()
-        return self.gameType
-end
+    setHighestLevel(highestLevel) {
+        _highestLevel = highestLevel
+    }
+    
 
+    getCurrentLevel() {
+        return _currentLevel
+    }
+    
 
-function GameInfo:getGameMode()
-        return self.gameMode
-end
+    setCurrentLevel(currentLevel) {
+        _currentLevel = currentLevel
+        _logUtil.putF(StringMaker.new().append(_NEW_LEVEL).appendint(this.getCurrentLevel()).toString(), this, _SET_CURRENT_LEVEL)
+    }
+    
 
+    nextGameLevel() {
+        if ((this.getCurrentLevel() < this.getHighestLevel())) {
+            _currentLevel = JR.i32(_currentLevel + 1)
+        }
+        _logUtil.putF(StringMaker.new().append(CommonLabels.getInstance().NEXT).append(CommonSeps.getInstance().SPACE).append(_NEW_LEVEL).appendint(this.getCurrentLevel()).toString(), this, _NEXT_GAME_LEVEL)
+    }
+    
 
-function GameInfo:getPlayerType()
-        return self.playerType
-end
+    previousGameLevel() {
+        if ((this.getCurrentLevel() > 1)) {
+            _currentLevel = JR.i32(_currentLevel - 1)
+        }
+    }
+    
 
-
-function GameInfo:getHighestLevel()
-        return self.highestLevel
-end
-
-
-function GameInfo:setHighestLevel(highestLevel)
-        self.highestLevel = highestLevel
-end
-
-
-function GameInfo:getCurrentLevel()
-        return self.currentLevel
-end
-
-
-function GameInfo:setCurrentLevel(currentLevel)
-        self.currentLevel = currentLevel
-        self.logUtil:putF(tostring(StringMaker.new():append(self.NEW_LEVEL):appendint(self:getCurrentLevel())), self, self.SET_CURRENT_LEVEL)
-end
-
-
-function GameInfo:nextGameLevel()
-        if self:getCurrentLevel() < self:getHighestLevel() then
-            self.currentLevel = self.currentLevel + 1
-        end
-        self.logUtil:putF(tostring(StringMaker.new():append(CommonLabels.getInstance().NEXT):append(CommonSeps.getInstance().SPACE):append(self.NEW_LEVEL):appendint(self:getCurrentLevel())), self, self.NEXT_GAME_LEVEL)
-end
-
-
-function GameInfo:previousGameLevel()
-        if self:getCurrentLevel() > 1 then
-            self.currentLevel = self.currentLevel - 1
-        end
-end
-
-
-function GameInfo:isLastLevel()
-        if self:getCurrentLevel() >= self:getHighestLevel() then
+    isLastLevel() {
+        if ((this.getCurrentLevel() >= this.getHighestLevel())) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+    
 
-
-function GameInfo:toHashtable()
-        local hashtable = StdUtil.getInstance():createHashtable()
-        hashtable:put(self.gameInfoData.GAME_TYPE, tostring(self:getGameType()))
-        hashtable:put(self.gameInfoData.GAME_MODE, tostring(self.gameMode))
-        hashtable:put(self.gameInfoData.PLAYER_TYPE, tostring(self.playerType))
-        hashtable:put(self.gameInfoData.HIGHEST_LEVEL, tostring(self:getHighestLevel()))
-        hashtable:put(self.gameInfoData.CURRENT_LEVEL, tostring(self.currentLevel))
+    toHashtable() {
+        var hashtable = StdUtil.getInstance().createHashtable()
+        hashtable.put(_gameInfoData.GAME_TYPE, this.getGameType().toString())
+        hashtable.put(_gameInfoData.GAME_MODE, _gameMode.toString())
+        hashtable.put(_gameInfoData.PLAYER_TYPE, _playerType.toString())
+        hashtable.put(_gameInfoData.HIGHEST_LEVEL, JR.str(this.getHighestLevel()))
+        hashtable.put(_gameInfoData.CURRENT_LEVEL, JR.str(_currentLevel))
         return hashtable
-end
+    }
+    
 
+    toString() {
+        var stringBuffer = StringMaker.new()
+        var commonSeps = CommonSeps.getInstance()
+        stringBuffer.append(_gameInfoData.GAME_TYPE)
+        stringBuffer.append(commonSeps.EQUALS)
+        stringBuffer.append(this.getGameType().toString())
+        stringBuffer.append(commonSeps.COMMA_SEP)
+        stringBuffer.append(_gameInfoData.GAME_MODE)
+        stringBuffer.append(commonSeps.EQUALS)
+        stringBuffer.append(_gameMode.toString())
+        stringBuffer.append(commonSeps.COMMA_SEP)
+        stringBuffer.append(_gameInfoData.PLAYER_TYPE)
+        stringBuffer.append(commonSeps.EQUALS)
+        stringBuffer.append(StringUtil.getInstance().toString(_playerType))
+        stringBuffer.append(commonSeps.COMMA_SEP)
+        stringBuffer.append(_gameInfoData.HIGHEST_LEVEL)
+        stringBuffer.append(commonSeps.EQUALS)
+        stringBuffer.appendint(this.getHighestLevel())
+        stringBuffer.append(commonSeps.COMMA_SEP)
+        stringBuffer.append(_gameInfoData.CURRENT_LEVEL)
+        stringBuffer.append(commonSeps.EQUALS)
+        stringBuffer.appendint(_currentLevel)
+        return stringBuffer.toString()
+    }
+}
 
-function GameInfo:toString()
-        local stringBuffer = StringMaker.new()
-        local commonSeps = CommonSeps.getInstance()
-        stringBuffer:append(self.gameInfoData.GAME_TYPE)
-        stringBuffer:append(commonSeps.EQUALS)
-        stringBuffer:append(tostring(self:getGameType()))
-        stringBuffer:append(commonSeps.COMMA_SEP)
-        stringBuffer:append(self.gameInfoData.GAME_MODE)
-        stringBuffer:append(commonSeps.EQUALS)
-        stringBuffer:append(tostring(self.gameMode))
-        stringBuffer:append(commonSeps.COMMA_SEP)
-        stringBuffer:append(self.gameInfoData.PLAYER_TYPE)
-        stringBuffer:append(commonSeps.EQUALS)
-        stringBuffer:append(StringUtil.getInstance():toString(self.playerType))
-        stringBuffer:append(commonSeps.COMMA_SEP)
-        stringBuffer:append(self.gameInfoData.HIGHEST_LEVEL)
-        stringBuffer:append(commonSeps.EQUALS)
-        stringBuffer:appendint(self:getHighestLevel())
-        stringBuffer:append(commonSeps.COMMA_SEP)
-        stringBuffer:append(self.gameInfoData.CURRENT_LEVEL)
-        stringBuffer:append(commonSeps.EQUALS)
-        stringBuffer:appendint(self.currentLevel)
-        return tostring(stringBuffer)
-end
-GameInfo.__tostring = function(self) return self:toString() end
-
-GameInfo.NONE = GameInfo.new(GameTypeFactory.getInstance().NONE, GameMode.NONE, PlayerTypesFactory.getInstance().PLAYER_TYPE_ONE, -1, -1)
-GameInfo.LEVEL_NAME = "LEVEL"
-
-return GameInfo
+import "../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../org/allbinary/logic/StdUtil" for StdUtil
+import "../../../org/allbinary/string/CommonLabels" for CommonLabels
+import "../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "../../../java/lang/Integer" for Integer
+import "./GameTypeFactory" for GameTypeFactory
+import "./GameMode" for GameMode
+import "./PlayerTypesFactory" for PlayerTypesFactory
+import "./GameInfoData" for GameInfoData
+import "./GameType" for GameType
+import "./PlayerType" for PlayerType
 

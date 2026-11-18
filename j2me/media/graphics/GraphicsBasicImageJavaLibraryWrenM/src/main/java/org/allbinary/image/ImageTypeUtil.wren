@@ -1,71 +1,90 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.image
 
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ImageTypeUtil is JObject {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = ImageTypeUtil.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
+  PNG { _PNG }
+  PNG=(value) { _PNG = value }
+  JPG { _JPG }
+  JPG=(value) { _JPG = value }
+  GIF { _GIF }
+  GIF=(value) { _GIF = value }
+  list { _list }
+  list=(value) { _list = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImageTypeUtil() {
+    _PNG = null
+    _JPG = null
+    _GIF = null
+    _list = null
+        _PNG = "png"
+        _JPG = "jpg"
+        _GIF = "gif"
+        _list = BasicArrayListD.new()
+  }
+    
 
-local ImageTypeUtil = {}
-ImageTypeUtil.__index = ImageTypeUtil
-ImageTypeUtil.className = "ImageTypeUtil"
+    construct new() {
+    super()
+    initFields_ImageTypeUtil()
+        _list.add(_JPG)
+        _list.add(_GIF)
+        _list.add(_PNG)
+    }
+    
 
-function ImageTypeUtil:_init_fields()
-    self.PNG = "png"
-    self.JPG = "jpg"
-    self.GIF = "gif"
-    self.list = BasicArrayListD.new()
-end
-
-
-function ImageTypeUtil.new()
-    local self = setmetatable({}, ImageTypeUtil)
-    self:_init_fields()
-        self.list:add(self.JPG)
-        self.list:add(self.GIF)
-        self.list:add(self.PNG)
-    return self
-end
-
-
-function ImageTypeUtil:isSupported(mediaFileType)
-        mediaFileType = string.lower(mediaFileType)
-        for index = self.list:size() - 1, 0, -1 do
-            local name = self.list:get(index)
-            if ((mediaFileType < name and -1) or (mediaFileType > name and 1) or 0) == 0 then
+    isSupported(mediaFileType) {
+        mediaFileType = JR.toLowerCase(mediaFileType)
+        if (true) {
+            var index = JR.i32(_list.size() - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            var name = _list.get(index)
+            if ((JR.compareTo(mediaFileType, name) == 0)) {
                 return true
-            end
-        end
+            }
+            }
+        }
         return false
-end
+    }
+    
 
-
-function ImageTypeUtil.getInstance()
+    static getInstance() {
         return ImageTypeUtil.SINGLETON
-end
+    }
+}
 
-ImageTypeUtil.SINGLETON = ImageTypeUtil.new()
-
-return ImageTypeUtil
+import "../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
 

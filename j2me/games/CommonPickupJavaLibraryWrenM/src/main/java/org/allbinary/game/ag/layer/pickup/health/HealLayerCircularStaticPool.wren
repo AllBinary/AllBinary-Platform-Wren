@@ -1,55 +1,47 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.pickup.health
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.pickup.health
 
-local HealthInterface = require("org.allbinary.game.health.HealthInterface")
-local HealthInterfaceCompositeInterface = require("org.allbinary.game.health.HealthInterfaceCompositeInterface")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryLayerCircularPool = require("org.allbinary.layer.AllBinaryLayerCircularPool")
-local AllBinaryLayerFactoryInterface = require("org.allbinary.layer.AllBinaryLayerFactoryInterface")
+import "../../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../../org/allbinary/layer/AllBinaryLayerCircularPool" for AllBinaryLayerCircularPool
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class HealLayerCircularStaticPool is AllBinaryLayerCircularPool {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_HealLayerCircularStaticPool() {
+  }
+    
 
-local HealLayerCircularStaticPool = {}
-HealLayerCircularStaticPool.__index = HealLayerCircularStaticPool
-HealLayerCircularStaticPool.className = "HealLayerCircularStaticPool"
-setmetatable(HealLayerCircularStaticPool, {__index = AllBinaryLayerCircularPool})
+    construct new(allbinaryLayerFactoryInterface, total) {
+    super()
+    initFields_HealLayerCircularStaticPool()
+        super.initAllBinaryLayerCircularPool(allbinaryLayerFactoryInterface, total)
+    }
+    
 
+    visit(sourceLayerInterface) {
+        var healLayer = this.getNextInstance()
+        var healthInterfaceCompositeInterface = sourceLayerInterface
+        var healthInterface = healthInterfaceCompositeInterface.getHealthInterface()
+        healLayer.visit(healthInterface)
+    }
+}
 
-function HealLayerCircularStaticPool.new(allbinaryLayerFactoryInterface, total)
-    local self = setmetatable(AllBinaryLayerCircularPool.new(), HealLayerCircularStaticPool)
-        AllBinaryLayerCircularPool.initAllBinaryLayerCircularPool(self, allbinaryLayerFactoryInterface, total)
-    return self
-end
-
-
--- throws Exception
-function HealLayerCircularStaticPool:visit(sourceLayerInterface)
-        local healLayer = self:getNextInstance()
-        local healthInterfaceCompositeInterface = sourceLayerInterface
-        local healthInterface = healthInterfaceCompositeInterface:getHealthInterface()
-        healLayer:visit(healthInterface)
-end
-
-return HealLayerCircularStaticPool
+import "../../../../../../../org/allbinary/game/health/HealthInterface" for HealthInterface
+import "../../../../../../../org/allbinary/game/health/HealthInterfaceCompositeInterface" for HealthInterfaceCompositeInterface
+import "../../../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../../../org/allbinary/layer/AllBinaryLayerFactoryInterface" for AllBinaryLayerFactoryInterface
+import "./HealLayer" for HealLayer
 

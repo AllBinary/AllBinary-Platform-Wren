@@ -1,85 +1,92 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.combat.destroy
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.combat.destroy
 
-local DestroyEventCircularStaticPool = require("org.allbinary.game.combat.destroy.event.DestroyEventCircularStaticPool")
-local DestroyedEvent = require("org.allbinary.game.combat.destroy.event.DestroyedEvent")
-local DestroyedEventHandler = require("org.allbinary.game.combat.destroy.event.DestroyedEventHandler")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local BasicLayerProcessor = require("org.allbinary.layer.BasicLayerProcessor")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/layer/BasicLayerProcessor" for BasicLayerProcessor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class DestroyedLayerProcessor is BasicLayerProcessor {
+    static DESTROYED_LAYER_PROCESSOR {
+    if (__DESTROYED_LAYER_PROCESSOR_set == null) {
+      __DESTROYED_LAYER_PROCESSOR_set = true
+      __DESTROYED_LAYER_PROCESSOR = BasicLayerProcessor.NULL_LAYER_PROCESSOR
+    }
+    return __DESTROYED_LAYER_PROCESSOR
+  }
+  static DESTROYED_LAYER_PROCESSOR=(value) {
+    __DESTROYED_LAYER_PROCESSOR_set = true
+    __DESTROYED_LAYER_PROCESSOR = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_DestroyedLayerProcessor() {
+  }
+    
 
-local DestroyedLayerProcessor = {}
-DestroyedLayerProcessor.__index = DestroyedLayerProcessor
-DestroyedLayerProcessor.className = "DestroyedLayerProcessor"
-setmetatable(DestroyedLayerProcessor, {__index = BasicLayerProcessor})
+    construct new() {
+    super()
+    initFields_DestroyedLayerProcessor()
+    }
+    
 
-
-function DestroyedLayerProcessor.new()
-    local self = setmetatable(BasicLayerProcessor.new(), DestroyedLayerProcessor)
-    return self
-end
-
-
-function DestroyedLayerProcessor.init()
+    static init() {
         DestroyedLayerProcessor.DESTROYED_LAYER_PROCESSOR = DestroyedLayerProcessor.new()
-end
+    }
+    
 
-
-function DestroyedLayerProcessor.getInstance()
+    static getInstance() {
         return DestroyedLayerProcessor.DESTROYED_LAYER_PROCESSOR
-end
+    }
+    
 
-
--- throws Exception
-function DestroyedLayerProcessor:process(allBinaryLayerManager)
-        local list = self:getList()
-        local size = list:size()
-        local destroyedEventHandler = DestroyedEventHandler.getInstance()
-        local destroyEventCircularStaticPool = DestroyEventCircularStaticPool.getInstance()
-        local destroyedEvent = nil
-        local layerInterface = nil
-        for index = 0, size - 1 do
-            local layerInterfaceCanBeNull = list.objectArray[index + 1]
-            if layerInterfaceCanBeNull ~= nil then
+    process(allBinaryLayerManager) {
+        var list = this.getList()
+        var size = list.size()
+        var destroyedEventHandler = DestroyedEventHandler.getInstance()
+        var destroyEventCircularStaticPool = DestroyEventCircularStaticPool.getInstance()
+        var destroyedEvent = null
+        var layerInterface = null
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            var layerInterfaceCanBeNull = list.objectArray[index]
+            if ((layerInterfaceCanBeNull != null)) {
                 layerInterface = layerInterfaceCanBeNull
-                allBinaryLayerManager:remove(layerInterface)
-                destroyedEvent = destroyEventCircularStaticPool:getInstanceForLayer(layerInterface)
-                destroyedEventHandler:fireEvent(destroyedEvent)
-            else
-                local commonStrings = CommonStrings.getInstance()
-            end
-        end
-        list:clear()
-end
+                allBinaryLayerManager.remove(layerInterface)
+                destroyedEvent = destroyEventCircularStaticPool.getInstanceForLayer(layerInterface)
+                destroyedEventHandler.fireEvent(destroyedEvent)
+            } else {
+                var commonStrings = CommonStrings.getInstance()
+            }
+            }
+        }
+        list.clear()
+    }
+}
 
-DestroyedLayerProcessor.DESTROYED_LAYER_PROCESSOR = BasicLayerProcessor.NULL_LAYER_PROCESSOR
-
-return DestroyedLayerProcessor
+import "../../../../../org/allbinary/game/combat/destroy/event/DestroyEventCircularStaticPool" for DestroyEventCircularStaticPool
+import "../../../../../org/allbinary/game/combat/destroy/event/DestroyedEvent" for DestroyedEvent
+import "../../../../../org/allbinary/game/combat/destroy/event/DestroyedEventHandler" for DestroyedEventHandler
+import "../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
 

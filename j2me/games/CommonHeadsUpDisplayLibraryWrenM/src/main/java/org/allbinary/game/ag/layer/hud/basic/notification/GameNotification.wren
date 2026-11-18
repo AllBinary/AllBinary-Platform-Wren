@@ -1,76 +1,84 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.hud.basic.notification
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.hud.basic.notification
 
-local GameNotificationEvent = require("org.allbinary.game.layer.hud.event.GameNotificationEvent")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local BooleanFactory = require("org.allbinary.logic.java.bool.BooleanFactory")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameNotification is JObject {
+    static NULL_GAME_NOTIFICATION_EVENT {
+    if (__NULL_GAME_NOTIFICATION_EVENT_set == null) {
+      __NULL_GAME_NOTIFICATION_EVENT_set = true
+      __NULL_GAME_NOTIFICATION_EVENT = GameNotificationEvent.new(NullUtil.getInstance().NULL_OBJECT, StringUtil.getInstance().EMPTY_STRING, 0, BasicColorFactory.getInstance().RED, BooleanFactory.getInstance().FALSE)
+    }
+    return __NULL_GAME_NOTIFICATION_EVENT
+  }
+  static NULL_GAME_NOTIFICATION_EVENT=(value) {
+    __NULL_GAME_NOTIFICATION_EVENT_set = true
+    __NULL_GAME_NOTIFICATION_EVENT = value
+  }
+  stringList { _stringList }
+  stringList=(value) { _stringList = value }
+  timeList { _timeList }
+  timeList=(value) { _timeList = value }
+  colorList { _colorList }
+  colorList=(value) { _colorList = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameNotification() {
+    _stringList = null
+    _timeList = null
+    _colorList = null
+        _stringList = BasicArrayListD.new()
+        _timeList = BasicArrayListD.new()
+        _colorList = BasicArrayListD.new()
+  }
 
-local GameNotification = {}
-GameNotification.__index = GameNotification
-GameNotification.className = "GameNotification"
+  construct new() {
+    super()
+    initFields_GameNotification()
+  }
+    
 
-function GameNotification:_init_fields()
-    self.stringList = BasicArrayListD.new()
-    self.timeList = BasicArrayListD.new()
-    self.colorList = BasicArrayListD.new()
-end
+    add(string, seconds, basicColor) {
+        if (!_stringList.contains(string)) {
+            _stringList.add(string)
+            _timeList.add(seconds)
+            _colorList.add(basicColor)
+        }
+    }
+    
 
-function GameNotification.new()
-    local self = setmetatable({}, GameNotification)
-    self:_init_fields()
-    return self
-end
+    clear() {
+        _stringList.clear()
+        _timeList.clear()
+        _colorList.clear()
+    }
+    
 
+    getSize() {
+        return _stringList.size()
+    }
+}
 
-function GameNotification:add(string, seconds, basicColor)
-        if not self.stringList:contains(string) then
-            self.stringList:add(string)
-            self.timeList:add(seconds)
-            self.colorList:add(basicColor)
-        end
-end
-
-
-function GameNotification:clear()
-        self.stringList:clear()
-        self.timeList:clear()
-        self.colorList:clear()
-end
-
-
-function GameNotification:getSize()
-        return self.stringList:size()
-end
-
-GameNotification.NULL_GAME_NOTIFICATION_EVENT = GameNotificationEvent.new(NullUtil.getInstance().NULL_OBJECT, StringUtil.getInstance().EMPTY_STRING, 0, BasicColorFactory.getInstance().RED, BooleanFactory.getInstance().FALSE)
-
-return GameNotification
+import "../../../../../../../../org/allbinary/game/layer/hud/event/GameNotificationEvent" for GameNotificationEvent
+import "../../../../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../../../../../org/allbinary/logic/java/bool/BooleanFactory" for BooleanFactory
+import "../../../../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "../../../../../../../../java/lang/Integer" for Integer
 

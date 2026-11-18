@@ -1,143 +1,143 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration
 
--- local Choice = require("javax.microedition.lcdui.Choice")
--- local ChoiceGroup = require("javax.microedition.lcdui.ChoiceGroup")
--- local CommandListener = require("javax.microedition.lcdui.CommandListener")
--- local NullImage = require("javax.microedition.lcdui.NullImage")
-local MIDPUtil = require("org.allbinary.MIDPUtil")
-local GameCommandsFactory = require("org.allbinary.game.commands.GameCommandsFactory")
-local GameDifficultyFactory = require("org.allbinary.game.configuration.persistance.GameDifficultyFactory")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local CommandForm = require("org.allbinary.graphics.displayable.screen.CommandForm")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/graphics/displayable/screen/CommandForm" for CommandForm
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameDifficultyOptions is CommandForm {
+  meUtil { _meUtil }
+  meUtil=(value) { _meUtil = value }
+  list { _list }
+  list=(value) { _list = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameDifficultyOptions() {
+    _meUtil = null
+    _list = null
+        _meUtil = MIDPUtil.getInstance()
+        
+  }
+    
 
-local GameDifficultyOptions = {}
-GameDifficultyOptions.__index = GameDifficultyOptions
-GameDifficultyOptions.className = "GameDifficultyOptions"
-setmetatable(GameDifficultyOptions, {__index = CommandForm})
+    construct new(commandListener, title, list, backgrounBasicColor, foregroundBasicColor) {
+        super(commandListener, title, backgrounBasicColor, foregroundBasicColor)
+        initFields_GameDifficultyOptions()
+        this.logUtil.putF(this.commonStrings.START, this, this.commonStrings.CONSTRUCTOR)
+        _list = list
+        this.update()
+        this.initCommands(commandListener)
+        var gameDifficultyFactory = GameDifficultyFactory.getInstance()
+        this.setSelectedId(gameDifficultyFactory.getLevel())
+    }
+    
 
-function GameDifficultyOptions:_init_fields()
-    self.meUtil = MIDPUtil.getInstance()
-    self.list = nil
-end
+    open() {
+        super.open()
+    }
+    
 
+    close() {
+        super.close()
+        this.save()
+    }
+    
 
-function GameDifficultyOptions.new(commandListener, title, list, backgrounBasicColor, foregroundBasicColor)
-    local self = setmetatable(CommandForm.new(commandListener, title, backgrounBasicColor, foregroundBasicColor), GameDifficultyOptions)
-    self:_init_fields()
-        -- super(...) made self above
-        self.logUtil:putF(self.commonStrings.START, self, self.commonStrings.CONSTRUCTOR)
-        self.list = list
-        self:update()
-        self:initCommands(commandListener)
-        local gameDifficultyFactory = GameDifficultyFactory.getInstance()
-        self:setSelectedId(gameDifficultyFactory:getLevel())
-    return self
-end
+    save() {
+        var gameDifficultyFactory = GameDifficultyFactory.getInstance()
+        gameDifficultyFactory.setLevel(this.getSelectedId())
+    }
+    
 
+    initCommands(cmdListener) {
+        var gameCommandsFactory = GameCommandsFactory.getInstance()
+        this.removeAllCommands()
+        this.addCommand(gameCommandsFactory.CLOSE_AND_SHOW_GAME_CANVAS)
+        this.setCommandListener(cmdListener)
+    }
+    
 
-function GameDifficultyOptions:open()
-        CommandForm.open(self)
-end
+    update() {
+        this.deleteAll()
+        this.add(_list, "Difficulty", Choice.EXCLUSIVE)
+        super.update()
+    }
+    
 
+    add(list, name, option) {
+        var choiceGroup = this.getChoiceGroup(list, name, option)
+        if ((list.size() > 0)) {
+            choiceGroup.setSelectedIndex(0, true)
+        }
+        _meUtil.appendItem(this, choiceGroup)
+    }
+    
 
--- throws Exception
-function GameDifficultyOptions:close()
-        CommandForm.close(self)
-        self:save()
-end
-
-
--- throws Exception
-function GameDifficultyOptions:save()
-        local gameDifficultyFactory = GameDifficultyFactory.getInstance()
-        gameDifficultyFactory:setLevel(self:getSelectedId())
-end
-
-
-function GameDifficultyOptions:initCommands(cmdListener)
-        local gameCommandsFactory = GameCommandsFactory.getInstance()
-        self:removeAllCommands()
-        self:addCommand(gameCommandsFactory.CLOSE_AND_SHOW_GAME_CANVAS)
-        self:setCommandListener(cmdListener)
-end
-
-
--- throws Exception
-function GameDifficultyOptions:update()
-        self:deleteAll()
-        self:add(self.list, "Difficulty", Choice.EXCLUSIVE)
-        CommandForm.update(self)
-end
-
-
-function GameDifficultyOptions:add(list, name, option)
-        local choiceGroup = self:getChoiceGroup(list, name, option)
-        if list:size() > 0 then
-            choiceGroup:setSelectedIndex(0, true)
-        end
-        self.meUtil:appendItem(self, choiceGroup)
-end
-
-
-function GameDifficultyOptions:getChoiceGroup(list, name, option)
-        local METHOD_NAME = "addChoiceGroup"
-        local NAME = "Adding Choice: "
-        local choiceGroup = ChoiceGroup.new(name, option, StringUtil.getInstance():getArrayInstance(), NullImage.NULL_IMAGE_ARRAY)
-        local size = list:size()
-        local anyType = nil
-        for index = 0, size - 1 do
-            anyType = list.objectArray[index + 1]
-            self.logUtil:putF(tostring(StringMaker.new():append(NAME):append(tostring(anyType))), self, METHOD_NAME)
-            choiceGroup:append(tostring(anyType), NullImage.NULL_IMAGE)
-        end
+    getChoiceGroup(list, name, option) {
+        var METHOD_NAME = "addChoiceGroup"
+        var NAME = "Adding Choice: "
+        var choiceGroup = ChoiceGroup.new(name, option, StringUtil.getInstance().getArrayInstance(), NullImage.NULL_IMAGE_ARRAY)
+        var size = list.size()
+        var anyType = null
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            anyType = list.objectArray[index]
+            this.logUtil.putF(StringMaker.new().append(NAME).append(anyType.toString()).toString(), this, METHOD_NAME)
+            choiceGroup.append(anyType.toString(), NullImage.NULL_IMAGE)
+            }
+        }
         return choiceGroup
-end
+    }
+    
 
+    setSelectedId(id) {
+        var choiceGroup = this.get(0)
+        choiceGroup.setSelectedIndex(id, true)
+    }
+    
 
-function GameDifficultyOptions:setSelectedId(id)
-        local choiceGroup = self:get(0)
-        choiceGroup:setSelectedIndex(id, true)
-end
+    getSelectedId() {
+        var choiceGroup = this.get(0)
+        return choiceGroup.getSelectedIndex()
+    }
+    
 
-
-function GameDifficultyOptions:getSelectedId()
-        local choiceGroup = self:get(0)
-        return choiceGroup:getSelectedIndex()
-end
-
-
-function GameDifficultyOptions:getSelectedText()
-        local choiceGroup = self:get(0)
-        local value = math.tointeger(tostring(choiceGroup:getString(choiceGroup:getSelectedIndex())) // 1)
+    getSelectedText() {
+        var choiceGroup = this.get(0)
+        var value = JR.str(choiceGroup.getString(choiceGroup.getSelectedIndex())).intValue()
         return value
-end
+    }
+}
 
-return GameDifficultyOptions
+import "../../../../javax/microedition/lcdui/Choice" for Choice
+import "../../../../javax/microedition/lcdui/ChoiceGroup" for ChoiceGroup
+import "../../../../javax/microedition/lcdui/CommandListener" for CommandListener
+import "../../../../javax/microedition/lcdui/NullImage" for NullImage
+import "../../../../org/allbinary/MIDPUtil" for MIDPUtil
+import "../../../../org/allbinary/game/commands/GameCommandsFactory" for GameCommandsFactory
+import "../../../../org/allbinary/game/configuration/persistance/GameDifficultyFactory" for GameDifficultyFactory
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../java/lang/Integer" for Integer
 

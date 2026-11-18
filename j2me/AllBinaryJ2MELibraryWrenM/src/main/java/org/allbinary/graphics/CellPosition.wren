@@ -1,91 +1,87 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics
 
-local V = require("org.allbinary.graph.V")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
+import "../../../allbinary_java" for JObject, JException, JR
+import "../../../org/allbinary/graph/V" for V
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CellPosition is V {
+  id { _id }
+  id=(value) { _id = value }
+  column { _column }
+  column=(value) { _column = value }
+  row { _row }
+  row=(value) { _row = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CellPosition() {
+    _id = 0
+    _column = 0
+    _row = 0
+        
+        
+        
+  }
+    
 
-local CellPosition = {}
-CellPosition.__index = CellPosition
-CellPosition.className = "CellPosition"
-setmetatable(CellPosition, {__index = V})
+    construct new(column, row, columns, rows) {
+    super()
+    initFields_CellPosition()
+        _column = column
+        _row = row
+        _id = JR.i32((JR.i32(row * columns)) + column)
+    }
+    
 
-function CellPosition:_init_fields()
-    self.id = nil
-    self.column = nil
-    self.row = nil
-end
+    getColumn() {
+        return _column
+    }
+    
 
+    getRow() {
+        return _row
+    }
+    
 
-function CellPosition.new(column, row, columns, rows)
-    local self = setmetatable(V.new(), CellPosition)
-    self:_init_fields()
-        self.column = column
-        self.row = row
-        self.id = (row * columns) + column
-    return self
-end
+    toString() {
+        return CellPosition.toStringColRow(this.getColumn(), this.getRow())
+    }
+    
 
+    static toStringCellPosition(basicGeographicMapCellPosition) {
+        return CellPosition.toStringColRow(basicGeographicMapCellPosition.getColumn(), basicGeographicMapCellPosition.getRow())
+    }
+    
 
-function CellPosition:getColumn()
-        return self.column
-end
+    static toStringColRow(i_column, i_row) {
+        var stringBuffer = StringMaker.new()
+        var commonSeps = CommonSeps.getInstance()
+        stringBuffer.append(commonSeps.PARENTHESIS_OPEN)
+        stringBuffer.appendint(i_column)
+        stringBuffer.append(commonSeps.COMMA)
+        stringBuffer.appendint(i_row)
+        stringBuffer.append(commonSeps.PARENTHESIS_CLOSE)
+        return stringBuffer.toString()
+    }
+    
 
+    getId() {
+        return _id
+    }
+}
 
-function CellPosition:getRow()
-        return self.row
-end
-
-
-function CellPosition:toString()
-        return CellPosition.toStringColRow(self:getColumn(), self:getRow())
-end
-CellPosition.__tostring = function(self) return self:toString() end
-
-
-function CellPosition.toStringCellPosition(basicGeographicMapCellPosition)
-        return CellPosition.toStringColRow(basicGeographicMapCellPosition:getColumn(), basicGeographicMapCellPosition:getRow())
-end
-
-
-function CellPosition.toStringColRow(i_column, i_row)
-        local stringBuffer = StringMaker.new()
-        local commonSeps = CommonSeps.getInstance()
-        stringBuffer:append(commonSeps.PARENTHESIS_OPEN)
-        stringBuffer:appendint(i_column)
-        stringBuffer:append(commonSeps.COMMA)
-        stringBuffer:appendint(i_row)
-        stringBuffer:append(commonSeps.PARENTHESIS_CLOSE)
-        return tostring(stringBuffer)
-end
-
-
-function CellPosition:getId()
-        return self.id
-end
-
-return CellPosition
+import "../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../org/allbinary/string/CommonSeps" for CommonSeps
 

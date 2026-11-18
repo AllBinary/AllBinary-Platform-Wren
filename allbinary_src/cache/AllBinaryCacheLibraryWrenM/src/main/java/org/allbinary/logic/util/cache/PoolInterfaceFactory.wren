@@ -1,58 +1,41 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2007 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.logic.util.cache
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2007 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.util.cache
 
+import "../../../../../allbinary_java" for JObject, JException, JR
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class PoolInterfaceFactory is JObject {
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_PoolInterfaceFactory() {
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new() {
+    super()
+    initFields_PoolInterfaceFactory()
+    }
+    
 
-local PoolInterfaceFactory = {}
-PoolInterfaceFactory.__index = PoolInterfaceFactory
-PoolInterfaceFactory.className = "PoolInterfaceFactory"
+    static getInstance(cacheableInterfaceFactoryInterface, poolType, cachePolicy) {
+        Fiber.abort(JR.exception("Exception", "No Such PoolType: " + poolType.toString()))
+    }
+}
 
-
-function PoolInterfaceFactory.new()
-    local self = setmetatable({}, PoolInterfaceFactory)
-    return self
-end
-
-
--- throws Exception
-function PoolInterfaceFactory.getInstance(cacheableInterfaceFactoryInterface, poolType, cachePolicy)
-        error(java_exception("Exception", "No Such PoolType: " .. tostring(poolType)), 0)
-end
-
-return PoolInterfaceFactory
+import "./PoolInterface" for PoolInterface
+import "./CacheableInterfaceFactoryInterface" for CacheableInterfaceFactoryInterface
+import "./PoolType" for PoolType
+import "./CachePolicy" for CachePolicy
 

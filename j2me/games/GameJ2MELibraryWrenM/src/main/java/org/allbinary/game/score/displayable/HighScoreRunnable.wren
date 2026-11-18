@@ -1,83 +1,75 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.score.displayable
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.score.displayable
 
-local J2MEUtil = require("org.allbinary.J2MEUtil")
-local ABSystemWrapper = require("org.allbinary.logic.ABSystemWrapper")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local ARunnable = require("org.allbinary.thread.ARunnable")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/thread/ARunnable" for ARunnable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class HighScoreRunnable is ARunnable {
+  highScoresCanvas { _highScoresCanvas }
+  highScoresCanvas=(value) { _highScoresCanvas = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_HighScoreRunnable() {
+    _highScoresCanvas = null
+        
+  }
+    
 
-local HighScoreRunnable = {}
-HighScoreRunnable.__index = HighScoreRunnable
-HighScoreRunnable.className = "HighScoreRunnable"
-setmetatable(HighScoreRunnable, {__index = ARunnable})
+    construct new(highScoresCanvas) {
+    super()
+    initFields_HighScoreRunnable()
+        _highScoresCanvas = highScoresCanvas
+    }
+    
 
-function HighScoreRunnable:_init_fields()
-    self.highScoresCanvas = nil
-end
-
-
-function HighScoreRunnable.new(highScoresCanvas)
-    local self = setmetatable(ARunnable.new(), HighScoreRunnable)
-    self:_init_fields()
-        self.highScoresCanvas = highScoresCanvas
-    return self
-end
-
-
-function HighScoreRunnable:run()
-        local commonStrings = CommonStrings.getInstance()
-        local logUtil = LogUtil.getInstance()
-        local highScoresCanvas = self.highScoresCanvas
-        local try_ok, try_error = pcall(function()
-            local isHTML = J2MEUtil.isHTML()
-            if not isHTML then
-                while not highScoresCanvas.hasPainted do
-                end
+    run() {
+        var commonStrings = CommonStrings.getInstance()
+        var logUtil = LogUtil.getInstance()
+        var highScoresCanvas = _highScoresCanvas
+        var jerror0 = Fiber.new {
+            var isHTML = J2MEUtil.isHTML()
+            if (!isHTML) {
+                while (!highScoresCanvas.hasPainted) {
+                }
                 highScoresCanvas.hasPainted = false
-            end
-            local stringMaker = StringMaker.new()
-            local systemWrapper = ABSystemWrapper.getInstance()
-            local currentTimeMillis = systemWrapper:currentTimeMillis()
-            logUtil:putF(tostring(stringMaker:append("HighScoresCanvas - Request repaint to be sure: "):appendlong(currentTimeMillis)), self, commonStrings.RUN)
-            highScoresCanvas.repaintBehavior:onChangeRepaint(highScoresCanvas)
-            if not isHTML then
-                while not highScoresCanvas.hasPainted do
-                end
-            end
-            stringMaker:delete(0, stringMaker:length())
-            logUtil:putF(tostring(stringMaker:append("HighScoresCanvas - Now that the canvas has completed repaint go ahead and fetch the scores: "):appendlong(currentTimeMillis)), self, commonStrings.RUN)
-            highScoresCanvas:executeUpdate()
-        end)
-        if not try_ok then
-            local e = try_error
-            logUtil:put(commonStrings.EXCEPTION, self, commonStrings.RUN, e)
-        end
-end
+            }
+            var stringMaker = StringMaker.new()
+            var systemWrapper = ABSystemWrapper.getInstance()
+            var currentTimeMillis = systemWrapper.currentTimeMillis()
+            logUtil.putF(stringMaker.append("HighScoresCanvas - Request repaint to be sure: ").appendlong(currentTimeMillis).toString(), this, commonStrings.RUN)
+            highScoresCanvas.repaintBehavior.onChangeRepaint(highScoresCanvas)
+            if (!isHTML) {
+                while (!highScoresCanvas.hasPainted) {
+                }
+            }
+            stringMaker.delete(0, stringMaker.length())
+            logUtil.putF(stringMaker.append("HighScoresCanvas - Now that the canvas has completed repaint go ahead and fetch the scores: ").appendlong(currentTimeMillis).toString(), this, commonStrings.RUN)
+            highScoresCanvas.executeUpdate()
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            logUtil.put(commonStrings.EXCEPTION, this, commonStrings.RUN, e)
+        }
+    }
+}
 
-return HighScoreRunnable
+import "../../../../../org/allbinary/J2MEUtil" for J2MEUtil
+import "../../../../../org/allbinary/logic/ABSystemWrapper" for ABSystemWrapper
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./HighScoresCanvas" for HighScoresCanvas
 

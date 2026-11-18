@@ -1,115 +1,118 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.score
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.score
 
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local HighScoresInterface = require("org.allbinary.game.score.HighScoresInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class HighScores is JObject {
+  orderedHighScoresList { _orderedHighScoresList }
+  orderedHighScoresList=(value) { _orderedHighScoresList = value }
+  name { _name }
+  name=(value) { _name = value }
+  heading { _heading }
+  heading=(value) { _heading = value }
+  columnOneHeading { _columnOneHeading }
+  columnOneHeading=(value) { _columnOneHeading = value }
+  columnTwoHeading { _columnTwoHeading }
+  columnTwoHeading=(value) { _columnTwoHeading = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_HighScores() {
+    _orderedHighScoresList = null
+    _name = null
+    _heading = null
+    _columnOneHeading = null
+    _columnTwoHeading = null
+        _orderedHighScoresList = BasicArrayListD.new()
+        
+        
+        _columnOneHeading = "Name"
+        
+  }
+    
 
-local HighScores = {}
-HighScores.__index = HighScores
-HighScores.className = "HighScores"
+    construct new(name, heading, columnTwoHeading) {
+    super()
+    initFields_HighScores()
+        _name = name
+        _heading = heading
+        _columnTwoHeading = columnTwoHeading
+    }
+    
 
-function HighScores:_init_fields()
-    self.orderedHighScoresList = BasicArrayListD.new()
-    self.name = nil
-    self.heading = nil
-    self.columnOneHeading = "Name"
-    self.columnTwoHeading = nil
-end
+    setList(orderedHighScoresList) {
+        _orderedHighScoresList = orderedHighScoresList
+    }
+    
 
+    getList() {
+        return _orderedHighScoresList
+    }
+    
 
-function HighScores.new(name, heading, columnTwoHeading)
-    local self = setmetatable({}, HighScores)
-    self:_init_fields()
-        self.name = name
-        self.heading = heading
-        self.columnTwoHeading = columnTwoHeading
-    return self
-end
+    getName() {
+        return _name
+    }
+    
 
+    getTotal() {
+        return this.getList().size()
+    }
+    
 
-function HighScores:setList(orderedHighScoresList)
-        self.orderedHighScoresList = orderedHighScoresList
-end
+    addHighScore(newHighScore) {
+        _orderedHighScoresList.add(newHighScore)
+    }
+    
 
+    getHeading() {
+        return _heading
+    }
+    
 
-function HighScores:getList()
-        return self.orderedHighScoresList
-end
+    getColumnOneHeading() {
+        return _columnOneHeading
+    }
+    
 
+    getColumnTwoHeading() {
+        return _columnTwoHeading
+    }
+    
 
-function HighScores:getName()
-        return self.name
-end
-
-
-function HighScores:getTotal()
-        return self:getList():size()
-end
-
-
-function HighScores:addHighScore(newHighScore)
-        self.orderedHighScoresList:add(newHighScore)
-end
-
-
-function HighScores:getHeading()
-        return self.heading
-end
-
-
-function HighScores:getColumnOneHeading()
-        return self.columnOneHeading
-end
-
-
-function HighScores:getColumnTwoHeading()
-        return self.columnTwoHeading
-end
-
-
--- throws Exception
-function HighScores:isBestScore(newHighScore)
+    isBestScore(newHighScore) {
         return false
-end
+    }
+    
 
+    toString() {
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append("HighScores: ")
+        stringBuffer.append(_heading)
+        stringBuffer.append(CommonSeps.getInstance().SPACE)
+        stringBuffer.append(CommonLabels.getInstance().TOTAL_LABEL)
+        stringBuffer.appendint(_orderedHighScoresList.size())
+        return stringBuffer.toString()
+    }
+}
 
-function HighScores:toString()
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append("HighScores: ")
-        stringBuffer:append(self.heading)
-        stringBuffer:append(CommonSeps.getInstance().SPACE)
-        stringBuffer:append(CommonLabels.getInstance().TOTAL_LABEL)
-        stringBuffer:appendint(self.orderedHighScoresList:size())
-        return tostring(stringBuffer)
-end
-HighScores.__tostring = function(self) return self:toString() end
-
-return HighScores
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/string/CommonLabels" for CommonLabels
+import "../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./HighScoresInterface" for HighScoresInterface
+import "./HighScore" for HighScore
 

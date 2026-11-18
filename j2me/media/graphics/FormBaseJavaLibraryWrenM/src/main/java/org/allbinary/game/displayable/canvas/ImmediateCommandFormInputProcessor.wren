@@ -1,114 +1,108 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
-local GameKeyEvent = require("org.allbinary.game.input.event.GameKeyEvent")
-local ScrollSelectionForm = require("org.allbinary.graphics.form.ScrollSelectionForm")
-local MotionGestureEvent = require("org.allbinary.input.motion.gesture.observer.MotionGestureEvent")
-local TimeDelayHelper = require("org.allbinary.time.TimeDelayHelper")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local CommandFormInputProcessor = require("org.allbinary.game.displayable.canvas.CommandFormInputProcessor")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./CommandFormInputProcessor" for CommandFormInputProcessor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ImmediateCommandFormInputProcessor is CommandFormInputProcessor {
+  timeHelper { _timeHelper }
+  timeHelper=(value) { _timeHelper = value }
+  gameCommandCanvas { _gameCommandCanvas }
+  gameCommandCanvas=(value) { _gameCommandCanvas = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImmediateCommandFormInputProcessor() {
+    _timeHelper = null
+    _gameCommandCanvas = null
+        _timeHelper = TimeDelayHelper.new(25)
+        
+  }
+    
 
-local ImmediateCommandFormInputProcessor = {}
-ImmediateCommandFormInputProcessor.__index = ImmediateCommandFormInputProcessor
-ImmediateCommandFormInputProcessor.className = "ImmediateCommandFormInputProcessor"
-setmetatable(ImmediateCommandFormInputProcessor, {__index = CommandFormInputProcessor})
+    construct new(gameKeyEventList, playerInputId, gameCommandCanvas, form) {
+        super(gameKeyEventList, playerInputId, gameCommandCanvas, form)
+        initFields_ImmediateCommandFormInputProcessor()
+        _gameCommandCanvas = gameCommandCanvas
+    }
+    
 
-function ImmediateCommandFormInputProcessor:_init_fields()
-    self.timeHelper = TimeDelayHelper.new(25)
-    self.gameCommandCanvas = nil
-end
+    onPressGameKeyEvent(gameKeyEvent) {
+        var jerror0 = Fiber.new {
+            super.onPressGameKeyEvent(gameKeyEvent)
+            if (_timeHelper.isTimeTNT()) {
+                this.processInputList()
+                _gameCommandCanvas.repaintBehavior.onChangeRepaint(this.getCanvas())
+            }
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            this.logUtil.put(this.commonStrings.EXCEPTION, this, this.gameInputStrings.ON_PRESS_GAME_KEY, e)
+        }
+    }
+    
 
+    onDownGameKeyEvent(gameKeyEvent) {
+        var jerror1 = Fiber.new {
+            super.onDownGameKeyEvent(gameKeyEvent)
+            if (_timeHelper.isTimeTNT()) {
+                this.processInputList()
+                _gameCommandCanvas.repaintBehavior.onChangeRepaint(this.getCanvas())
+            }
+        }.try()
+        if (jerror1 != null) {
+            var e = jerror1
+            this.logUtil.put(this.commonStrings.EXCEPTION, this, this.gameInputStrings.ON_DOWN_GAME_KEY, e)
+        }
+    }
+    
 
-function ImmediateCommandFormInputProcessor.new(gameKeyEventList, playerInputId, gameCommandCanvas, form)
-    local self = setmetatable(CommandFormInputProcessor.new(gameKeyEventList, playerInputId, gameCommandCanvas, form), ImmediateCommandFormInputProcessor)
-    self:_init_fields()
-        -- super(...) made self above
-        self.gameCommandCanvas = gameCommandCanvas
-    return self
-end
+    onUpGameKeyEvent(gameKeyEvent) {
+        var jerror2 = Fiber.new {
+            super.onUpGameKeyEvent(gameKeyEvent)
+            if (_timeHelper.isTimeTNT()) {
+                this.processInputList()
+                _gameCommandCanvas.repaintBehavior.onChangeRepaint(this.getCanvas())
+            }
+        }.try()
+        if (jerror2 != null) {
+            var e = jerror2
+            this.logUtil.put(this.commonStrings.EXCEPTION, this, this.gameInputStrings.ON_UP_GAME_KEY, e)
+        }
+    }
+    
 
+    onMotionGestureEvent(motionGestureEvent) {
+        var jerror3 = Fiber.new {
+            super.onMotionGestureEvent(motionGestureEvent)
+            if (_timeHelper.isTimeTNT()) {
+                this.processInputList()
+                _gameCommandCanvas.repaintBehavior.onChangeRepaint(this.getCanvas())
+            }
+        }.try()
+        if (jerror3 != null) {
+            var e = jerror3
+            this.logUtil.put(this.commonStrings.EXCEPTION, this, "onMotionGestureEvent", e)
+        }
+    }
+}
 
-function ImmediateCommandFormInputProcessor:onPressGameKeyEvent(gameKeyEvent)
-        local try_ok, try_error = pcall(function()
-            CommandFormInputProcessor.onPressGameKeyEvent(self, gameKeyEvent)
-            if self.timeHelper:isTimeTNT() then
-                self:processInputList()
-                self.gameCommandCanvas.repaintBehavior:onChangeRepaint(self:getCanvas())
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.gameInputStrings.ON_PRESS_GAME_KEY, e)
-        end
-end
-
-
-function ImmediateCommandFormInputProcessor:onDownGameKeyEvent(gameKeyEvent)
-        local try_ok, try_error = pcall(function()
-            CommandFormInputProcessor.onDownGameKeyEvent(self, gameKeyEvent)
-            if self.timeHelper:isTimeTNT() then
-                self:processInputList()
-                self.gameCommandCanvas.repaintBehavior:onChangeRepaint(self:getCanvas())
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.gameInputStrings.ON_DOWN_GAME_KEY, e)
-        end
-end
-
-
-function ImmediateCommandFormInputProcessor:onUpGameKeyEvent(gameKeyEvent)
-        local try_ok, try_error = pcall(function()
-            CommandFormInputProcessor.onUpGameKeyEvent(self, gameKeyEvent)
-            if self.timeHelper:isTimeTNT() then
-                self:processInputList()
-                self.gameCommandCanvas.repaintBehavior:onChangeRepaint(self:getCanvas())
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.gameInputStrings.ON_UP_GAME_KEY, e)
-        end
-end
-
-
-function ImmediateCommandFormInputProcessor:onMotionGestureEvent(motionGestureEvent)
-        local try_ok, try_error = pcall(function()
-            CommandFormInputProcessor.onMotionGestureEvent(self, motionGestureEvent)
-            if self.timeHelper:isTimeTNT() then
-                self:processInputList()
-                self.gameCommandCanvas.repaintBehavior:onChangeRepaint(self:getCanvas())
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, "onMotionGestureEvent", e)
-        end
-end
-
-return ImmediateCommandFormInputProcessor
+import "../../../../../org/allbinary/game/input/event/GameKeyEvent" for GameKeyEvent
+import "../../../../../org/allbinary/graphics/form/ScrollSelectionForm" for ScrollSelectionForm
+import "../../../../../org/allbinary/input/motion/gesture/observer/MotionGestureEvent" for MotionGestureEvent
+import "../../../../../org/allbinary/time/TimeDelayHelper" for TimeDelayHelper
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "./GameCommandCanvas" for GameCommandCanvas
 

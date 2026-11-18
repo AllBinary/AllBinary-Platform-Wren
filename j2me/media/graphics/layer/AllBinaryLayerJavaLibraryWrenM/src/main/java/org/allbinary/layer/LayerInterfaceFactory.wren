@@ -1,80 +1,90 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.layer
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.layer
 
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local BasicArrayListUtil = require("org.allbinary.util.BasicArrayListUtil")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LayerInterfaceFactory is JObject {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = LayerInterfaceFactory.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  list { _list }
+  list=(value) { _list = value }
+  HASHTABLE_LABEL { _HASHTABLE_LABEL }
+  HASHTABLE_LABEL=(value) { _HASHTABLE_LABEL = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LayerInterfaceFactory() {
+    _logUtil = null
+    _list = null
+    _HASHTABLE_LABEL = null
+        _logUtil = LogUtil.getInstance()
+        _list = BasicArrayListUtil.getInstance().getImmutableInstance()
+        _HASHTABLE_LABEL = "Hashtable: "
+  }
 
-local LayerInterfaceFactory = {}
-LayerInterfaceFactory.__index = LayerInterfaceFactory
-LayerInterfaceFactory.className = "LayerInterfaceFactory"
+  construct new() {
+    super()
+    initFields_LayerInterfaceFactory()
+  }
+    
 
-function LayerInterfaceFactory:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.list = BasicArrayListUtil.getInstance():getImmutableInstance()
-    self.HASHTABLE_LABEL = "Hashtable: "
-end
-
-function LayerInterfaceFactory.new()
-    local self = setmetatable({}, LayerInterfaceFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function LayerInterfaceFactory.getInstance()
+    static getInstance() {
         return LayerInterfaceFactory.SINGLETON
-end
+    }
+    
 
+    init() {
+        _list = BasicArrayListD.new()
+    }
+    
 
-function LayerInterfaceFactory:init()
-        self.list = BasicArrayListD.new()
-end
+    getNexInstance(hashtable, x, y, z) {
+        var commonStrings = CommonStrings.getInstance()
+        _logUtil.putF(StringMaker.new().append(_HASHTABLE_LABEL).append(StringUtil.getInstance().toString(hashtable)).toString(), this, commonStrings.GET_INSTANCE)
+        var typeInteger = hashtable.get(Layer.ID)
+        var layerInterfaceFactoryInterface = _list.objectArray[(typeInteger.intValue() - 1)]
+        return layerInterfaceFactoryInterface.getNextInstance(hashtable, x, y, z)
+    }
+    
 
+    add(layerInterfaceFactoryInterface) {
+        _list.add(layerInterfaceFactoryInterface)
+    }
+}
 
--- throws Exception
-function LayerInterfaceFactory:getNexInstance(hashtable, x, y, z)
-        local commonStrings = CommonStrings.getInstance()
-        self.logUtil:putF(tostring(StringMaker.new():append(self.HASHTABLE_LABEL):append(StringUtil.getInstance():toString(hashtable))), self, commonStrings.GET_INSTANCE)
-        local typeInteger = hashtable:get(Layer.ID)
-        local layerInterfaceFactoryInterface = self.list.objectArray[math.tointeger(typeInteger // 1) - 1 + 1]
-        return layerInterfaceFactoryInterface:getNextInstance(hashtable, x, y, z)
-end
-
-
-function LayerInterfaceFactory:add(layerInterfaceFactoryInterface)
-        self.list:add(layerInterfaceFactoryInterface)
-end
-
-LayerInterfaceFactory.SINGLETON = LayerInterfaceFactory.new()
-
-return LayerInterfaceFactory
+import "../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "../../../org/allbinary/util/BasicArrayListUtil" for BasicArrayListUtil
+import "../../../java/lang/Integer" for Integer
+import "./Layer" for Layer
+import "./LayerInterfaceFactoryInterface" for LayerInterfaceFactoryInterface
+import "./AllBinaryLayer" for AllBinaryLayer
 

@@ -1,70 +1,81 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration.feature
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration.feature
 
-local StdUtil = require("org.allbinary.logic.StdUtil")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class InGameFeatureChoiceGroups is JObject {
+    static gameFeatureChoiceGroupsExclusive {
+    if (__gameFeatureChoiceGroupsExclusive_set == null) {
+      __gameFeatureChoiceGroupsExclusive_set = true
+      __gameFeatureChoiceGroupsExclusive = InGameFeatureChoiceGroups.new()
+    }
+    return __gameFeatureChoiceGroupsExclusive
+  }
+  static gameFeatureChoiceGroupsExclusive=(value) {
+    __gameFeatureChoiceGroupsExclusive_set = true
+    __gameFeatureChoiceGroupsExclusive = value
+  }
+    static gameFeatureChoiceGroupsMultiple {
+    if (__gameFeatureChoiceGroupsMultiple_set == null) {
+      __gameFeatureChoiceGroupsMultiple_set = true
+      __gameFeatureChoiceGroupsMultiple = InGameFeatureChoiceGroups.new()
+    }
+    return __gameFeatureChoiceGroupsMultiple
+  }
+  static gameFeatureChoiceGroupsMultiple=(value) {
+    __gameFeatureChoiceGroupsMultiple_set = true
+    __gameFeatureChoiceGroupsMultiple = value
+  }
+  hashtable { _hashtable }
+  hashtable=(value) { _hashtable = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_InGameFeatureChoiceGroups() {
+    _hashtable = null
+        _hashtable = StdUtil.getInstance().createHashtable()
+  }
+    
 
-local InGameFeatureChoiceGroups = {}
-InGameFeatureChoiceGroups.__index = InGameFeatureChoiceGroups
-InGameFeatureChoiceGroups.className = "InGameFeatureChoiceGroups"
+    construct new() {
+    super()
+    initFields_InGameFeatureChoiceGroups()
+    }
+    
 
-function InGameFeatureChoiceGroups:_init_fields()
-    self.hashtable = StdUtil.getInstance():createHashtable()
-end
-
-
-function InGameFeatureChoiceGroups.new()
-    local self = setmetatable({}, InGameFeatureChoiceGroups)
-    self:_init_fields()
-    return self
-end
-
-
-function InGameFeatureChoiceGroups.getExclusiveInstance()
+    static getExclusiveInstance() {
         return InGameFeatureChoiceGroups.gameFeatureChoiceGroupsExclusive
-end
+    }
+    
 
-
-function InGameFeatureChoiceGroups.getMultipleInstance()
+    static getMultipleInstance() {
         return InGameFeatureChoiceGroups.gameFeatureChoiceGroupsMultiple
-end
+    }
+    
 
+    get() {
+        return _hashtable
+    }
+    
 
-function InGameFeatureChoiceGroups:get()
-        return self.hashtable
-end
+    add(name, list) {
+        _hashtable.put(name, list)
+    }
+}
 
-
-function InGameFeatureChoiceGroups:add(name, list)
-        self.hashtable:put(name, list)
-end
-
-InGameFeatureChoiceGroups.gameFeatureChoiceGroupsExclusive = InGameFeatureChoiceGroups.new()
-InGameFeatureChoiceGroups.gameFeatureChoiceGroupsMultiple = InGameFeatureChoiceGroups.new()
-
-return InGameFeatureChoiceGroups
+import "../../../../../org/allbinary/logic/StdUtil" for StdUtil
+import "../../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
 

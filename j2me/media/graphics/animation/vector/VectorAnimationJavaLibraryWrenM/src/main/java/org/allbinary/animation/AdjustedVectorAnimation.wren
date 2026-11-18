@@ -1,57 +1,51 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local VectorAnimation = require("org.allbinary.animation.VectorAnimation")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./VectorAnimation" for VectorAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AdjustedVectorAnimation is VectorAnimation {
+  dx { _dx }
+  dx=(value) { _dx = value }
+  dy { _dy }
+  dy=(value) { _dy = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AdjustedVectorAnimation() {
+    _dx = 0
+    _dy = 0
+        
+        
+  }
+    
 
-local AdjustedVectorAnimation = {}
-AdjustedVectorAnimation.__index = AdjustedVectorAnimation
-AdjustedVectorAnimation.className = "AdjustedVectorAnimation"
-setmetatable(AdjustedVectorAnimation, {__index = VectorAnimation})
+    construct new(currentPoints, basicColor, dx, dy, animationBehavior) {
+        super(currentPoints, basicColor, animationBehavior)
+        initFields_AdjustedVectorAnimation()
+        _dx = dx
+        _dy = dy
+    }
+    
 
-function AdjustedVectorAnimation:_init_fields()
-    self.dx = nil
-    self.dy = nil
-end
+    paintXY(graphics, x, y) {
+        super.paintXY(graphics, JR.i32(x + _dx), JR.i32(y + _dy))
+    }
+}
 
-
-function AdjustedVectorAnimation.new(currentPoints, basicColor, dx, dy, animationBehavior)
-    local self = setmetatable(VectorAnimation.new(currentPoints, basicColor, animationBehavior), AdjustedVectorAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.dx = dx
-        self.dy = dy
-    return self
-end
-
-
-function AdjustedVectorAnimation:paintXY(graphics, x, y)
-        VectorAnimation.paintXY(self, graphics, x + self.dx, y + self.dy)
-end
-
-return AdjustedVectorAnimation
+import "../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "./AnimationBehavior" for AnimationBehavior
 

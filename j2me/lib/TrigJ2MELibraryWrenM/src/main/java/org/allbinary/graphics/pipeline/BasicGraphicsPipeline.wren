@@ -1,148 +1,166 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.pipeline
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.pipeline
 
-local GPoint = require("org.allbinary.graphics.GPoint")
-local PointFactory = require("org.allbinary.graphics.PointFactory")
-local Angle = require("org.allbinary.math.Angle")
-local NoDecimalTrigTable = require("org.allbinary.math.NoDecimalTrigTable")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BasicGraphicsPipeline is JObject {
+  pointBasicArrayList { _pointBasicArrayList }
+  pointBasicArrayList=(value) { _pointBasicArrayList = value }
+  noDecimalTrigTable { _noDecimalTrigTable }
+  noDecimalTrigTable=(value) { _noDecimalTrigTable = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BasicGraphicsPipeline() {
+    _pointBasicArrayList = null
+    _noDecimalTrigTable = null
+        
+        _noDecimalTrigTable = NoDecimalTrigTable.getInstance()
+  }
+    
 
-local BasicGraphicsPipeline = {}
-BasicGraphicsPipeline.__index = BasicGraphicsPipeline
-BasicGraphicsPipeline.className = "BasicGraphicsPipeline"
+    construct new(points) {
+    super()
+    initFields_BasicGraphicsPipeline()
+        _pointBasicArrayList = points
+    }
+    
 
-function BasicGraphicsPipeline:_init_fields()
-    self.pointBasicArrayList = nil
-    self.noDecimalTrigTable = NoDecimalTrigTable.getInstance()
-end
+    setInitMatrix(points) {
+        _pointBasicArrayList = points
+    }
+    
 
+    createMatrix() {
+    }
+    
 
-function BasicGraphicsPipeline.new(points)
-    local self = setmetatable({}, BasicGraphicsPipeline)
-    self:_init_fields()
-        self.pointBasicArrayList = points
-    return self
-end
+    translate(x, y) {
+        var newBasicArrayList = BasicArrayListD.new()
+        var size = _pointBasicArrayList.size()
+        var pointFactory = PointFactory.getInstance()
+        var secondPoint = null
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            secondPoint = _pointBasicArrayList.objectArray[index]
+            if ((secondPoint.getX() != 1000)) {
+                newBasicArrayList.add(pointFactory.createXY((secondPoint.getX() + x), (secondPoint.getY() + y)))
+            } else {
+                newBasicArrayList.add(secondPoint)
+            }
+            }
+        }
+        _pointBasicArrayList = newBasicArrayList
+    }
+    
 
+    rotateToAngle(angle) {
+        this.rotate(JR.i32(angle.getValue()))
+    }
+    
 
-function BasicGraphicsPipeline:setInitMatrix(points)
-        self.pointBasicArrayList = points
-end
+    rotate(angle) {
+        var newBasicArrayList = BasicArrayListD.new()
+        var secondPoint = null
+        var y = 0
+        var secondX = 0
+        var secondY = 0
+        var point = null
+        var pointFactory = PointFactory.getInstance()
+        var size = _pointBasicArrayList.size()
+        var sin = 0
+        var cos = 0
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            secondPoint = _pointBasicArrayList.objectArray[index]
+            if ((secondPoint.getX() != 1000)) {
+                sin = _noDecimalTrigTable.sin(angle)
+                cos = _noDecimalTrigTable.cos(angle)
+                y = (secondPoint.getY() * sin)
+                secondX = (((secondPoint.getX() * cos)) - y)
+                secondY = (((secondPoint.getX() * sin)) + ((secondPoint.getY() * cos)))
+                point = pointFactory.createXY(JR.idiv(JR.i32(secondX), 10000), JR.idiv(JR.i32(secondY), 10000))
+                newBasicArrayList.add(point)
+            } else {
+                newBasicArrayList.add(secondPoint)
+            }
+            }
+        }
+        _pointBasicArrayList = newBasicArrayList
+    }
+    
 
-
-function BasicGraphicsPipeline:createMatrix()
-end
-
-
--- throws Exception
-function BasicGraphicsPipeline:translate(x, y)
-        local newBasicArrayList = BasicArrayListD.new()
-        local size = self.pointBasicArrayList:size()
-        local pointFactory = PointFactory.getInstance()
-        local secondPoint = nil
-        for index = 0, size - 1 do
-            secondPoint = self.pointBasicArrayList.objectArray[index + 1]
-            if secondPoint:getX() ~= 1000 then
-                newBasicArrayList:add(pointFactory:createXY(secondPoint:getX() + x, secondPoint:getY() + y))
-            else
-                newBasicArrayList:add(secondPoint)
-            end
-        end
-        self.pointBasicArrayList = newBasicArrayList
-end
-
-
--- throws Exception
-function BasicGraphicsPipeline:rotateToAngle(angle)
-        self:rotate(java_int(angle:getValue()))
-end
-
-
--- throws Exception
-function BasicGraphicsPipeline:rotate(angle)
-        local newBasicArrayList = BasicArrayListD.new()
-        local secondPoint = nil
-        local y = 0
-        local secondX = 0
-        local secondY = 0
-        local point = nil
-        local pointFactory = PointFactory.getInstance()
-        local size = self.pointBasicArrayList:size()
-        local sin = 0
-        local cos = 0
-        for index = 0, size - 1 do
-            secondPoint = self.pointBasicArrayList.objectArray[index + 1]
-            if secondPoint:getX() ~= 1000 then
-                sin = self.noDecimalTrigTable:sin(angle)
-                cos = self.noDecimalTrigTable:cos(angle)
-                y = secondPoint:getY() * sin
-                secondX = (secondPoint:getX() * cos) - y
-                secondY = (secondPoint:getX() * sin) + (secondPoint:getY() * cos)
-                point = pointFactory:createXY(java_idiv(secondX, 10000), java_idiv(secondY, 10000))
-                newBasicArrayList:add(point)
-            else
-                newBasicArrayList:add(secondPoint)
-            end
-        end
-        self.pointBasicArrayList = newBasicArrayList
-end
-
-
--- throws Exception
-function BasicGraphicsPipeline:mirror(width)
-        local pointFactory = PointFactory.getInstance()
-        local halfWidth = (((width) // (1 << (1))))
-        local newBasicArrayList = BasicArrayListD.new()
-        local secondPoint = nil
-        local newX = 0
-        local point = nil
-        local size = self.pointBasicArrayList:size()
-        for index = 0, size - 1 do
-            secondPoint = self.pointBasicArrayList.objectArray[index + 1]
-            if secondPoint:getX() ~= 1000 then
+    mirror(width) {
+        var pointFactory = PointFactory.getInstance()
+        var halfWidth = (JR.shr(width, 1))
+        var newBasicArrayList = BasicArrayListD.new()
+        var secondPoint = null
+        var newX = 0
+        var point = null
+        var size = _pointBasicArrayList.size()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            secondPoint = _pointBasicArrayList.objectArray[index]
+            if ((secondPoint.getX() != 1000)) {
                 newX = 0
-                if secondPoint:getX() > halfWidth then
-                    newX = halfWidth - (secondPoint:getX() - halfWidth)
-                else
-                    newX = halfWidth + (halfWidth - secondPoint:getX())
-                end
-                point = pointFactory:createXY(newX, secondPoint:getY())
-                newBasicArrayList:add(point)
-            else
-                newBasicArrayList:add(secondPoint)
-            end
-        end
-        self.pointBasicArrayList = newBasicArrayList
-end
+                if ((secondPoint.getX() > halfWidth)) {
+                    newX = (halfWidth - ((secondPoint.getX() - halfWidth)))
+                } else {
+                    newX = (halfWidth + ((halfWidth - secondPoint.getX())))
+                }
+                point = pointFactory.createXY(newX, secondPoint.getY())
+                newBasicArrayList.add(point)
+            } else {
+                newBasicArrayList.add(secondPoint)
+            }
+            }
+        }
+        _pointBasicArrayList = newBasicArrayList
+    }
+    
 
+    getMatrix() {
+        return _pointBasicArrayList
+    }
+}
 
-function BasicGraphicsPipeline:getMatrix()
-        return self.pointBasicArrayList
-end
-
-return BasicGraphicsPipeline
+import "../../../../org/allbinary/graphics/GPoint" for GPoint
+import "../../../../org/allbinary/graphics/PointFactory" for PointFactory
+import "../../../../org/allbinary/math/Angle" for Angle
+import "../../../../org/allbinary/math/NoDecimalTrigTable" for NoDecimalTrigTable
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
 

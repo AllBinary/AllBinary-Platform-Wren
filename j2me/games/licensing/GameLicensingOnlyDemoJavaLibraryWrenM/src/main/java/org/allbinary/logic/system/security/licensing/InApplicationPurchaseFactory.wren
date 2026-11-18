@@ -1,90 +1,93 @@
--- 
--- To change this license header, choose License Headers in Project Properties. 
--- To change this template file, choose Tools | Templates 
--- and open the template in the editor.  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.system.security.licensing
+/*
+ * 
+ * To change this license header, choose License Headers in Project Properties. 
+ * To change this template file, choose Tools | Templates 
+ * and open the template in the editor.  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.system.security.licensing
 
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class InApplicationPurchaseFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = InApplicationPurchaseFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_InApplicationPurchaseFactory() {
+  }
+    
 
-local InApplicationPurchaseFactory = {}
-InApplicationPurchaseFactory.__index = InApplicationPurchaseFactory
-InApplicationPurchaseFactory.className = "InApplicationPurchaseFactory"
-
-
-function InApplicationPurchaseFactory.getInstance()
+    static getInstance() {
         return InApplicationPurchaseFactory.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_InApplicationPurchaseFactory()
+    }
+    
 
-function InApplicationPurchaseFactory.new()
-    local self = setmetatable({}, InApplicationPurchaseFactory)
-    return self
-end
+    init(anyType, stateObject) {
+    }
+    
 
+    onCreate(anyType, stateObject) {
+    }
+    
 
-function InApplicationPurchaseFactory:init(anyType, stateObject)
-end
+    onStart() {
+    }
+    
 
+    onResult(requestCode, resultCode, data) {
+    }
+    
 
-function InApplicationPurchaseFactory:onCreate(anyType, stateObject)
-end
+    onSaveState(anyType) {
+    }
+    
 
+    onStop() {
+    }
+    
 
-function InApplicationPurchaseFactory:onStart()
-end
+    onDestroy() {
+    }
+    
 
+    purchase(lockableFeature) {
+    }
+    
 
-function InApplicationPurchaseFactory:onResult(requestCode, resultCode, data)
-end
-
-
-function InApplicationPurchaseFactory:onSaveState(anyType)
-end
-
-
-function InApplicationPurchaseFactory:onStop()
-end
-
-
-function InApplicationPurchaseFactory:onDestroy()
-end
-
-
-function InApplicationPurchaseFactory:purchase(lockableFeature)
-end
-
-
-function InApplicationPurchaseFactory:isPurchased(lockableFeature)
+    isPurchased(lockableFeature) {
         return false
-end
+    }
+    
 
+    add(lockableFeature) {
+    }
+    
 
-function InApplicationPurchaseFactory:add(lockableFeature)
-end
-
-
-function InApplicationPurchaseFactory:getUserName()
+    getUserName() {
         return StringUtil.getInstance().EMPTY_STRING
-end
+    }
+    
 
-
-function InApplicationPurchaseFactory:isEnabled()
+    isEnabled() {
         return false
-end
+    }
+}
 
-InApplicationPurchaseFactory.instance = InApplicationPurchaseFactory.new()
-
-return InApplicationPurchaseFactory
+import "../../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "./LockableFeature" for LockableFeature
 

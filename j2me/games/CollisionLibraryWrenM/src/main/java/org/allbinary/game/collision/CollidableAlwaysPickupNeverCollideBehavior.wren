@@ -1,48 +1,40 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.collision
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.collision
 
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local CollidableNeverCollideBehavior = require("org.allbinary.game.collision.CollidableNeverCollideBehavior")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./CollidableNeverCollideBehavior" for CollidableNeverCollideBehavior
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CollidableAlwaysPickupNeverCollideBehavior is CollidableNeverCollideBehavior {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CollidableAlwaysPickupNeverCollideBehavior() {
+  }
+    
 
-local CollidableAlwaysPickupNeverCollideBehavior = {}
-CollidableAlwaysPickupNeverCollideBehavior.__index = CollidableAlwaysPickupNeverCollideBehavior
-CollidableAlwaysPickupNeverCollideBehavior.className = "CollidableAlwaysPickupNeverCollideBehavior"
-setmetatable(CollidableAlwaysPickupNeverCollideBehavior, {__index = CollidableNeverCollideBehavior})
+    construct new() {
+        super(true)
+    }
+    
 
-
-function CollidableAlwaysPickupNeverCollideBehavior.new()
-    local self = setmetatable(CollidableNeverCollideBehavior.new(true), CollidableAlwaysPickupNeverCollideBehavior)
-        -- super(...) made self above
-    return self
-end
-
-
-function CollidableAlwaysPickupNeverCollideBehavior:getCollisionTypeWith(layerInterface)
+    getCollisionTypeWith(layerInterface) {
         return CollisionTypeFactory.getInstance().PICKUP
-end
+    }
+}
 
-return CollidableAlwaysPickupNeverCollideBehavior
+import "../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "./CollisionTypeFactory" for CollisionTypeFactory
+import "./CollisionType" for CollisionType
 

@@ -1,83 +1,82 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.button
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.button
 
-local GameKey = require("org.allbinary.game.input.GameKey")
-local GameKeyEventSourceInterface = require("org.allbinary.game.input.GameKeyEventSourceInterface")
-local Input = require("org.allbinary.game.input.Input")
-local InputFactory = require("org.allbinary.game.input.InputFactory")
-local GameKeyEvent = require("org.allbinary.game.input.event.GameKeyEvent")
-local GameKeyEventFactory = require("org.allbinary.game.input.event.GameKeyEventFactory")
-local InputToGameKeyMapping = require("org.allbinary.game.input.mapping.InputToGameKeyMapping")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/game/input/Input" for Input
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class TouchButtonInput is Input {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  gameKeyEventFactory { _gameKeyEventFactory }
+  gameKeyEventFactory=(value) { _gameKeyEventFactory = value }
+  TOUCH_BUTTON_SOURCE_ID { _TOUCH_BUTTON_SOURCE_ID }
+  TOUCH_BUTTON_SOURCE_ID=(value) { _TOUCH_BUTTON_SOURCE_ID = value }
+  gameKeyEvent { _gameKeyEvent }
+  gameKeyEvent=(value) { _gameKeyEvent = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TouchButtonInput() {
+    _logUtil = null
+    _gameKeyEventFactory = null
+    _TOUCH_BUTTON_SOURCE_ID = 0
+    _gameKeyEvent = null
+        _logUtil = LogUtil.getInstance()
+        _gameKeyEventFactory = GameKeyEventFactory.getInstance()
+        _TOUCH_BUTTON_SOURCE_ID = _gameKeyEventFactory.TOUCH_BUTTON_SOURCE_ID
+        _gameKeyEvent = GameKeyEvent.NONE
+  }
+    
 
-local TouchButtonInput = {}
-TouchButtonInput.__index = TouchButtonInput
-TouchButtonInput.className = "TouchButtonInput"
-setmetatable(TouchButtonInput, {__index = Input})
+    construct new(id, name) {
+        super(id, name)
+        initFields_TouchButtonInput()
+        var inputFactory = InputFactory.getInstance()
+        inputFactory.add(this.getId(), this)
+    }
+    
 
-function TouchButtonInput:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.gameKeyEventFactory = GameKeyEventFactory.getInstance()
-    self.TOUCH_BUTTON_SOURCE_ID = self.gameKeyEventFactory.TOUCH_BUTTON_SOURCE_ID
-    self.gameKeyEvent = GameKeyEvent.NONE
-end
+    update(inputToGameKeyMapping) {
+        var jerror0 = Fiber.new {
+            var gameKey = inputToGameKeyMapping.getInstance(this.getId())
+            _gameKeyEvent = _gameKeyEventFactory.getInstanceForInput(this, gameKey)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, commonStrings.UPDATE, e)
+        }
+    }
+    
 
+    getSourceId() {
+        return _TOUCH_BUTTON_SOURCE_ID
+    }
+    
 
-function TouchButtonInput.new(id, name)
-    local self = setmetatable(Input.new(id, name), TouchButtonInput)
-    self:_init_fields()
-        -- super(...) made self above
-        local inputFactory = InputFactory.getInstance()
-        inputFactory:add(self:getId(), self)
-    return self
-end
+    getGameKeyEvent() {
+        return _gameKeyEvent
+    }
+}
 
-
-function TouchButtonInput:update(inputToGameKeyMapping)
-        local try_ok, try_error = pcall(function()
-            local gameKey = inputToGameKeyMapping:getInstance(self:getId())
-            self.gameKeyEvent = self.gameKeyEventFactory:getInstanceForInput(self, gameKey)
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, commonStrings.UPDATE, e)
-        end
-end
-
-
-function TouchButtonInput:getSourceId()
-        return self.TOUCH_BUTTON_SOURCE_ID
-end
-
-
-function TouchButtonInput:getGameKeyEvent()
-        return self.gameKeyEvent
-end
-
-return TouchButtonInput
+import "../../../../../org/allbinary/game/input/GameKey" for GameKey
+import "../../../../../org/allbinary/game/input/GameKeyEventSourceInterface" for GameKeyEventSourceInterface
+import "../../../../../org/allbinary/game/input/InputFactory" for InputFactory
+import "../../../../../org/allbinary/game/input/event/GameKeyEvent" for GameKeyEvent
+import "../../../../../org/allbinary/game/input/event/GameKeyEventFactory" for GameKeyEventFactory
+import "../../../../../org/allbinary/game/input/mapping/InputToGameKeyMapping" for InputToGameKeyMapping
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
 

@@ -1,119 +1,138 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration.persistance
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration.persistance
 
--- local RecordStore = require("javax.microedition.rms.RecordStore")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local PreLogUtil = require("org.allbinary.logic.communication.log.PreLogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local AbeClientInformationInterface = require("org.allbinary.logic.system.security.licensing.AbeClientInformationInterface")
-local PlatformRecordIdUtil = require("org.allbinary.persistance.PlatformRecordIdUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BasicPersitance is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  persistanceStrings { _persistanceStrings }
+  persistanceStrings=(value) { _persistanceStrings = value }
+  platformRecordIdUtil { _platformRecordIdUtil }
+  platformRecordIdUtil=(value) { _platformRecordIdUtil = value }
+  recordId { _recordId }
+  recordId=(value) { _recordId = value }
+  valueList { _valueList }
+  valueList=(value) { _valueList = value }
+  idList { _idList }
+  idList=(value) { _idList = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BasicPersitance() {
+    _logUtil = null
+    _commonStrings = null
+    _persistanceStrings = null
+    _platformRecordIdUtil = null
+    _recordId = null
+    _valueList = null
+    _idList = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        _persistanceStrings = PersistanceStrings.getInstance()
+        _platformRecordIdUtil = PlatformRecordIdUtil.getInstance()
+        
+        _valueList = BasicArrayListD.new()
+        _idList = BasicArrayListD.new()
+  }
+    
 
-local BasicPersitance = {}
-BasicPersitance.__index = BasicPersitance
-BasicPersitance.className = "BasicPersitance"
+    construct new(recordId) {
+    super()
+    initFields_BasicPersitance()
+        _recordId = recordId
+    }
+    
 
-function BasicPersitance:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.persistanceStrings = PersistanceStrings.getInstance()
-    self.platformRecordIdUtil = PlatformRecordIdUtil.getInstance()
-    self.recordId = nil
-    self.valueList = BasicArrayListD.new()
-    self.idList = BasicArrayListD.new()
-end
+    deleteRecoreStore(abeClientInformation) {
+        RecordStore.deleteRecordStore(this.getRecordId(abeClientInformation))
+    }
+    
 
+    deleteAll(abeClientInformation) {
+        var size = _idList.size()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            var integer = _idList.objectArray[index]
+            this.delete(abeClientInformation, integer.intValue())
+            }
+        }
+        this.clear()
+    }
+    
 
-function BasicPersitance.new(recordId)
-    local self = setmetatable({}, BasicPersitance)
-    self:_init_fields()
-        self.recordId = recordId
-    return self
-end
+    delete(abeClientInformation, deleteId) {
+        var recordStore = NullRecordStore.NULL_RECORD_STORE
+        var jerror0 = Fiber.new {
+            _logUtil.putF(StringMaker.new().append(_persistanceStrings.DELETING_WITH_ID).appendint(deleteId).toString(), this, _commonStrings.delete)
+            recordStore = RecordStore.openRecordStore(this.getRecordId(abeClientInformation), true)
+            recordStore.deleteRecord(deleteId)
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            Fiber.abort(e)
+        }
+        if (true) {
+            if ((recordStore != null)) {
+                PreLogUtil.put(_persistanceStrings.CLOSING_RECORDSTORE, this, _commonStrings.delete)
+                recordStore.closeRecordStore()
+            }
+        }
+    }
+    
 
+    getRecordId(abeClientInformation) {
+        return _platformRecordIdUtil.getRecordId(abeClientInformation, _recordId)
+    }
+    
 
--- throws Exception
-function BasicPersitance:deleteRecoreStore(abeClientInformation)
-        RecordStore.deleteRecordStore(self:getRecordId(abeClientInformation))
-end
+    getList() {
+        return _valueList
+    }
+    
 
+    getIds() {
+        return _idList
+    }
+    
 
--- throws Exception
-function BasicPersitance:deleteAll(abeClientInformation)
-        local size = self.idList:size()
-        for index = 0, size - 1 do
-            local integer = self.idList.objectArray[index + 1]
-            self:delete(abeClientInformation, math.tointeger(integer // 1))
-        end
-        self:clear()
-end
+    clear() {
+        _valueList.clear()
+        _idList.clear()
+    }
+}
 
-
--- throws Exception
-function BasicPersitance:delete(abeClientInformation, deleteId)
-        local recordStore = NullRecordStore.NULL_RECORD_STORE
-        local try_ok, try_error = pcall(function()
-            self.logUtil:putF(tostring(StringMaker.new():append(self.persistanceStrings.DELETING_WITH_ID):appendint(deleteId)), self, self.commonStrings.delete)
-            recordStore = RecordStore.openRecordStore(self:getRecordId(abeClientInformation), true)
-            recordStore:deleteRecord(deleteId)
-        end)
-        if not try_ok then
-            local e = try_error
-            error(e, 0)
-        end
-        do -- finally
-            if recordStore ~= nil then
-                PreLogUtil.put(self.persistanceStrings.CLOSING_RECORDSTORE, self, self.commonStrings.delete)
-                recordStore:closeRecordStore()
-            end
-        end
-end
-
-
-function BasicPersitance:getRecordId(abeClientInformation)
-        return self.platformRecordIdUtil:getRecordId(abeClientInformation, self.recordId)
-end
-
-
-function BasicPersitance:getList()
-        return self.valueList
-end
-
-
-function BasicPersitance:getIds()
-        return self.idList
-end
-
-
-function BasicPersitance:clear()
-        self.valueList:clear()
-        self.idList:clear()
-end
-
-return BasicPersitance
+import "../../../../../javax/microedition/rms/RecordStore" for RecordStore
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/communication/log/PreLogUtil" for PreLogUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/system/security/licensing/AbeClientInformationInterface" for AbeClientInformationInterface
+import "../../../../../org/allbinary/persistance/PlatformRecordIdUtil" for PlatformRecordIdUtil
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "../../../../../java/lang/Integer" for Integer
+import "./PersistanceStrings" for PersistanceStrings
+import "./NullRecordStore" for NullRecordStore
 

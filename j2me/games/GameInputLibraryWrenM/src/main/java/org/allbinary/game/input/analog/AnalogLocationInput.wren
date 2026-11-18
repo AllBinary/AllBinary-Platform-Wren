@@ -1,81 +1,92 @@
--- Generated Code Do Not Modify
--- package org.allbinary.game.input.analog
+// Generated Code Do Not Modify
+// package org.allbinary.game.input.analog
 
-local CustomGPoint = require("org.allbinary.graphics.CustomGPoint")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AnalogLocationInput is JObject {
+    static NULL_ANALOG_LOCATION_INPUT {
+    if (__NULL_ANALOG_LOCATION_INPUT_set == null) {
+      __NULL_ANALOG_LOCATION_INPUT_set = true
+      __NULL_ANALOG_LOCATION_INPUT = AnalogLocationInput.new(-1)
+    }
+    return __NULL_ANALOG_LOCATION_INPUT
+  }
+  static NULL_ANALOG_LOCATION_INPUT=(value) {
+    __NULL_ANALOG_LOCATION_INPUT_set = true
+    __NULL_ANALOG_LOCATION_INPUT = value
+  }
+  playerId { _playerId }
+  playerId=(value) { _playerId = value }
+  customGPoint { _customGPoint }
+  customGPoint=(value) { _customGPoint = value }
+  rz { _rz }
+  rz=(value) { _rz = value }
+  rightTrigger { _rightTrigger }
+  rightTrigger=(value) { _rightTrigger = value }
+  leftTrigger { _leftTrigger }
+  leftTrigger=(value) { _leftTrigger = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AnalogLocationInput() {
+    _playerId = 0
+    _customGPoint = null
+    _rz = 0
+    _rightTrigger = 0
+    _leftTrigger = 0
+        
+        
+        _rz = 0
+        _rightTrigger = 0
+        _leftTrigger = 0
+  }
+    
 
-local AnalogLocationInput = {}
-AnalogLocationInput.__index = AnalogLocationInput
-AnalogLocationInput.className = "AnalogLocationInput"
+    construct new(playerId) {
+    super()
+    initFields_AnalogLocationInput()
+        _playerId = playerId
+        _customGPoint = CustomGPoint.new(0, 0, 0)
+    }
+    
 
-function AnalogLocationInput:_init_fields()
-    self.playerId = nil
-    self.customGPoint = nil
-    self.rz = 0
-    self.rightTrigger = 0
-    self.leftTrigger = 0
-end
+    getPlayerId() {
+        return _playerId
+    }
+    
 
+    getCustomGPoint() {
+        return _customGPoint
+    }
+    
 
-function AnalogLocationInput.new(playerId)
-    local self = setmetatable({}, AnalogLocationInput)
-    self:_init_fields()
-        self.playerId = playerId
-        self.customGPoint = CustomGPoint.new(0, 0, 0)
-    return self
-end
+    getRz() {
+        return _rz
+    }
+    
 
+    setRz(rz) {
+        _rz = rz
+    }
+    
 
-function AnalogLocationInput:getPlayerId()
-        return self.playerId
-end
+    getRightTrigger() {
+        return _rightTrigger
+    }
+    
 
+    setRightTrigger(rightTrigger) {
+        _rightTrigger = rightTrigger
+    }
+    
 
-function AnalogLocationInput:getCustomGPoint()
-        return self.customGPoint
-end
+    getLeftTrigger() {
+        return _leftTrigger
+    }
+    
 
+    setLeftTrigger(leftTrigger) {
+        _leftTrigger = leftTrigger
+    }
+}
 
-function AnalogLocationInput:getRz()
-        return self.rz
-end
-
-
-function AnalogLocationInput:setRz(rz)
-        self.rz = rz
-end
-
-
-function AnalogLocationInput:getRightTrigger()
-        return self.rightTrigger
-end
-
-
-function AnalogLocationInput:setRightTrigger(rightTrigger)
-        self.rightTrigger = rightTrigger
-end
-
-
-function AnalogLocationInput:getLeftTrigger()
-        return self.leftTrigger
-end
-
-
-function AnalogLocationInput:setLeftTrigger(leftTrigger)
-        self.leftTrigger = leftTrigger
-end
-
-AnalogLocationInput.NULL_ANALOG_LOCATION_INPUT = AnalogLocationInput.new(-1)
-
-return AnalogLocationInput
+import "../../../../../org/allbinary/graphics/CustomGPoint" for CustomGPoint
 

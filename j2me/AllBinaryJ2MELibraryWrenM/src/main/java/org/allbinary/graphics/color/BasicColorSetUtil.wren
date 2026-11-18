@@ -1,57 +1,60 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.color
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.color
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BasicColorSetUtil is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = BasicColorSetUtil.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BasicColorSetUtil() {
+  }
+    
 
-local BasicColorSetUtil = {}
-BasicColorSetUtil.__index = BasicColorSetUtil
-BasicColorSetUtil.className = "BasicColorSetUtil"
-
-
-function BasicColorSetUtil.getInstance()
+    static getInstance() {
         return BasicColorSetUtil.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_BasicColorSetUtil()
+    }
+    
 
-function BasicColorSetUtil.new()
-    local self = setmetatable({}, BasicColorSetUtil)
-    return self
-end
+    setBasicColorP(graphics, basicColor) {
+        graphics.setColor(basicColor.intValue())
+    }
+    
 
+    setBasicColorP3(graphics, basicColor, value) {
+        graphics.setColor(value)
+    }
+}
 
-function BasicColorSetUtil:setBasicColorP(graphics, basicColor)
-        graphics:setColor(math.tointeger(basicColor // 1))
-end
-
-
-function BasicColorSetUtil:setBasicColorP3(graphics, basicColor, value)
-        graphics:setColor(value)
-end
-
-BasicColorSetUtil.instance = BasicColorSetUtil.new()
-
-return BasicColorSetUtil
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "./BasicColor" for BasicColor
 

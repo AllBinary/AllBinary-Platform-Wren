@@ -1,143 +1,156 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.gesture.configuration
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.gesture.configuration
 
-local CompleteMotionGestureInputEvent = require("org.allbinary.game.input.CompleteMotionGestureInputEvent")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local MotionGestureToMotionGestureActionAssociation = require("org.allbinary.input.motion.gesture.MotionGestureToMotionGestureActionAssociation")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class MotionGestureConfiguration is JObject {
+  diagonalMotionGestureAllowed { _diagonalMotionGestureAllowed }
+  diagonalMotionGestureAllowed=(value) { _diagonalMotionGestureAllowed = value }
+  diagonalTolerance { _diagonalTolerance }
+  diagonalTolerance=(value) { _diagonalTolerance = value }
+  minimumMotionGesture { _minimumMotionGesture }
+  minimumMotionGesture=(value) { _minimumMotionGesture = value }
+  button { _button }
+  button=(value) { _button = value }
+  color { _color }
+  color=(value) { _color = value }
+  executingActions { _executingActions }
+  executingActions=(value) { _executingActions = value }
+  mouseButtonMask { _mouseButtonMask }
+  mouseButtonMask=(value) { _mouseButtonMask = value }
+  activeCommands { _activeCommands }
+  activeCommands=(value) { _activeCommands = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_MotionGestureConfiguration() {
+    _diagonalMotionGestureAllowed = false
+    _diagonalTolerance = 0
+    _minimumMotionGesture = 0
+    _button = null
+    _color = null
+    _executingActions = false
+    _mouseButtonMask = 0
+    _activeCommands = null
+        _diagonalMotionGestureAllowed = true
+        _diagonalTolerance = 7
+        _minimumMotionGesture = 9
+        _button = StringUtil.getInstance().EMPTY_STRING
+        _color = BasicColorFactory.getInstance().BLUE
+        _executingActions = true
+        _mouseButtonMask = 0
+        _activeCommands = BasicArrayListD.new()
+  }
+    
 
-local MotionGestureConfiguration = {}
-MotionGestureConfiguration.__index = MotionGestureConfiguration
-MotionGestureConfiguration.className = "MotionGestureConfiguration"
+    construct new() {
+    super()
+    initFields_MotionGestureConfiguration()
+    }
+    
 
-function MotionGestureConfiguration:_init_fields()
-    self.diagonalMotionGestureAllowed = true
-    self.diagonalTolerance = 7
-    self.minimumMotionGesture = 9
-    self.button = StringUtil.getInstance().EMPTY_STRING
-    self.color = BasicColorFactory.getInstance().BLUE
-    self.executingActions = true
-    self.mouseButtonMask = 0
-    self.activeCommands = BasicArrayListD.new()
-end
+    addMotionGestureAction(list, commandAction) {
+        _activeCommands.add(MotionGestureToMotionGestureActionAssociation.new(list, commandAction))
+    }
+    
 
+    clearMotionGestureAction() {
+        _activeCommands.clear()
+    }
+    
 
-function MotionGestureConfiguration.new()
-    local self = setmetatable({}, MotionGestureConfiguration)
-    self:_init_fields()
-    return self
-end
+    getAssociateCommandActionsList() {
+        return _activeCommands
+    }
+    
 
+    isDiagonalMotionGestureAllowed() {
+        return _diagonalMotionGestureAllowed
+    }
+    
 
-function MotionGestureConfiguration:addMotionGestureAction(list, commandAction)
-        self.activeCommands:add(MotionGestureToMotionGestureActionAssociation.new(list, commandAction))
-end
+    isExecutingActionsAllowed() {
+        return _executingActions
+    }
+    
 
+    setExecutingActionsAllowed(executingActionAllowed) {
+        _executingActions = executingActionAllowed
+    }
+    
 
-function MotionGestureConfiguration:clearMotionGestureAction()
-        self.activeCommands:clear()
-end
+    setDiagonalMotionGestureAllowed(diagonalMotionGestureAllowed) {
+        _diagonalMotionGestureAllowed = diagonalMotionGestureAllowed
+    }
+    
 
+    getDiagonalTolerance() {
+        return _diagonalTolerance
+    }
+    
 
-function MotionGestureConfiguration:getAssociateCommandActionsList()
-        return self.activeCommands
-end
+    setDiagonalTolerance(diagonalTolerance) {
+        _diagonalTolerance = diagonalTolerance
+    }
+    
 
+    getMinimumMotionGesture() {
+        return _minimumMotionGesture
+    }
+    
 
-function MotionGestureConfiguration:isDiagonalMotionGestureAllowed()
-        return self.diagonalMotionGestureAllowed
-end
+    setMinimumMotionGesture(minimumMotionGesture) {
+        _minimumMotionGesture = minimumMotionGesture
+    }
+    
 
+    getButton() {
+        return _button
+    }
+    
 
-function MotionGestureConfiguration:isExecutingActionsAllowed()
-        return self.executingActions
-end
+    setButton(button) {
+        _button = button
+    }
+    
 
+    getColor() {
+        return _color
+    }
+    
 
-function MotionGestureConfiguration:setExecutingActionsAllowed(executingActionAllowed)
-        self.executingActions = executingActionAllowed
-end
+    setColor(color) {
+        _color = color
+    }
+    
 
+    getMouseButtonMask() {
+        return _mouseButtonMask
+    }
+    
 
-function MotionGestureConfiguration:setDiagonalMotionGestureAllowed(diagonalMotionGestureAllowed)
-        self.diagonalMotionGestureAllowed = diagonalMotionGestureAllowed
-end
+    setMouseButtonMask(mouseButtonMask) {
+        _mouseButtonMask = mouseButtonMask
+    }
+}
 
-
-function MotionGestureConfiguration:getDiagonalTolerance()
-        return self.diagonalTolerance
-end
-
-
-function MotionGestureConfiguration:setDiagonalTolerance(diagonalTolerance)
-        self.diagonalTolerance = diagonalTolerance
-end
-
-
-function MotionGestureConfiguration:getMinimumMotionGesture()
-        return self.minimumMotionGesture
-end
-
-
-function MotionGestureConfiguration:setMinimumMotionGesture(minimumMotionGesture)
-        self.minimumMotionGesture = minimumMotionGesture
-end
-
-
-function MotionGestureConfiguration:getButton()
-        return self.button
-end
-
-
-function MotionGestureConfiguration:setButton(button)
-        self.button = button
-end
-
-
-function MotionGestureConfiguration:getColor()
-        return self.color
-end
-
-
-function MotionGestureConfiguration:setColor(color)
-        self.color = color
-end
-
-
-function MotionGestureConfiguration:getMouseButtonMask()
-        return self.mouseButtonMask
-end
-
-
-function MotionGestureConfiguration:setMouseButtonMask(mouseButtonMask)
-        self.mouseButtonMask = mouseButtonMask
-end
-
-return MotionGestureConfiguration
+import "../../../../../../org/allbinary/game/input/CompleteMotionGestureInputEvent" for CompleteMotionGestureInputEvent
+import "../../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../../org/allbinary/input/motion/gesture/MotionGestureToMotionGestureActionAssociation" for MotionGestureToMotionGestureActionAssociation
+import "../../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
 

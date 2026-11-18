@@ -1,59 +1,63 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.paint
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.paint
 
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local GenericOperatingSystem = require("org.allbinary.logic.system.os.GenericOperatingSystem")
-local OperatingSystemFactory = require("org.allbinary.logic.system.os.OperatingSystemFactory")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ColorFillPaintableFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = ColorFillPaintableFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ColorFillPaintableFactory() {
+  }
 
-local ColorFillPaintableFactory = {}
-ColorFillPaintableFactory.__index = ColorFillPaintableFactory
-ColorFillPaintableFactory.className = "ColorFillPaintableFactory"
+  construct new() {
+    super()
+    initFields_ColorFillPaintableFactory()
+  }
+    
 
-function ColorFillPaintableFactory.new()
-    local self = setmetatable({}, ColorFillPaintableFactory)
-    return self
-end
-
-
-function ColorFillPaintableFactory.getInstance()
+    static getInstance() {
         return ColorFillPaintableFactory.instance
-end
+    }
+    
 
-
--- Java overloaded method: Lua keeps the last definition
-function ColorFillPaintableFactory:getInstance(basicColor, forThreedCanvas)
-        local operatingSystem = OperatingSystemFactory.getInstance():getOperatingSystemInstance()
-        if operatingSystem:isOverScan() then
+    getInstance(basicColor, forThreedCanvas) {
+        var operatingSystem = OperatingSystemFactory.getInstance().getOperatingSystemInstance()
+        if (operatingSystem.isOverScan()) {
             return OverScanColorFillPaintable.new(basicColor)
-        else
+        } else {
             return ColorFillPaintable.new(basicColor)
-        end
-end
+        }
+    }
+}
 
-ColorFillPaintableFactory.instance = ColorFillPaintableFactory.new()
-
-return ColorFillPaintableFactory
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/logic/system/os/GenericOperatingSystem" for GenericOperatingSystem
+import "../../../../org/allbinary/logic/system/os/OperatingSystemFactory" for OperatingSystemFactory
+import "./ColorFillPaintable" for ColorFillPaintable
+import "./OverScanColorFillPaintable" for OverScanColorFillPaintable
+import "./ColorFillBasePaintable" for ColorFillBasePaintable
 

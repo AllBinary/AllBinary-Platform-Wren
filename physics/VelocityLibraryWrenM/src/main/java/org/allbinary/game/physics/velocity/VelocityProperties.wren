@@ -1,183 +1,186 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.physics.velocity
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.physics.velocity
 
-local BasicVelocityProperties = require("org.allbinary.game.physics.velocity.BasicVelocityProperties")
-local VelocityInterface = require("org.allbinary.game.physics.velocity.VelocityInterface")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./BasicVelocityProperties" for BasicVelocityProperties
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class VelocityProperties is BasicVelocityProperties {
+    static NULL_VELOCITY_PROPERTIES {
+    if (__NULL_VELOCITY_PROPERTIES_set == null) {
+      __NULL_VELOCITY_PROPERTIES_set = true
+      __NULL_VELOCITY_PROPERTIES = VelocityProperties.new(0, 0)
+    }
+    return __NULL_VELOCITY_PROPERTIES
+  }
+  static NULL_VELOCITY_PROPERTIES=(value) {
+    __NULL_VELOCITY_PROPERTIES_set = true
+    __NULL_VELOCITY_PROPERTIES = value
+  }
+  maxForwardVelocity { _maxForwardVelocity }
+  maxForwardVelocity=(value) { _maxForwardVelocity = value }
+  maxReverseVelocity { _maxReverseVelocity }
+  maxReverseVelocity=(value) { _maxReverseVelocity = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_VelocityProperties() {
+    _maxForwardVelocity = 0
+    _maxReverseVelocity = 0
+        _maxForwardVelocity = 0
+        _maxReverseVelocity = 0
+  }
+    
 
-local VelocityProperties = {}
-VelocityProperties.__index = VelocityProperties
-VelocityProperties.className = "VelocityProperties"
-setmetatable(VelocityProperties, {__index = BasicVelocityProperties})
+    construct new(maxForwardVelocity, maxReverseVelocity) {
+    super()
+    initFields_VelocityProperties()
+        this.setMaxForwardVelocity(maxForwardVelocity)
+        this.setMaxReverseVelocity(maxReverseVelocity)
+    }
+    
 
-function VelocityProperties:_init_fields()
-    self.maxForwardVelocity = 0
-    self.maxReverseVelocity = 0
-end
+    getMaxForwardVelocity() {
+        return _maxForwardVelocity
+    }
+    
 
+    setMaxForwardVelocity(maxForwardVelocity) {
+        _maxForwardVelocity = maxForwardVelocity
+    }
+    
 
-function VelocityProperties.new(maxForwardVelocity, maxReverseVelocity)
-    local self = setmetatable(BasicVelocityProperties.new(), VelocityProperties)
-    self:_init_fields()
-        self:setMaxForwardVelocity(maxForwardVelocity)
-        self:setMaxReverseVelocity(maxReverseVelocity)
-    return self
-end
+    getMaxReverseVelocity() {
+        return _maxReverseVelocity
+    }
+    
 
+    setMaxReverseVelocity(maxReverseVelocity) {
+        _maxReverseVelocity = maxReverseVelocity
+    }
+    
 
-function VelocityProperties:getMaxForwardVelocity()
-        return self.maxForwardVelocity
-end
+    limitMaxXYForwardVelocity() {
+        this.limitMaxXYVelocity(this.getMaxForwardVelocity())
+    }
+    
 
+    limitMaxXYReverseVelocity() {
+        this.limitMaxXYVelocity(this.getMaxReverseVelocity())
+    }
+    
 
-function VelocityProperties:setMaxForwardVelocity(maxForwardVelocity)
-        self.maxForwardVelocity = maxForwardVelocity
-end
+    limitMaxYForwardVelocity() {
+        this.limitMaxYVelocity(this.getMaxForwardVelocity())
+    }
+    
 
+    limitMaxYReverseVelocity() {
+        this.limitMaxYVelocity(this.getMaxReverseVelocity())
+    }
+    
 
-function VelocityProperties:getMaxReverseVelocity()
-        return self.maxReverseVelocity
-end
+    limitMaxXForwardVelocity() {
+        this.limitMaxXVelocity(this.getMaxForwardVelocity())
+    }
+    
 
+    limitMaxXReverseVelocity() {
+        this.limitMaxXVelocity(this.getMaxReverseVelocity())
+    }
+    
 
-function VelocityProperties:setMaxReverseVelocity(maxReverseVelocity)
-        self.maxReverseVelocity = maxReverseVelocity
-end
+    isOverXYMaxForwardVelocity() {
+        return this.isOverXYMaxVelocity(this.getMaxForwardVelocity())
+    }
+    
 
+    isOverXYMaxReverseVelocity() {
+        return this.isOverXYMaxVelocity(this.getMaxReverseVelocity())
+    }
+    
 
-function VelocityProperties:limitMaxXYForwardVelocity()
-        self:limitMaxXYVelocity(self:getMaxForwardVelocity())
-end
+    limitXYToForwardAndReverseMaxVelocity() {
+        this.limitMaxXYForwardVelocity()
+        this.limitMaxXYReverseVelocity()
+    }
+    
 
+    limitMaxXYVelocity(maxVelocity) {
+        this.limitMaxXVelocity(maxVelocity)
+        this.limitMaxYVelocity(maxVelocity)
+    }
+    
 
-function VelocityProperties:limitMaxXYReverseVelocity()
-        self:limitMaxXYVelocity(self:getMaxReverseVelocity())
-end
+    limitMaxPositiveYVelocity(maxVelocity) {
+        if ((this.velocityYBasicDecimal.getUnscaled() > maxVelocity)) {
+            this.velocityYBasicDecimal.setint(maxVelocity)
+        }
+    }
+    
 
+    limitMaxNegativeYVelocity(maxVelocity) {
+        if ((this.velocityYBasicDecimal.getUnscaled() < -maxVelocity)) {
+            this.velocityYBasicDecimal.setint(-maxVelocity)
+        }
+    }
+    
 
-function VelocityProperties:limitMaxYForwardVelocity()
-        self:limitMaxYVelocity(self:getMaxForwardVelocity())
-end
+    limitMaxYVelocity(maxVelocity) {
+        this.limitMaxPositiveYVelocity(maxVelocity)
+        this.limitMaxNegativeYVelocity(maxVelocity)
+    }
+    
 
+    limitMaxXVelocity(maxVelocity) {
+        if ((this.velocityXBasicDecimal.getUnscaled() > maxVelocity)) {
+            this.velocityXBasicDecimal.setint(maxVelocity)
+        }
+        if ((this.velocityXBasicDecimal.getUnscaled() < -maxVelocity)) {
+            this.velocityXBasicDecimal.setint(-maxVelocity)
+        }
+    }
+    
 
-function VelocityProperties:limitMaxYReverseVelocity()
-        self:limitMaxYVelocity(self:getMaxReverseVelocity())
-end
-
-
-function VelocityProperties:limitMaxXForwardVelocity()
-        self:limitMaxXVelocity(self:getMaxForwardVelocity())
-end
-
-
-function VelocityProperties:limitMaxXReverseVelocity()
-        self:limitMaxXVelocity(self:getMaxReverseVelocity())
-end
-
-
-function VelocityProperties:isOverXYMaxForwardVelocity()
-        return self:isOverXYMaxVelocity(self:getMaxForwardVelocity())
-end
-
-
-function VelocityProperties:isOverXYMaxReverseVelocity()
-        return self:isOverXYMaxVelocity(self:getMaxReverseVelocity())
-end
-
-
-function VelocityProperties:limitXYToForwardAndReverseMaxVelocity()
-        self:limitMaxXYForwardVelocity()
-        self:limitMaxXYReverseVelocity()
-end
-
-
-function VelocityProperties:limitMaxXYVelocity(maxVelocity)
-        self:limitMaxXVelocity(maxVelocity)
-        self:limitMaxYVelocity(maxVelocity)
-end
-
-
-function VelocityProperties:limitMaxPositiveYVelocity(maxVelocity)
-        if self.velocityYBasicDecimal:getUnscaled() > maxVelocity then
-            self.velocityYBasicDecimal:setint(maxVelocity)
-        end
-end
-
-
-function VelocityProperties:limitMaxNegativeYVelocity(maxVelocity)
-        if self.velocityYBasicDecimal:getUnscaled() < -maxVelocity then
-            self.velocityYBasicDecimal:setint(-maxVelocity)
-        end
-end
-
-
-function VelocityProperties:limitMaxYVelocity(maxVelocity)
-        self:limitMaxPositiveYVelocity(maxVelocity)
-        self:limitMaxNegativeYVelocity(maxVelocity)
-end
-
-
-function VelocityProperties:limitMaxXVelocity(maxVelocity)
-        if self.velocityXBasicDecimal:getUnscaled() > maxVelocity then
-            self.velocityXBasicDecimal:setint(maxVelocity)
-        end
-        if self.velocityXBasicDecimal:getUnscaled() < -maxVelocity then
-            self.velocityXBasicDecimal:setint(-maxVelocity)
-        end
-end
-
-
-function VelocityProperties:isOverXYMaxVelocity(maxVelocity)
-        if self.velocityXBasicDecimal:getUnscaled() > maxVelocity then
+    isOverXYMaxVelocity(maxVelocity) {
+        if ((this.velocityXBasicDecimal.getUnscaled() > maxVelocity)) {
             return true
-        end
-        if self.velocityXBasicDecimal:getUnscaled() < -maxVelocity then
+        }
+        if ((this.velocityXBasicDecimal.getUnscaled() < -maxVelocity)) {
             return true
-        end
-        if self.velocityYBasicDecimal:getUnscaled() > maxVelocity then
+        }
+        if ((this.velocityYBasicDecimal.getUnscaled() > maxVelocity)) {
             return true
-        end
-        if self.velocityYBasicDecimal:getUnscaled() < -maxVelocity then
+        }
+        if ((this.velocityYBasicDecimal.getUnscaled() < -maxVelocity)) {
             return true
-        end
+        }
         return false
-end
+    }
+    
 
+    setVelocityi(magnitude, angle, otherAngle) {
+        super.setVelocityi(magnitude, angle, otherAngle)
+        this.limitXYToForwardAndReverseMaxVelocity()
+    }
+    
 
-function VelocityProperties:setVelocityi(magnitude, angle, otherAngle)
-        BasicVelocityProperties.setVelocityi(self, magnitude, angle, otherAngle)
-        self:limitXYToForwardAndReverseMaxVelocity()
-end
+    addVelocityi(magnitude, angle, otherAngle) {
+        super.addVelocityi(magnitude, angle, otherAngle)
+        this.limitXYToForwardAndReverseMaxVelocity()
+    }
+}
 
-
-function VelocityProperties:addVelocityi(magnitude, angle, otherAngle)
-        BasicVelocityProperties.addVelocityi(self, magnitude, angle, otherAngle)
-        self:limitXYToForwardAndReverseMaxVelocity()
-end
-
-VelocityProperties.NULL_VELOCITY_PROPERTIES = VelocityProperties.new(0, 0)
-
-return VelocityProperties
+import "./VelocityInterface" for VelocityInterface
 

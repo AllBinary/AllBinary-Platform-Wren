@@ -1,55 +1,57 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.multiplayer.layer
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.multiplayer.layer
 
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class MultiplayerBehavior is JObject {
+    static NULL_MULTIPLAYER_BEHAVIOR {
+    if (__NULL_MULTIPLAYER_BEHAVIOR_set == null) {
+      __NULL_MULTIPLAYER_BEHAVIOR_set = true
+      __NULL_MULTIPLAYER_BEHAVIOR = MultiplayerBehavior.new(StringUtil.getInstance().EMPTY_STRING)
+    }
+    return __NULL_MULTIPLAYER_BEHAVIOR
+  }
+  static NULL_MULTIPLAYER_BEHAVIOR=(value) {
+    __NULL_MULTIPLAYER_BEHAVIOR_set = true
+    __NULL_MULTIPLAYER_BEHAVIOR = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_MultiplayerBehavior() {
+  }
+    
 
-local MultiplayerBehavior = {}
-MultiplayerBehavior.__index = MultiplayerBehavior
-MultiplayerBehavior.className = "MultiplayerBehavior"
+    construct new(username) {
+    super()
+    initFields_MultiplayerBehavior()
+    }
+    
 
+    startTick() {
+    }
+    
 
-function MultiplayerBehavior.new(username)
-    local self = setmetatable({}, MultiplayerBehavior)
-    return self
-end
+    endTick() {
+    }
+    
 
-
-function MultiplayerBehavior:startTick()
-end
-
-
-function MultiplayerBehavior:endTick()
-end
-
-
-function MultiplayerBehavior:getApproximateElapsed()
+    getApproximateElapsed() {
         return 0
-end
+    }
+}
 
-MultiplayerBehavior.NULL_MULTIPLAYER_BEHAVIOR = MultiplayerBehavior.new(StringUtil.getInstance().EMPTY_STRING)
-
-return MultiplayerBehavior
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
 

@@ -1,59 +1,73 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.identification
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.identification
 
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local SmallIntegerSingletonFactory = require("org.allbinary.logic.math.SmallIntegerSingletonFactory")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GroupCommonFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  ID { _ID }
+  ID=(value) { _ID = value }
+  GROUP_NAME_LABEL { _GROUP_NAME_LABEL }
+  GROUP_NAME_LABEL=(value) { _GROUP_NAME_LABEL = value }
+  ID_LABEL { _ID_LABEL }
+  ID_LABEL=(value) { _ID_LABEL = value }
+  ADDING_LABEL { _ADDING_LABEL }
+  ADDING_LABEL=(value) { _ADDING_LABEL = value }
+  TO_LABEL { _TO_LABEL }
+  TO_LABEL=(value) { _TO_LABEL = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GroupCommonFactory() {
+    _ID = null
+    _GROUP_NAME_LABEL = null
+    _ID_LABEL = null
+    _ADDING_LABEL = null
+    _TO_LABEL = null
+        _ID = SmallIntegerSingletonFactory.getInstance().getAt(10)
+        _GROUP_NAME_LABEL = "Group Name: "
+        _ID_LABEL = " Id: "
+        _ADDING_LABEL = "Adding: "
+        _TO_LABEL = " to: "
+  }
 
-local GroupCommonFactory = {}
-GroupCommonFactory.__index = GroupCommonFactory
-GroupCommonFactory.className = "GroupCommonFactory"
+  construct new() {
+    super()
+    initFields_GroupCommonFactory()
+  }
+    
 
-function GroupCommonFactory:_init_fields()
-    self.ID = SmallIntegerSingletonFactory.getInstance():getAt(10)
-    self.GROUP_NAME_LABEL = "Group Name: "
-    self.ID_LABEL = " Id: "
-    self.ADDING_LABEL = "Adding: "
-    self.TO_LABEL = " to: "
-end
-
-function GroupCommonFactory.new()
-    local self = setmetatable({}, GroupCommonFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function GroupCommonFactory.getInstance()
-        if GroupCommonFactory.instance == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((GroupCommonFactory.instance == NullUtil.getInstance().NULL_OBJECT)) {
             GroupCommonFactory.instance = GroupCommonFactory.new()
-        end
+        }
         return GroupCommonFactory.instance
-end
+    }
+}
 
-GroupCommonFactory.instance = NullUtil.getInstance().NULL_OBJECT
-
-return GroupCommonFactory
+import "../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../org/allbinary/logic/math/SmallIntegerSingletonFactory" for SmallIntegerSingletonFactory
+import "../../../../java/lang/Integer" for Integer
 

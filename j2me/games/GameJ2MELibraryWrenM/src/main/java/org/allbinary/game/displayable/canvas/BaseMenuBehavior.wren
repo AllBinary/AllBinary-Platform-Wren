@@ -1,76 +1,75 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2022 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2022 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
-local DisplayChangeEvent = require("org.allbinary.graphics.displayable.event.DisplayChangeEvent")
-local NullPaintable = require("org.allbinary.graphics.paint.NullPaintable")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BaseMenuBehavior is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = BaseMenuBehavior.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BaseMenuBehavior() {
+  }
 
-local BaseMenuBehavior = {}
-BaseMenuBehavior.__index = BaseMenuBehavior
-BaseMenuBehavior.className = "BaseMenuBehavior"
+  construct new() {
+    super()
+    initFields_BaseMenuBehavior()
+  }
+    
 
-function BaseMenuBehavior.new()
-    local self = setmetatable({}, BaseMenuBehavior)
-    return self
-end
-
-
-function BaseMenuBehavior.getInstance()
+    static getInstance() {
         return BaseMenuBehavior.instance
-end
+    }
+    
 
+    onDisplayChangeEvent(allBinaryGameCanvas, displayChangeEvent) {
+    }
+    
 
--- throws Exception
-function BaseMenuBehavior:onDisplayChangeEvent(allBinaryGameCanvas, displayChangeEvent)
-end
+    initSpecialPaint(allBinaryGameCanvas) {
+        allBinaryGameCanvas.setNonBotPaintableP(NullPaintable.getInstance())
+    }
+    
 
+    initMenu(allBinaryGameCanvas) {
+    }
+    
 
-function BaseMenuBehavior:initSpecialPaint(allBinaryGameCanvas)
-        allBinaryGameCanvas:setNonBotPaintableP(NullPaintable.getInstance())
-end
+    updateMenu(allBinaryGameCanvas) {
+    }
+    
 
+    popupMenu(allBinaryGameCanvas) {
+    }
+    
 
--- throws Exception
-function BaseMenuBehavior:initMenu(allBinaryGameCanvas)
-end
+    closeMenu(allBinaryGameCanvas) {
+    }
+}
 
-
--- throws Exception
-function BaseMenuBehavior:updateMenu(allBinaryGameCanvas)
-end
-
-
--- throws Exception
-function BaseMenuBehavior:popupMenu(allBinaryGameCanvas)
-end
-
-
-function BaseMenuBehavior:closeMenu(allBinaryGameCanvas)
-end
-
-BaseMenuBehavior.instance = BaseMenuBehavior.new()
-
-return BaseMenuBehavior
+import "../../../../../org/allbinary/graphics/displayable/event/DisplayChangeEvent" for DisplayChangeEvent
+import "../../../../../org/allbinary/graphics/paint/NullPaintable" for NullPaintable
+import "./AllBinaryGameCanvas" for AllBinaryGameCanvas
 

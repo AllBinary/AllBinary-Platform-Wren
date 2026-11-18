@@ -1,57 +1,56 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.score
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.score
 
-local Scoreable = require("org.allbinary.game.score.Scoreable")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./Scoreable" for Scoreable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NoScoreable is Scoreable {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = NoScoreable.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NoScoreable() {
+  }
+    
 
-local NoScoreable = {}
-NoScoreable.__index = NoScoreable
-NoScoreable.className = "NoScoreable"
-setmetatable(NoScoreable, {__index = Scoreable})
-
-
-function NoScoreable.getInstance()
+    static getInstance() {
         return NoScoreable.SINGLETON
-end
+    }
+    
 
+    construct new() {
+        super(0)
+    }
+    
 
-function NoScoreable.new()
-    local self = setmetatable(Scoreable.new(0), NoScoreable)
-        -- super(...) made self above
-    return self
-end
+    addPoints(points) {
+    }
+    
 
+    removePoints(points) {
+    }
+}
 
-function NoScoreable:addPoints(points)
-end
-
-
-function NoScoreable:removePoints(points)
-end
-
-NoScoreable.SINGLETON = NoScoreable.new()
-
-return NoScoreable
 

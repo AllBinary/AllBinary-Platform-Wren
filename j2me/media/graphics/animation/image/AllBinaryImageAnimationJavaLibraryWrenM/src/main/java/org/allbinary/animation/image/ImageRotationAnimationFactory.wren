@@ -1,73 +1,63 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Image = require("javax.microedition.lcdui.Image")
-local Animation = require("org.allbinary.animation.Animation")
-local AnimationBehaviorFactory = require("org.allbinary.animation.AnimationBehaviorFactory")
-local GameConfigurationCentral = require("org.allbinary.game.configuration.GameConfigurationCentral")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
-local AngleFactory = require("org.allbinary.math.AngleFactory")
-local AngleInfo = require("org.allbinary.math.AngleInfo")
-local BaseImageAnimationFactory = require("org.allbinary.animation.image.BaseImageAnimationFactory")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./BaseImageAnimationFactory" for BaseImageAnimationFactory
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ImageRotationAnimationFactory is BaseImageAnimationFactory {
+  angleIncrement { _angleIncrement }
+  angleIncrement=(value) { _angleIncrement = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ImageRotationAnimationFactory() {
+    _angleIncrement = 0
+        
+  }
+    
 
-local ImageRotationAnimationFactory = {}
-ImageRotationAnimationFactory.__index = ImageRotationAnimationFactory
-ImageRotationAnimationFactory.className = "ImageRotationAnimationFactory"
-setmetatable(ImageRotationAnimationFactory, {__index = BaseImageAnimationFactory})
+    construct new(image, width, height, dx, dy, angleIncrement, animationBehaviorFactory) {
+        super(image, PrimitiveIntUtil.getArrayInstance(), width, height, 0, 0, animationBehaviorFactory)
+        initFields_ImageRotationAnimationFactory()
+        _angleIncrement = angleIncrement
+        this.animationFactoryInitializationVisitor.dx = dx
+        this.animationFactoryInitializationVisitor.dy = dy
+    }
+    
 
-function ImageRotationAnimationFactory:_init_fields()
-    self.angleIncrement = nil
-end
+    getInstance(instanceId) {
+        if (((this.animationFactoryInitializationVisitor.dx != 0) || (this.animationFactoryInitializationVisitor.dy != 0))) {
+            this.animationFactoryImageScaleUtil.processAdjust(this)
+            return AdjustedImageBaseRotationAnimation.new(this.getImage(), AngleInfo.getInstance(_angleIncrement), AngleFactory.getInstance().TOTAL_ANGLE, this.animationFactoryInitializationVisitor.dx, this.animationFactoryInitializationVisitor.dy, this.animationBehaviorFactory.getOrCreateInstance())
+        } else {
+            return ImageBaseRotationAnimation.new(this.getImage(), AngleInfo.getInstance(_angleIncrement), AngleFactory.getInstance().TOTAL_ANGLE, this.animationBehaviorFactory.getOrCreateInstance())
+        }
+    }
+    
 
+    getAngleIncrementP() {
+        return _angleIncrement
+    }
+}
 
-function ImageRotationAnimationFactory.new(image, width, height, dx, dy, angleIncrement, animationBehaviorFactory)
-    local self = setmetatable(BaseImageAnimationFactory.new(image, PrimitiveIntUtil.getArrayInstance(), width, height, 0, 0, animationBehaviorFactory), ImageRotationAnimationFactory)
-    self:_init_fields()
-        -- super(...) made self above
-        self.angleIncrement = angleIncrement
-        self.animationFactoryInitializationVisitor.dx = dx
-        self.animationFactoryInitializationVisitor.dy = dy
-    return self
-end
-
-
--- throws Exception
-function ImageRotationAnimationFactory:getInstance(instanceId)
-        if self.animationFactoryInitializationVisitor.dx ~= 0 or self.animationFactoryInitializationVisitor.dy ~= 0 then
-            self.animationFactoryImageScaleUtil:processAdjust(self)
-            return AdjustedImageBaseRotationAnimation.new(self:getImage(), AngleInfo.getInstance(self.angleIncrement), AngleFactory.getInstance().TOTAL_ANGLE, self.animationFactoryInitializationVisitor.dx, self.animationFactoryInitializationVisitor.dy, self.animationBehaviorFactory:getOrCreateInstance())
-        else
-            return ImageBaseRotationAnimation.new(self:getImage(), AngleInfo.getInstance(self.angleIncrement), AngleFactory.getInstance().TOTAL_ANGLE, self.animationBehaviorFactory:getOrCreateInstance())
-        end
-end
-
-
-function ImageRotationAnimationFactory:getAngleIncrementP()
-        return self.angleIncrement
-end
-
-return ImageRotationAnimationFactory
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../org/allbinary/animation/AnimationBehaviorFactory" for AnimationBehaviorFactory
+import "../../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
+import "../../../../org/allbinary/math/AngleFactory" for AngleFactory
+import "../../../../org/allbinary/math/AngleInfo" for AngleInfo
+import "./ImageBaseRotationAnimation" for ImageBaseRotationAnimation
+import "./AdjustedImageBaseRotationAnimation" for AdjustedImageBaseRotationAnimation
 

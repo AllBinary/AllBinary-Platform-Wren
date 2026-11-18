@@ -1,82 +1,80 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.combat.weapon
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.combat.weapon
 
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class SimpleWeaponProperties is JObject {
+  damage { _damage }
+  damage=(value) { _damage = value }
+  dissipation { _dissipation }
+  dissipation=(value) { _dissipation = value }
+  range { _range }
+  range=(value) { _range = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_SimpleWeaponProperties() {
+    _damage = 0
+    _dissipation = 0
+    _range = 0
+        _damage = 0
+        _dissipation = 0
+        _range = 0
+  }
 
-local SimpleWeaponProperties = {}
-SimpleWeaponProperties.__index = SimpleWeaponProperties
-SimpleWeaponProperties.className = "SimpleWeaponProperties"
+  construct new() {
+    super()
+    initFields_SimpleWeaponProperties()
+  }
+    
 
-function SimpleWeaponProperties:_init_fields()
-    self.damage = 0
-    self.dissipation = 0
-    self.range = 0
-end
+    set(simpleWeaponProperties) {
+        this.setDamage(simpleWeaponProperties.getDamage())
+        this.setDissipation(simpleWeaponProperties.getDissipation())
+        this.setRange(simpleWeaponProperties.getRange())
+    }
+    
 
-function SimpleWeaponProperties.new()
-    local self = setmetatable({}, SimpleWeaponProperties)
-    self:_init_fields()
-    return self
-end
+    setDamage(damage) {
+        _damage = damage
+    }
+    
 
+    getDamage() {
+        return _damage
+    }
+    
 
-function SimpleWeaponProperties:set(simpleWeaponProperties)
-        self:setDamage(simpleWeaponProperties:getDamage())
-        self:setDissipation(simpleWeaponProperties:getDissipation())
-        self:setRange(simpleWeaponProperties:getRange())
-end
+    setDissipation(dissipation) {
+        _dissipation = dissipation
+    }
+    
 
+    getDissipation() {
+        return _dissipation
+    }
+    
 
-function SimpleWeaponProperties:setDamage(damage)
-        self.damage = damage
-end
+    getRange() {
+        return _range
+    }
+    
 
+    setRange(range) {
+        _range = range
+    }
+}
 
-function SimpleWeaponProperties:getDamage()
-        return self.damage
-end
-
-
-function SimpleWeaponProperties:setDissipation(dissipation)
-        self.dissipation = dissipation
-end
-
-
-function SimpleWeaponProperties:getDissipation()
-        return self.dissipation
-end
-
-
-function SimpleWeaponProperties:getRange()
-        return self.range
-end
-
-
-function SimpleWeaponProperties:setRange(range)
-        self.range = range
-end
-
-return SimpleWeaponProperties
 

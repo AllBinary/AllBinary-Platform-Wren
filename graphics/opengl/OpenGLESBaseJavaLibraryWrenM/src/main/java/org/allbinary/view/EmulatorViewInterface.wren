@@ -1,39 +1,26 @@
--- Generated Code Do Not Modify
--- package org.allbinary.view
+// Generated Code Do Not Modify
+// package org.allbinary.view
 
--- local Displayable = require("javax.microedition.lcdui.Displayable")
--- local MIDlet = require("javax.microedition.midlet.MIDlet")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class EmulatorViewInterface is JObject {
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    setMidlet(midlet) {
+        Fiber.abort(JR.exception("AbstractMethodError", "setMidlet"))
+    }
+    
 
--- Java interface
-local EmulatorViewInterface = {}
-EmulatorViewInterface.__index = EmulatorViewInterface
-EmulatorViewInterface.className = "EmulatorViewInterface"
+    onEmulatorInitComplete(midletActivity) {
+        Fiber.abort(JR.exception("AbstractMethodError", "onEmulatorInitComplete"))
+    }
+    
 
+    onSetDisplayable(displayable) {
+        Fiber.abort(JR.exception("AbstractMethodError", "onSetDisplayable"))
+    }
+}
 
-function EmulatorViewInterface:setMidlet(midlet)
-    error("abstract method setMidlet")
-end
-
-
-function EmulatorViewInterface:onEmulatorInitComplete(midletActivity)
-    error("abstract method onEmulatorInitComplete")
-end
-
-
-function EmulatorViewInterface:onSetDisplayable(displayable)
-    error("abstract method onSetDisplayable")
-end
-
-return EmulatorViewInterface
+import "../../../javax/microedition/lcdui/Displayable" for Displayable
+import "../../../javax/microedition/midlet/MIDlet" for MIDlet
 

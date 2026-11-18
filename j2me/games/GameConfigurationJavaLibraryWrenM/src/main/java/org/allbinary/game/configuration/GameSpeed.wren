@@ -1,57 +1,61 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameSpeed is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = GameSpeed.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameSpeed() {
+  }
 
-local GameSpeed = {}
-GameSpeed.__index = GameSpeed
-GameSpeed.className = "GameSpeed"
+  construct new() {
+    super()
+    initFields_GameSpeed()
+  }
+    
 
-function GameSpeed.new()
-    local self = setmetatable({}, GameSpeed)
-    return self
-end
+    getSpeed() {
+        var speedGameConfiguration = GameConfigurationCentral.getInstance().SPEED
+        return (((speedGameConfiguration.getMaxValue().intValue() - speedGameConfiguration.getValue().intValue()) + 1))
+    }
+    
 
+    getDelay() {
+        var speedGameConfiguration = GameConfigurationCentral.getInstance().SPEED
+        return (19 * ((speedGameConfiguration.getMaxValue().intValue() - speedGameConfiguration.getValue().intValue())))
+    }
+    
 
-function GameSpeed:getSpeed()
-        local speedGameConfiguration = GameConfigurationCentral.getInstance().SPEED
-        return (math.tointeger(speedGameConfiguration:getMaxValue() // 1) - math.tointeger(speedGameConfiguration:getValue() // 1) + 1)
-end
-
-
-function GameSpeed:getDelay()
-        local speedGameConfiguration = GameConfigurationCentral.getInstance().SPEED
-        return 19 * (math.tointeger(speedGameConfiguration:getMaxValue() // 1) - math.tointeger(speedGameConfiguration:getValue() // 1))
-end
-
-
-function GameSpeed.getInstance()
+    static getInstance() {
         return GameSpeed.instance
-end
+    }
+}
 
-GameSpeed.instance = GameSpeed.new()
-
-return GameSpeed
+import "./GameConfigurationCentral" for GameConfigurationCentral
+import "./GameConfiguration" for GameConfiguration
 

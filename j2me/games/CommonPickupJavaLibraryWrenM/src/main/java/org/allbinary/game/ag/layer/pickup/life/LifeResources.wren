@@ -1,51 +1,52 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.pickup.life
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.pickup.life
 
+import "../../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LifeResources is JObject {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = LifeResources.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
+  RESOURCE { _RESOURCE }
+  RESOURCE=(value) { _RESOURCE = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LifeResources() {
+    _RESOURCE = null
+        _RESOURCE = "life_drop_20_by_20.png"
+  }
+    
 
-local LifeResources = {}
-LifeResources.__index = LifeResources
-LifeResources.className = "LifeResources"
+    construct new() {
+    super()
+    initFields_LifeResources()
+    }
+    
 
-function LifeResources:_init_fields()
-    self.RESOURCE = "life_drop_20_by_20.png"
-end
-
-
-function LifeResources.new()
-    local self = setmetatable({}, LifeResources)
-    self:_init_fields()
-    return self
-end
-
-
-function LifeResources.getInstance()
+    static getInstance() {
         return LifeResources.SINGLETON
-end
+    }
+}
 
-LifeResources.SINGLETON = LifeResources.new()
-
-return LifeResources
 

@@ -1,88 +1,112 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration
 
--- local TextField = require("javax.microedition.lcdui.TextField")
-local StdUtil = require("org.allbinary.logic.StdUtil")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameConfigurationTextInput is JObject {
+    static hashtable {
+    if (__hashtable_set == null) {
+      __hashtable_set = true
+      __hashtable = StdUtil.getInstance().createHashtable()
+    }
+    return __hashtable
+  }
+  static hashtable=(value) {
+    __hashtable_set = true
+    __hashtable = value
+  }
+    static SIMULATOR_IP {
+    if (__SIMULATOR_IP_set == null) {
+      __SIMULATOR_IP_set = true
+      __SIMULATOR_IP = GameConfigurationTextInput.new("IP: ", "192.168.1.3")
+    }
+    return __SIMULATOR_IP
+  }
+  static SIMULATOR_IP=(value) {
+    __SIMULATOR_IP_set = true
+    __SIMULATOR_IP = value
+  }
+    static SIMULATOR_PORT {
+    if (__SIMULATOR_PORT_set == null) {
+      __SIMULATOR_PORT_set = true
+      __SIMULATOR_PORT = GameConfigurationTextInput.new("Port: ", "8010")
+    }
+    return __SIMULATOR_PORT
+  }
+  static SIMULATOR_PORT=(value) {
+    __SIMULATOR_PORT_set = true
+    __SIMULATOR_PORT = value
+  }
+  label { _label }
+  label=(value) { _label = value }
+  text { _text }
+  text=(value) { _text = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameConfigurationTextInput() {
+    _label = null
+    _text = null
+        _label = StringUtil.getInstance().EMPTY_STRING
+        _text = StringUtil.getInstance().EMPTY_STRING
+  }
+    
 
-local GameConfigurationTextInput = {}
-GameConfigurationTextInput.__index = GameConfigurationTextInput
-GameConfigurationTextInput.className = "GameConfigurationTextInput"
+    construct new(label, text) {
+    super()
+    initFields_GameConfigurationTextInput()
+        this.setText(text)
+        this.setLabel(label)
+        GameConfigurationTextInput.hashtable.put(this.getLabel(), this)
+    }
+    
 
-function GameConfigurationTextInput:_init_fields()
-    self.label = StringUtil.getInstance().EMPTY_STRING
-    self.text = StringUtil.getInstance().EMPTY_STRING
-end
+    static update(textField) {
+        var anyType = textField.getLabel()
+        var gameConfigurationTextInput = GameConfigurationTextInput.hashtable.get(anyType)
+        gameConfigurationTextInput.setText(textField.getString())
+    }
+    
 
+    setText(text) {
+        _text = text
+    }
+    
 
-function GameConfigurationTextInput.new(label, text)
-    local self = setmetatable({}, GameConfigurationTextInput)
-    self:_init_fields()
-        self:setText(text)
-        self:setLabel(label)
-        GameConfigurationTextInput.hashtable:put(self:getLabel(), self)
-    return self
-end
+    getText() {
+        return _text
+    }
+    
 
+    setLabel(label) {
+        _label = label
+    }
+    
 
-function GameConfigurationTextInput.update(textField)
-        local anyType = textField:getLabel()
-        local gameConfigurationTextInput = GameConfigurationTextInput.hashtable:get(anyType)
-        gameConfigurationTextInput:setText(textField:getString())
-end
+    getLabel() {
+        return _label
+    }
+    
 
-
-function GameConfigurationTextInput:setText(text)
-        self.text = text
-end
-
-
-function GameConfigurationTextInput:getText()
-        return self.text
-end
-
-
-function GameConfigurationTextInput:setLabel(label)
-        self.label = label
-end
-
-
-function GameConfigurationTextInput:getLabel()
-        return self.label
-end
-
-
-function GameConfigurationTextInput.getHashtable()
+    static getHashtable() {
         return GameConfigurationTextInput.hashtable
-end
+    }
+}
 
-GameConfigurationTextInput.hashtable = StdUtil.getInstance():createHashtable()
-GameConfigurationTextInput.SIMULATOR_IP = GameConfigurationTextInput.new("IP: ", "192.168.1.3")
-GameConfigurationTextInput.SIMULATOR_PORT = GameConfigurationTextInput.new("Port: ", "8010")
-
-return GameConfigurationTextInput
+import "../../../../javax/microedition/lcdui/TextField" for TextField
+import "../../../../org/allbinary/logic/StdUtil" for StdUtil
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/util/ABHashtable" for ABHashtable
 

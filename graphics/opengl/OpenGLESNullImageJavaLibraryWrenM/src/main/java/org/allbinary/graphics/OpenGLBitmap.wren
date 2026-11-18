@@ -1,47 +1,36 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics
+// Generated Code Do Not Modify
+// package org.allbinary.graphics
 
-local PlatformBitmapBase = require("org.allbinary.platform.graphics.PlatformBitmapBase")
+import "../../../allbinary_java" for JObject, JException, JR
+import "../../../org/allbinary/platform/graphics/PlatformBitmapBase" for PlatformBitmapBase
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class OpenGLBitmap is PlatformBitmapBase {
+  bitmap { _bitmap }
+  bitmap=(value) { _bitmap = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_OpenGLBitmap() {
+    _bitmap = null
+        
+  }
+    
 
-local OpenGLBitmap = {}
-OpenGLBitmap.__index = OpenGLBitmap
-OpenGLBitmap.className = "OpenGLBitmap"
-setmetatable(OpenGLBitmap, {__index = PlatformBitmapBase})
+    construct new(bitmap) {
+    super()
+    initFields_OpenGLBitmap()
+        _bitmap = bitmap
+    }
+    
 
-function OpenGLBitmap:_init_fields()
-    self.bitmap = nil
-end
+    getPixels(pixels, offset, stride, x, y, width, height) {
+    }
+    
 
+    setPixels(pixels, offset, stride, x, y, width, height) {
+    }
+    
 
-function OpenGLBitmap.new(bitmap)
-    local self = setmetatable(PlatformBitmapBase.new(), OpenGLBitmap)
-    self:_init_fields()
-        self.bitmap = bitmap
-    return self
-end
+    recycle() {
+    }
+}
 
-
-function OpenGLBitmap:getPixels(pixels, offset, stride, x, y, width, height)
-end
-
-
-function OpenGLBitmap:setPixels(pixels, offset, stride, x, y, width, height)
-end
-
-
-function OpenGLBitmap:recycle()
-end
-
-return OpenGLBitmap
 

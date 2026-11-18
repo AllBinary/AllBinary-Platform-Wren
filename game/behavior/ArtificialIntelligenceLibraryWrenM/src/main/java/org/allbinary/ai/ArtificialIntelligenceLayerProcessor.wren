@@ -1,61 +1,51 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.ai
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.ai
 
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local LayerProcessor = require("org.allbinary.layer.LayerProcessor")
+import "../../../allbinary_java" for JObject, JException, JR
+import "../../../org/allbinary/layer/LayerProcessor" for LayerProcessor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ArtificialIntelligenceLayerProcessor is LayerProcessor {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ArtificialIntelligenceLayerProcessor() {
+  }
+    
 
-local ArtificialIntelligenceLayerProcessor = {}
-ArtificialIntelligenceLayerProcessor.__index = ArtificialIntelligenceLayerProcessor
-ArtificialIntelligenceLayerProcessor.className = "ArtificialIntelligenceLayerProcessor"
-setmetatable(ArtificialIntelligenceLayerProcessor, {__index = LayerProcessor})
+    construct new() {
+        super(ArtificialIntelligenceLayerManager.new())
+    }
+    
 
+    processAt(allBinaryLayerManager, layerInterface, index) {
+        var artificialIntelligenceCompositeInterface = layerInterface
+        artificialIntelligenceCompositeInterface.getArtificialIntelligenceInterface().processAI(allBinaryLayerManager)
+    }
+    
 
-function ArtificialIntelligenceLayerProcessor.new()
-    local self = setmetatable(LayerProcessor.new(ArtificialIntelligenceLayerManager.new()), ArtificialIntelligenceLayerProcessor)
-        -- super(...) made self above
-    return self
-end
-
-
--- throws Exception
-function ArtificialIntelligenceLayerProcessor:processAt(allBinaryLayerManager, layerInterface, index)
-        local artificialIntelligenceCompositeInterface = layerInterface
-        artificialIntelligenceCompositeInterface:getArtificialIntelligenceInterface():processAI(allBinaryLayerManager)
-end
-
-
--- throws Exception
-function ArtificialIntelligenceLayerProcessor:isProcessorLayer(layerInterface)
-        if layerInterface:implmentsArtificialIntelligenceCompositeInterface() then
+    isProcessorLayer(layerInterface) {
+        if (layerInterface.implmentsArtificialIntelligenceCompositeInterface()) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+}
 
-return ArtificialIntelligenceLayerProcessor
+import "../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "./ArtificialIntelligenceLayerManager" for ArtificialIntelligenceLayerManager
+import "./ArtificialIntelligenceCompositeInterface" for ArtificialIntelligenceCompositeInterface
 

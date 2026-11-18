@@ -1,45 +1,41 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local VectorAnimationFactoryInterface = require("org.allbinary.animation.VectorAnimationFactoryInterface")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class TimedVectorAnimationFactory is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TimedVectorAnimationFactory() {
+  }
 
-local TimedVectorAnimationFactory = {}
-TimedVectorAnimationFactory.__index = TimedVectorAnimationFactory
-TimedVectorAnimationFactory.className = "TimedVectorAnimationFactory"
+  construct new() {
+    super()
+    initFields_TimedVectorAnimationFactory()
+  }
+    
 
-function TimedVectorAnimationFactory.new()
-    local self = setmetatable({}, TimedVectorAnimationFactory)
-    return self
-end
-
-
-function TimedVectorAnimationFactory:getInstance(points, basicColor)
+    getInstance(points, basicColor) {
         return TimedVectorAnimation.new(points, basicColor, AnimationBehavior.getInstance())
-end
+    }
+}
 
-return TimedVectorAnimationFactory
+import "../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "./VectorAnimationFactoryInterface" for VectorAnimationFactoryInterface
+import "./TimedVectorAnimation" for TimedVectorAnimation
+import "./AnimationBehavior" for AnimationBehavior
+import "./VectorAnimation" for VectorAnimation
 

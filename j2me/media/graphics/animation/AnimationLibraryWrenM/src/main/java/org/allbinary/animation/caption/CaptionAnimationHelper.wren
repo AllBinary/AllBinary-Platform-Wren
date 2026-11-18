@@ -1,88 +1,89 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.caption
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.caption
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Animation = require("org.allbinary.animation.Animation")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local NullAnimationFactory = require("org.allbinary.animation.NullAnimationFactory")
-local TextAnimation = require("org.allbinary.animation.text.TextAnimation")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local GameTickTimeDelayHelperFactory = require("org.allbinary.time.GameTickTimeDelayHelperFactory")
-local TimeDelayHelper = require("org.allbinary.time.TimeDelayHelper")
-local CaptionAnimationHelperBase = require("org.allbinary.animation.caption.CaptionAnimationHelperBase")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./CaptionAnimationHelperBase" for CaptionAnimationHelperBase
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CaptionAnimationHelper is CaptionAnimationHelperBase {
+  timeHelper { _timeHelper }
+  timeHelper=(value) { _timeHelper = value }
+  textAnimation { _textAnimation }
+  textAnimation=(value) { _textAnimation = value }
+  captionAnimation { _captionAnimation }
+  captionAnimation=(value) { _captionAnimation = value }
+  animation { _animation }
+  animation=(value) { _animation = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CaptionAnimationHelper() {
+    _timeHelper = null
+    _textAnimation = null
+    _captionAnimation = null
+    _animation = null
+        _timeHelper = TimeDelayHelper.new(620)
+        _textAnimation = TextAnimation.new(StringUtil.getInstance().EMPTY_STRING, AnimationBehavior.getInstance())
+        
+        _animation = NullAnimationFactory.getFactoryInstance().getInstance(0)
+  }
+    
 
-local CaptionAnimationHelper = {}
-CaptionAnimationHelper.__index = CaptionAnimationHelper
-CaptionAnimationHelper.className = "CaptionAnimationHelper"
-setmetatable(CaptionAnimationHelper, {__index = CaptionAnimationHelperBase})
+    construct new(captionAnimation, captionDx, captionDy, dx, dy) {
+    super()
+    initFields_CaptionAnimationHelper()
+        _captionAnimation = CaptionAnimation.new(captionAnimation, _textAnimation, captionDx, captionDy, dx, dy)
+    }
+    
 
-function CaptionAnimationHelper:_init_fields()
-    self.timeHelper = TimeDelayHelper.new(620)
-    self.textAnimation = TextAnimation.new(StringUtil.getInstance().EMPTY_STRING, AnimationBehavior.getInstance())
-    self.captionAnimation = nil
-    self.animation = NullAnimationFactory.getFactoryInstance():getInstance(0)
-end
-
-
-function CaptionAnimationHelper.new(captionAnimation, captionDx, captionDy, dx, dy)
-    local self = setmetatable(CaptionAnimationHelperBase.new(), CaptionAnimationHelper)
-    self:_init_fields()
-        self.captionAnimation = CaptionAnimation.new(captionAnimation, self.textAnimation, captionDx, captionDy, dx, dy)
-    return self
-end
-
-
-function CaptionAnimationHelper:isShowing()
-        if self.animation == self.captionAnimation then
+    isShowing() {
+        if ((_animation == _captionAnimation)) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+    
 
+    tick() {
+        if (_timeHelper.isTime(GameTickTimeDelayHelperFactory.getInstance().startTime)) {
+            _animation = NullAnimationFactory.getFactoryInstance().getInstance(0)
+        }
+    }
+    
 
-function CaptionAnimationHelper:tick()
-        if self.timeHelper:isTime(GameTickTimeDelayHelperFactory.getInstance().startTime) then
-            self.animation = NullAnimationFactory.getFactoryInstance():getInstance(0)
-        end
-end
+    update(message, basicColor) {
+        _textAnimation.setBasicColorP(basicColor)
+        _textAnimation.setText(message)
+        _animation = _captionAnimation
+        _timeHelper.setStartTimeTNT()
+    }
+    
 
+    paintXY(graphics, x, y) {
+        _animation.paintXY(graphics, x, y)
+    }
+}
 
-function CaptionAnimationHelper:update(message, basicColor)
-        self.textAnimation:setBasicColorP(basicColor)
-        self.textAnimation:setText(message)
-        self.animation = self.captionAnimation
-        self.timeHelper:setStartTimeTNT()
-end
-
-
-function CaptionAnimationHelper:paintXY(graphics, x, y)
-        self.animation:paintXY(graphics, x, y)
-end
-
-return CaptionAnimationHelper
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/animation/NullAnimationFactory" for NullAnimationFactory
+import "../../../../org/allbinary/animation/text/TextAnimation" for TextAnimation
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../org/allbinary/time/GameTickTimeDelayHelperFactory" for GameTickTimeDelayHelperFactory
+import "../../../../org/allbinary/time/TimeDelayHelper" for TimeDelayHelper
+import "./CaptionAnimation" for CaptionAnimation
 

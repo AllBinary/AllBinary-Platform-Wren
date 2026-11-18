@@ -1,53 +1,45 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
---
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
---
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
---
--- Created By: Travis Berthelot
--- 
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.canvas.transition.progress
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ *
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ *
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ *
+ * Created By: Travis Berthelot
+ * 
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.canvas.transition.progress
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/graphics/paint/Paintable" for Paintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ProgressPaintable is Paintable {
+  progressCanvas { _progressCanvas }
+  progressCanvas=(value) { _progressCanvas = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ProgressPaintable() {
+    _progressCanvas = null
+        
+  }
+    
 
-local ProgressPaintable = {}
-ProgressPaintable.__index = ProgressPaintable
-ProgressPaintable.className = "ProgressPaintable"
-setmetatable(ProgressPaintable, {__index = Paintable})
+    construct new(progressCanvas) {
+    super()
+    initFields_ProgressPaintable()
+        _progressCanvas = progressCanvas
+    }
+    
 
-function ProgressPaintable:_init_fields()
-    self.progressCanvas = nil
-end
+    paint(graphics) {
+        _progressCanvas.paint2(graphics)
+    }
+}
 
-
-function ProgressPaintable.new(progressCanvas)
-    local self = setmetatable(Paintable.new(), ProgressPaintable)
-    self:_init_fields()
-        self.progressCanvas = progressCanvas
-    return self
-end
-
-
-function ProgressPaintable:paint(graphics)
-        self.progressCanvas:paint2(graphics)
-end
-
-return ProgressPaintable
+import "../../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "./ProgressCanvas" for ProgressCanvas
 

@@ -1,60 +1,62 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.logic.math
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.math
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class J2SEMath is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = J2SEMath.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_J2SEMath() {
+  }
 
-local J2SEMath = {}
-J2SEMath.__index = J2SEMath
-J2SEMath.className = "J2SEMath"
+  construct new() {
+    super()
+    initFields_J2SEMath()
+  }
+    
 
-function J2SEMath.new()
-    local self = setmetatable({}, J2SEMath)
-    return self
-end
-
-
-function J2SEMath.getInstance()
+    static getInstance() {
         return J2SEMath.instance
-end
+    }
+    
 
+    round(value) {
+        return JR.i32(JR.d2i(value))
+    }
+    
 
-function J2SEMath:round(value)
-        return java_int(value)
-end
+    abs(value) {
+        return (((value < 0)) ? -value : value)
+    }
+    
 
+    absdouble(value) {
+        return (((value < 0)) ? -value : value)
+    }
+}
 
-function J2SEMath:abs(value)
-        return (function() if (value < 0.0) then return -value else return value end end)()
-end
-
-
-function J2SEMath:absdouble(value)
-        return (function() if (value < 0.0) then return -value else return value end end)()
-end
-
-J2SEMath.instance = J2SEMath.new()
-
-return J2SEMath
 

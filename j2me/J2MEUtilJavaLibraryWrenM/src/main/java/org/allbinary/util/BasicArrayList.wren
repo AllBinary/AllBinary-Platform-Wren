@@ -5,17 +5,7 @@ import "../../../allbinary_java" for JObject, JException, JR
 
 //This is a very fast and simple resizable list.
 class BasicArrayList is JObject {
-    static SIZE {
-    if (__SIZE_set == null) {
-      __SIZE_set = true
-      __SIZE = ", Size: "
-    }
-    return __SIZE
-  }
-  static SIZE=(value) {
-    __SIZE_set = true
-    __SIZE = value
-  }
+    static SIZE { ", Size: " }
   arrayUtil { _arrayUtil }
   arrayUtil=(value) { _arrayUtil = value }
   objectArray { _objectArray }

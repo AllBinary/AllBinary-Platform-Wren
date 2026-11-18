@@ -1,59 +1,62 @@
--- Generated Code Do Not Modify
--- package org.allbinary.business.advertisement
+// Generated Code Do Not Modify
+// package org.allbinary.business.advertisement
 
-local GameAdState = require("org.allbinary.game.GameAdState")
-local SoftwareInformation = require("org.allbinary.logic.system.SoftwareInformation")
-local GameAdStateFactoryInterface = require("org.allbinary.business.advertisement.GameAdStateFactoryInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameAdStateFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = GameAdStateFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  gameAdStateArray { _gameAdStateArray }
+  gameAdStateArray=(value) { _gameAdStateArray = value }
+  gameAdState { _gameAdState }
+  gameAdState=(value) { _gameAdState = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameAdStateFactory() {
+    _gameAdStateArray = null
+    _gameAdState = null
+        _gameAdStateArray = [GameAdState.new(AppNameLicensingAdConfiguration.new())]
+        _gameAdState = _gameAdStateArray[0]
+  }
 
-local GameAdStateFactory = {}
-GameAdStateFactory.__index = GameAdStateFactory
-GameAdStateFactory.className = "GameAdStateFactory"
+  construct new() {
+    super()
+    initFields_GameAdStateFactory()
+  }
+    
 
-function GameAdStateFactory:_init_fields()
-    self.gameAdStateArray = {GameAdState.new(AppNameLicensingAdConfiguration.new())}
-    self.gameAdState = self.gameAdStateArray[1]
-end
-
-function GameAdStateFactory.new()
-    local self = setmetatable({}, GameAdStateFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function GameAdStateFactory.getInstance()
+    static getInstance() {
         return GameAdStateFactory.instance
-end
+    }
+    
 
+    getCurrentInstance() {
+        return _gameAdState
+    }
+    
 
-function GameAdStateFactory:getCurrentInstance()
-        return self.gameAdState
-end
+    getInstanceForApp(softwareInformation) {
+        _gameAdState = _gameAdStateArray[0]
+        return _gameAdStateArray[0]
+    }
+    
 
-
--- throws Exception
-function GameAdStateFactory:getInstanceForApp(softwareInformation)
-        self.gameAdState = self.gameAdStateArray[1]
-        return self.gameAdStateArray[1]
-end
-
-
-function GameAdStateFactory:isEnabled()
+    isEnabled() {
         return false
-end
+    }
+}
 
-GameAdStateFactory.instance = GameAdStateFactory.new()
-
-return GameAdStateFactory
+import "../../../../org/allbinary/game/GameAdState" for GameAdState
+import "../../../../org/allbinary/logic/system/SoftwareInformation" for SoftwareInformation
+import "./GameAdStateFactoryInterface" for GameAdStateFactoryInterface
+import "./AppNameLicensingAdConfiguration" for AppNameLicensingAdConfiguration
+import "./GameAdStateBase" for GameAdStateBase
 

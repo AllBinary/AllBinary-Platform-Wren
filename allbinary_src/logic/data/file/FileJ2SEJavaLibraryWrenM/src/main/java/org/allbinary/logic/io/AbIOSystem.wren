@@ -1,64 +1,65 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.io
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.io
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class AbIOSystem is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = AbIOSystem.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  type { _type }
+  type=(value) { _type = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AbIOSystem() {
+    _type = null
+        _type = "java.io"
+  }
 
-local AbIOSystem = {}
-AbIOSystem.__index = AbIOSystem
-AbIOSystem.className = "AbIOSystem"
+  construct new() {
+    super()
+    initFields_AbIOSystem()
+  }
+    
 
-function AbIOSystem:_init_fields()
-    self.type = "java.io"
-end
-
-function AbIOSystem.new()
-    local self = setmetatable({}, AbIOSystem)
-    self:_init_fields()
-    return self
-end
-
-
-function AbIOSystem.getInstance()
+    static getInstance() {
         return AbIOSystem.instance
-end
+    }
+    
 
+    getType() {
+        return _type
+    }
+    
 
-function AbIOSystem:getType()
-        return self.type
-end
-
-
-function AbIOSystem:isType(type)
-        if ((self.type < type and -1) or (self.type > type and 1) or 0) == 0 then
+    isType(type) {
+        if ((JR.compareTo(_type, type) == 0)) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+}
 
-AbIOSystem.instance = AbIOSystem.new()
-
-return AbIOSystem
 

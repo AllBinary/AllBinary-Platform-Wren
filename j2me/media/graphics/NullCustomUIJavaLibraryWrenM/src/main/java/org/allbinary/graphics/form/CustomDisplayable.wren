@@ -1,30 +1,21 @@
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.form
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.form
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CustomDisplayable is JObject {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CustomDisplayable() {
+  }
 
-local CustomDisplayable = {}
-CustomDisplayable.__index = CustomDisplayable
-CustomDisplayable.className = "CustomDisplayable"
+  construct new() {
+    super()
+    initFields_CustomDisplayable()
+  }
+    
 
-function CustomDisplayable.new()
-    local self = setmetatable({}, CustomDisplayable)
-    return self
-end
+    setTitle(title) {
+    }
+}
 
-
-function CustomDisplayable:setTitle(title)
-end
-
-return CustomDisplayable
 

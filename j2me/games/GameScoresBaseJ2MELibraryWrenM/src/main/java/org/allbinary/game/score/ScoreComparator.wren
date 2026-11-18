@@ -1,106 +1,102 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.score
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.score
 
--- local ByteArrayInputStream = require("java.io.ByteArrayInputStream")
--- local DataInputStream = require("java.io.DataInputStream")
--- local EOFException = require("java.io.EOFException")
--- local IOException = require("java.io.IOException")
--- local RecordComparator = require("javax.microedition.rms.RecordComparator")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ScoreComparator is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  isHighestBest { _isHighestBest }
+  isHighestBest=(value) { _isHighestBest = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ScoreComparator() {
+    _logUtil = null
+    _isHighestBest = false
+        _logUtil = LogUtil.getInstance()
+        
+  }
+    
 
-local ScoreComparator = {}
-ScoreComparator.__index = ScoreComparator
-ScoreComparator.className = "ScoreComparator"
+    construct new(isHighestBest) {
+    super()
+    initFields_ScoreComparator()
+        _isHighestBest = isHighestBest
+    }
+    
 
-function ScoreComparator:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.isHighestBest = nil
-end
+    getBestScore() {
+        return (_isHighestBest ? Long.MAX_VALUE : 0)
+    }
+    
 
+    compare(recordOne, recordTwo) {
+        var byteArrayInputStreamOne = ByteArrayInputStream.new(recordOne)
+        var inputStreamOne = DataInputStream.new(byteArrayInputStreamOne)
+        var byteArrayInputStreamTwo = ByteArrayInputStream.new(recordTwo)
+        var inputStreamTwo = DataInputStream.new(byteArrayInputStreamTwo)
+        var scoreOne = 0
+        var scoreTwo = 0
+        var jerror0 = Fiber.new {
+            inputStreamOne.readUTF()
+            inputStreamTwo.readUTF()
+            scoreOne = inputStreamOne.readLong()
+            scoreTwo = inputStreamTwo.readLong()
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, "compare", e)
+        }
+        if (_isHighestBest) {
+            return this.getHighTooLow(scoreOne, scoreTwo)
+        } else {
+            return this.getLowTooHigh(scoreOne, scoreTwo)
+        }
+    }
+    
 
-function ScoreComparator.new(isHighestBest)
-    local self = setmetatable({}, ScoreComparator)
-    self:_init_fields()
-        self.isHighestBest = isHighestBest
-    return self
-end
-
-
-function ScoreComparator:getBestScore()
-        return (function() if self.isHighestBest then return Long.MAX_VALUE else return 0 end end)()
-end
-
-
-function ScoreComparator:compare(recordOne, recordTwo)
-        local byteArrayInputStreamOne = ByteArrayInputStream.new(recordOne)
-        local inputStreamOne = DataInputStream.new(byteArrayInputStreamOne)
-        local byteArrayInputStreamTwo = ByteArrayInputStream.new(recordTwo)
-        local inputStreamTwo = DataInputStream.new(byteArrayInputStreamTwo)
-        local scoreOne = 0
-        local scoreTwo = 0
-        local try_ok, try_error = pcall(function()
-            inputStreamOne:readUTF()
-            inputStreamTwo:readUTF()
-            scoreOne = inputStreamOne:readLong()
-            scoreTwo = inputStreamTwo:readLong()
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, "compare", e)
-        end
-        if self.isHighestBest then
-            return self:getHighTooLow(scoreOne, scoreTwo)
-        else
-            return self:getLowTooHigh(scoreOne, scoreTwo)
-        end
-end
-
-
-function ScoreComparator:getHighTooLow(scoreOne, scoreTwo)
-        if scoreOne > scoreTwo then
+    getHighTooLow(scoreOne, scoreTwo) {
+        if ((scoreOne > scoreTwo)) {
             return RecordComparator.PRECEDES
-        elseif scoreOne < scoreTwo then
+        } else if ((scoreOne < scoreTwo)) {
             return RecordComparator.FOLLOWS
-        else
+        } else {
             return RecordComparator.EQUIVALENT
-        end
-end
+        }
+    }
+    
 
-
-function ScoreComparator:getLowTooHigh(scoreOne, scoreTwo)
-        if scoreOne < scoreTwo then
+    getLowTooHigh(scoreOne, scoreTwo) {
+        if ((scoreOne < scoreTwo)) {
             return RecordComparator.PRECEDES
-        elseif scoreOne > scoreTwo then
+        } else if ((scoreOne > scoreTwo)) {
             return RecordComparator.FOLLOWS
-        else
+        } else {
             return RecordComparator.EQUIVALENT
-        end
-end
+        }
+    }
+}
 
-return ScoreComparator
+import "../../../../java/io/ByteArrayInputStream" for ByteArrayInputStream
+import "../../../../java/io/DataInputStream" for DataInputStream
+import "../../../../java/io/EOFException" for EOFException
+import "../../../../java/io/IOException" for IOException
+import "../../../../javax/microedition/rms/RecordComparator" for RecordComparator
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../java/lang/Long" for Long
 

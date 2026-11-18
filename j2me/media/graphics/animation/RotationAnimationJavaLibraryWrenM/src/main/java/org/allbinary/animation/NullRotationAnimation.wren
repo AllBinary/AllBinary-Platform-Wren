@@ -1,49 +1,37 @@
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
-local AngleFactory = require("org.allbinary.math.AngleFactory")
-local AngleInfo = require("org.allbinary.math.AngleInfo")
-local CircularIndexUtil = require("org.allbinary.util.CircularIndexUtil")
-local RotationAnimation = require("org.allbinary.animation.RotationAnimation")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./RotationAnimation" for RotationAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NullRotationAnimation is RotationAnimation {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NullRotationAnimation() {
+  }
+    
 
-local NullRotationAnimation = {}
-NullRotationAnimation.__index = NullRotationAnimation
-NullRotationAnimation.className = "NullRotationAnimation"
-setmetatable(NullRotationAnimation, {__index = RotationAnimation})
+    static createTotalAngle(angleInfo, totalAngle, animationBehavior) {
+        return NullRotationAnimation.new(angleInfo, CircularIndexUtil.createInstance((totalAngle / angleInfo.getAngleIncrementInfo().getAngleIncrement())), animationBehavior)
+    }
+    
 
-
-function NullRotationAnimation.createTotalAngle(angleInfo, totalAngle, animationBehavior)
-        return NullRotationAnimation.new(angleInfo, CircularIndexUtil.createInstance(totalAngle / angleInfo:getAngleIncrementInfo():getAngleIncrement()), animationBehavior)
-end
-
-
-function NullRotationAnimation.createQuarter(animationBehavior)
+    static createQuarter(animationBehavior) {
         return NullRotationAnimation.new(AngleInfo.getInstance(AngleFactory.getInstance().QUARTER_TOTAL_ANGLE), CircularIndexUtil.createInstance(4), animationBehavior)
-end
+    }
+    
 
+    construct new(angleInfo, circularIndexUtil, animationBehavior) {
+        super(angleInfo, circularIndexUtil, animationBehavior)
+    }
+    
 
-function NullRotationAnimation.new(angleInfo, circularIndexUtil, animationBehavior)
-    local self = setmetatable(RotationAnimation.new(angleInfo, circularIndexUtil, animationBehavior), NullRotationAnimation)
-        -- super(...) made self above
-    return self
-end
-
-
--- throws Exception
-function NullRotationAnimation:getAnimationSize()
+    getAnimationSize() {
         return 0
-end
+    }
+}
 
-return NullRotationAnimation
+import "../../../org/allbinary/math/AngleFactory" for AngleFactory
+import "../../../org/allbinary/math/AngleInfo" for AngleInfo
+import "../../../org/allbinary/util/CircularIndexUtil" for CircularIndexUtil
+import "./AnimationBehavior" for AnimationBehavior
 

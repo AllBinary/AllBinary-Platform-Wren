@@ -1,58 +1,47 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game
 
-local GameAdStateBase = require("org.allbinary.business.advertisement.GameAdStateBase")
-local AdConfiguration = require("org.allbinary.business.advertisement.AdConfiguration")
-local VirtualKeyboardEvent = require("org.allbinary.input.event.VirtualKeyboardEvent")
-local VirtualKeyboardEventHandler = require("org.allbinary.input.event.VirtualKeyboardEventHandler")
-local VirtualKeyboardEventListenerInterface = require("org.allbinary.input.event.VirtualKeyboardEventListenerInterface")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
+import "../../../allbinary_java" for JObject, JException, JR
+import "../../../org/allbinary/business/advertisement/GameAdStateBase" for GameAdStateBase
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameAdState is GameAdStateBase {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameAdState() {
+  }
+    
 
-local GameAdState = {}
-GameAdState.__index = GameAdState
-GameAdState.className = "GameAdState"
-setmetatable(GameAdState, {__index = GameAdStateBase})
+    construct new(adConfiguration) {
+        super(adConfiguration)
+        VirtualKeyboardEventHandler.getInstance().addListenerInterface(this)
+    }
+    
 
+    onVirtualKeyboardEvent(virtualKeyboardEvent) {
+    }
+    
 
-function GameAdState.new(adConfiguration)
-    local self = setmetatable(GameAdStateBase.new(adConfiguration), GameAdState)
-        -- super(...) made self above
-        VirtualKeyboardEventHandler.getInstance():addListenerInterface(self)
-    return self
-end
+    onEvent(eventObject) {
+        super.onEvent(eventObject)
+    }
+}
 
-
--- throws Exception
-function GameAdState:onVirtualKeyboardEvent(virtualKeyboardEvent)
-end
-
-
-function GameAdState:onEvent(eventObject)
-        GameAdStateBase.onEvent(self, eventObject)
-end
-
-return GameAdState
+import "../../../org/allbinary/business/advertisement/AdConfiguration" for AdConfiguration
+import "../../../org/allbinary/input/event/VirtualKeyboardEvent" for VirtualKeyboardEvent
+import "../../../org/allbinary/input/event/VirtualKeyboardEventHandler" for VirtualKeyboardEventHandler
+import "../../../org/allbinary/input/event/VirtualKeyboardEventListenerInterface" for VirtualKeyboardEventListenerInterface
+import "../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
 

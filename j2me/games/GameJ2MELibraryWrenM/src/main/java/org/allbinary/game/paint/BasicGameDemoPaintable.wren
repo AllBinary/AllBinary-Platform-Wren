@@ -1,92 +1,92 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.paint
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.paint
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local NullPaintable = require("org.allbinary.graphics.paint.NullPaintable")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
-local StatePaintable = require("org.allbinary.graphics.paint.StatePaintable")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/graphics/paint/StatePaintable" for StatePaintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BasicGameDemoPaintable is StatePaintable {
+  mainDemoStatePaintable { _mainDemoStatePaintable }
+  mainDemoStatePaintable=(value) { _mainDemoStatePaintable = value }
+  ownershipPaintable { _ownershipPaintable }
+  ownershipPaintable=(value) { _ownershipPaintable = value }
+  helpPaintableInterface { _helpPaintableInterface }
+  helpPaintableInterface=(value) { _helpPaintableInterface = value }
+  currentStatePaintable { _currentStatePaintable }
+  currentStatePaintable=(value) { _currentStatePaintable = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BasicGameDemoPaintable() {
+    _mainDemoStatePaintable = null
+    _ownershipPaintable = null
+    _helpPaintableInterface = null
+    _currentStatePaintable = null
+        
+        
+        
+        _currentStatePaintable = NullPaintable.getInstance()
+  }
+    
 
-local BasicGameDemoPaintable = {}
-BasicGameDemoPaintable.__index = BasicGameDemoPaintable
-BasicGameDemoPaintable.className = "BasicGameDemoPaintable"
-setmetatable(BasicGameDemoPaintable, {__index = StatePaintable})
+    construct new(mainDemoStatePaintable, ownershipPaintable, helpPaintableInterface) {
+    super()
+    initFields_BasicGameDemoPaintable()
+        _mainDemoStatePaintable = mainDemoStatePaintable
+        this.setCurrentStatePaintable(NullPaintable.getInstance())
+        _ownershipPaintable = ownershipPaintable
+        _helpPaintableInterface = helpPaintableInterface
+    }
+    
 
-function BasicGameDemoPaintable:_init_fields()
-    self.mainDemoStatePaintable = nil
-    self.ownershipPaintable = nil
-    self.helpPaintableInterface = nil
-    self.currentStatePaintable = NullPaintable.getInstance()
-end
+    setState(state) {
+        if ((state == 0)) {
+            this.setCurrentStatePaintable(this.getMainDemoStatePaintable())
+        } else if ((state == 1)) {
+            this.setCurrentStatePaintable(_helpPaintableInterface)
+        } else {
+            this.setCurrentStatePaintable(_ownershipPaintable)
+        }
+    }
+    
 
+    paint(graphics) {
+        this.getCurrentStatePaintable().paint(graphics)
+    }
+    
 
-function BasicGameDemoPaintable.new(mainDemoStatePaintable, ownershipPaintable, helpPaintableInterface)
-    local self = setmetatable(StatePaintable.new(), BasicGameDemoPaintable)
-    self:_init_fields()
-        self.mainDemoStatePaintable = mainDemoStatePaintable
-        self:setCurrentStatePaintable(NullPaintable.getInstance())
-        self.ownershipPaintable = ownershipPaintable
-        self.helpPaintableInterface = helpPaintableInterface
-    return self
-end
+    getHelpPaintableInterface() {
+        return _helpPaintableInterface
+    }
+    
 
+    setCurrentStatePaintable(currentStatePaintable) {
+        _currentStatePaintable = currentStatePaintable
+    }
+    
 
-function BasicGameDemoPaintable:setState(state)
-        if state == 0 then
-            self:setCurrentStatePaintable(self:getMainDemoStatePaintable())
-        elseif state == 1 then
-            self:setCurrentStatePaintable(self.helpPaintableInterface)
-        else
-            self:setCurrentStatePaintable(self.ownershipPaintable)
-        end
-end
+    getCurrentStatePaintable() {
+        return _currentStatePaintable
+    }
+    
 
+    getMainDemoStatePaintable() {
+        return _mainDemoStatePaintable
+    }
+}
 
-function BasicGameDemoPaintable:paint(graphics)
-        self:getCurrentStatePaintable():paint(graphics)
-end
-
-
-function BasicGameDemoPaintable:getHelpPaintableInterface()
-        return self.helpPaintableInterface
-end
-
-
-function BasicGameDemoPaintable:setCurrentStatePaintable(currentStatePaintable)
-        self.currentStatePaintable = currentStatePaintable
-end
-
-
-function BasicGameDemoPaintable:getCurrentStatePaintable()
-        return self.currentStatePaintable
-end
-
-
-function BasicGameDemoPaintable:getMainDemoStatePaintable()
-        return self.mainDemoStatePaintable
-end
-
-return BasicGameDemoPaintable
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/graphics/paint/NullPaintable" for NullPaintable
+import "../../../../org/allbinary/graphics/paint/Paintable" for Paintable
 

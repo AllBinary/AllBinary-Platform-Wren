@@ -1,80 +1,92 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics
 
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListUtil = require("org.allbinary.util.BasicArrayListUtil")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RelativeRelationship is JObject {
+    static NULL_RELATIVE_RELATIONSHIP {
+    if (__NULL_RELATIVE_RELATIONSHIP_set == null) {
+      __NULL_RELATIVE_RELATIONSHIP_set = true
+      __NULL_RELATIVE_RELATIONSHIP = RelativeRelationship.new(PointFactory.getInstance().ZERO_ZERO, BasicArrayListUtil.getInstance().getImmutableInstance())
+    }
+    return __NULL_RELATIVE_RELATIONSHIP
+  }
+  static NULL_RELATIVE_RELATIONSHIP=(value) {
+    __NULL_RELATIVE_RELATIONSHIP_set = true
+    __NULL_RELATIVE_RELATIONSHIP = value
+  }
+  typesAllowedList { _typesAllowedList }
+  typesAllowedList=(value) { _typesAllowedList = value }
+  x { _x }
+  x=(value) { _x = value }
+  y { _y }
+  y=(value) { _y = value }
+  z { _z }
+  z=(value) { _z = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RelativeRelationship() {
+    _typesAllowedList = null
+    _x = 0
+    _y = 0
+    _z = 0
+        
+        
+        
+        
+  }
+    
 
-local RelativeRelationship = {}
-RelativeRelationship.__index = RelativeRelationship
-RelativeRelationship.className = "RelativeRelationship"
+    construct new(point, typesAllowedList) {
+    super()
+    initFields_RelativeRelationship()
+        _x = point.getX()
+        _y = point.getY()
+        _z = point.getZ()
+        _typesAllowedList = typesAllowedList
+    }
+    
 
-function RelativeRelationship:_init_fields()
-    self.typesAllowedList = nil
-    self.x = nil
-    self.y = nil
-    self.z = nil
-end
+    getX() {
+        return _x
+    }
+    
 
+    getY() {
+        return _y
+    }
+    
 
-function RelativeRelationship.new(point, typesAllowedList)
-    local self = setmetatable({}, RelativeRelationship)
-    self:_init_fields()
-        self.x = point:getX()
-        self.y = point:getY()
-        self.z = point:getZ()
-        self.typesAllowedList = typesAllowedList
-    return self
-end
+    getZ() {
+        return _z
+    }
+    
 
+    getTypesAllowedList() {
+        return _typesAllowedList
+    }
+    
 
-function RelativeRelationship:getX()
-        return self.x
-end
+    setTypesAllowedList(typesAllowedList) {
+        _typesAllowedList = typesAllowedList
+    }
+}
 
-
-function RelativeRelationship:getY()
-        return self.y
-end
-
-
-function RelativeRelationship:getZ()
-        return self.z
-end
-
-
-function RelativeRelationship:getTypesAllowedList()
-        return self.typesAllowedList
-end
-
-
-function RelativeRelationship:setTypesAllowedList(typesAllowedList)
-        self.typesAllowedList = typesAllowedList
-end
-
-RelativeRelationship.NULL_RELATIVE_RELATIONSHIP = RelativeRelationship.new(PointFactory.getInstance().ZERO_ZERO, BasicArrayListUtil.getInstance():getImmutableInstance())
-
-return RelativeRelationship
+import "../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../org/allbinary/util/BasicArrayListUtil" for BasicArrayListUtil
+import "./PointFactory" for PointFactory
+import "./GPoint" for GPoint
 

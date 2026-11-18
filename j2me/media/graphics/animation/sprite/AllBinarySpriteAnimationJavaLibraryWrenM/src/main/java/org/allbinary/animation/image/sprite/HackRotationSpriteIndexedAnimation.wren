@@ -1,114 +1,106 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image.sprite
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image.sprite
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Image = require("javax.microedition.lcdui.Image")
--- local Sprite = require("javax.microedition.lcdui.game.Sprite")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local RotationAnimation = require("org.allbinary.animation.RotationAnimation")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
-local AngleInfo = require("org.allbinary.math.AngleInfo")
-local CircularIndexUtil = require("org.allbinary.util.CircularIndexUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/animation/RotationAnimation" for RotationAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class HackRotationSpriteIndexedAnimation is RotationAnimation {
+  sprite { _sprite }
+  sprite=(value) { _sprite = value }
+  image { _image }
+  image=(value) { _image = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_HackRotationSpriteIndexedAnimation() {
+    _sprite = null
+    _image = null
+        
+        
+  }
+    
 
-local HackRotationSpriteIndexedAnimation = {}
-HackRotationSpriteIndexedAnimation.__index = HackRotationSpriteIndexedAnimation
-HackRotationSpriteIndexedAnimation.className = "HackRotationSpriteIndexedAnimation"
-setmetatable(HackRotationSpriteIndexedAnimation, {__index = RotationAnimation})
+    construct new(sprite, image, angleInfo, animationBehavior) {
+        super(angleInfo, CircularIndexUtil.createInstance((360 / angleInfo.getAngleIncrementInfo().getAngleIncrement())), animationBehavior)
+        initFields_HackRotationSpriteIndexedAnimation()
+        _sprite = sprite
+        _image = image
+    }
+    
 
-function HackRotationSpriteIndexedAnimation:_init_fields()
-    self.sprite = nil
-    self.image = nil
-end
+    getAnimationSize() {
+        return this.getSize()
+    }
+    
 
+    paintFrame(g, frame, x, y) {
+        this.setFrame(frame)
+        this.paintXY(g, x, y)
+    }
+    
 
-function HackRotationSpriteIndexedAnimation.new(sprite, image, angleInfo, animationBehavior)
-    local self = setmetatable(RotationAnimation.new(angleInfo, CircularIndexUtil.createInstance(360 / angleInfo:getAngleIncrementInfo():getAngleIncrement()), animationBehavior), HackRotationSpriteIndexedAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.sprite = sprite
-        self.image = image
-    return self
-end
+    paintXY(g, x, y) {
+        _sprite.setPosition(x, y)
+        this.paint(g)
+    }
+    
 
+    paint(g) {
+        _sprite.paint(g)
+    }
+    
 
--- throws Exception
-function HackRotationSpriteIndexedAnimation:getAnimationSize()
-        return self:getSize()
-end
+    nextRotation() {
+        _sprite.nextFrame()
+    }
+    
 
+    previousRotation() {
+        _sprite.prevFrame()
+    }
+    
 
-function HackRotationSpriteIndexedAnimation:paintFrame(g, frame, x, y)
-        self:setFrame(frame)
-        self:paintXY(g, x, y)
-end
+    getSize() {
+        return _sprite.getRawFrameCount()
+    }
+    
 
+    setFrame(frame) {
+        _sprite.setFrame(frame)
+    }
+    
 
-function HackRotationSpriteIndexedAnimation:paintXY(g, x, y)
-        self.sprite:setPosition(x, y)
-        self:paint(g)
-end
+    getFrame() {
+        return _sprite.getFrame()
+    }
+    
 
+    setSequence(sequence) {
+    }
+    
 
-function HackRotationSpriteIndexedAnimation:paint(g)
-        self.sprite:paint(g)
-end
-
-
-function HackRotationSpriteIndexedAnimation:nextRotation()
-        self.sprite:nextFrame()
-end
-
-
-function HackRotationSpriteIndexedAnimation:previousRotation()
-        self.sprite:prevFrame()
-end
-
-
-function HackRotationSpriteIndexedAnimation:getSize()
-        return self.sprite:getRawFrameCount()
-end
-
-
-function HackRotationSpriteIndexedAnimation:setFrame(frame)
-        self.sprite:setFrame(frame)
-end
-
-
-function HackRotationSpriteIndexedAnimation:getFrame()
-        return self.sprite:getFrame()
-end
-
-
-function HackRotationSpriteIndexedAnimation:setSequence(sequence)
-end
-
-
-function HackRotationSpriteIndexedAnimation:getSequence()
+    getSequence() {
         return PrimitiveIntUtil.getArrayInstance()
-end
+    }
+}
 
-return HackRotationSpriteIndexedAnimation
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../../javax/microedition/lcdui/game/Sprite" for Sprite
+import "../../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
+import "../../../../../org/allbinary/math/AngleInfo" for AngleInfo
+import "../../../../../org/allbinary/util/CircularIndexUtil" for CircularIndexUtil
 

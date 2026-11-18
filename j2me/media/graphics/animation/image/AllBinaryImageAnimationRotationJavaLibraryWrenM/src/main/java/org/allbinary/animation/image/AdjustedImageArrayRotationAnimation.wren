@@ -1,99 +1,90 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Image = require("javax.microedition.lcdui.Image")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local AngleInfo = require("org.allbinary.math.AngleInfo")
-local ImageArrayRotationAnimation = require("org.allbinary.animation.image.ImageArrayRotationAnimation")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./ImageArrayRotationAnimation" for ImageArrayRotationAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+//TWB - Adjustments should be done in the resource creation and not at the animation level
+class AdjustedImageArrayRotationAnimation is ImageArrayRotationAnimation {
+  dx { _dx }
+  dx=(value) { _dx = value }
+  dy { _dy }
+  dy=(value) { _dy = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_AdjustedImageArrayRotationAnimation() {
+    _dx = 0
+    _dy = 0
+        _dx = 0
+        _dy = 0
+  }
+    
 
---TWB - Adjustments should be done in the resource creation and not at the animation level
-local AdjustedImageArrayRotationAnimation = {}
-AdjustedImageArrayRotationAnimation.__index = AdjustedImageArrayRotationAnimation
-AdjustedImageArrayRotationAnimation.className = "AdjustedImageArrayRotationAnimation"
-setmetatable(AdjustedImageArrayRotationAnimation, {__index = ImageArrayRotationAnimation})
+    static createAdjustedImageArrayRotationAnimationInfo(anyType, animationBehavior) {
+        var imageRotationAnimationInfo = anyType
+        return AdjustedImageArrayRotationAnimation.new(imageRotationAnimationInfo.getImageArray(), imageRotationAnimationInfo.getAngleInfoP(), imageRotationAnimationInfo.getTotalAngle(), imageRotationAnimationInfo.getDx(), imageRotationAnimationInfo.getDy(), animationBehavior)
+    }
+    
 
-function AdjustedImageArrayRotationAnimation:_init_fields()
-    self.dx = 0
-    self.dy = 0
-end
+    static createAnimation(imageArray, angleInfo, totalAngle, animationBehavior) {
+        return AdjustedImageArrayRotationAnimation.new(imageArray, angleInfo, totalAngle, -(JR.shr(imageArray[0].getWidth(), 2)), -(JR.shr(imageArray[0].getHeight(), 2)), animationBehavior)
+    }
+    
 
+    construct new(imageArray, angleInfo, totalAngle, dx, dy, animationBehavior) {
+        super(imageArray, angleInfo, totalAngle, animationBehavior)
+        initFields_AdjustedImageArrayRotationAnimation()
+        this.init(dx, dy)
+    }
+    
 
--- throws Exception
-function AdjustedImageArrayRotationAnimation.createAdjustedImageArrayRotationAnimationInfo(anyType, animationBehavior)
-        local imageRotationAnimationInfo = anyType
-        return AdjustedImageArrayRotationAnimation.new(imageRotationAnimationInfo:getImageArray(), imageRotationAnimationInfo:getAngleInfoP(), imageRotationAnimationInfo:getTotalAngle(), imageRotationAnimationInfo:getDx(), imageRotationAnimationInfo:getDy(), animationBehavior)
-end
+    init(dx, dy) {
+        this.setDx(dx)
+        this.setDy(dy)
+    }
+    
 
+    paintXY(graphics, x, y) {
+        super.paintXY(graphics, JR.i32(x + _dx), JR.i32(y + _dy))
+    }
+    
 
--- throws Exception
-function AdjustedImageArrayRotationAnimation.createAnimation(imageArray, angleInfo, totalAngle, animationBehavior)
-        return AdjustedImageArrayRotationAnimation.new(imageArray, angleInfo, totalAngle, -(((imageArray[1]:getWidth()) // (1 << (2)))), -(((imageArray[1]:getHeight()) // (1 << (2)))), animationBehavior)
-end
+    setDx(dx) {
+        _dx = dx
+    }
+    
 
+    getDx() {
+        return _dx
+    }
+    
 
-function AdjustedImageArrayRotationAnimation.new(imageArray, angleInfo, totalAngle, dx, dy, animationBehavior)
-    local self = setmetatable(ImageArrayRotationAnimation.new(imageArray, angleInfo, totalAngle, animationBehavior), AdjustedImageArrayRotationAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self:init(dx, dy)
-    return self
-end
+    setDy(dy) {
+        _dy = dy
+    }
+    
 
+    getDy() {
+        return _dy
+    }
+}
 
--- throws Exception
-function AdjustedImageArrayRotationAnimation:init(dx, dy)
-        self:setDx(dx)
-        self:setDy(dy)
-end
-
-
-function AdjustedImageArrayRotationAnimation:paintXY(graphics, x, y)
-        ImageArrayRotationAnimation.paintXY(self, graphics, x + self.dx, y + self.dy)
-end
-
-
-function AdjustedImageArrayRotationAnimation:setDx(dx)
-        self.dx = dx
-end
-
-
-function AdjustedImageArrayRotationAnimation:getDx()
-        return self.dx
-end
-
-
-function AdjustedImageArrayRotationAnimation:setDy(dy)
-        self.dy = dy
-end
-
-
-function AdjustedImageArrayRotationAnimation:getDy()
-        return self.dy
-end
-
-return AdjustedImageArrayRotationAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/math/AngleInfo" for AngleInfo
+import "./ImageArrayRotationAnimationInfo" for ImageArrayRotationAnimationInfo
 

@@ -1,57 +1,58 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion
 
-local PreLogUtil = require("org.allbinary.logic.communication.log.PreLogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CompleteMotionGestureInputToGameMotionGestureInput is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = CompleteMotionGestureInputToGameMotionGestureInput.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CompleteMotionGestureInputToGameMotionGestureInput() {
+    _commonStrings = null
+        _commonStrings = CommonStrings.getInstance()
+  }
 
-local CompleteMotionGestureInputToGameMotionGestureInput = {}
-CompleteMotionGestureInputToGameMotionGestureInput.__index = CompleteMotionGestureInputToGameMotionGestureInput
-CompleteMotionGestureInputToGameMotionGestureInput.className = "CompleteMotionGestureInputToGameMotionGestureInput"
+  construct new() {
+    super()
+    initFields_CompleteMotionGestureInputToGameMotionGestureInput()
+  }
+    
 
-function CompleteMotionGestureInputToGameMotionGestureInput:_init_fields()
-    self.commonStrings = CommonStrings.getInstance()
-end
-
-function CompleteMotionGestureInputToGameMotionGestureInput.new()
-    local self = setmetatable({}, CompleteMotionGestureInputToGameMotionGestureInput)
-    self:_init_fields()
-    return self
-end
-
-
-function CompleteMotionGestureInputToGameMotionGestureInput.getInstance()
+    static getInstance() {
         return CompleteMotionGestureInputToGameMotionGestureInput.instance
-end
+    }
+    
 
+    init() {
+        PreLogUtil.put("No Touch Button = No Compound Motion Gestures", this, _commonStrings.INIT)
+    }
+}
 
-function CompleteMotionGestureInputToGameMotionGestureInput:init()
-        PreLogUtil.put("No Touch Button = No Compound Motion Gestures", self, self.commonStrings.INIT)
-end
-
-CompleteMotionGestureInputToGameMotionGestureInput.instance = CompleteMotionGestureInputToGameMotionGestureInput.new()
-
-return CompleteMotionGestureInputToGameMotionGestureInput
+import "../../../../org/allbinary/logic/communication/log/PreLogUtil" for PreLogUtil
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
 

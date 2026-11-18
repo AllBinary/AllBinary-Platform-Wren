@@ -1,66 +1,59 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2022 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
--- 
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.displayable.screen
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2022 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ * 
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.displayable.screen
 
-local AboutPaintable = require("org.allbinary.game.paint.AboutPaintable")
-local NullPaintable = require("org.allbinary.graphics.paint.NullPaintable")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class AboutPaintableFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = AboutPaintableFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  paintableArray { _paintableArray }
+  paintableArray=(value) { _paintableArray = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_AboutPaintableFactory() {
+    _paintableArray = null
+        _paintableArray = [NullPaintable.getInstance()]
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
-
-local AboutPaintableFactory = {}
-AboutPaintableFactory.__index = AboutPaintableFactory
-AboutPaintableFactory.className = "AboutPaintableFactory"
-
-function AboutPaintableFactory:_init_fields()
-    self.paintableArray = {NullPaintable.getInstance()}
-end
-
-
-function AboutPaintableFactory.getInstance()
+    static getInstance() {
         return AboutPaintableFactory.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_AboutPaintableFactory()
+        var INFO = ["Built with the", "AllBinary Platform", StringUtil.getInstance().EMPTY_STRING, "Comments or Questions:", "support@allbinary.com"]
+        var DEVELOPERS = ["Developed By:", "Travis Berthelot"]
+        _paintableArray = AboutPaintable.getInstance(INFO, DEVELOPERS).getPaintableArrayInstance()
+    }
+}
 
-function AboutPaintableFactory.new()
-    local self = setmetatable({}, AboutPaintableFactory)
-    self:_init_fields()
-        local INFO = {"Built with the", "AllBinary Platform", StringUtil.getInstance().EMPTY_STRING, "Comments or Questions:", "support@allbinary.com"}
-        local DEVELOPERS = {"Developed By:", "Travis Berthelot"}
-        self.paintableArray = AboutPaintable.getInstance(INFO, DEVELOPERS):getPaintableArrayInstance()
-    return self
-end
-
-AboutPaintableFactory.instance = AboutPaintableFactory.new()
-
-return AboutPaintableFactory
+import "../../../../../org/allbinary/game/paint/AboutPaintable" for AboutPaintable
+import "../../../../../org/allbinary/graphics/paint/NullPaintable" for NullPaintable
+import "../../../../../org/allbinary/graphics/paint/Paintable" for Paintable
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
 

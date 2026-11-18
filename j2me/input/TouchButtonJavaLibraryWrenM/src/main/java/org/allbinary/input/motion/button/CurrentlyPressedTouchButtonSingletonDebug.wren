@@ -1,145 +1,169 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.button
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.button
 
-local GPoint = require("org.allbinary.graphics.GPoint")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local CurrentlyPressedTouchButtonSingleton = require("org.allbinary.input.motion.button.CurrentlyPressedTouchButtonSingleton")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./CurrentlyPressedTouchButtonSingleton" for CurrentlyPressedTouchButtonSingleton
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CurrentlyPressedTouchButtonSingletonDebug is CurrentlyPressedTouchButtonSingleton {
+    static instanceC {
+    if (__instanceC_set == null) {
+      __instanceC_set = true
+      __instanceC = CurrentlyPressedTouchButtonSingletonDebug.new()
+    }
+    return __instanceC
+  }
+  static instanceC=(value) {
+    __instanceC_set = true
+    __instanceC = value
+  }
+  string { _string }
+  string=(value) { _string = value }
+  listString { _listString }
+  listString=(value) { _listString = value }
+  appendText { _appendText }
+  appendText=(value) { _appendText = value }
+  PRESSED_AND_FIRED { _PRESSED_AND_FIRED }
+  PRESSED_AND_FIRED=(value) { _PRESSED_AND_FIRED = value }
+  PRESSED_AND_NOT_FIRED { _PRESSED_AND_NOT_FIRED }
+  PRESSED_AND_NOT_FIRED=(value) { _PRESSED_AND_NOT_FIRED = value }
+  ASSOCIATED_RELEASED_AND_FIRED { _ASSOCIATED_RELEASED_AND_FIRED }
+  ASSOCIATED_RELEASED_AND_FIRED=(value) { _ASSOCIATED_RELEASED_AND_FIRED = value }
+  RELEASED_AND_FIRED { _RELEASED_AND_FIRED }
+  RELEASED_AND_FIRED=(value) { _RELEASED_AND_FIRED = value }
+  RELEASED_AND_FIRED_2 { _RELEASED_AND_FIRED_2 }
+  RELEASED_AND_FIRED_2=(value) { _RELEASED_AND_FIRED_2 = value }
+  RELEASED_AND_NOT_FIRED { _RELEASED_AND_NOT_FIRED }
+  RELEASED_AND_NOT_FIRED=(value) { _RELEASED_AND_NOT_FIRED = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CurrentlyPressedTouchButtonSingletonDebug() {
+    _string = null
+    _listString = null
+    _appendText = null
+    _PRESSED_AND_FIRED = null
+    _PRESSED_AND_NOT_FIRED = null
+    _ASSOCIATED_RELEASED_AND_FIRED = null
+    _RELEASED_AND_FIRED = null
+    _RELEASED_AND_FIRED_2 = null
+    _RELEASED_AND_NOT_FIRED = null
+        _string = StringUtil.getInstance().EMPTY_STRING
+        _listString = StringUtil.getInstance().EMPTY_STRING
+        _appendText = StringUtil.getInstance().EMPTY_STRING
+        _PRESSED_AND_FIRED = "pressed & fired"
+        _PRESSED_AND_NOT_FIRED = "pressed in button but not fired"
+        _ASSOCIATED_RELEASED_AND_FIRED = "assoc. rel & fired"
+        _RELEASED_AND_FIRED = "rel & fired 1"
+        _RELEASED_AND_FIRED_2 = "rel & fired 2"
+        _RELEASED_AND_NOT_FIRED = "rel & not fired"
+  }
 
-local CurrentlyPressedTouchButtonSingletonDebug = {}
-CurrentlyPressedTouchButtonSingletonDebug.__index = CurrentlyPressedTouchButtonSingletonDebug
-CurrentlyPressedTouchButtonSingletonDebug.className = "CurrentlyPressedTouchButtonSingletonDebug"
-setmetatable(CurrentlyPressedTouchButtonSingletonDebug, {__index = CurrentlyPressedTouchButtonSingleton})
+  construct new() {
+    super()
+    initFields_CurrentlyPressedTouchButtonSingletonDebug()
+  }
+    
 
-function CurrentlyPressedTouchButtonSingletonDebug:_init_fields()
-    self.string = StringUtil.getInstance().EMPTY_STRING
-    self.listString = StringUtil.getInstance().EMPTY_STRING
-    self.appendText = StringUtil.getInstance().EMPTY_STRING
-    self.PRESSED_AND_FIRED = "pressed & fired"
-    self.PRESSED_AND_NOT_FIRED = "pressed in button but not fired"
-    self.ASSOCIATED_RELEASED_AND_FIRED = "assoc. rel & fired"
-    self.RELEASED_AND_FIRED = "rel & fired 1"
-    self.RELEASED_AND_FIRED_2 = "rel & fired 2"
-    self.RELEASED_AND_NOT_FIRED = "rel & not fired"
-end
-
-function CurrentlyPressedTouchButtonSingletonDebug.new()
-    local self = setmetatable(CurrentlyPressedTouchButtonSingleton.new(), CurrentlyPressedTouchButtonSingletonDebug)
-    self:_init_fields()
-    return self
-end
-
-
-function CurrentlyPressedTouchButtonSingletonDebug.getInstance()
+    static getInstance() {
         return CurrentlyPressedTouchButtonSingletonDebug.instanceC
-end
+    }
+    
 
+    appendTouchButtonInput(append, touchButtonInput) {
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append(touchButtonInput.toString())
+        stringBuffer.append(CommonSeps.getInstance().SPACE)
+        stringBuffer.append(append)
+        _appendText = stringBuffer.toString()
+        _string = StringMaker.new().append(_listString).append(_appendText).toString()
+    }
+    
 
-function CurrentlyPressedTouchButtonSingletonDebug:appendTouchButtonInput(append, touchButtonInput)
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append(tostring(touchButtonInput))
-        stringBuffer:append(CommonSeps.getInstance().SPACE)
-        stringBuffer:append(append)
-        self.appendText = tostring(stringBuffer)
-        self.string = tostring(StringMaker.new():append(self.listString):append(self.appendText))
-end
+    append(append) {
+        _appendText = StringMaker.new().append(_appendText).append(append).toString()
+        _string = StringMaker.new().append(_listString).append(_appendText).toString()
+    }
+    
 
+    clearLog(x, y) {
+        _appendText = StringMaker.new().append(GPoint.toStringStatic(x, y, 0)).append(CommonSeps.getInstance().SPACE).toString()
+        _string = StringMaker.new().append(_listString).append(_appendText).toString()
+    }
+    
 
-function CurrentlyPressedTouchButtonSingletonDebug:append(append)
-        self.appendText = tostring(StringMaker.new():append(self.appendText):append(append))
-        self.string = tostring(StringMaker.new():append(self.listString):append(self.appendText))
-end
+    releaseAndNotFired() {
+        this.append(_RELEASED_AND_NOT_FIRED)
+    }
+    
 
+    releaseAndFired(touchButtonInput) {
+        this.appendTouchButtonInput(_RELEASED_AND_FIRED, touchButtonInput)
+    }
+    
 
-function CurrentlyPressedTouchButtonSingletonDebug:clearLog(x, y)
-        self.appendText = tostring(StringMaker.new():append(GPoint.toStringStatic(x, y, 0)):append(CommonSeps.getInstance().SPACE))
-        self.string = tostring(StringMaker.new():append(self.listString):append(self.appendText))
-end
+    releaseAndFired2(touchButtonInput) {
+        this.appendTouchButtonInput(_RELEASED_AND_FIRED_2, touchButtonInput)
+    }
+    
 
+    releaseAndFiredAssociated(touchButtonInput) {
+        this.appendTouchButtonInput(_ASSOCIATED_RELEASED_AND_FIRED, touchButtonInput)
+    }
+    
 
-function CurrentlyPressedTouchButtonSingletonDebug:releaseAndNotFired()
-        self:append(self.RELEASED_AND_NOT_FIRED)
-end
+    pressedAndFired(touchButtonInput) {
+        this.appendTouchButtonInput(_PRESSED_AND_FIRED, touchButtonInput)
+    }
+    
 
+    pressedAndNotFired(touchButtonInput) {
+        this.appendTouchButtonInput(_PRESSED_AND_NOT_FIRED, touchButtonInput)
+    }
+    
 
-function CurrentlyPressedTouchButtonSingletonDebug:releaseAndFired(touchButtonInput)
-        self:appendTouchButtonInput(self.RELEASED_AND_FIRED, touchButtonInput)
-end
-
-
-function CurrentlyPressedTouchButtonSingletonDebug:releaseAndFired2(touchButtonInput)
-        self:appendTouchButtonInput(self.RELEASED_AND_FIRED_2, touchButtonInput)
-end
-
-
-function CurrentlyPressedTouchButtonSingletonDebug:releaseAndFiredAssociated(touchButtonInput)
-        self:appendTouchButtonInput(self.ASSOCIATED_RELEASED_AND_FIRED, touchButtonInput)
-end
-
-
-function CurrentlyPressedTouchButtonSingletonDebug:pressedAndFired(touchButtonInput)
-        self:appendTouchButtonInput(self.PRESSED_AND_FIRED, touchButtonInput)
-end
-
-
-function CurrentlyPressedTouchButtonSingletonDebug:pressedAndNotFired(touchButtonInput)
-        self:appendTouchButtonInput(self.PRESSED_AND_NOT_FIRED, touchButtonInput)
-end
-
-
-function CurrentlyPressedTouchButtonSingletonDebug:removeAt(index)
-        local touchButtonInput = CurrentlyPressedTouchButtonSingleton.removeAt(self, index)
-        self.listString = tostring(self.list)
-        self.string = tostring(StringMaker.new():append(self.listString):append(self.appendText))
+    removeAt(index) {
+        var touchButtonInput = super.removeAt(index)
+        _listString = this.list.toString()
+        _string = StringMaker.new().append(_listString).append(_appendText).toString()
         return touchButtonInput
-end
+    }
+    
 
-
-function CurrentlyPressedTouchButtonSingletonDebug:remove(touchButtonInput)
-        local isRemoved = CurrentlyPressedTouchButtonSingleton.remove(self, touchButtonInput)
-        self.listString = tostring(self.list)
-        self.string = tostring(StringMaker.new():append(self.listString):append(self.appendText))
+    remove(touchButtonInput) {
+        var isRemoved = super.remove(touchButtonInput)
+        _listString = this.list.toString()
+        _string = StringMaker.new().append(_listString).append(_appendText).toString()
         return isRemoved
-end
+    }
+    
 
+    add(touchButtonInput) {
+        super.add(touchButtonInput)
+        _listString = this.list.toString()
+        _string = StringMaker.new().append(_listString).append(_appendText).toString()
+    }
+    
 
-function CurrentlyPressedTouchButtonSingletonDebug:add(touchButtonInput)
-        CurrentlyPressedTouchButtonSingleton.add(self, touchButtonInput)
-        self.listString = tostring(self.list)
-        self.string = tostring(StringMaker.new():append(self.listString):append(self.appendText))
-end
+    toString() {
+        return _string
+    }
+}
 
-
-function CurrentlyPressedTouchButtonSingletonDebug:toString()
-        return self.string
-end
-CurrentlyPressedTouchButtonSingletonDebug.__tostring = function(self) return self:toString() end
-
-CurrentlyPressedTouchButtonSingletonDebug.instanceC = CurrentlyPressedTouchButtonSingletonDebug.new()
-
-return CurrentlyPressedTouchButtonSingletonDebug
+import "../../../../../org/allbinary/graphics/GPoint" for GPoint
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "./TouchButtonInput" for TouchButtonInput
 

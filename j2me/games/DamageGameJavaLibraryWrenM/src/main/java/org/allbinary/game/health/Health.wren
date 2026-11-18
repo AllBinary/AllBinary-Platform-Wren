@@ -1,150 +1,158 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.health
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.health
 
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local HealthInterface = require("org.allbinary.game.health.HealthInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Health is JObject {
+    static NULL_HEALTH {
+    if (__NULL_HEALTH_set == null) {
+      __NULL_HEALTH_set = true
+      __NULL_HEALTH = Health.new(0)
+    }
+    return __NULL_HEALTH
+  }
+  static NULL_HEALTH=(value) {
+    __NULL_HEALTH_set = true
+    __NULL_HEALTH = value
+  }
+    static NAME { "Health Resource" }
+    static HEALTH_LABEL { "Health: " }
+    static MAX_HEALTH_LABEL { " Max: " }
+  health { _health }
+  health=(value) { _health = value }
+  maxHealth { _maxHealth }
+  maxHealth=(value) { _maxHealth = value }
+  healthListenerInterface { _healthListenerInterface }
+  healthListenerInterface=(value) { _healthListenerInterface = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Health() {
+    _health = 0
+    _maxHealth = 0
+    _healthListenerInterface = null
+        _health = 0
+        _maxHealth = 0
+        _healthListenerInterface = NullHealthListener.NULL_HEALTH_LISTENER
+  }
+    
 
-local Health = {}
-Health.__index = Health
-Health.className = "Health"
+    construct new(maxHealth) {
+    super()
+    initFields_Health()
+        this.setMaxHealth(maxHealth)
+        this.setHealth(maxHealth)
+    }
+    
 
-function Health:_init_fields()
-    self.health = 0
-    self.maxHealth = 0
-    self.healthListenerInterface = NullHealthListener.NULL_HEALTH_LISTENER
-end
+    heal(ahealth) {
+        var newHealth = JR.i32(this.getHealth() + ahealth)
+        if ((newHealth > this.getMaxHealth())) {
+            this.setHealth(this.getMaxHealth())
+        } else {
+            this.setHealth(newHealth)
+        }
+    }
+    
 
+    healMax() {
+        this.setHealth(this.getMaxHealth())
+    }
+    
 
-function Health.new(maxHealth)
-    local self = setmetatable({}, Health)
-    self:_init_fields()
-        self:setMaxHealth(maxHealth)
-        self:setHealth(maxHealth)
-    return self
-end
-
-
-function Health:heal(ahealth)
-        local newHealth = self:getHealth() + ahealth
-        if newHealth > self:getMaxHealth() then
-            self:setHealth(self:getMaxHealth())
-        else
-            self:setHealth(newHealth)
-        end
-end
-
-
-function Health:healMax()
-        self:setHealth(self:getMaxHealth())
-end
-
-
-function Health:isDamaged()
-        if self:getHealth() ~= self:getMaxHealth() then
+    isDamaged() {
+        if ((this.getHealth() != this.getMaxHealth())) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+    
 
-
-function Health:damage(ahealth)
-        if ahealth < 0 then
-            local stringBuffer = StringMaker.new()
-            stringBuffer:append("******* Trying to heal when damaging. Damage: ")
-            stringBuffer:appendint(ahealth)
-            stringBuffer:append(CommonSeps.getInstance().SPACE)
-            stringBuffer:append(tostring(self))
-            ForcedLogUtil.log(tostring(stringBuffer), self)
+    damage(ahealth) {
+        if ((ahealth < 0)) {
+            var stringBuffer = StringMaker.new()
+            stringBuffer.append("******* Trying to heal when damaging. Damage: ")
+            stringBuffer.appendint(ahealth)
+            stringBuffer.append(CommonSeps.getInstance().SPACE)
+            stringBuffer.append(this.toString())
+            ForcedLogUtil.log(stringBuffer.toString(), this)
             return
-        end
-        local health = self:getHealth() - ahealth
-        self:setHealth(health)
-end
+        }
+        var health = JR.i32(this.getHealth() - ahealth)
+        this.setHealth(health)
+    }
+    
 
-
-function Health:isAlive()
-        if self:getHealth() <= 0 then
+    isAlive() {
+        if ((this.getHealth() <= 0)) {
             return false
-        else
+        } else {
             return true
-        end
-end
+        }
+    }
+    
 
+    getMaxHealth() {
+        return _maxHealth
+    }
+    
 
-function Health:getMaxHealth()
-        return self.maxHealth
-end
+    setMaxHealth(maxHealth) {
+        _maxHealth = maxHealth
+    }
+    
 
+    setHealth(health) {
+        if ((health > this.getMaxHealth())) {
+            _health = this.getMaxHealth()
+        } else if ((health < 0)) {
+            _health = 0
+        } else {
+            _health = health
+        }
+        if ((_healthListenerInterface != null)) {
+            _healthListenerInterface.onHealthChange()
+        }
+    }
+    
 
-function Health:setMaxHealth(maxHealth)
-        self.maxHealth = maxHealth
-end
+    getHealth() {
+        return _health
+    }
+    
 
+    addListener(healthGraphic) {
+        _healthListenerInterface = healthGraphic
+    }
+    
 
-function Health:setHealth(health)
-        if health > self:getMaxHealth() then
-            self.health = self:getMaxHealth()
-        elseif health < 0 then
-            self.health = 0
-        else
-            self.health = health
-        end
-        if self.healthListenerInterface ~= nil then
-            self.healthListenerInterface:onHealthChange()
-        end
-end
+    toString() {
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append(Health.HEALTH_LABEL)
+        stringBuffer.appendint(_health)
+        stringBuffer.append(Health.MAX_HEALTH_LABEL)
+        stringBuffer.appendint(_maxHealth)
+        return stringBuffer.toString()
+    }
+}
 
-
-function Health:getHealth()
-        return self.health
-end
-
-
-function Health:addListener(healthGraphic)
-        self.healthListenerInterface = healthGraphic
-end
-
-
-function Health:toString()
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append(Health.HEALTH_LABEL)
-        stringBuffer:appendint(self.health)
-        stringBuffer:append(Health.MAX_HEALTH_LABEL)
-        stringBuffer:appendint(self.maxHealth)
-        return tostring(stringBuffer)
-end
-Health.__tostring = function(self) return self:toString() end
-
-Health.NULL_HEALTH = Health.new(0)
-Health.NAME = "Health Resource"
-Health.HEALTH_LABEL = "Health: "
-Health.MAX_HEALTH_LABEL = " Max: "
-
-return Health
+import "../../../../org/allbinary/logic/communication/log/ForcedLogUtil" for ForcedLogUtil
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "./HealthInterface" for HealthInterface
+import "./NullHealthListener" for NullHealthListener
+import "./HealthListenerInterface" for HealthListenerInterface
 

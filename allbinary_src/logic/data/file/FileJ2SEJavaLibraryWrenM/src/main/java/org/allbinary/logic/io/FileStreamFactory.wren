@@ -1,80 +1,81 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.io
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.io
 
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local AbFile = require("org.allbinary.logic.io.file.AbFile")
-local AbPath = require("org.allbinary.logic.io.path.AbPath")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class FileStreamFactory is JObject {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_FileStreamFactory() {
+  }
+    
 
-local FileStreamFactory = {}
-FileStreamFactory.__index = FileStreamFactory
-FileStreamFactory.className = "FileStreamFactory"
-
-
-function FileStreamFactory.getInstance()
-        if FileStreamFactory.SINGLETON == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((FileStreamFactory.SINGLETON == NullUtil.getInstance().NULL_OBJECT)) {
             FileStreamFactory.SINGLETON = FileStreamFactory.new()
-        end
+        }
         return FileStreamFactory.SINGLETON
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_FileStreamFactory()
+    }
+    
 
-function FileStreamFactory.new()
-    local self = setmetatable({}, FileStreamFactory)
-    return self
-end
-
-
--- throws Exception
-function FileStreamFactory:getFileInputStreamInstance(path, fileName)
-        local FILEABPATH = AbPath.new(path, fileName)
-        local file = AbFile.createAbFileFromAbPath(FILEABPATH)
+    getFileInputStreamInstance(path, fileName) {
+        var FILEABPATH = AbPath.new(path, fileName)
+        var file = AbFile.createAbFileFromAbPath(FILEABPATH)
         return AbFileInputStream.createFromAbFile(file)
-end
+    }
+    
 
-
--- throws Exception
-function FileStreamFactory:getFileOutputStreamInstance(path, fileName)
-        local FILEABPATH = AbPath.new(path, fileName)
-        local file = AbFile.createAbFileFromAbPath(FILEABPATH)
-        if file:exists() then
-            file:delete()
-            file:createNewFile()
-        end
+    getFileOutputStreamInstance(path, fileName) {
+        var FILEABPATH = AbPath.new(path, fileName)
+        var file = AbFile.createAbFileFromAbPath(FILEABPATH)
+        if (file.exists()) {
+            file.delete()
+            file.createNewFile()
+        }
         return AbFileOutputStream.createFromAbFile(file)
-end
+    }
+    
 
+    delete(path, fileName) {
+        var FILEABPATH = AbPath.new(path, fileName)
+        var file = AbFile.createAbFileFromAbPath(FILEABPATH)
+        file.delete()
+    }
+}
 
--- throws Exception
-function FileStreamFactory:delete(path, fileName)
-        local FILEABPATH = AbPath.new(path, fileName)
-        local file = AbFile.createAbFileFromAbPath(FILEABPATH)
-        file:delete()
-end
-
-FileStreamFactory.SINGLETON = NullUtil.getInstance().NULL_OBJECT
-
-return FileStreamFactory
+import "../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../org/allbinary/logic/io/file/AbFile" for AbFile
+import "../../../../org/allbinary/logic/io/path/AbPath" for AbPath
+import "./AbFileInputStream" for AbFileInputStream
+import "./AbFileOutputStream" for AbFileOutputStream
 

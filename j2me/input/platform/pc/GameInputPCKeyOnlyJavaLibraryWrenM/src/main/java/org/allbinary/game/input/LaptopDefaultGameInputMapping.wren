@@ -1,94 +1,86 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input
 
-local GamePersistanceStrings = require("org.allbinary.game.configuration.persistance.GamePersistanceStrings")
-local InputToGameKeyMapping = require("org.allbinary.game.input.mapping.InputToGameKeyMapping")
-local PersistentInputMapping = require("org.allbinary.game.input.mapping.PersistentInputMapping")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/game/input/mapping/PersistentInputMapping" for PersistentInputMapping
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LaptopDefaultGameInputMapping is PersistentInputMapping {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LaptopDefaultGameInputMapping() {
+  }
+    
 
-local LaptopDefaultGameInputMapping = {}
-LaptopDefaultGameInputMapping.__index = LaptopDefaultGameInputMapping
-LaptopDefaultGameInputMapping.className = "LaptopDefaultGameInputMapping"
-setmetatable(LaptopDefaultGameInputMapping, {__index = PersistentInputMapping})
+    construct new() {
+        super(GamePersistanceStrings.getInstance().DEFAULT_INPUT_MAPPING_RECORD_ID)
+        var inputToGameKeyMapping = this.getInputMapping()
+        var pcKeyFactory = PCKeyFactory.getInstance()
+        var gameKeyFactory = GameKeyFactory.getInstance()
+        inputToGameKeyMapping.add(gameKeyFactory.FIRE, pcKeyFactory.ENTER)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM1, pcKeyFactory.FOUR)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM1, pcKeyFactory.u_P)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM1, pcKeyFactory.p)
+        inputToGameKeyMapping.add(gameKeyFactory.UP, pcKeyFactory.DPAD_UP)
+        inputToGameKeyMapping.add(gameKeyFactory.DOWN, pcKeyFactory.DPAD_DOWN)
+        inputToGameKeyMapping.add(gameKeyFactory.LEFT, pcKeyFactory.DPAD_LEFT)
+        inputToGameKeyMapping.add(gameKeyFactory.RIGHT, pcKeyFactory.DPAD_RIGHT)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM1, pcKeyFactory.FIVE)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM7, pcKeyFactory.u_Y)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM9, pcKeyFactory.u_I)
+        inputToGameKeyMapping.add(gameKeyFactory.UP, pcKeyFactory.u_U)
+        inputToGameKeyMapping.add(gameKeyFactory.LEFT, pcKeyFactory.u_H)
+        inputToGameKeyMapping.add(gameKeyFactory.RIGHT, pcKeyFactory.u_J)
+        inputToGameKeyMapping.add(gameKeyFactory.DOWN, pcKeyFactory.u_N)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM5, pcKeyFactory.u_M)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM7, pcKeyFactory.y)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM9, pcKeyFactory.i)
+        inputToGameKeyMapping.add(gameKeyFactory.UP, pcKeyFactory.u)
+        inputToGameKeyMapping.add(gameKeyFactory.LEFT, pcKeyFactory.h)
+        inputToGameKeyMapping.add(gameKeyFactory.RIGHT, pcKeyFactory.j)
+        inputToGameKeyMapping.add(gameKeyFactory.DOWN, pcKeyFactory.n)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM5, pcKeyFactory.m)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM7, pcKeyFactory.u_Q)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM9, pcKeyFactory.u_E)
+        inputToGameKeyMapping.add(gameKeyFactory.UP, pcKeyFactory.u_W)
+        inputToGameKeyMapping.add(gameKeyFactory.LEFT, pcKeyFactory.u_A)
+        inputToGameKeyMapping.add(gameKeyFactory.RIGHT, pcKeyFactory.u_D)
+        inputToGameKeyMapping.add(gameKeyFactory.DOWN, pcKeyFactory.u_S)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM5, pcKeyFactory.u_X)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM7, pcKeyFactory.q)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM9, pcKeyFactory.e)
+        inputToGameKeyMapping.add(gameKeyFactory.UP, pcKeyFactory.w)
+        inputToGameKeyMapping.add(gameKeyFactory.LEFT, pcKeyFactory.a)
+        inputToGameKeyMapping.add(gameKeyFactory.RIGHT, pcKeyFactory.d)
+        inputToGameKeyMapping.add(gameKeyFactory.DOWN, pcKeyFactory.s)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM5, pcKeyFactory.x)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM3, pcKeyFactory.THREE)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM0, pcKeyFactory.ZERO)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM0, pcKeyFactory.ONE)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_NUM0, pcKeyFactory.SPACE)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_POUND, pcKeyFactory.DEL)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_POUND, pcKeyFactory.TWO)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_STAR, pcKeyFactory.ESCAPE)
+        inputToGameKeyMapping.add(gameKeyFactory.KEY_STAR, pcKeyFactory.STAR)
+        inputToGameKeyMapping.add(gameKeyFactory.LEVEL_DOWN, pcKeyFactory.COMMA)
+        inputToGameKeyMapping.add(gameKeyFactory.LEVEL_UP, pcKeyFactory.PERIOD)
+    }
+}
 
-
-function LaptopDefaultGameInputMapping.new()
-    local self = setmetatable(PersistentInputMapping.new(GamePersistanceStrings.getInstance().DEFAULT_INPUT_MAPPING_RECORD_ID), LaptopDefaultGameInputMapping)
-        -- super(...) made self above
-        local inputToGameKeyMapping = self:getInputMapping()
-        local pcKeyFactory = PCKeyFactory.getInstance()
-        local gameKeyFactory = GameKeyFactory.getInstance()
-        inputToGameKeyMapping:add(gameKeyFactory.FIRE, pcKeyFactory.ENTER)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM1, pcKeyFactory.FOUR)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM1, pcKeyFactory._P)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM1, pcKeyFactory.p)
-        inputToGameKeyMapping:add(gameKeyFactory.UP, pcKeyFactory.DPAD_UP)
-        inputToGameKeyMapping:add(gameKeyFactory.DOWN, pcKeyFactory.DPAD_DOWN)
-        inputToGameKeyMapping:add(gameKeyFactory.LEFT, pcKeyFactory.DPAD_LEFT)
-        inputToGameKeyMapping:add(gameKeyFactory.RIGHT, pcKeyFactory.DPAD_RIGHT)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM1, pcKeyFactory.FIVE)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM7, pcKeyFactory._Y)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM9, pcKeyFactory._I)
-        inputToGameKeyMapping:add(gameKeyFactory.UP, pcKeyFactory._U)
-        inputToGameKeyMapping:add(gameKeyFactory.LEFT, pcKeyFactory._H)
-        inputToGameKeyMapping:add(gameKeyFactory.RIGHT, pcKeyFactory._J)
-        inputToGameKeyMapping:add(gameKeyFactory.DOWN, pcKeyFactory._N)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM5, pcKeyFactory._M)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM7, pcKeyFactory.y)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM9, pcKeyFactory.i)
-        inputToGameKeyMapping:add(gameKeyFactory.UP, pcKeyFactory.u)
-        inputToGameKeyMapping:add(gameKeyFactory.LEFT, pcKeyFactory.h)
-        inputToGameKeyMapping:add(gameKeyFactory.RIGHT, pcKeyFactory.j)
-        inputToGameKeyMapping:add(gameKeyFactory.DOWN, pcKeyFactory.n)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM5, pcKeyFactory.m)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM7, pcKeyFactory._Q)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM9, pcKeyFactory._E)
-        inputToGameKeyMapping:add(gameKeyFactory.UP, pcKeyFactory._W)
-        inputToGameKeyMapping:add(gameKeyFactory.LEFT, pcKeyFactory._A)
-        inputToGameKeyMapping:add(gameKeyFactory.RIGHT, pcKeyFactory._D)
-        inputToGameKeyMapping:add(gameKeyFactory.DOWN, pcKeyFactory._S)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM5, pcKeyFactory._X)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM7, pcKeyFactory.q)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM9, pcKeyFactory.e)
-        inputToGameKeyMapping:add(gameKeyFactory.UP, pcKeyFactory.w)
-        inputToGameKeyMapping:add(gameKeyFactory.LEFT, pcKeyFactory.a)
-        inputToGameKeyMapping:add(gameKeyFactory.RIGHT, pcKeyFactory.d)
-        inputToGameKeyMapping:add(gameKeyFactory.DOWN, pcKeyFactory.s)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM5, pcKeyFactory.x)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM3, pcKeyFactory.THREE)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM0, pcKeyFactory.ZERO)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM0, pcKeyFactory.ONE)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_NUM0, pcKeyFactory.SPACE)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_POUND, pcKeyFactory.DEL)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_POUND, pcKeyFactory.TWO)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_STAR, pcKeyFactory.ESCAPE)
-        inputToGameKeyMapping:add(gameKeyFactory.KEY_STAR, pcKeyFactory.STAR)
-        inputToGameKeyMapping:add(gameKeyFactory.LEVEL_DOWN, pcKeyFactory.COMMA)
-        inputToGameKeyMapping:add(gameKeyFactory.LEVEL_UP, pcKeyFactory.PERIOD)
-    return self
-end
-
-return LaptopDefaultGameInputMapping
+import "../../../../org/allbinary/game/configuration/persistance/GamePersistanceStrings" for GamePersistanceStrings
+import "../../../../org/allbinary/game/input/mapping/InputToGameKeyMapping" for InputToGameKeyMapping
+import "./PCKeyFactory" for PCKeyFactory
+import "./GameKeyFactory" for GameKeyFactory
 

@@ -1,67 +1,69 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.combat.destroy.event
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.combat.destroy.event
 
-local AllBinaryGameCanvas = require("org.allbinary.game.displayable.canvas.AllBinaryGameCanvas")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryEventCircularPool = require("org.allbinary.logic.util.event.AllBinaryEventCircularPool")
+import "../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class DestroyEventCircularStaticPool is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = DestroyEventCircularStaticPool.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  EVENT_POOL { _EVENT_POOL }
+  EVENT_POOL=(value) { _EVENT_POOL = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_DestroyEventCircularStaticPool() {
+    _EVENT_POOL = null
+        _EVENT_POOL = AllBinaryEventCircularPool.new(20)
+  }
+    
 
-local DestroyEventCircularStaticPool = {}
-DestroyEventCircularStaticPool.__index = DestroyEventCircularStaticPool
-DestroyEventCircularStaticPool.className = "DestroyEventCircularStaticPool"
-
-function DestroyEventCircularStaticPool:_init_fields()
-    self.EVENT_POOL = AllBinaryEventCircularPool.new(20)
-end
-
-
-function DestroyEventCircularStaticPool.getInstance()
+    static getInstance() {
         return DestroyEventCircularStaticPool.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_DestroyEventCircularStaticPool()
+    }
+    
 
-function DestroyEventCircularStaticPool.new()
-    local self = setmetatable({}, DestroyEventCircularStaticPool)
-    self:_init_fields()
-    return self
-end
+    init(combatGameCanvas) {
+        _EVENT_POOL.initAllBinaryEventCircularPool(DestroyEventFactory.new(combatGameCanvas))
+    }
+    
 
-
-function DestroyEventCircularStaticPool:init(combatGameCanvas)
-        self.EVENT_POOL:initAllBinaryEventCircularPool(DestroyEventFactory.new(combatGameCanvas))
-end
-
-
--- throws Exception
-function DestroyEventCircularStaticPool:getInstanceForLayer(layerInterface)
-        local destroyedEvent = self.EVENT_POOL:getNextInstance()
-        destroyedEvent:setLayerInterfaceForCircularStaticPool(layerInterface)
+    getInstanceForLayer(layerInterface) {
+        var destroyedEvent = _EVENT_POOL.getNextInstance()
+        destroyedEvent.setLayerInterfaceForCircularStaticPool(layerInterface)
         return destroyedEvent
-end
+    }
+}
 
-DestroyEventCircularStaticPool.instance = DestroyEventCircularStaticPool.new()
-
-return DestroyEventCircularStaticPool
+import "../../../../../../org/allbinary/game/displayable/canvas/AllBinaryGameCanvas" for AllBinaryGameCanvas
+import "../../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../../org/allbinary/logic/util/event/AllBinaryEventCircularPool" for AllBinaryEventCircularPool
+import "./DestroyEventFactory" for DestroyEventFactory
+import "./DestroyedEvent" for DestroyedEvent
 

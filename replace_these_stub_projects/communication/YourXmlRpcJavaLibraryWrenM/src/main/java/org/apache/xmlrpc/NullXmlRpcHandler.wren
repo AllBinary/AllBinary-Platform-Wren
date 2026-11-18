@@ -1,50 +1,50 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.apache.xmlrpc
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.apache.xmlrpc
 
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local XmlRpcHandler = require("org.apache.xmlrpc.XmlRpcHandler")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NullXmlRpcHandler is JObject {
+    static NULL_XML_RPC_HANDLER {
+    if (__NULL_XML_RPC_HANDLER_set == null) {
+      __NULL_XML_RPC_HANDLER_set = true
+      __NULL_XML_RPC_HANDLER = NullXmlRpcHandler.new()
+    }
+    return __NULL_XML_RPC_HANDLER
+  }
+  static NULL_XML_RPC_HANDLER=(value) {
+    __NULL_XML_RPC_HANDLER_set = true
+    __NULL_XML_RPC_HANDLER = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NullXmlRpcHandler() {
+  }
 
-local NullXmlRpcHandler = {}
-NullXmlRpcHandler.__index = NullXmlRpcHandler
-NullXmlRpcHandler.className = "NullXmlRpcHandler"
+  construct new() {
+    super()
+    initFields_NullXmlRpcHandler()
+  }
+    
 
-function NullXmlRpcHandler.new()
-    local self = setmetatable({}, NullXmlRpcHandler)
-    return self
-end
-
-
--- throws Exception
-function NullXmlRpcHandler:execute(method, params)
+    execute(method, params) {
         return NullUtil.getInstance().NULL_OBJECT
-end
+    }
+}
 
-NullXmlRpcHandler.NULL_XML_RPC_HANDLER = NullXmlRpcHandler.new()
-
-return NullXmlRpcHandler
+import "../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../org/allbinary/logic/NullUtil" for NullUtil
+import "./XmlRpcHandler" for XmlRpcHandler
 

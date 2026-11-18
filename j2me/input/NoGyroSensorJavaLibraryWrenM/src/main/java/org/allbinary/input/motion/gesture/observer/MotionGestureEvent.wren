@@ -1,114 +1,114 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.gesture.observer
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.gesture.observer
 
-local GPoint = require("org.allbinary.graphics.GPoint")
-local PointFactory = require("org.allbinary.graphics.PointFactory")
-local MotionGestureInput = require("org.allbinary.input.motion.gesture.MotionGestureInput")
-local TouchMotionGestureFactory = require("org.allbinary.input.motion.gesture.TouchMotionGestureFactory")
-local TsUtil = require("org.allbinary.TsUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class MotionGestureEvent is AllBinaryEventObject {
+    static PREVIOUS { " Previous: " }
+    static HASHCODE { " hashcode: " }
+  motionGesture { _motionGesture }
+  motionGesture=(value) { _motionGesture = value }
+  id { _id }
+  id=(value) { _id = value }
+  previousPoint { _previousPoint }
+  previousPoint=(value) { _previousPoint = value }
+  currentPoint { _currentPoint }
+  currentPoint=(value) { _currentPoint = value }
+  commonLabels { _commonLabels }
+  commonLabels=(value) { _commonLabels = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_MotionGestureEvent() {
+    _motionGesture = null
+    _id = 0
+    _previousPoint = null
+    _currentPoint = null
+    _commonLabels = null
+        _motionGesture = TouchMotionGestureFactory.getInstance().NO_MOTION
+        
+        _previousPoint = PointFactory.getInstance().ZERO_ZERO
+        _currentPoint = PointFactory.getInstance().ZERO_ZERO
+        _commonLabels = CommonLabels.getInstance()
+  }
+    
 
-local MotionGestureEvent = {}
-MotionGestureEvent.__index = MotionGestureEvent
-MotionGestureEvent.className = "MotionGestureEvent"
-setmetatable(MotionGestureEvent, {__index = AllBinaryEventObject})
+    construct new(source, id, motionGesture) {
+        super(source)
+        initFields_MotionGestureEvent()
+        _id = id
+        this.setMotionGesture(motionGesture)
+    }
+    
 
-function MotionGestureEvent:_init_fields()
-    self.motionGesture = TouchMotionGestureFactory.getInstance().NO_MOTION
-    self.id = nil
-    self.previousPoint = PointFactory.getInstance().ZERO_ZERO
-    self.currentPoint = PointFactory.getInstance().ZERO_ZERO
-    self.commonLabels = CommonLabels.getInstance()
-end
+    getMotionGesture() {
+        return _motionGesture
+    }
+    
 
+    setMotionGesture(motionGesture) {
+        _motionGesture = motionGesture
+    }
+    
 
-function MotionGestureEvent.new(source, id, motionGesture)
-    local self = setmetatable(AllBinaryEventObject.new(source), MotionGestureEvent)
-    self:_init_fields()
-        -- super(...) made self above
-        self.id = id
-        self:setMotionGesture(motionGesture)
-    return self
-end
+    getPreviousPoint() {
+        return _previousPoint
+    }
+    
 
+    setPreviousPoint(previousPoint) {
+        _previousPoint = previousPoint
+    }
+    
 
-function MotionGestureEvent:getMotionGesture()
-        return self.motionGesture
-end
+    getCurrentPoint() {
+        return _currentPoint
+    }
+    
 
+    setCurrentPoint(currentPoint) {
+        _currentPoint = currentPoint
+    }
+    
 
-function MotionGestureEvent:setMotionGesture(motionGesture)
-        self.motionGesture = motionGesture
-end
+    toString() {
+        var stringBuffer = StringMaker.new()
+        var stringUtil = StringUtil.getInstance()
+        stringBuffer.append(stringUtil.toString(_motionGesture))
+        stringBuffer.append(_commonLabels.CURRENT)
+        stringBuffer.append(stringUtil.toString(_currentPoint))
+        stringBuffer.append(MotionGestureEvent.PREVIOUS)
+        stringBuffer.append(stringUtil.toString(_previousPoint))
+        stringBuffer.append(MotionGestureEvent.HASHCODE)
+        stringBuffer.appendint(JR.i32(TsUtil.getInstance().hashCode(this)))
+        return stringBuffer.toString()
+    }
+    
 
+    getId() {
+        return _id
+    }
+}
 
-function MotionGestureEvent:getPreviousPoint()
-        return self.previousPoint
-end
-
-
-function MotionGestureEvent:setPreviousPoint(previousPoint)
-        self.previousPoint = previousPoint
-end
-
-
-function MotionGestureEvent:getCurrentPoint()
-        return self.currentPoint
-end
-
-
-function MotionGestureEvent:setCurrentPoint(currentPoint)
-        self.currentPoint = currentPoint
-end
-
-
-function MotionGestureEvent:toString()
-        local stringBuffer = StringMaker.new()
-        local stringUtil = StringUtil.getInstance()
-        stringBuffer:append(stringUtil:toString(self.motionGesture))
-        stringBuffer:append(self.commonLabels.CURRENT)
-        stringBuffer:append(stringUtil:toString(self.currentPoint))
-        stringBuffer:append(MotionGestureEvent.PREVIOUS)
-        stringBuffer:append(stringUtil:toString(self.previousPoint))
-        stringBuffer:append(MotionGestureEvent.HASHCODE)
-        stringBuffer:appendint(java_int(TsUtil.getInstance():hashCode(self)))
-        return tostring(stringBuffer)
-end
-MotionGestureEvent.__tostring = function(self) return self:toString() end
-
-
-function MotionGestureEvent:getId()
-        return self.id
-end
-
-MotionGestureEvent.PREVIOUS = " Previous: "
-MotionGestureEvent.HASHCODE = " hashcode: "
-
-return MotionGestureEvent
+import "../../../../../../org/allbinary/graphics/GPoint" for GPoint
+import "../../../../../../org/allbinary/graphics/PointFactory" for PointFactory
+import "../../../../../../org/allbinary/input/motion/gesture/MotionGestureInput" for MotionGestureInput
+import "../../../../../../org/allbinary/input/motion/gesture/TouchMotionGestureFactory" for TouchMotionGestureFactory
+import "../../../../../../org/allbinary/TsUtil" for TsUtil
+import "../../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../../org/allbinary/string/CommonLabels" for CommonLabels
 

@@ -1,53 +1,53 @@
--- 
--- AllBinary Open License Version 1 
--- Copyright (c) 2025 AllBinary 
---  
--- By agreeing to this license you and any business entity you represent are 
--- legally bound to the AllBinary Open License Version 1 legal agreement. 
---  
--- You may obtain the AllBinary Open License Version 1 legal agreement from 
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
---  
--- Created By: Travis Berthelot 
---   
--- Generated Code Do Not Modify
--- package org.allbinary.logic.system.security.crypt.jcehelper
+/*
+ * 
+ * AllBinary Open License Version 1 
+ * Copyright (c) 2025 AllBinary 
+ *  
+ * By agreeing to this license you and any business entity you represent are 
+ * legally bound to the AllBinary Open License Version 1 legal agreement. 
+ *  
+ * You may obtain the AllBinary Open License Version 1 legal agreement from 
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository. 
+ *  
+ * Created By: Travis Berthelot 
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.system.security.crypt.jcehelper
 
-local NullUtil = require("org.allbinary.logic.NullUtil")
+import "../../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BaseSecretComposite is JObject {
+    static NULL_SECRET_COMPOSITE {
+    if (__NULL_SECRET_COMPOSITE_set == null) {
+      __NULL_SECRET_COMPOSITE_set = true
+      __NULL_SECRET_COMPOSITE = BaseSecretComposite.new()
+    }
+    return __NULL_SECRET_COMPOSITE
+  }
+  static NULL_SECRET_COMPOSITE=(value) {
+    __NULL_SECRET_COMPOSITE_set = true
+    __NULL_SECRET_COMPOSITE = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BaseSecretComposite() {
+  }
 
-local BaseSecretComposite = {}
-BaseSecretComposite.__index = BaseSecretComposite
-BaseSecretComposite.className = "BaseSecretComposite"
+  construct new() {
+    super()
+    initFields_BaseSecretComposite()
+  }
+    
 
-function BaseSecretComposite.new()
-    local self = setmetatable({}, BaseSecretComposite)
-    return self
-end
-
-
--- throws Exception
-function BaseSecretComposite:encrypt(array)
+    encrypt(array) {
         return NullUtil.getInstance().NULL_BYTE_ARRAY
-end
+    }
+    
 
-
--- throws Exception
-function BaseSecretComposite:decrypt(array)
+    decrypt(array) {
         return NullUtil.getInstance().NULL_BYTE_ARRAY
-end
+    }
+}
 
-BaseSecretComposite.NULL_SECRET_COMPOSITE = BaseSecretComposite.new()
-
-return BaseSecretComposite
+import "../../../../../../../org/allbinary/logic/NullUtil" for NullUtil
 

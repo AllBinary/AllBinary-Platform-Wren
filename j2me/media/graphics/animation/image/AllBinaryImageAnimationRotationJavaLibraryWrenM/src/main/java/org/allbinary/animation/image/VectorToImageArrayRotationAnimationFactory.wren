@@ -1,90 +1,82 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Image = require("javax.microedition.lcdui.Image")
--- local NullImage = require("javax.microedition.lcdui.NullImage")
-local Animation = require("org.allbinary.animation.Animation")
-local AnimationBehaviorFactory = require("org.allbinary.animation.AnimationBehaviorFactory")
-local VectorAnimation = require("org.allbinary.animation.VectorAnimation")
-local GameConfigurationCentral = require("org.allbinary.game.configuration.GameConfigurationCentral")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local AnimationFrameToImageUtil = require("org.allbinary.image.AnimationFrameToImageUtil")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
-local AngleFactory = require("org.allbinary.math.AngleFactory")
-local AngleInfo = require("org.allbinary.math.AngleInfo")
-local ScaleProperties = require("org.allbinary.media.ScaleProperties")
-local ImageToRotationImageArrayUtil = require("org.allbinary.media.image.ImageToRotationImageArrayUtil")
-local VectorInfo = require("org.allbinary.vector.VectorInfo")
-local BaseImageAnimationFactory = require("org.allbinary.animation.image.BaseImageAnimationFactory")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./BaseImageAnimationFactory" for BaseImageAnimationFactory
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class VectorToImageArrayRotationAnimationFactory is BaseImageAnimationFactory {
+  imageArray { _imageArray }
+  imageArray=(value) { _imageArray = value }
+  angleIncrement { _angleIncrement }
+  angleIncrement=(value) { _angleIncrement = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_VectorToImageArrayRotationAnimationFactory() {
+    _imageArray = null
+    _angleIncrement = 0
+        _imageArray = NullImage.NULL_IMAGE_ARRAY
+        _angleIncrement = 0
+  }
+    
 
-local VectorToImageArrayRotationAnimationFactory = {}
-VectorToImageArrayRotationAnimationFactory.__index = VectorToImageArrayRotationAnimationFactory
-VectorToImageArrayRotationAnimationFactory.className = "VectorToImageArrayRotationAnimationFactory"
-setmetatable(VectorToImageArrayRotationAnimationFactory, {__index = BaseImageAnimationFactory})
+    construct new(vectorInfo, basicColor, animationBehaviorFactory) {
+        super(AnimationFrameToImageUtil.getInstance().getInstanceTranslate(vectorInfo.getWidth(), vectorInfo.getHeight(), VectorAnimation.createVectorAnimation(vectorInfo.getPoints(), basicColor, animationBehaviorFactory.getOrCreateInstance())), PrimitiveIntUtil.getArrayInstance(), 0, 0, 0, 0, animationBehaviorFactory)
+        initFields_VectorToImageArrayRotationAnimationFactory()
+        this.init()
+    }
+    
 
-function VectorToImageArrayRotationAnimationFactory:_init_fields()
-    self.imageArray = NullImage.NULL_IMAGE_ARRAY
-    self.angleIncrement = 0
-end
+    init() {
+        var angleFactory = AngleFactory.getInstance()
+        _angleIncrement = (angleFactory.TOTAL_ANGLE / GameConfigurationCentral.getInstance().getGameControlFidelity())
+        _imageArray = ImageToRotationImageArrayUtil.getInstance().generate(this.getImage(), this.getAngleIncrement(), JR.i32(angleFactory.TOTAL_ANGLE))
+    }
+    
 
+    getInstance(instanceId) {
+        if (((this.animationFactoryInitializationVisitor.dx != 0) || (this.animationFactoryInitializationVisitor.dy != 0))) {
+            return AdjustedImageArrayRotationAnimation.new(_imageArray, AngleInfo.getInstance(JR.i16(this.getAngleIncrement())), JR.i32(AngleFactory.getInstance().TOTAL_ANGLE), this.animationFactoryInitializationVisitor.dx, this.animationFactoryInitializationVisitor.dy, this.animationBehaviorFactory.getOrCreateInstance())
+        } else {
+            return AdjustedImageArrayRotationAnimation.createAnimation(_imageArray, AngleInfo.getInstance(JR.i16(_angleIncrement)), JR.i32(AngleFactory.getInstance().TOTAL_ANGLE), this.animationBehaviorFactory.getOrCreateInstance())
+        }
+    }
+    
 
-function VectorToImageArrayRotationAnimationFactory.new(vectorInfo, basicColor, animationBehaviorFactory)
-    local self = setmetatable(BaseImageAnimationFactory.new(AnimationFrameToImageUtil.getInstance():getInstanceTranslate(vectorInfo:getWidth(), vectorInfo:getHeight(), VectorAnimation.createVectorAnimation(vectorInfo:getPoints(), basicColor, animationBehaviorFactory:getOrCreateInstance())), PrimitiveIntUtil.getArrayInstance(), 0, 0, 0, 0, animationBehaviorFactory), VectorToImageArrayRotationAnimationFactory)
-    self:_init_fields()
-        -- super(...) made self above
-        self:init()
-    return self
-end
+    getAngleIncrement() {
+        return _angleIncrement
+    }
+    
 
+    setInitialScale(scaleProperties) {
+    }
+}
 
--- throws Exception
-function VectorToImageArrayRotationAnimationFactory:init()
-        local angleFactory = AngleFactory.getInstance()
-        self.angleIncrement = angleFactory.TOTAL_ANGLE / GameConfigurationCentral.getInstance():getGameControlFidelity()
-        self.imageArray = ImageToRotationImageArrayUtil.getInstance():generate(self:getImage(), self:getAngleIncrement(), java_int(angleFactory.TOTAL_ANGLE))
-end
-
-
--- throws Exception
-function VectorToImageArrayRotationAnimationFactory:getInstance(instanceId)
-        if self.animationFactoryInitializationVisitor.dx ~= 0 or self.animationFactoryInitializationVisitor.dy ~= 0 then
-            return AdjustedImageArrayRotationAnimation.new(self.imageArray, AngleInfo.getInstance(self:getAngleIncrement()), java_int(AngleFactory.getInstance().TOTAL_ANGLE), self.animationFactoryInitializationVisitor.dx, self.animationFactoryInitializationVisitor.dy, self.animationBehaviorFactory:getOrCreateInstance())
-        else
-            return AdjustedImageArrayRotationAnimation.createAnimation(self.imageArray, AngleInfo.getInstance(self.angleIncrement), java_int(AngleFactory.getInstance().TOTAL_ANGLE), self.animationBehaviorFactory:getOrCreateInstance())
-        end
-end
-
-
-function VectorToImageArrayRotationAnimationFactory:getAngleIncrement()
-        return self.angleIncrement
-end
-
-
-function VectorToImageArrayRotationAnimationFactory:setInitialScale(scaleProperties)
-end
-
-return VectorToImageArrayRotationAnimationFactory
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../javax/microedition/lcdui/NullImage" for NullImage
+import "../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../org/allbinary/animation/AnimationBehaviorFactory" for AnimationBehaviorFactory
+import "../../../../org/allbinary/animation/VectorAnimation" for VectorAnimation
+import "../../../../org/allbinary/game/configuration/GameConfigurationCentral" for GameConfigurationCentral
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/image/AnimationFrameToImageUtil" for AnimationFrameToImageUtil
+import "../../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
+import "../../../../org/allbinary/math/AngleFactory" for AngleFactory
+import "../../../../org/allbinary/math/AngleInfo" for AngleInfo
+import "../../../../org/allbinary/media/ScaleProperties" for ScaleProperties
+import "../../../../org/allbinary/media/image/ImageToRotationImageArrayUtil" for ImageToRotationImageArrayUtil
+import "../../../../org/allbinary/vector/VectorInfo" for VectorInfo
+import "./AdjustedImageArrayRotationAnimation" for AdjustedImageArrayRotationAnimation
 

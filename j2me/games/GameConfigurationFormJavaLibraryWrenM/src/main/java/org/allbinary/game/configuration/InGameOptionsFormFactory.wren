@@ -1,81 +1,86 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration
 
--- local CommandListener = require("javax.microedition.lcdui.CommandListener")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local CommandForm = require("org.allbinary.graphics.displayable.screen.CommandForm")
-local Init = require("org.allbinary.init.Init")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class InGameOptionsFormFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = NullUtil.getInstance().NULL_OBJECT
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  SINGLETON { _SINGLETON }
+  SINGLETON=(value) { _SINGLETON = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_InGameOptionsFormFactory() {
+    _logUtil = null
+    _SINGLETON = null
+        _logUtil = LogUtil.getInstance()
+        _SINGLETON = CommandForm.getNullCommandForm()
+  }
 
-local InGameOptionsFormFactory = {}
-InGameOptionsFormFactory.__index = InGameOptionsFormFactory
-InGameOptionsFormFactory.className = "InGameOptionsFormFactory"
+  construct new() {
+    super()
+    initFields_InGameOptionsFormFactory()
+  }
+    
 
-function InGameOptionsFormFactory:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.SINGLETON = CommandForm.getNullCommandForm()
-end
-
-function InGameOptionsFormFactory.new()
-    local self = setmetatable({}, InGameOptionsFormFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function InGameOptionsFormFactory.getInstance()
-        if InGameOptionsFormFactory.instance == NullUtil.getInstance().NULL_OBJECT then
+    static getInstance() {
+        if ((InGameOptionsFormFactory.instance == NullUtil.getInstance().NULL_OBJECT)) {
             InGameOptionsFormFactory.instance = InGameOptionsFormFactory.new()
-        end
+        }
         return InGameOptionsFormFactory.instance
-end
+    }
+    
 
+    init(commandListener, initInterface, title, backgrounBasicColor, foregroundBasicColor) {
+        var jerror0 = Fiber.new {
+            if ((_SINGLETON == CommandForm.getNullCommandForm())) {
+                initInterface.init()
+                _SINGLETON = InGameOptionsForm.new(commandListener, title, backgrounBasicColor, foregroundBasicColor)
+            }
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, commonStrings.INIT, e)
+        }
+    }
+    
 
-function InGameOptionsFormFactory:init(commandListener, initInterface, title, backgrounBasicColor, foregroundBasicColor)
-        local try_ok, try_error = pcall(function()
-            if self.SINGLETON == CommandForm.getNullCommandForm() then
-                initInterface:init()
-                self.SINGLETON = InGameOptionsForm.new(commandListener, title, backgrounBasicColor, foregroundBasicColor)
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, commonStrings.INIT, e)
-        end
-end
+    get() {
+        return _SINGLETON
+    }
+}
 
-
-function InGameOptionsFormFactory:get()
-        return self.SINGLETON
-end
-
-InGameOptionsFormFactory.instance = NullUtil.getInstance().NULL_OBJECT
-
-return InGameOptionsFormFactory
+import "../../../../javax/microedition/lcdui/CommandListener" for CommandListener
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/graphics/displayable/screen/CommandForm" for CommandForm
+import "../../../../org/allbinary/init/Init" for Init
+import "../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./InGameOptionsForm" for InGameOptionsForm
 

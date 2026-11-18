@@ -18,17 +18,7 @@
 import "../../../allbinary_java" for JObject, JException, JR
 
 class ThreadPool is JObject {
-    static ROOT_NAME {
-    if (__ROOT_NAME_set == null) {
-      __ROOT_NAME_set = true
-      __ROOT_NAME = "-PooledThread-"
-    }
-    return __ROOT_NAME
-  }
-  static ROOT_NAME=(value) {
-    __ROOT_NAME_set = true
-    __ROOT_NAME = value
-  }
+    static ROOT_NAME { "-PooledThread-" }
     static NORMAL_PRIORITY {
     if (__NORMAL_PRIORITY_set == null) {
       __NORMAL_PRIORITY_set = true

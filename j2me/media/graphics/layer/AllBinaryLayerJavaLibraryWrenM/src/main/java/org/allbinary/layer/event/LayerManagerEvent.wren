@@ -1,74 +1,66 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.layer.event
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.layer.event
 
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local LayerManager = require("org.allbinary.layer.LayerManager")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LayerManagerEvent is AllBinaryEventObject {
+  layerInterface { _layerInterface }
+  layerInterface=(value) { _layerInterface = value }
+  crud { _crud }
+  crud=(value) { _crud = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LayerManagerEvent() {
+    _layerInterface = null
+    _crud = null
+        _layerInterface = AllBinaryLayer.NULL_ALLBINARY_LAYER
+        
+  }
+    
 
-local LayerManagerEvent = {}
-LayerManagerEvent.__index = LayerManagerEvent
-LayerManagerEvent.className = "LayerManagerEvent"
-setmetatable(LayerManagerEvent, {__index = AllBinaryEventObject})
+    construct new(layerManager, crud) {
+        super(layerManager)
+        initFields_LayerManagerEvent()
+        _crud = crud
+    }
+    
 
-function LayerManagerEvent:_init_fields()
-    self.layerInterface = AllBinaryLayer.NULL_ALLBINARY_LAYER
-    self.crud = nil
-end
+    getLayerInterface() {
+        return _layerInterface
+    }
+    
 
+    setLayerInterface(layerInterface) {
+        _layerInterface = layerInterface
+    }
+    
 
-function LayerManagerEvent.new(layerManager, crud)
-    local self = setmetatable(AllBinaryEventObject.new(layerManager), LayerManagerEvent)
-    self:_init_fields()
-        -- super(...) made self above
-        self.crud = crud
-    return self
-end
+    toString() {
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append("LayerManagerEvent: \n")
+        stringBuffer.append("LayerInterface: ")
+        stringBuffer.append(this.getLayerInterface().toString())
+        stringBuffer.append("\nCRUD: ")
+        stringBuffer.append(_crud)
+        return stringBuffer.toString()
+    }
+}
 
-
-function LayerManagerEvent:getLayerInterface()
-        return self.layerInterface
-end
-
-
-function LayerManagerEvent:setLayerInterface(layerInterface)
-        self.layerInterface = layerInterface
-end
-
-
-function LayerManagerEvent:toString()
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append("LayerManagerEvent: \n")
-        stringBuffer:append("LayerInterface: ")
-        stringBuffer:append(tostring(self:getLayerInterface()))
-        stringBuffer:append("\nCRUD: ")
-        stringBuffer:append(self.crud)
-        return tostring(stringBuffer)
-end
-LayerManagerEvent.__tostring = function(self) return self:toString() end
-
-return LayerManagerEvent
+import "../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../org/allbinary/layer/LayerManager" for LayerManager
+import "../../../../org/allbinary/logic/string/StringMaker" for StringMaker
 

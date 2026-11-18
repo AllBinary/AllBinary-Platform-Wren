@@ -1,100 +1,112 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics.paint
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics.paint
 
--- local Font = require("javax.microedition.lcdui.Font")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
-local MyFontProcessor = require("org.allbinary.graphics.font.MyFontProcessor")
-local UpdateMyFontInterface = require("org.allbinary.graphics.font.UpdateMyFontInterface")
-local UpdateMyFontProcessor = require("org.allbinary.graphics.font.UpdateMyFontProcessor")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./Paintable" for Paintable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class SimpleTextPaintable is Paintable {
+  displayInfoSingleton { _displayInfoSingleton }
+  displayInfoSingleton=(value) { _displayInfoSingleton = value }
+  updateMyFontProcessor { _updateMyFontProcessor }
+  updateMyFontProcessor=(value) { _updateMyFontProcessor = value }
+  myFontProcessor { _myFontProcessor }
+  myFontProcessor=(value) { _myFontProcessor = value }
+  text { _text }
+  text=(value) { _text = value }
+  basicColor { _basicColor }
+  basicColor=(value) { _basicColor = value }
+  topScoresWidth { _topScoresWidth }
+  topScoresWidth=(value) { _topScoresWidth = value }
+  fontHeight { _fontHeight }
+  fontHeight=(value) { _fontHeight = value }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_SimpleTextPaintable() {
+    _displayInfoSingleton = null
+    _updateMyFontProcessor = null
+    _myFontProcessor = null
+    _text = null
+    _basicColor = null
+    _topScoresWidth = 0
+    _fontHeight = 0
+    _anchor = 0
+        _displayInfoSingleton = DisplayInfoSingleton.getInstance()
+        _updateMyFontProcessor = UpdateMyFontProcessor.new(this)
+        _myFontProcessor = _updateMyFontProcessor
+        
+        
+        _topScoresWidth = 0
+        _fontHeight = 0
+        _anchor = Anchor.TOP_LEFT
+  }
+    
 
-local SimpleTextPaintable = {}
-SimpleTextPaintable.__index = SimpleTextPaintable
-SimpleTextPaintable.className = "SimpleTextPaintable"
-setmetatable(SimpleTextPaintable, {__index = Paintable})
+    construct new(text, basicColor) {
+    super()
+    initFields_SimpleTextPaintable()
+        _text = text
+        _basicColor = basicColor
+    }
+    
 
-function SimpleTextPaintable:_init_fields()
-    self.displayInfoSingleton = DisplayInfoSingleton.getInstance()
-    self.updateMyFontProcessor = UpdateMyFontProcessor.new(self)
-    self.myFontProcessor = self.updateMyFontProcessor
-    self.text = nil
-    self.basicColor = nil
-    self.topScoresWidth = 0
-    self.fontHeight = 0
-    self.anchor = Anchor.TOP_LEFT
-end
+    updateMeasurement(graphics) {
+        var font = graphics.getFont()
+        _topScoresWidth = (JR.shr(font.stringWidth(_text), 1))
+        _fontHeight = font.getHeight()
+        _myFontProcessor = MyFontProcessor.getInstance()
+    }
+    
 
+    paint(graphics) {
+        _myFontProcessor.process(graphics)
+        var width = _displayInfoSingleton.getLast()[_displayInfoSingleton.WIDTH]
+        graphics.setColor(this.getBasicColorP().intValue())
+        graphics.drawString(_text, JR.i32((JR.shr(width, 1)) - _topScoresWidth), _fontHeight, _anchor)
+    }
+    
 
-function SimpleTextPaintable.new(text, basicColor)
-    local self = setmetatable(Paintable.new(), SimpleTextPaintable)
-    self:_init_fields()
-        self.text = text
-        self.basicColor = basicColor
-    return self
-end
+    setBasicColorP(basicColor) {
+        _basicColor = basicColor
+    }
+    
 
+    getBasicColorP() {
+        return _basicColor
+    }
+    
 
-function SimpleTextPaintable:updateMeasurement(graphics)
-        local font = graphics:getFont()
-        self.topScoresWidth = (((font:stringWidth(self.text)) // (1 << (1))))
-        self.fontHeight = font:getHeight()
-        self.myFontProcessor = MyFontProcessor.getInstance()
-end
+    setText(text) {
+        _text = text
+        _myFontProcessor = _updateMyFontProcessor
+    }
+    
 
+    getText() {
+        return _text
+    }
+}
 
-function SimpleTextPaintable:paint(graphics)
-        self.myFontProcessor:process(graphics)
-        local width = self.displayInfoSingleton:getLast()[self.displayInfoSingleton.WIDTH + 1]
-        graphics:setColor(math.tointeger(self:getBasicColorP() // 1))
-        graphics:drawString(self.text, (((width) // (1 << (1)))) - self.topScoresWidth, self.fontHeight, self.anchor)
-end
-
-
-function SimpleTextPaintable:setBasicColorP(basicColor)
-        self.basicColor = basicColor
-end
-
-
-function SimpleTextPaintable:getBasicColorP()
-        return self.basicColor
-end
-
-
-function SimpleTextPaintable:setText(text)
-        self.text = text
-        self.myFontProcessor = self.updateMyFontProcessor
-end
-
-
-function SimpleTextPaintable:getText()
-        return self.text
-end
-
-return SimpleTextPaintable
+import "../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/graphics/Anchor" for Anchor
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "../../../../org/allbinary/graphics/font/MyFontProcessor" for MyFontProcessor
+import "../../../../org/allbinary/graphics/font/UpdateMyFontInterface" for UpdateMyFontInterface
+import "../../../../org/allbinary/graphics/font/UpdateMyFontProcessor" for UpdateMyFontProcessor
 

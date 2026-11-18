@@ -1,227 +1,300 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer.identification
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer.identification
 
-local Group = require("org.allbinary.game.identification.Group")
-local GroupInterfaceCompositeInterface = require("org.allbinary.game.identification.GroupInterfaceCompositeInterface")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local LayerManagerEvent = require("org.allbinary.layer.event.LayerManagerEvent")
-local LayerManagerEventHandler = require("org.allbinary.layer.event.LayerManagerEventHandler")
-local LayerManagerEventListener = require("org.allbinary.layer.event.LayerManagerEventListener")
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local EventStrings = require("org.allbinary.logic.util.event.EventStrings")
-local CommonLabels = require("org.allbinary.string.CommonLabels")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/layer/event/LayerManagerEventListener" for LayerManagerEventListener
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GroupLayerManagerListener is LayerManagerEventListener {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = GroupLayerManagerListener.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  list { _list }
+  list=(value) { _list = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GroupLayerManagerListener() {
+    _logUtil = null
+    _list = null
+        _logUtil = LogUtil.getInstance()
+        _list = BasicArrayListD.new()
+  }
+    
 
-local GroupLayerManagerListener = {}
-GroupLayerManagerListener.__index = GroupLayerManagerListener
-GroupLayerManagerListener.className = "GroupLayerManagerListener"
-setmetatable(GroupLayerManagerListener, {__index = LayerManagerEventListener})
-
-function GroupLayerManagerListener:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.list = BasicArrayListD.new()
-end
-
-
-function GroupLayerManagerListener.getInstance()
+    static getInstance() {
         return GroupLayerManagerListener.SINGLETON
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_GroupLayerManagerListener()
+        LayerManagerEventHandler.getInstance().addListener(this)
+    }
+    
 
-function GroupLayerManagerListener.new()
-    local self = setmetatable(LayerManagerEventListener.new(), GroupLayerManagerListener)
-    self:_init_fields()
-        LayerManagerEventHandler.getInstance():addListener(self)
-    return self
-end
+    clear() {
+        var groupList = null
+        var size = _list.size()
+        if (true) {
+            var index = JR.i32(size - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            groupList = _list.objectArray[index]
+            groupList.clear()
+            }
+        }
+    }
+    
 
+    getGroupSizeFromInterface(groupInterfaceCompositeInterface) {
+        var groupInterfaceArray = groupInterfaceCompositeInterface.getGroupInterface()
+        return this.getGroupSize(groupInterfaceArray[0])
+    }
+    
 
-function GroupLayerManagerListener:clear()
-        local groupList = nil
-        local size = self.list:size()
-        for index = size - 1, 0, -1 do
-            groupList = self.list.objectArray[index + 1]
-            groupList:clear()
-        end
-end
+    getGroupSize(groupInterface) {
+        var id = JR.i32(groupInterface.getGroupId())
+        return this.getGroupSizeById(id)
+    }
+    
 
+    getList(groupInterface) {
+        var id = JR.i32(groupInterface.getGroupId())
+        return this.getListById(id)
+    }
+    
 
-function GroupLayerManagerListener:getGroupSizeFromInterface(groupInterfaceCompositeInterface)
-        local groupInterfaceArray = groupInterfaceCompositeInterface:getGroupInterface()
-        return self:getGroupSize(groupInterfaceArray[1])
-end
-
-
-function GroupLayerManagerListener:getGroupSize(groupInterface)
-        local id = java_int(groupInterface:getGroupId())
-        return self:getGroupSizeById(id)
-end
-
-
-function GroupLayerManagerListener:getList(groupInterface)
-        local id = java_int(groupInterface:getGroupId())
-        return self:getListById(id)
-end
-
-
-function GroupLayerManagerListener:getListById(groupId)
-        local groupList = self.list.objectArray[groupId + 1]
+    getListById(groupId) {
+        var groupList = _list.objectArray[groupId]
         return groupList
-end
+    }
+    
 
-
-function GroupLayerManagerListener:getGroupSizeById(groupId)
-        local groupList = self.list.objectArray[groupId + 1]
-        local size = groupList:size()
+    getGroupSizeById(groupId) {
+        var groupList = _list.objectArray[groupId]
+        var size = groupList.size()
         return size
-end
+    }
+    
 
-
-function GroupLayerManagerListener:areAllOtherGroupsEmpty(groupInterface)
-        local id = java_int(groupInterface:getGroupId())
-        local size = self.list:size()
-        for index = size - 1, 0, -1 do
-            if id ~= index then
-                local groupSize = self:getGroupSizeById(index)
-                if groupSize ~= 0 then
-                    self.logUtil:putF(tostring(StringMaker.new():append("Group Size: "):appendint(groupSize)), self, "areAllOtherGroupsEmpty")
+    areAllOtherGroupsEmpty(groupInterface) {
+        var id = JR.i32(groupInterface.getGroupId())
+        var size = _list.size()
+        if (true) {
+            var index = JR.i32(size - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            if ((id != index)) {
+                var groupSize = this.getGroupSizeById(index)
+                if ((groupSize != 0)) {
+                    _logUtil.putF(StringMaker.new().append("Group Size: ").appendint(groupSize).toString(), this, "areAllOtherGroupsEmpty")
                     return false
-                end
-            end
-        end
+                }
+            }
+            }
+        }
         return true
-end
+    }
+    
 
-
-function GroupLayerManagerListener:isIdInList(id, excludeGroupList)
-        local size = excludeGroupList:size()
-        local groupInterfaceArray = nil
-        local groupInterface = nil
-        local groupId = 0
-        for index = size - 1, 0, -1 do
-            groupInterfaceArray = excludeGroupList.objectArray[index + 1]
-            local size2 = (groupInterfaceArray.n or #groupInterfaceArray)
-            for index2 = 0, size2 - 1 do
-                groupInterface = groupInterfaceArray[index2 + 1]
-                groupId = java_int(groupInterface:getGroupId())
-                if groupId == id then
+    isIdInList(id, excludeGroupList) {
+        var size = excludeGroupList.size()
+        var groupInterfaceArray = null
+        var groupInterface = null
+        var groupId = 0
+        if (true) {
+            var index = JR.i32(size - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            groupInterfaceArray = excludeGroupList.objectArray[index]
+            var size2 = groupInterfaceArray.count
+            if (true) {
+                var index2 = 0
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        index2 = JR.i32(index2 + 1)
+                    }
+                    jfirst = false
+                    if (!((index2 < size2))) break
+                groupInterface = groupInterfaceArray[index2]
+                groupId = JR.i32(groupInterface.getGroupId())
+                if ((groupId == id)) {
                     return true
-                end
-            end
-        end
+                }
+                }
+            }
+            }
+        }
         return false
-end
+    }
+    
 
-
-function GroupLayerManagerListener:areAllOtherGroupsLessThan(excludeGroupList, maxSize)
-        local size = self.list:size()
-        for index = size - 1, 0, -1 do
-            if not self:isIdInList(index, excludeGroupList) then
-                local groupSize = self:getGroupSizeById(index)
-                if groupSize >= maxSize then
+    areAllOtherGroupsLessThan(excludeGroupList, maxSize) {
+        var size = _list.size()
+        if (true) {
+            var index = JR.i32(size - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            if (!this.isIdInList(index, excludeGroupList)) {
+                var groupSize = this.getGroupSizeById(index)
+                if ((groupSize >= maxSize)) {
                     return false
-                end
-            end
-        end
+                }
+            }
+            }
+        }
         return true
-end
+    }
+    
 
+    init(total) {
+        while ((_list.size() <= JR.i32(total + 1))) {
+            _list.add(BasicArrayListD.new())
+        }
+    }
+    
 
-function GroupLayerManagerListener:init(total)
-        while self.list:size() <= total + 1 do
-            self.list:add(BasicArrayListD.new())
-        end
-end
+    onEvent(eventObject) {
+        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, this)
+    }
+    
 
+    onCreateLayerManagerEvent(layerManagerEvent) {
+        var layerInterface = layerManagerEvent.getLayerInterface()
+        var groupInterfaceArray = layerInterface.getGroupInterface()
+        var size = groupInterfaceArray.count
+        var id = 0
+        var groupList = null
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            id = JR.i32(groupInterfaceArray[index].getGroupId())
+            groupList = _list.objectArray[id]
+            if ((groupList == null)) {
+                _logUtil.putF(StringMaker.new().append("id: ").appendint(id).toString(), this, "onCreateLayerManagerEvent")
+            }
+            if (!groupList.contains(layerInterface)) {
+                groupList.add(layerInterface)
+            } else {
+            }
+            }
+        }
+    }
+    
 
-function GroupLayerManagerListener:onEvent(eventObject)
-        ForcedLogUtil.log(EventStrings.getInstance().PERFORMANCE_MESSAGE, self)
-end
+    onDeleteLayerManagerEvent(layerManagerEvent) {
+        var layerInterface = layerManagerEvent.getLayerInterface()
+        var groupInterfaceArray = layerInterface.getGroupInterface()
+        var size = groupInterfaceArray.count
+        var id = 0
+        var groupList = null
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            id = JR.i32(groupInterfaceArray[index].getGroupId())
+            groupList = _list.objectArray[id]
+            groupList.remove(layerInterface)
+            }
+        }
+    }
+    
 
+    log() {
+        var stringBuffer = StringMaker.new()
+        var GROUP = "Group: "
+        var SPACE = CommonSeps.getInstance().SPACE
+        var TOTAL_LABEL = CommonLabels.getInstance().TOTAL_LABEL
+        var size = _list.size()
+        if (true) {
+            var index = JR.i32(size - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            var groupList = _list.objectArray[index]
+            stringBuffer.append(GROUP)
+            stringBuffer.appendint(index)
+            stringBuffer.append(SPACE)
+            stringBuffer.append(TOTAL_LABEL)
+            stringBuffer.appendint(groupList.size())
+            stringBuffer.append(SPACE)
+            }
+        }
+        _logUtil.putF(stringBuffer.toString(), this, "log")
+    }
+}
 
--- throws Exception
-function GroupLayerManagerListener:onCreateLayerManagerEvent(layerManagerEvent)
-        local layerInterface = layerManagerEvent:getLayerInterface()
-        local groupInterfaceArray = layerInterface:getGroupInterface()
-        local size = (groupInterfaceArray.n or #groupInterfaceArray)
-        local id = 0
-        local groupList = nil
-        for index = 0, size - 1 do
-            id = java_int(groupInterfaceArray[index + 1]:getGroupId())
-            groupList = self.list.objectArray[id + 1]
-            if groupList == nil then
-                self.logUtil:putF(tostring(StringMaker.new():append("id: "):appendint(id)), self, "onCreateLayerManagerEvent")
-            end
-            if not groupList:contains(layerInterface) then
-                groupList:add(layerInterface)
-            else
-            end
-        end
-end
-
-
--- throws Exception
-function GroupLayerManagerListener:onDeleteLayerManagerEvent(layerManagerEvent)
-        local layerInterface = layerManagerEvent:getLayerInterface()
-        local groupInterfaceArray = layerInterface:getGroupInterface()
-        local size = (groupInterfaceArray.n or #groupInterfaceArray)
-        local id = 0
-        local groupList = nil
-        for index = 0, size - 1 do
-            id = java_int(groupInterfaceArray[index + 1]:getGroupId())
-            groupList = self.list.objectArray[id + 1]
-            groupList:remove(layerInterface)
-        end
-end
-
-
-function GroupLayerManagerListener:log()
-        local stringBuffer = StringMaker.new()
-        local GROUP = "Group: "
-        local SPACE = CommonSeps.getInstance().SPACE
-        local TOTAL_LABEL = CommonLabels.getInstance().TOTAL_LABEL
-        local size = self.list:size()
-        for index = size - 1, 0, -1 do
-            local groupList = self.list.objectArray[index + 1]
-            stringBuffer:append(GROUP)
-            stringBuffer:appendint(index)
-            stringBuffer:append(SPACE)
-            stringBuffer:append(TOTAL_LABEL)
-            stringBuffer:appendint(groupList:size())
-            stringBuffer:append(SPACE)
-        end
-        self.logUtil:putF(tostring(stringBuffer), self, "log")
-end
-
-GroupLayerManagerListener.SINGLETON = GroupLayerManagerListener.new()
-
-return GroupLayerManagerListener
+import "../../../../../org/allbinary/game/identification/Group" for Group
+import "../../../../../org/allbinary/game/identification/GroupInterfaceCompositeInterface" for GroupInterfaceCompositeInterface
+import "../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../org/allbinary/layer/event/LayerManagerEvent" for LayerManagerEvent
+import "../../../../../org/allbinary/layer/event/LayerManagerEventHandler" for LayerManagerEventHandler
+import "../../../../../org/allbinary/logic/communication/log/ForcedLogUtil" for ForcedLogUtil
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../../org/allbinary/logic/util/event/EventStrings" for EventStrings
+import "../../../../../org/allbinary/string/CommonLabels" for CommonLabels
+import "../../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
 

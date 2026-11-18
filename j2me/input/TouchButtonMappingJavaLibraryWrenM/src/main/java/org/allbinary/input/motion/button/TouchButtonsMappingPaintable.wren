@@ -1,103 +1,135 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.input.motion.button
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.input.motion.button
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local CellPositionFactory = require("org.allbinary.graphics.CellPositionFactory")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/graphics/paint/Paintable" for Paintable
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class TouchButtonsMappingPaintable is Paintable {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  foregroundColor { _foregroundColor }
+  foregroundColor=(value) { _foregroundColor = value }
+  paintableTable { _paintableTable }
+  paintableTable=(value) { _paintableTable = value }
+  touchButtonLocationHelper { _touchButtonLocationHelper }
+  touchButtonLocationHelper=(value) { _touchButtonLocationHelper = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_TouchButtonsMappingPaintable() {
+    _logUtil = null
+    _foregroundColor = 0
+    _paintableTable = null
+    _touchButtonLocationHelper = null
+        _logUtil = LogUtil.getInstance()
+        
+        _paintableTable = JR.listOf(0, Fn.new { List.filled(0, null) })
+        _touchButtonLocationHelper = TouchButtonLocationHelper.new()
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(basicColor) {
+    super()
+    initFields_TouchButtonsMappingPaintable()
+        _foregroundColor = basicColor.intValue()
+        this.init()
+    }
+    
 
-local TouchButtonsMappingPaintable = {}
-TouchButtonsMappingPaintable.__index = TouchButtonsMappingPaintable
-TouchButtonsMappingPaintable.className = "TouchButtonsMappingPaintable"
-setmetatable(TouchButtonsMappingPaintable, {__index = Paintable})
+    init() {
+        var jerror0 = Fiber.new {
+            _paintableTable = this.createPaintableTable()
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, "updateRectangle", e)
+        }
+    }
+    
 
-function TouchButtonsMappingPaintable:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.foregroundColor = nil
-    self.paintableTable = java_new_array(nil, 0, 0)
-    self.touchButtonLocationHelper = TouchButtonLocationHelper.new()
-end
-
-
-function TouchButtonsMappingPaintable.new(basicColor)
-    local self = setmetatable(Paintable.new(), TouchButtonsMappingPaintable)
-    self:_init_fields()
-        self.foregroundColor = math.tointeger(basicColor // 1)
-        self:init()
-    return self
-end
-
-
-function TouchButtonsMappingPaintable:init()
-        local try_ok, try_error = pcall(function()
-            self.paintableTable = self:createPaintableTable()
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, "updateRectangle", e)
-        end
-end
-
-
--- throws Exception
-function TouchButtonsMappingPaintable:createPaintableTable()
-        local totalColumns = self.touchButtonLocationHelper:getTotalColumns()
-        local totalRows = self.touchButtonLocationHelper:getTotalRows()
-        local paintableTable = java_new_array(nil, totalColumns, totalRows)
-        local cellPositionFactory = CellPositionFactory.getInstance()
-        local commonButtons = CommonButtons.getInstance()
-        for index = totalColumns - 1, 0, -1 do
-            for rowIndex = totalRows - 1, 0, -1 do
-                self.paintableTable[index + 1][rowIndex + 1] = TouchButton.createButton(BasicTouchInputFactory.getInstance().NONE, TouchButtonBlankResource.getInstance(), commonButtons.NORMAL_BUTTON, cellPositionFactory:getInstanceColRow(index, rowIndex), self.touchButtonLocationHelper:getColumnsRemainderHalf(), self.touchButtonLocationHelper:getRowsRemainderHalf())
-            end
-        end
+    createPaintableTable() {
+        var totalColumns = _touchButtonLocationHelper.getTotalColumns()
+        var totalRows = _touchButtonLocationHelper.getTotalRows()
+        var paintableTable = JR.listOf(totalColumns, Fn.new { List.filled(totalRows, null) })
+        var cellPositionFactory = CellPositionFactory.getInstance()
+        var commonButtons = CommonButtons.getInstance()
+        if (true) {
+            var index = JR.i32(totalColumns - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            if (true) {
+                var rowIndex = JR.i32(totalRows - 1)
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        rowIndex = JR.i32(rowIndex - 1)
+                    }
+                    jfirst = false
+                    if (!((rowIndex >= 0))) break
+                _paintableTable[index][rowIndex] = TouchButton.createButton(BasicTouchInputFactory.getInstance().NONE, TouchButtonBlankResource.getInstance(), commonButtons.NORMAL_BUTTON, cellPositionFactory.getInstanceColRow(index, rowIndex), _touchButtonLocationHelper.getColumnsRemainderHalf(), _touchButtonLocationHelper.getRowsRemainderHalf())
+                }
+            }
+            }
+        }
         return paintableTable
-end
+    }
+    
 
+    paint(graphics) {
+        var totalColumns = _touchButtonLocationHelper.getTotalColumns()
+        var totalRows = _touchButtonLocationHelper.getTotalRows()
+        if (true) {
+            var index = JR.i32(totalColumns - 1)
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index - 1)
+                }
+                jfirst = false
+                if (!((index >= 0))) break
+            if (true) {
+                var rowIndex = JR.i32(totalRows - 1)
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        rowIndex = JR.i32(rowIndex - 1)
+                    }
+                    jfirst = false
+                    if (!((rowIndex >= 0))) break
+                _paintableTable[index][rowIndex].paint(graphics)
+                }
+            }
+            }
+        }
+    }
+}
 
-function TouchButtonsMappingPaintable:paint(graphics)
-        local totalColumns = self.touchButtonLocationHelper:getTotalColumns()
-        local totalRows = self.touchButtonLocationHelper:getTotalRows()
-        for index = totalColumns - 1, 0, -1 do
-            for rowIndex = totalRows - 1, 0, -1 do
-                self.paintableTable[index + 1][rowIndex + 1]:paint(graphics)
-            end
-        end
-end
-
-return TouchButtonsMappingPaintable
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../org/allbinary/graphics/CellPositionFactory" for CellPositionFactory
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./TouchButtonLocationHelper" for TouchButtonLocationHelper
+import "./CommonButtons" for CommonButtons
+import "./TouchButton" for TouchButton
+import "./BasicTouchInputFactory" for BasicTouchInputFactory
+import "./TouchButtonBlankResource" for TouchButtonBlankResource
 

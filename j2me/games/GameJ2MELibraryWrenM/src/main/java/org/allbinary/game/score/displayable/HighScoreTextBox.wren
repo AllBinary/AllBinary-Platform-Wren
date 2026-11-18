@@ -1,132 +1,133 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.score.displayable
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.score.displayable
 
--- local CommandListener = require("javax.microedition.lcdui.CommandListener")
--- local Font = require("javax.microedition.lcdui.Font")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local TextField = require("javax.microedition.lcdui.TextField")
-local PostGameCommandFactory = require("org.allbinary.PostGameCommandFactory")
-local GameInfo = require("org.allbinary.game.GameInfo")
-local HighScore = require("org.allbinary.game.score.HighScore")
-local HighScoresHelperBaseInterface = require("org.allbinary.game.score.HighScoresHelperBaseInterface")
-local HighScoresFactoryInterface = require("org.allbinary.game.score.HighScoresFactoryInterface")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local CustomTextBox = require("org.allbinary.graphics.form.item.CustomTextBox")
-local NullPaintable = require("org.allbinary.graphics.paint.NullPaintable")
-local Paintable = require("org.allbinary.graphics.paint.Paintable")
-local SimpleTextPaintable = require("org.allbinary.graphics.paint.SimpleTextPaintable")
-local VirtualKeyboardEventHandler = require("org.allbinary.input.event.VirtualKeyboardEventHandler")
-local GenericOperatingSystem = require("org.allbinary.logic.system.os.GenericOperatingSystem")
-local OperatingSystemFactory = require("org.allbinary.logic.system.os.OperatingSystemFactory")
-local AbeClientInformationInterface = require("org.allbinary.logic.system.security.licensing.AbeClientInformationInterface")
-local InApplicationPurchaseFactory = require("org.allbinary.logic.system.security.licensing.InApplicationPurchaseFactory")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/graphics/form/item/CustomTextBox" for CustomTextBox
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class HighScoreTextBox is CustomTextBox {
+  virtualKeyboardEventHandler { _virtualKeyboardEventHandler }
+  virtualKeyboardEventHandler=(value) { _virtualKeyboardEventHandler = value }
+  highScoreUtil { _highScoreUtil }
+  highScoreUtil=(value) { _highScoreUtil = value }
+  pleaseWait { _pleaseWait }
+  pleaseWait=(value) { _pleaseWait = value }
+  paintable { _paintable }
+  paintable=(value) { _paintable = value }
+  submitted { _submitted }
+  submitted=(value) { _submitted = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_HighScoreTextBox() {
+    _virtualKeyboardEventHandler = null
+    _highScoreUtil = null
+    _pleaseWait = null
+    _paintable = null
+    _submitted = false
+        _virtualKeyboardEventHandler = VirtualKeyboardEventHandler.getInstance()
+        
+        _pleaseWait = SimpleTextPaintable.new(this.commonStrings.PLEASE_WAIT, BasicColorFactory.getInstance().WHITE)
+        _paintable = NullPaintable.getInstance()
+        _submitted = false
+  }
+    
 
-local HighScoreTextBox = {}
-HighScoreTextBox.__index = HighScoreTextBox
-HighScoreTextBox.className = "HighScoreTextBox"
-setmetatable(HighScoreTextBox, {__index = CustomTextBox})
+    construct new(highScoresFactoryInterface, highScoresHelper, abeClientInformation, gameInfo, cmdListener, name, highScore, backgrounBasicColor, foregroundBasicColor) {
+        super(cmdListener, "New High Score Enter Name:", name, 12, TextField.ANY, Font.getDefaultFont(), backgrounBasicColor, foregroundBasicColor)
+        initFields_HighScoreTextBox()
+        _highScoreUtil = HighScoreUtil.new(highScoresFactoryInterface, highScoresHelper, abeClientInformation, gameInfo, cmdListener, name, highScore)
+        var operatingSystemInterface = OperatingSystemFactory.getInstance().getOperatingSystemInstance()
+        if (operatingSystemInterface.isOverScan()) {
+            var username = InApplicationPurchaseFactory.getInstance().getUserName()
+            this.getTextFieldItem().setString(username)
+        }
+    }
+    
 
-function HighScoreTextBox:_init_fields()
-    self.virtualKeyboardEventHandler = VirtualKeyboardEventHandler.getInstance()
-    self.highScoreUtil = nil
-    self.pleaseWait = SimpleTextPaintable.new(self.commonStrings.PLEASE_WAIT, BasicColorFactory.getInstance().WHITE)
-    self.paintable = NullPaintable.getInstance()
-    self.submitted = false
-end
+    initCommands(cmdListener) {
+        this.removeAllCommands()
+        PostGameCommandFactory.getInstance().addCommands(this)
+        this.addCommand(HighScoreUtil.SUBMIT_TEXTBOX_COMMAND)
+        this.setCommandListener(cmdListener)
+    }
+    
 
+    open() {
+        _virtualKeyboardEventHandler.open()
+        _paintable = NullPaintable.getInstance()
+        super.open()
+    }
+    
 
-function HighScoreTextBox.new(highScoresFactoryInterface, highScoresHelper, abeClientInformation, gameInfo, cmdListener, name, highScore, backgrounBasicColor, foregroundBasicColor)
-    local self = setmetatable(CustomTextBox.new(cmdListener, "New High Score Enter Name:", name, 12, TextField.ANY, Font.getDefaultFont(), backgrounBasicColor, foregroundBasicColor), HighScoreTextBox)
-    self:_init_fields()
-        -- super(...) made self above
-        self.highScoreUtil = HighScoreUtil.new(highScoresFactoryInterface, highScoresHelper, abeClientInformation, gameInfo, cmdListener, name, highScore)
-        local operatingSystemInterface = OperatingSystemFactory.getInstance():getOperatingSystemInstance()
-        if operatingSystemInterface:isOverScan() then
-            local username = InApplicationPurchaseFactory.getInstance():getUserName()
-            self:getTextFieldItem():setString(username)
-        end
-    return self
-end
+    close() {
+        _virtualKeyboardEventHandler.close()
+        _paintable = _pleaseWait
+        this.repaintBehavior.onChangeRepaint(this)
+        super.close()
+        this.removeCommand(HighScoreUtil.SUBMIT_TEXTBOX_COMMAND)
+        this.update()
+        if (_submitted) {
+            _highScoreUtil.saveHighScore()
+        } else {
+        }
+        _paintable = NullPaintable.getInstance()
+        this.repaintBehavior.onChangeRepaint(this)
+    }
+    
 
+    update() {
+        var name = this.getTextFieldItem().getString()
+        _highScoreUtil.update(name)
+        super.update()
+    }
+    
 
-function HighScoreTextBox:initCommands(cmdListener)
-        self:removeAllCommands()
-        PostGameCommandFactory.getInstance():addCommands(self)
-        self:addCommand(HighScoreUtil.SUBMIT_TEXTBOX_COMMAND)
-        self:setCommandListener(cmdListener)
-end
+    paint(graphics) {
+        super.paint(graphics)
+        _paintable.paint(graphics)
+    }
+    
 
+    saveHighScore() {
+        _highScoreUtil.saveHighScore()
+    }
+    
 
-function HighScoreTextBox:open()
-        self.virtualKeyboardEventHandler:open()
-        self.paintable = NullPaintable.getInstance()
-        CustomTextBox.open(self)
-end
+    submit() {
+        _highScoreUtil.submit(this)
+    }
+}
 
-
--- throws Exception
-function HighScoreTextBox:close()
-        self.virtualKeyboardEventHandler:close()
-        self.paintable = self.pleaseWait
-        self.repaintBehavior:onChangeRepaint(self)
-        CustomTextBox.close(self)
-        self:removeCommand(HighScoreUtil.SUBMIT_TEXTBOX_COMMAND)
-        self:update()
-        if self.submitted then
-            self.highScoreUtil:saveHighScore()
-        else
-        end
-        self.paintable = NullPaintable.getInstance()
-        self.repaintBehavior:onChangeRepaint(self)
-end
-
-
--- throws Exception
-function HighScoreTextBox:update()
-        local name = self:getTextFieldItem():getString()
-        self.highScoreUtil:update(name)
-        CustomTextBox.update(self)
-end
-
-
-function HighScoreTextBox:paint(graphics)
-        CustomTextBox.paint(self, graphics)
-        self.paintable:paint(graphics)
-end
-
-
-function HighScoreTextBox:saveHighScore()
-        self.highScoreUtil:saveHighScore()
-end
-
-
-function HighScoreTextBox:submit()
-        self.highScoreUtil:submit(self)
-end
-
-return HighScoreTextBox
+import "../../../../../javax/microedition/lcdui/CommandListener" for CommandListener
+import "../../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../javax/microedition/lcdui/TextField" for TextField
+import "../../../../../org/allbinary/PostGameCommandFactory" for PostGameCommandFactory
+import "../../../../../org/allbinary/game/GameInfo" for GameInfo
+import "../../../../../org/allbinary/game/score/HighScore" for HighScore
+import "../../../../../org/allbinary/game/score/HighScoresHelperBaseInterface" for HighScoresHelperBaseInterface
+import "../../../../../org/allbinary/game/score/HighScoresFactoryInterface" for HighScoresFactoryInterface
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../org/allbinary/graphics/paint/NullPaintable" for NullPaintable
+import "../../../../../org/allbinary/graphics/paint/Paintable" for Paintable
+import "../../../../../org/allbinary/graphics/paint/SimpleTextPaintable" for SimpleTextPaintable
+import "../../../../../org/allbinary/input/event/VirtualKeyboardEventHandler" for VirtualKeyboardEventHandler
+import "../../../../../org/allbinary/logic/system/os/GenericOperatingSystem" for GenericOperatingSystem
+import "../../../../../org/allbinary/logic/system/os/OperatingSystemFactory" for OperatingSystemFactory
+import "../../../../../org/allbinary/logic/system/security/licensing/AbeClientInformationInterface" for AbeClientInformationInterface
+import "../../../../../org/allbinary/logic/system/security/licensing/InApplicationPurchaseFactory" for InApplicationPurchaseFactory
+import "./HighScoreUtil" for HighScoreUtil
 

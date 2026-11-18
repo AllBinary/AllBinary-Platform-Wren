@@ -1,33 +1,35 @@
--- Generated Code Do Not Modify
--- package javax.microedition.lcdui
+// Generated Code Do Not Modify
+// package javax.microedition.lcdui
 
-local CommandListener = require("javax.microedition.lcdui.CommandListener")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class NullCommandListener is JObject {
+    static NULL_COMMAND_LISTENER {
+    if (__NULL_COMMAND_LISTENER_set == null) {
+      __NULL_COMMAND_LISTENER_set = true
+      __NULL_COMMAND_LISTENER = NullCommandListener.new()
+    }
+    return __NULL_COMMAND_LISTENER
+  }
+  static NULL_COMMAND_LISTENER=(value) {
+    __NULL_COMMAND_LISTENER_set = true
+    __NULL_COMMAND_LISTENER = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_NullCommandListener() {
+  }
 
-local NullCommandListener = {}
-NullCommandListener.__index = NullCommandListener
-NullCommandListener.className = "NullCommandListener"
+  construct new() {
+    super()
+    initFields_NullCommandListener()
+  }
+    
 
-function NullCommandListener.new()
-    local self = setmetatable({}, NullCommandListener)
-    return self
-end
+    commandAction(c, d) {
+    }
+}
 
-
-function NullCommandListener:commandAction(c, d)
-end
-
-NullCommandListener.NULL_COMMAND_LISTENER = NullCommandListener.new()
-
-return NullCommandListener
+import "./CommandListener" for CommandListener
+import "./Command" for Command
+import "./Displayable" for Displayable
 

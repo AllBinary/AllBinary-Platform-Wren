@@ -1,79 +1,80 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.logic.system.security.licensing.registration
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.logic.system.security.licensing.registration
 
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
+import "../../../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class RegistrationConfiguration is JObject {
+    static SINGLETON {
+    if (__SINGLETON_set == null) {
+      __SINGLETON_set = true
+      __SINGLETON = RegistrationConfiguration.new()
+    }
+    return __SINGLETON
+  }
+  static SINGLETON=(value) {
+    __SINGLETON_set = true
+    __SINGLETON = value
+  }
+  registrationCode { _registrationCode }
+  registrationCode=(value) { _registrationCode = value }
+  NAME { _NAME }
+  NAME=(value) { _NAME = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_RegistrationConfiguration() {
+    _registrationCode = null
+    _NAME = null
+        _registrationCode = "No Registration Code"
+        _NAME = "registrationid"
+  }
+    
 
-local RegistrationConfiguration = {}
-RegistrationConfiguration.__index = RegistrationConfiguration
-RegistrationConfiguration.className = "RegistrationConfiguration"
+    construct new() {
+    super()
+    initFields_RegistrationConfiguration()
+    }
+    
 
-function RegistrationConfiguration:_init_fields()
-    self.registrationCode = "No Registration Code"
-    self.NAME = "registrationid"
-end
-
-
-function RegistrationConfiguration.new()
-    local self = setmetatable({}, RegistrationConfiguration)
-    self:_init_fields()
-    return self
-end
-
-
-function RegistrationConfiguration.getInstance()
+    static getInstance() {
         return RegistrationConfiguration.SINGLETON
-end
+    }
+    
 
+    read() {
+    }
+    
 
--- throws Exception
-function RegistrationConfiguration:read()
-end
+    write() {
+    }
+    
 
+    toString() {
+        return StringMaker.new().append("Registration Code: ").append(this.getRegistrationCode()).toString()
+    }
+    
 
--- throws Exception
-function RegistrationConfiguration:write()
-end
+    setRegistrationCode(registrationCode) {
+        _registrationCode = registrationCode
+    }
+    
 
+    getRegistrationCode() {
+        return _registrationCode
+    }
+}
 
-function RegistrationConfiguration:toString()
-        return tostring(StringMaker.new():append("Registration Code: "):append(self:getRegistrationCode()))
-end
-RegistrationConfiguration.__tostring = function(self) return self:toString() end
-
-
-function RegistrationConfiguration:setRegistrationCode(registrationCode)
-        self.registrationCode = registrationCode
-end
-
-
-function RegistrationConfiguration:getRegistrationCode()
-        return self.registrationCode
-end
-
-RegistrationConfiguration.SINGLETON = RegistrationConfiguration.new()
-
-return RegistrationConfiguration
+import "../../../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
 

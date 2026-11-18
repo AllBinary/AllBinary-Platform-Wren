@@ -1,41 +1,43 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.graphics
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.graphics
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class Anchor is JObject {
+    static TOP_LEFT {
+    if (__TOP_LEFT_set == null) {
+      __TOP_LEFT_set = true
+      __TOP_LEFT = (Graphics.TOP & Graphics.LEFT)
+    }
+    return __TOP_LEFT
+  }
+  static TOP_LEFT=(value) {
+    __TOP_LEFT_set = true
+    __TOP_LEFT = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_Anchor() {
+  }
 
-local Anchor = {}
-Anchor.__index = Anchor
-Anchor.className = "Anchor"
+  construct new() {
+    super()
+    initFields_Anchor()
+  }
+}
 
-function Anchor.new()
-    local self = setmetatable({}, Anchor)
-    return self
-end
-
-Anchor.TOP_LEFT = Graphics.TOP & Graphics.LEFT
-
-return Anchor
+import "../../../javax/microedition/lcdui/Graphics" for Graphics
 

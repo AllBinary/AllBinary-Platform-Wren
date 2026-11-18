@@ -1,55 +1,57 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input
 
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class InputProcessorFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = InputProcessorFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  inputProcessor { _inputProcessor }
+  inputProcessor=(value) { _inputProcessor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_InputProcessorFactory() {
+    _inputProcessor = null
+        _inputProcessor = InputProcessor.new()
+  }
 
-local InputProcessorFactory = {}
-InputProcessorFactory.__index = InputProcessorFactory
-InputProcessorFactory.className = "InputProcessorFactory"
+  construct new() {
+    super()
+    initFields_InputProcessorFactory()
+  }
+    
 
-function InputProcessorFactory:_init_fields()
-    self.inputProcessor = InputProcessor.new()
-end
-
-function InputProcessorFactory.new()
-    local self = setmetatable({}, InputProcessorFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function InputProcessorFactory.getInstance()
+    static getInstance() {
         return InputProcessorFactory.instance
-end
+    }
+    
 
+    getInputProcessor() {
+        return _inputProcessor
+    }
+}
 
-function InputProcessorFactory:getInputProcessor()
-        return self.inputProcessor
-end
-
-InputProcessorFactory.instance = InputProcessorFactory.new()
-
-return InputProcessorFactory
+import "./InputProcessor" for InputProcessor
 

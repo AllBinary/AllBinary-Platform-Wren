@@ -1,69 +1,74 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.input
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.input
 
-local PersistentInputMapping = require("org.allbinary.game.input.mapping.PersistentInputMapping")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class PlatformInputMappingFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = PlatformInputMappingFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  inputToGameKeyMapping { _inputToGameKeyMapping }
+  inputToGameKeyMapping=(value) { _inputToGameKeyMapping = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_PlatformInputMappingFactory() {
+    _logUtil = null
+    _inputToGameKeyMapping = null
+        _logUtil = LogUtil.getInstance()
+        _inputToGameKeyMapping = PersistentInputMapping.getNullInstance()
+  }
 
-local PlatformInputMappingFactory = {}
-PlatformInputMappingFactory.__index = PlatformInputMappingFactory
-PlatformInputMappingFactory.className = "PlatformInputMappingFactory"
+  construct new() {
+    super()
+    initFields_PlatformInputMappingFactory()
+  }
+    
 
-function PlatformInputMappingFactory:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.inputToGameKeyMapping = PersistentInputMapping.getNullInstance()
-end
-
-function PlatformInputMappingFactory.new()
-    local self = setmetatable({}, PlatformInputMappingFactory)
-    self:_init_fields()
-    return self
-end
-
-
-function PlatformInputMappingFactory.getInstance()
+    static getInstance() {
         return PlatformInputMappingFactory.instance
-end
+    }
+    
 
+    getPersistentInputMappingInstance() {
+        var jerror0 = Fiber.new {
+            if ((_inputToGameKeyMapping == PersistentInputMapping.getNullInstance())) {
+                _inputToGameKeyMapping = NormalJ2MEGameInputMapping.new()
+            }
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, commonStrings.GET_INSTANCE, e)
+        }
+        return _inputToGameKeyMapping
+    }
+}
 
-function PlatformInputMappingFactory:getPersistentInputMappingInstance()
-        local try_ok, try_error = pcall(function()
-            if self.inputToGameKeyMapping == PersistentInputMapping.getNullInstance() then
-                self.inputToGameKeyMapping = NormalJ2MEGameInputMapping.new()
-            end
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, commonStrings.GET_INSTANCE, e)
-        end
-        return self.inputToGameKeyMapping
-end
-
-PlatformInputMappingFactory.instance = PlatformInputMappingFactory.new()
-
-return PlatformInputMappingFactory
+import "../../../../org/allbinary/game/input/mapping/PersistentInputMapping" for PersistentInputMapping
+import "../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./NormalJ2MEGameInputMapping" for NormalJ2MEGameInputMapping
 

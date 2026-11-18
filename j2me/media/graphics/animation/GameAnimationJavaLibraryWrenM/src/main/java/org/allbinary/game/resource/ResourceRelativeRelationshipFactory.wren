@@ -1,99 +1,94 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.resource
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.resource
 
-local RelativeRelationship = require("org.allbinary.graphics.RelativeRelationship")
-local StdUtil = require("org.allbinary.logic.StdUtil")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local BasicArrayListUtil = require("org.allbinary.util.BasicArrayListUtil")
-local ResourceRelativeRelationshipFactoryInterface = require("org.allbinary.game.resource.ResourceRelativeRelationshipFactoryInterface")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ResourceRelativeRelationshipFactory is JObject {
+  basicArrayListUtil { _basicArrayListUtil }
+  basicArrayListUtil=(value) { _basicArrayListUtil = value }
+  hashtable { _hashtable }
+  hashtable=(value) { _hashtable = value }
+  initialized { _initialized }
+  initialized=(value) { _initialized = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ResourceRelativeRelationshipFactory() {
+    _basicArrayListUtil = null
+    _hashtable = null
+    _initialized = false
+        _basicArrayListUtil = BasicArrayListUtil.getInstance()
+        _hashtable = StdUtil.getInstance().createHashtable()
+        _initialized = false
+  }
 
-local ResourceRelativeRelationshipFactory = {}
-ResourceRelativeRelationshipFactory.__index = ResourceRelativeRelationshipFactory
-ResourceRelativeRelationshipFactory.className = "ResourceRelativeRelationshipFactory"
+  construct new() {
+    super()
+    initFields_ResourceRelativeRelationshipFactory()
+  }
+    
 
-function ResourceRelativeRelationshipFactory:_init_fields()
-    self.basicArrayListUtil = BasicArrayListUtil.getInstance()
-    self.hashtable = StdUtil.getInstance():createHashtable()
-    self.initialized = false
-end
+    init(level) {
+        this.setInitialized(true)
+    }
+    
 
-function ResourceRelativeRelationshipFactory.new()
-    local self = setmetatable({}, ResourceRelativeRelationshipFactory)
-    self:_init_fields()
-    return self
-end
-
-
--- throws Exception
-function ResourceRelativeRelationshipFactory:init(level)
-        self:setInitialized(true)
-end
-
-
--- throws Exception
-function ResourceRelativeRelationshipFactory:getResourceRelativeRelationshipList(resource)
-        local listCanBeNull = self.hashtable:get(resource)
-        if listCanBeNull == nil then
-            return self.basicArrayListUtil:getImmutableInstance()
-        end
+    getResourceRelativeRelationshipList(resource) {
+        var listCanBeNull = _hashtable.get(resource)
+        if ((listCanBeNull == null)) {
+            return _basicArrayListUtil.getImmutableInstance()
+        }
         return listCanBeNull
-end
+    }
+    
 
-
--- throws Exception
-function ResourceRelativeRelationshipFactory:addResourceRelativeRelationship(resource, hardPoint)
-        local list = self:getResourceRelativeRelationshipList(resource)
-        if list == self.basicArrayListUtil:getImmutableInstance() then
+    addResourceRelativeRelationship(resource, hardPoint) {
+        var list = this.getResourceRelativeRelationshipList(resource)
+        if ((list == _basicArrayListUtil.getImmutableInstance())) {
             list = BasicArrayListD.new()
-        end
-        list:add(hardPoint)
-        self.hashtable:put(resource, list)
-end
+        }
+        list.add(hardPoint)
+        _hashtable.put(resource, list)
+    }
+    
 
-
-function ResourceRelativeRelationshipFactory:isLoadingLevel(level)
+    isLoadingLevel(level) {
         return false
-end
+    }
+    
 
-
-function ResourceRelativeRelationshipFactory:isFeature()
+    isFeature() {
         return false
-end
+    }
+    
 
+    setInitialized(initialized) {
+        _initialized = initialized
+    }
+    
 
-function ResourceRelativeRelationshipFactory:setInitialized(initialized)
-        self.initialized = initialized
-end
+    isInitialized() {
+        return _initialized
+    }
+}
 
-
-function ResourceRelativeRelationshipFactory:isInitialized()
-        return self.initialized
-end
-
-return ResourceRelativeRelationshipFactory
+import "../../../../org/allbinary/graphics/RelativeRelationship" for RelativeRelationship
+import "../../../../org/allbinary/logic/StdUtil" for StdUtil
+import "../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "../../../../org/allbinary/util/BasicArrayListUtil" for BasicArrayListUtil
+import "./ResourceRelativeRelationshipFactoryInterface" for ResourceRelativeRelationshipFactoryInterface
 

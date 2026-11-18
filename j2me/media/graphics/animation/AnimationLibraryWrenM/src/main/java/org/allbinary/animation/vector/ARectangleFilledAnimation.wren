@@ -1,47 +1,38 @@
--- Generated Code Do Not Modify
--- package org.allbinary.animation.vector
+// Generated Code Do Not Modify
+// package org.allbinary.animation.vector
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local RectangleFilledAnimation = require("org.allbinary.animation.vector.RectangleFilledAnimation")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./RectangleFilledAnimation" for RectangleFilledAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ARectangleFilledAnimation is RectangleFilledAnimation {
+  x { _x }
+  x=(value) { _x = value }
+  y { _y }
+  y=(value) { _y = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ARectangleFilledAnimation() {
+    _x = 0
+    _y = 0
+        _x = 0
+        _y = 0
+  }
+    
 
-local ARectangleFilledAnimation = {}
-ARectangleFilledAnimation.__index = ARectangleFilledAnimation
-ARectangleFilledAnimation.className = "ARectangleFilledAnimation"
-setmetatable(ARectangleFilledAnimation, {__index = RectangleFilledAnimation})
+    construct new() {
+        super(0, 0, BasicColorFactory.getInstance().BLACK)
+        initFields_ARectangleFilledAnimation()
+    }
+    
 
-function ARectangleFilledAnimation:_init_fields()
-    self.x = 0
-    self.y = 0
-end
+    nextFrame() {
+    }
+    
 
+    paintXY(graphics, unusedX, unusedY) {
+        super.paintXY(graphics, _x, _y)
+    }
+}
 
-function ARectangleFilledAnimation.new()
-    local self = setmetatable(RectangleFilledAnimation.new(0, 0, BasicColorFactory.getInstance().BLACK), ARectangleFilledAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-    return self
-end
-
-
-function ARectangleFilledAnimation:nextFrame()
-end
-
-
-function ARectangleFilledAnimation:paintXY(graphics, unusedX, unusedY)
-        RectangleFilledAnimation.paintXY(self, graphics, self.x, self.y)
-end
-
-return ARectangleFilledAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
 

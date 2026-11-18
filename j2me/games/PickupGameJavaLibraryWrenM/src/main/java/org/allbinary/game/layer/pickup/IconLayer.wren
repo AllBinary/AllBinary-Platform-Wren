@@ -1,72 +1,71 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer.pickup
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer.pickup
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local Animation = require("org.allbinary.animation.Animation")
-local NullAnimationFactory = require("org.allbinary.animation.NullAnimationFactory")
-local PointFactory = require("org.allbinary.graphics.PointFactory")
-local Rectangle = require("org.allbinary.graphics.Rectangle")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local ViewPosition = require("org.allbinary.view.ViewPosition")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class IconLayer is AllBinaryLayer {
+    static NULL_ICON_LAYER {
+    if (__NULL_ICON_LAYER_set == null) {
+      __NULL_ICON_LAYER_set = true
+      __NULL_ICON_LAYER = IconLayer.new(NullAnimationFactory.getFactoryInstance().getInstance(0), 0, 0)
+    }
+    return __NULL_ICON_LAYER
+  }
+  static NULL_ICON_LAYER=(value) {
+    __NULL_ICON_LAYER_set = true
+    __NULL_ICON_LAYER = value
+  }
+  animationInterface { _animationInterface }
+  animationInterface=(value) { _animationInterface = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_IconLayer() {
+    _animationInterface = null
+        
+  }
+    
 
-local IconLayer = {}
-IconLayer.__index = IconLayer
-IconLayer.className = "IconLayer"
-setmetatable(IconLayer, {__index = AllBinaryLayer})
+    construct new(animationInterface, width, height) {
+        super(StringUtil.getInstance().EMPTY_STRING, Rectangle.new(PointFactory.getInstance().ZERO_ZERO, width, height), ViewPosition.getInstanceD())
+        initFields_IconLayer()
+        _animationInterface = animationInterface
+    }
+    
 
-function IconLayer:_init_fields()
-    self.animationInterface = nil
-end
+    paint(graphics) {
+        _animationInterface.paintXY(graphics, this.x, this.y)
+    }
+    
 
+    paintThreed(graphics) {
+        _animationInterface.paintThreedXYZ(graphics, this.x, this.y, this.z)
+    }
+    
 
-function IconLayer.new(animationInterface, width, height)
-    local self = setmetatable(AllBinaryLayer.new(StringUtil.getInstance().EMPTY_STRING, Rectangle.new(PointFactory.getInstance().ZERO_ZERO, width, height), ViewPosition.getInstanceD()), IconLayer)
-    self:_init_fields()
-        -- super(...) made self above
-        self.animationInterface = animationInterface
-    return self
-end
+    getAnimationInterface() {
+        return _animationInterface
+    }
+}
 
-
-function IconLayer:paint(graphics)
-        self.animationInterface:paintXY(graphics, self.x, self.y)
-end
-
-
-function IconLayer:paintThreed(graphics)
-        self.animationInterface:paintThreedXYZ(graphics, self.x, self.y, self.z)
-end
-
-
-function IconLayer:getAnimationInterface()
-        return self.animationInterface
-end
-
-IconLayer.NULL_ICON_LAYER = IconLayer.new(NullAnimationFactory.getFactoryInstance():getInstance(0), 0, 0)
-
-return IconLayer
+import "../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../../org/allbinary/animation/NullAnimationFactory" for NullAnimationFactory
+import "../../../../../org/allbinary/graphics/PointFactory" for PointFactory
+import "../../../../../org/allbinary/graphics/Rectangle" for Rectangle
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/view/ViewPosition" for ViewPosition
 

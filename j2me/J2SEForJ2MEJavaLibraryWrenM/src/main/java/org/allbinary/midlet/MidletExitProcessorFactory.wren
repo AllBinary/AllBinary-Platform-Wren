@@ -1,58 +1,61 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.midlet
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.midlet
 
--- local MIDlet = require("javax.microedition.midlet.MIDlet")
-local AppletUtil = require("org.allbinary.AppletUtil")
-local J2MEUtil = require("org.allbinary.J2MEUtil")
-local Processor = require("org.allbinary.canvas.Processor")
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class MidletExitProcessorFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = MidletExitProcessorFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_MidletExitProcessorFactory() {
+  }
 
-local MidletExitProcessorFactory = {}
-MidletExitProcessorFactory.__index = MidletExitProcessorFactory
-MidletExitProcessorFactory.className = "MidletExitProcessorFactory"
+  construct new() {
+    super()
+    initFields_MidletExitProcessorFactory()
+  }
+    
 
-function MidletExitProcessorFactory.new()
-    local self = setmetatable({}, MidletExitProcessorFactory)
-    return self
-end
-
-
-function MidletExitProcessorFactory.getInstance()
+    static getInstance() {
         return MidletExitProcessorFactory.instance
-end
+    }
+    
 
-
-function MidletExitProcessorFactory:getExitInstance(midlet)
-        if AppletUtil.isAppletLoader(midlet) or J2MEUtil.isJ2ME() then
+    getExitInstance(midlet) {
+        if ((AppletUtil.isAppletLoader(midlet) || J2MEUtil.isJ2ME())) {
             return Processor.getInstance()
-        else
+        } else {
             return MidletExitProcessor.new(midlet)
-        end
-end
+        }
+    }
+}
 
-MidletExitProcessorFactory.instance = MidletExitProcessorFactory.new()
-
-return MidletExitProcessorFactory
+import "../../../javax/microedition/midlet/MIDlet" for MIDlet
+import "../../../org/allbinary/AppletUtil" for AppletUtil
+import "../../../org/allbinary/J2MEUtil" for J2MEUtil
+import "../../../org/allbinary/canvas/Processor" for Processor
+import "./MidletExitProcessor" for MidletExitProcessor
 

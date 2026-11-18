@@ -1,131 +1,132 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.layer.hud.basic.level
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.layer.hud.basic.level
 
--- local Font = require("javax.microedition.lcdui.Font")
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local BasicHud = require("org.allbinary.game.graphics.hud.BasicHud")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local PaintableInterface = require("org.allbinary.graphics.paint.PaintableInterface")
-local NullUtil = require("org.allbinary.logic.NullUtil")
-local PrimitiveLongUtil = require("org.allbinary.logic.math.PrimitiveLongUtil")
+import "../../../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../../../org/allbinary/game/graphics/hud/BasicHud" for BasicHud
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class LevelHudWidget is BasicHud {
+  level { _level }
+  level=(value) { _level = value }
+  maxlevel { _maxlevel }
+  maxlevel=(value) { _maxlevel = value }
+  levelString { _levelString }
+  levelString=(value) { _levelString = value }
+  levelNumberCharArray { _levelNumberCharArray }
+  levelNumberCharArray=(value) { _levelNumberCharArray = value }
+  levelNumberTotalDigits { _levelNumberTotalDigits }
+  levelNumberTotalDigits=(value) { _levelNumberTotalDigits = value }
+  offset { _offset }
+  offset=(value) { _offset = value }
+  primitiveLongUtil { _primitiveLongUtil }
+  primitiveLongUtil=(value) { _primitiveLongUtil = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_LevelHudWidget() {
+    _level = 0
+    _maxlevel = 0
+    _levelString = null
+    _levelNumberCharArray = null
+    _levelNumberTotalDigits = 0
+    _offset = 0
+    _primitiveLongUtil = null
+        
+        
+        
+        _levelNumberCharArray = NullUtil.getInstance().NULL_CHAR_ARRAY
+        _levelNumberTotalDigits = 0
+        _offset = 0
+        
+  }
+    
 
-local function java_chars(text)
-    local chars = {}
-    for index = 1, #text do chars[index] = string.sub(text, index, index) end
-    return chars
-end
-
-local LevelHudWidget = {}
-LevelHudWidget.__index = LevelHudWidget
-LevelHudWidget.className = "LevelHudWidget"
-setmetatable(LevelHudWidget, {__index = BasicHud})
-
-function LevelHudWidget:_init_fields()
-    self.level = nil
-    self.maxlevel = nil
-    self.levelString = nil
-    self.levelNumberCharArray = NullUtil.getInstance().NULL_CHAR_ARRAY
-    self.levelNumberTotalDigits = 0
-    self.offset = 0
-    self.primitiveLongUtil = nil
-end
-
-
--- throws Exception
-function LevelHudWidget.createHud(maxlevel, location, direction)
+    static createHud(maxlevel, location, direction) {
         return LevelHudWidget.new(maxlevel, location, direction)
-end
+    }
+    
 
+    construct new(maxlevel, location, direction) {
+        super(location, direction, 2, BasicColorFactory.getInstance().GREY)
+        initFields_LevelHudWidget()
+        _primitiveLongUtil = PrimitiveLongUtil.createPowerOfTen(1000)
+        var LEVEL = "Lv "
+        _levelString = JR.toCharArray(LEVEL)
+        _maxlevel = maxlevel
+        _level = maxlevel
+        this.update()
+        this.updateMaxHeight = 14
+    }
+    
 
-function LevelHudWidget.new(maxlevel, location, direction)
-    local self = setmetatable(BasicHud.new(location, direction, 2, BasicColorFactory.getInstance().GREY), LevelHudWidget)
-    self:_init_fields()
-        -- super(...) made self above
-        self.primitiveLongUtil = PrimitiveLongUtil.createPowerOfTen(1000)
-        local LEVEL = "Lv "
-        self.levelString = java_chars(LEVEL)
-        self.maxlevel = maxlevel
-        self.level = maxlevel
-        self:update()
-        self.updateMaxHeight = 14
-    return self
-end
+    updateMeasurement(graphics) {
+        var font = graphics.getFont()
+        this.updateMaxWidth = (font.getSize() * 4)
+        _offset = (font.charsWidth(_levelString, 0, _levelString.count) + font.getSize())
+        super.updateMeasurement(graphics)
+    }
+    
 
+    update() {
+        _levelNumberCharArray = _primitiveLongUtil.getCharArray(_level)
+        _levelNumberTotalDigits = _primitiveLongUtil.getCurrentTotalDigits()
+    }
+    
 
-function LevelHudWidget:updateMeasurement(graphics)
-        local font = graphics:getFont()
-        self.updateMaxWidth = font:getSize() * 4
-        self.offset = font:charsWidth(self.levelString, 0, (self.levelString.n or #self.levelString)) + font:getSize()
-        BasicHud.updateMeasurement(self, graphics)
-end
+    setLevel(level) {
+        _level = level
+        this.update()
+    }
+    
 
+    nextLevel() {
+        _level = JR.i32(_level + 1)
+        this.update()
+    }
+    
 
-function LevelHudWidget:update()
-        self.levelNumberCharArray = self.primitiveLongUtil:getCharArray(self.level)
-        self.levelNumberTotalDigits = self.primitiveLongUtil:getCurrentTotalDigits()
-end
+    previousLevel() {
+        _level = JR.i32(_level - 1)
+        if ((_level < 0)) {
+            _level = 0
+        }
+        this.update()
+    }
+    
 
-
-function LevelHudWidget:setLevel(level)
-        self.level = level
-        self:update()
-end
-
-
-function LevelHudWidget:nextLevel()
-        self.level = self.level + 1
-        self:update()
-end
-
-
-function LevelHudWidget:previousLevel()
-        self.level = self.level - 1
-        if self.level < 0 then
-            self.level = 0
-        end
-        self:update()
-end
-
-
-function LevelHudWidget:isComplete()
-        if self.level <= self.maxlevel then
+    isComplete() {
+        if ((_level <= _maxlevel)) {
             return false
-        else
+        } else {
             return true
-        end
-end
+        }
+    }
+    
 
+    paint(graphics) {
+        super.paintDX(graphics, _levelString, 0, _levelString.count, _levelNumberCharArray, 0, _levelNumberTotalDigits, _offset)
+    }
+    
 
-function LevelHudWidget:paint(graphics)
-        BasicHud.paintDX(self, graphics, self.levelString, 0, (self.levelString.n or #self.levelString), self.levelNumberCharArray, 0, self.levelNumberTotalDigits, self.offset)
-end
+    paintThreed(graphics) {
+    }
+}
 
-
-function LevelHudWidget:paintThreed(graphics)
-end
-
-return LevelHudWidget
+import "../../../../../../../../javax/microedition/lcdui/Font" for Font
+import "../../../../../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../../../../org/allbinary/graphics/paint/PaintableInterface" for PaintableInterface
+import "../../../../../../../../org/allbinary/logic/NullUtil" for NullUtil
+import "../../../../../../../../org/allbinary/logic/math/PrimitiveLongUtil" for PrimitiveLongUtil
 

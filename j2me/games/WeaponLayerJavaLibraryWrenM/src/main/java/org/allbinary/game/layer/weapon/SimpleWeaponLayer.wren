@@ -1,57 +1,47 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.layer.weapon
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.layer.weapon
 
-local Animation = require("org.allbinary.animation.Animation")
-local FeaturedAnimationInterfaceFactoryInterfaceFactory = require("org.allbinary.animation.FeaturedAnimationInterfaceFactoryInterfaceFactory")
-local NullIndexedAnimationFactory = require("org.allbinary.animation.NullIndexedAnimationFactory")
-local ExplosionResources = require("org.allbinary.game.combat.damage.ExplosionResources")
-local RemoteInfo = require("org.allbinary.game.multiplayer.layer.RemoteInfo")
-local Rectangle = require("org.allbinary.graphics.Rectangle")
-local Movement = require("org.allbinary.physics.movement.Movement")
-local ViewPositionBase = require("org.allbinary.view.ViewPositionBase")
-local WeaponLayer = require("org.allbinary.game.layer.weapon.WeaponLayer")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./WeaponLayer" for WeaponLayer
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class SimpleWeaponLayer is WeaponLayer {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_SimpleWeaponLayer() {
+  }
+    
 
-local SimpleWeaponLayer = {}
-SimpleWeaponLayer.__index = SimpleWeaponLayer
-SimpleWeaponLayer.className = "SimpleWeaponLayer"
-setmetatable(SimpleWeaponLayer, {__index = WeaponLayer})
+    static createDestroyed() {
+        return FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance().getProcedural(ExplosionResources.getInstance().THIRD_EXPLOSION_RESOURCE).getInstanceAnimation(NullIndexedAnimationFactory.getFactoryInstance().getInstance(0))
+    }
+    
 
+    construct new(name, remoteInfo, multiPlayerType, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition) {
+        super(name, remoteInfo, multiPlayerType, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition)
+        this.setCollidableInferface(CollidableWeaponBehavior.new(true))
+    }
+}
 
--- throws Exception
-function SimpleWeaponLayer.createDestroyed()
-        return FeaturedAnimationInterfaceFactoryInterfaceFactory.getInstance():getProcedural(ExplosionResources.getInstance().THIRD_EXPLOSION_RESOURCE):getInstanceAnimation(NullIndexedAnimationFactory.getFactoryInstance():getInstance(0))
-end
-
-
-function SimpleWeaponLayer.new(name, remoteInfo, multiPlayerType, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition)
-    local self = setmetatable(WeaponLayer.new(name, remoteInfo, multiPlayerType, movement, animationInterface, destroyedAnimationInterface, rectangle, viewPosition), SimpleWeaponLayer)
-        -- super(...) made self above
-        self:setCollidableInferface(CollidableWeaponBehavior.new(true))
-    return self
-end
-
-return SimpleWeaponLayer
+import "../../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../../org/allbinary/animation/FeaturedAnimationInterfaceFactoryInterfaceFactory" for FeaturedAnimationInterfaceFactoryInterfaceFactory
+import "../../../../../org/allbinary/animation/NullIndexedAnimationFactory" for NullIndexedAnimationFactory
+import "../../../../../org/allbinary/game/combat/damage/ExplosionResources" for ExplosionResources
+import "../../../../../org/allbinary/game/multiplayer/layer/RemoteInfo" for RemoteInfo
+import "../../../../../org/allbinary/graphics/Rectangle" for Rectangle
+import "../../../../../org/allbinary/physics/movement/Movement" for Movement
+import "../../../../../org/allbinary/view/ViewPositionBase" for ViewPositionBase
+import "./CollidableWeaponBehavior" for CollidableWeaponBehavior
 

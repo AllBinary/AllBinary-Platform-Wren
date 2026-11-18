@@ -1,176 +1,233 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.special
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.special
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local IndexedAnimation = require("org.allbinary.animation.IndexedAnimation")
-local IndexedAnimationBehavior = require("org.allbinary.animation.IndexedAnimationBehavior")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local DisplayInfoSingleton = require("org.allbinary.graphics.displayable.DisplayInfoSingleton")
-local ABSystemWrapper = require("org.allbinary.logic.ABSystemWrapper")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
-local SpecialAnimation = require("org.allbinary.animation.special.SpecialAnimation")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./SpecialAnimation" for SpecialAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class TitleAnimation is SpecialAnimation {
+  systemWrapper { _systemWrapper }
+  systemWrapper=(value) { _systemWrapper = value }
+  deltaX { _deltaX }
+  deltaX=(value) { _deltaX = value }
+  deltaY { _deltaY }
+  deltaY=(value) { _deltaY = value }
+  deltaZ { _deltaZ }
+  deltaZ=(value) { _deltaZ = value }
+  basicColorArray { _basicColorArray }
+  basicColorArray=(value) { _basicColorArray = value }
+  dxArray { _dxArray }
+  dxArray=(value) { _dxArray = value }
+  dyArray { _dyArray }
+  dyArray=(value) { _dyArray = value }
+  widthP { _widthP }
+  widthP=(value) { _widthP = value }
+  animationInterfaceArray { _animationInterfaceArray }
+  animationInterfaceArray=(value) { _animationInterfaceArray = value }
+  sizeP { _sizeP }
+  sizeP=(value) { _sizeP = value }
+  y { _y }
+  y=(value) { _y = value }
+  lastFrameStartTime { _lastFrameStartTime }
+  lastFrameStartTime=(value) { _lastFrameStartTime = value }
+  displayInfoSingleton { _displayInfoSingleton }
+  displayInfoSingleton=(value) { _displayInfoSingleton = value }
+  CLEAR_COLOR { _CLEAR_COLOR }
+  CLEAR_COLOR=(value) { _CLEAR_COLOR = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TitleAnimation() {
+    _systemWrapper = null
+    _deltaX = 0.0
+    _deltaY = 0.0
+    _deltaZ = 0.0
+    _basicColorArray = null
+    _dxArray = null
+    _dyArray = null
+    _widthP = 0
+    _animationInterfaceArray = null
+    _sizeP = 0
+    _y = 0
+    _lastFrameStartTime = 0
+    _displayInfoSingleton = null
+    _CLEAR_COLOR = null
+        _systemWrapper = ABSystemWrapper.getInstance()
+        _deltaX = 0.0
+        _deltaY = 0.0
+        _deltaZ = 0.0
+        
+        
+        
+        
+        
+        
+        
+        
+        _displayInfoSingleton = DisplayInfoSingleton.getInstance()
+        _CLEAR_COLOR = BasicColorFactory.getInstance().CLEAR_COLOR
+  }
+    
 
-local TitleAnimation = {}
-TitleAnimation.__index = TitleAnimation
-TitleAnimation.className = "TitleAnimation"
-setmetatable(TitleAnimation, {__index = SpecialAnimation})
-
-function TitleAnimation:_init_fields()
-    self.systemWrapper = ABSystemWrapper.getInstance()
-    self.deltaX = 0.0
-    self.deltaY = 0.0
-    self.deltaZ = 0.0
-    self.basicColorArray = nil
-    self.dxArray = nil
-    self.dyArray = nil
-    self.widthP = nil
-    self.animationInterfaceArray = nil
-    self.sizeP = nil
-    self.y = nil
-    self.lastFrameStartTime = nil
-    self.displayInfoSingleton = DisplayInfoSingleton.getInstance()
-    self.CLEAR_COLOR = BasicColorFactory.getInstance().CLEAR_COLOR
-end
-
-
-function TitleAnimation.createAnimation(animationInterfaceArray, basicColorArray, dxArray, dyArray, y, width)
+    static createAnimation(animationInterfaceArray, basicColorArray, dxArray, dyArray, y, width) {
         return TitleAnimation.new(animationInterfaceArray, basicColorArray, dxArray, dyArray, y, width, IndexedAnimationBehavior.new(1, 250))
-end
+    }
+    
 
+    construct new(animationInterfaceArray, basicColorArray, dxArray, dyArray, y, width, animationBehavior) {
+        super(animationBehavior)
+        initFields_TitleAnimation()
+        _lastFrameStartTime = _systemWrapper.currentTimeMillis()
+        _animationInterfaceArray = animationInterfaceArray
+        _sizeP = _animationInterfaceArray.count
+        _basicColorArray = basicColorArray
+        _dxArray = dxArray
+        _dyArray = dyArray
+        _y = y
+        _widthP = width
+        this.reset()
+    }
+    
 
-function TitleAnimation.new(animationInterfaceArray, basicColorArray, dxArray, dyArray, y, width, animationBehavior)
-    local self = setmetatable(SpecialAnimation.new(animationBehavior), TitleAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.lastFrameStartTime = self.systemWrapper:currentTimeMillis()
-        self.animationInterfaceArray = animationInterfaceArray
-        self.sizeP = (self.animationInterfaceArray.n or #self.animationInterfaceArray)
-        self.basicColorArray = basicColorArray
-        self.dxArray = dxArray
-        self.dyArray = dyArray
-        self.y = y
-        self.widthP = width
-        self:reset()
-    return self
-end
+    nextFrame() {
+        var currentTime = _systemWrapper.currentTimeMillis()
+        var totalTimeElapsed = JR.i32(currentTime - _lastFrameStartTime)
+        var indexedAnimationBehavior = this.getAnimationBehavior()
+        if ((totalTimeElapsed > indexedAnimationBehavior.frameDelayTime)) {
+            this.previousFrame()
+            _lastFrameStartTime = currentTime
+        }
+        if ((_animationInterfaceArray[0].getFrame() == 0)) {
+            indexedAnimationBehavior.loopIndex = JR.i32(indexedAnimationBehavior.loopIndex + 1)
+        }
+    }
+    
 
-
-function TitleAnimation:nextFrame()
-        local currentTime = self.systemWrapper:currentTimeMillis()
-        local totalTimeElapsed = currentTime - self.lastFrameStartTime
-        local indexedAnimationBehavior = self:getAnimationBehavior()
-        if totalTimeElapsed > indexedAnimationBehavior.frameDelayTime then
-            self:previousFrame()
-            self.lastFrameStartTime = currentTime
-        end
-        if self.animationInterfaceArray[1]:getFrame() == 0 then
-            indexedAnimationBehavior.loopIndex = indexedAnimationBehavior.loopIndex + 1
-        end
-end
-
-
-function TitleAnimation:isComplete()
-        local indexedAnimationBehavior = self:getAnimationBehavior()
-        if indexedAnimationBehavior.loopTotal == -1 or indexedAnimationBehavior.loopIndex < indexedAnimationBehavior.loopTotal or self:getFrame() ~= 0 then
+    isComplete() {
+        var indexedAnimationBehavior = this.getAnimationBehavior()
+        if ((((indexedAnimationBehavior.loopTotal == -1) || (indexedAnimationBehavior.loopIndex < indexedAnimationBehavior.loopTotal)) || (this.getFrame() != 0))) {
             return false
-        else
+        } else {
             return true
-        end
-end
+        }
+    }
+    
 
+    setSequence(sequence) {
+    }
+    
 
-function TitleAnimation:setSequence(sequence)
-end
-
-
-function TitleAnimation:getSequence()
+    getSequence() {
         return PrimitiveIntUtil.getArrayInstance()
-end
+    }
+    
 
+    getSize() {
+        return _animationInterfaceArray[0].getSize()
+    }
+    
 
-function TitleAnimation:getSize()
-        return self.animationInterfaceArray[1]:getSize()
-end
+    getFrame() {
+        return _animationInterfaceArray[0].getFrame()
+    }
+    
 
+    setFrame(frame) {
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < _sizeP))) break
+            _animationInterfaceArray[index].setFrame(frame)
+            }
+        }
+    }
+    
 
-function TitleAnimation:getFrame()
-        return self.animationInterfaceArray[1]:getFrame()
-end
+    setLastFrame() {
+        this.setFrame(JR.i32(this.getSize() - 1))
+    }
+    
 
+    reset() {
+        this.setLastFrame()
+        var indexedAnimationBehavior = (this.getAnimationBehavior())
+        indexedAnimationBehavior.reset()
+    }
+    
 
-function TitleAnimation:setFrame(frame)
-        for index = 0, self.sizeP - 1 do
-            self.animationInterfaceArray[index + 1]:setFrame(frame)
-        end
-end
+    previousFrame() {
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < _sizeP))) break
+            _animationInterfaceArray[index].previousFrame()
+            }
+        }
+    }
+    
 
+    paintFrameXY(graphics, frame, x, y) {
+        this.setFrame(frame)
+        this.paintXY(graphics, x, y)
+    }
+    
 
-function TitleAnimation:setLastFrame()
-        self:setFrame(self:getSize() - 1)
-end
+    paintXY(graphics, ax, ay) {
+        var x = 0
+        if ((_widthP != Integer.MIN_VALUE)) {
+            x = ((((_displayInfoSingleton.getLastWidth() - _widthP)) / 2))
+        }
+        var deltaX = 0
+        var deltaY = 0
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < _sizeP))) break
+            deltaX = JR.i32(_dxArray[index] + x)
+            deltaY = JR.i32(_dyArray[index] + _y)
+            if ((_basicColorArray[index] != _CLEAR_COLOR)) {
+                this.basicSetColorUtil.setBasicColorP(graphics, _basicColorArray[index])
+            }
+            _animationInterfaceArray[index].paintXY(graphics, deltaX, deltaY)
+            }
+        }
+    }
+}
 
-
-function TitleAnimation:reset()
-        self:setLastFrame()
-        local indexedAnimationBehavior = (self:getAnimationBehavior())
-        indexedAnimationBehavior:reset()
-end
-
-
-function TitleAnimation:previousFrame()
-        for index = 0, self.sizeP - 1 do
-            self.animationInterfaceArray[index + 1]:previousFrame()
-        end
-end
-
-
-function TitleAnimation:paintFrameXY(graphics, frame, x, y)
-        self:setFrame(frame)
-        self:paintXY(graphics, x, y)
-end
-
-
-function TitleAnimation:paintXY(graphics, ax, ay)
-        local x = 0
-        if self.widthP ~= Integer.MIN_VALUE then
-            x = ((self.displayInfoSingleton:getLastWidth() - self.widthP) / 2)
-        end
-        local deltaX = 0
-        local deltaY = 0
-        for index = 0, self.sizeP - 1 do
-            deltaX = self.dxArray[index + 1] + x
-            deltaY = self.dyArray[index + 1] + self.y
-            if self.basicColorArray[index + 1] ~= self.CLEAR_COLOR then
-                self.basicSetColorUtil:setBasicColorP(graphics, self.basicColorArray[index + 1])
-            end
-            self.animationInterfaceArray[index + 1]:paintXY(graphics, deltaX, deltaY)
-        end
-end
-
-return TitleAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/animation/IndexedAnimation" for IndexedAnimation
+import "../../../../org/allbinary/animation/IndexedAnimationBehavior" for IndexedAnimationBehavior
+import "../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../org/allbinary/graphics/displayable/DisplayInfoSingleton" for DisplayInfoSingleton
+import "../../../../org/allbinary/logic/ABSystemWrapper" for ABSystemWrapper
+import "../../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
+import "../../../../java/lang/Integer" for Integer
 

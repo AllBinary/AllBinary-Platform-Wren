@@ -1,38 +1,28 @@
--- Generated Code Do Not Modify
--- package org.allbinary.game.collision
+// Generated Code Do Not Modify
+// package org.allbinary.game.collision
 
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local CollisionProcessor = require("org.allbinary.game.collision.CollisionProcessor")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "./CollisionProcessor" for CollisionProcessor
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class CollisionThreedProcessor is CollisionProcessor {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_CollisionThreedProcessor() {
+  }
 
-local CollisionThreedProcessor = {}
-CollisionThreedProcessor.__index = CollisionThreedProcessor
-CollisionThreedProcessor.className = "CollisionThreedProcessor"
-setmetatable(CollisionThreedProcessor, {__index = CollisionProcessor})
+  construct new() {
+    super()
+    initFields_CollisionThreedProcessor()
+  }
+    
 
-function CollisionThreedProcessor.new()
-    local self = setmetatable(CollisionProcessor.new(), CollisionThreedProcessor)
-    return self
-end
-
-
-function CollisionThreedProcessor:isCollision(myLayer, myLayer2)
-        if myLayer2:getXP() >= myLayer:getX2() or myLayer2:getYP() >= myLayer:getY2() or myLayer2:getX2() <= myLayer:getXP() or myLayer2:getY2() <= myLayer:getYP() or myLayer2:getZP() < myLayer:getZ2() or myLayer2:getZ2() > myLayer:getZP() then
+    isCollision(myLayer, myLayer2) {
+        if (((((((myLayer2.getXP() >= myLayer.getX2()) || (myLayer2.getYP() >= myLayer.getY2())) || (myLayer2.getX2() <= myLayer.getXP())) || (myLayer2.getY2() <= myLayer.getYP())) || (myLayer2.getZP() < myLayer.getZ2())) || (myLayer2.getZ2() > myLayer.getZP()))) {
             return false
-        else
+        } else {
             return true
-        end
-end
+        }
+    }
+}
 
-return CollisionThreedProcessor
+import "../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
 

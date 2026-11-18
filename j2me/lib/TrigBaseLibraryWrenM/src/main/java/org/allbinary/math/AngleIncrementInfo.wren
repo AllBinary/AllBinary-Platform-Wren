@@ -18,17 +18,7 @@
 import "../../../allbinary_java" for JObject, JException, JR
 
 class AngleIncrementInfo is JObject {
-    static INCREMENT {
-    if (__INCREMENT_set == null) {
-      __INCREMENT_set = true
-      __INCREMENT = "Inc: "
-    }
-    return __INCREMENT
-  }
-  static INCREMENT=(value) {
-    __INCREMENT_set = true
-    __INCREMENT = value
-  }
+    static INCREMENT { "Inc: " }
   angleIncrement { _angleIncrement }
   angleIncrement=(value) { _angleIncrement = value }
   DOWN_FRAME { _DOWN_FRAME }

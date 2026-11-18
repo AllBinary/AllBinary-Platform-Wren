@@ -1,115 +1,118 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.paint.help
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.paint.help
 
-local GameKey = require("org.allbinary.game.input.GameKey")
-local GameKeyFactory = require("org.allbinary.game.input.GameKeyFactory")
-local Input = require("org.allbinary.game.input.Input")
-local PlatformInputMappingFactory = require("org.allbinary.game.input.PlatformInputMappingFactory")
-local GameInputMapping = require("org.allbinary.game.input.mapping.GameInputMapping")
-local PersistentInputMapping = require("org.allbinary.game.input.mapping.PersistentInputMapping")
-local BasicColor = require("org.allbinary.graphics.color.BasicColor")
-local BasicColorFactory = require("org.allbinary.graphics.color.BasicColorFactory")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local CommonSeps = require("org.allbinary.string.CommonSeps")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local HelpPaintable = require("org.allbinary.game.paint.help.HelpPaintable")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./HelpPaintable" for HelpPaintable
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class BasicInputMappingHelpPaintable is HelpPaintable {
+  gameInputMappingArray { _gameInputMappingArray }
+  gameInputMappingArray=(value) { _gameInputMappingArray = value }
+  NONE { _NONE }
+  NONE=(value) { _NONE = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_BasicInputMappingHelpPaintable() {
+    _gameInputMappingArray = null
+    _NONE = null
+        
+        _NONE = GameKeyFactory.getInstance().NONE
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(gameInputMappingArray, basicColor) {
+        super("Help Screen", BasicColorFactory.getInstance().BLACK, basicColor)
+        initFields_BasicInputMappingHelpPaintable()
+        _gameInputMappingArray = gameInputMappingArray
+        this.update(_NONE, _NONE)
+    }
+    
 
-local BasicInputMappingHelpPaintable = {}
-BasicInputMappingHelpPaintable.__index = BasicInputMappingHelpPaintable
-BasicInputMappingHelpPaintable.className = "BasicInputMappingHelpPaintable"
-setmetatable(BasicInputMappingHelpPaintable, {__index = HelpPaintable})
+    update(selectedGameKey, selectedInput) {
+        var gameKeyMapping = PlatformInputMappingFactory.getInstance().getPersistentInputMappingInstance()
+        var EQUAL = " = "
+        var stringMaker = StringMaker.new()
+        var size = _gameInputMappingArray.count
+        var keyInfo = List.filled(size, null)
+        var gameInputMapping = null
+        var gameKey = null
+        var list = null
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            gameInputMapping = _gameInputMappingArray[index]
+            gameKey = gameInputMapping.getGameKey()
+            list = gameKeyMapping.getInputMapping().getMappedInput(gameKey)
+            stringMaker.delete(0, stringMaker.length())
+            keyInfo[index] = stringMaker.append(gameInputMapping.getName()).append(EQUAL).append(this.get(list)).toString()
+            }
+        }
+        super.setInputInfoP(keyInfo)
+    }
+    
 
-function BasicInputMappingHelpPaintable:_init_fields()
-    self.gameInputMappingArray = nil
-    self.NONE = GameKeyFactory.getInstance().NONE
-end
+    get(keyList) {
+        var commonSeps = CommonSeps.getInstance()
+        var stringBuffer = StringMaker.new()
+        var AND = "and "
+        var key = null
+        var size = keyList.size()
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            key = keyList.objectArray[index]
+            stringBuffer.append(key.getName())
+            if ((JR.i32(index + 1) < keyList.size())) {
+                if ((keyList.size() == 2)) {
+                    stringBuffer.append(commonSeps.SPACE).append(AND)
+                } else {
+                    if ((JR.i32(index + 2) == keyList.size())) {
+                        stringBuffer.append(commonSeps.COMMA_SEP)
+                        stringBuffer.append(AND)
+                    } else {
+                        stringBuffer.append(commonSeps.COMMA_SEP)
+                    }
+                }
+            }
+            }
+        }
+        return stringBuffer.toString()
+    }
+}
 
-
-function BasicInputMappingHelpPaintable.new(gameInputMappingArray, basicColor)
-    local self = setmetatable(HelpPaintable.new("Help Screen", BasicColorFactory.getInstance().BLACK, basicColor), BasicInputMappingHelpPaintable)
-    self:_init_fields()
-        -- super(...) made self above
-        self.gameInputMappingArray = gameInputMappingArray
-        self:update(self.NONE, self.NONE)
-    return self
-end
-
-
-function BasicInputMappingHelpPaintable:update(selectedGameKey, selectedInput)
-        local gameKeyMapping = PlatformInputMappingFactory.getInstance():getPersistentInputMappingInstance()
-        local EQUAL = " = "
-        local stringMaker = StringMaker.new()
-        local size = (self.gameInputMappingArray.n or #self.gameInputMappingArray)
-        local keyInfo = java_new_array(nil, size)
-        local gameInputMapping = nil
-        local gameKey = nil
-        local list = nil
-        for index = 0, size - 1 do
-            gameInputMapping = self.gameInputMappingArray[index + 1]
-            gameKey = gameInputMapping:getGameKey()
-            list = gameKeyMapping:getInputMapping():getMappedInput(gameKey)
-            stringMaker:delete(0, stringMaker:length())
-            keyInfo[index + 1] = tostring(stringMaker:append(gameInputMapping:getName()):append(EQUAL):append(self:get(list)))
-        end
-        HelpPaintable.setInputInfoP(self, keyInfo)
-end
-
-
-function BasicInputMappingHelpPaintable:get(keyList)
-        local commonSeps = CommonSeps.getInstance()
-        local stringBuffer = StringMaker.new()
-        local AND = "and "
-        local key = nil
-        local size = keyList:size()
-        for index = 0, size - 1 do
-            key = keyList.objectArray[index + 1]
-            stringBuffer:append(key:getName())
-            if index + 1 < keyList:size() then
-                if keyList:size() == 2 then
-                    stringBuffer:append(commonSeps.SPACE):append(AND)
-                else
-                    if index + 2 == keyList:size() then
-                        stringBuffer:append(commonSeps.COMMA_SEP)
-                        stringBuffer:append(AND)
-                    else
-                        stringBuffer:append(commonSeps.COMMA_SEP)
-                    end
-                end
-            end
-        end
-        return tostring(stringBuffer)
-end
-
-return BasicInputMappingHelpPaintable
+import "../../../../../org/allbinary/game/input/GameKey" for GameKey
+import "../../../../../org/allbinary/game/input/GameKeyFactory" for GameKeyFactory
+import "../../../../../org/allbinary/game/input/Input" for Input
+import "../../../../../org/allbinary/game/input/PlatformInputMappingFactory" for PlatformInputMappingFactory
+import "../../../../../org/allbinary/game/input/mapping/GameInputMapping" for GameInputMapping
+import "../../../../../org/allbinary/game/input/mapping/PersistentInputMapping" for PersistentInputMapping
+import "../../../../../org/allbinary/graphics/color/BasicColor" for BasicColor
+import "../../../../../org/allbinary/graphics/color/BasicColorFactory" for BasicColorFactory
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/string/CommonSeps" for CommonSeps
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
 

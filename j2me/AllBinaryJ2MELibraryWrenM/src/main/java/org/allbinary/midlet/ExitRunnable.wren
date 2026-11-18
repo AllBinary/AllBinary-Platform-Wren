@@ -1,80 +1,84 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.midlet
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.midlet
 
--- local NullCanvas = require("javax.microedition.lcdui.NullCanvas")
-local Processor = require("org.allbinary.canvas.Processor")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
--- java.lang.Runnable has no Lua module
-local Runnable = {}
+import "../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ExitRunnable is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  midlet { _midlet }
+  midlet=(value) { _midlet = value }
+  processor { _processor }
+  processor=(value) { _processor = value }
+  isProgress { _isProgress }
+  isProgress=(value) { _isProgress = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ExitRunnable() {
+    _logUtil = null
+    _commonStrings = null
+    _midlet = null
+    _processor = null
+    _isProgress = false
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        
+        
+        
+  }
+    
 
-local ExitRunnable = {}
-ExitRunnable.__index = ExitRunnable
-ExitRunnable.className = "ExitRunnable"
+    construct new(midlet, processor, isProgress) {
+    super()
+    initFields_ExitRunnable()
+        _midlet = midlet
+        _isProgress = isProgress
+        _processor = processor
+    }
+    
 
-function ExitRunnable:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.midlet = nil
-    self.processor = nil
-    self.isProgress = nil
-end
+    run() {
+        var jerror0 = Fiber.new {
+            _logUtil.putF(_commonStrings.START_RUNNABLE, this, _commonStrings.RUN)
+            _midlet.destroyAppInRunnable(false, _isProgress)
+            _midlet.setDisplay(NullCanvas.NULL_CANVAS)
+            _midlet.notifyDestroyed()
+            _logUtil.putF(_commonStrings.END_RUNNABLE, this, _commonStrings.RUN)
+            _processor.process()
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            _logUtil.put(_commonStrings.EXCEPTION, this, _commonStrings.RUN, e)
+            var jerror1 = Fiber.new {
+                _processor.process()
+            }.try()
+            if (jerror1 != null) {
+                var e2 = jerror1
+                _logUtil.put(_commonStrings.EXCEPTION, this, _commonStrings.RUN, e)
+            }
+        }
+    }
+}
 
-
-function ExitRunnable.new(midlet, processor, isProgress)
-    local self = setmetatable({}, ExitRunnable)
-    self:_init_fields()
-        self.midlet = midlet
-        self.isProgress = isProgress
-        self.processor = processor
-    return self
-end
-
-
-function ExitRunnable:run()
-        local try_ok, try_error = pcall(function()
-            self.logUtil:putF(self.commonStrings.START_RUNNABLE, self, self.commonStrings.RUN)
-            self.midlet:destroyAppInRunnable(false, self.isProgress)
-            self.midlet:setDisplay(NullCanvas.NULL_CANVAS)
-            self.midlet:notifyDestroyed()
-            self.logUtil:putF(self.commonStrings.END_RUNNABLE, self, self.commonStrings.RUN)
-            self.processor:process()
-        end)
-        if not try_ok then
-            local e = try_error
-            self.logUtil:put(self.commonStrings.EXCEPTION, self, self.commonStrings.RUN, e)
-            local try_ok, try_error = pcall(function()
-                self.processor:process()
-            end)
-            if not try_ok then
-                local e2 = try_error
-                self.logUtil:put(self.commonStrings.EXCEPTION, self, self.commonStrings.RUN, e)
-            end
-        end
-end
-
-return ExitRunnable
+import "../../../javax/microedition/lcdui/NullCanvas" for NullCanvas
+import "../../../org/allbinary/canvas/Processor" for Processor
+import "../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../java/lang/Runnable" for Runnable
+import "./AllBinaryMidlet" for AllBinaryMidlet
 

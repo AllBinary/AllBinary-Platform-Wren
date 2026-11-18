@@ -1,75 +1,75 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.displayable.canvas
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.displayable.canvas
 
-local GameTickDisplayInfoSingleton = require("org.allbinary.graphics.displayable.GameTickDisplayInfoSingleton")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local GameTickTimeDelayHelper = require("org.allbinary.time.GameTickTimeDelayHelper")
-local GameTickTimeDelayHelperFactory = require("org.allbinary.time.GameTickTimeDelayHelperFactory")
-local GameRunnable = require("org.allbinary.game.displayable.canvas.GameRunnable")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "./GameRunnable" for GameRunnable
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class GameCanvasRunnable is GameRunnable {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  gameTickDisplayInfoSingleton { _gameTickDisplayInfoSingleton }
+  gameTickDisplayInfoSingleton=(value) { _gameTickDisplayInfoSingleton = value }
+  allBinaryGameCanvas { _allBinaryGameCanvas }
+  allBinaryGameCanvas=(value) { _allBinaryGameCanvas = value }
+  gameTickTimeDelayHelper { _gameTickTimeDelayHelper }
+  gameTickTimeDelayHelper=(value) { _gameTickTimeDelayHelper = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_GameCanvasRunnable() {
+    _logUtil = null
+    _gameTickDisplayInfoSingleton = null
+    _allBinaryGameCanvas = null
+    _gameTickTimeDelayHelper = null
+        _logUtil = LogUtil.getInstance()
+        _gameTickDisplayInfoSingleton = GameTickDisplayInfoSingleton.getInstance()
+        
+        _gameTickTimeDelayHelper = GameTickTimeDelayHelperFactory.getInstance()
+  }
+    
 
-local GameCanvasRunnable = {}
-GameCanvasRunnable.__index = GameCanvasRunnable
-GameCanvasRunnable.className = "GameCanvasRunnable"
-setmetatable(GameCanvasRunnable, {__index = GameRunnable})
+    construct new(allBinaryGameCanvas) {
+    super()
+    initFields_GameCanvasRunnable()
+        _allBinaryGameCanvas = allBinaryGameCanvas
+    }
+    
 
-function GameCanvasRunnable:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.gameTickDisplayInfoSingleton = GameTickDisplayInfoSingleton.getInstance()
-    self.allBinaryGameCanvas = nil
-    self.gameTickTimeDelayHelper = GameTickTimeDelayHelperFactory.getInstance()
-end
+    run() {
+        var jerror0 = Fiber.new {
+            _allBinaryGameCanvas.getLoopTimeHelperP().setStartTime(_gameTickTimeDelayHelper.setStartTime())
+            _gameTickDisplayInfoSingleton.update()
+            _allBinaryGameCanvas.processGame()
+        }.try()
+        if (jerror0 != null) {
+            var e = jerror0
+            var commonStrings = CommonStrings.getInstance()
+            _logUtil.put(commonStrings.EXCEPTION, this, commonStrings.RUN, e)
+        }
+    }
+    
 
+    processLoopSleep() {
+        _allBinaryGameCanvas.processLoopSleep()
+    }
+}
 
-function GameCanvasRunnable.new(allBinaryGameCanvas)
-    local self = setmetatable(GameRunnable.new(), GameCanvasRunnable)
-    self:_init_fields()
-        self.allBinaryGameCanvas = allBinaryGameCanvas
-    return self
-end
-
-
-function GameCanvasRunnable:run()
-        local try_ok, try_error = pcall(function()
-            self.allBinaryGameCanvas:getLoopTimeHelperP():setStartTime(self.gameTickTimeDelayHelper:setStartTime())
-            self.gameTickDisplayInfoSingleton:update()
-            self.allBinaryGameCanvas:processGame()
-        end)
-        if not try_ok then
-            local e = try_error
-            local commonStrings = CommonStrings.getInstance()
-            self.logUtil:put(commonStrings.EXCEPTION, self, commonStrings.RUN, e)
-        end
-end
-
-
--- throws Exception
-function GameCanvasRunnable:processLoopSleep()
-        self.allBinaryGameCanvas:processLoopSleep()
-end
-
-return GameCanvasRunnable
+import "../../../../../org/allbinary/graphics/displayable/GameTickDisplayInfoSingleton" for GameTickDisplayInfoSingleton
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../org/allbinary/time/GameTickTimeDelayHelper" for GameTickTimeDelayHelper
+import "../../../../../org/allbinary/time/GameTickTimeDelayHelperFactory" for GameTickTimeDelayHelperFactory
+import "./AllBinaryGameCanvas" for AllBinaryGameCanvas
 

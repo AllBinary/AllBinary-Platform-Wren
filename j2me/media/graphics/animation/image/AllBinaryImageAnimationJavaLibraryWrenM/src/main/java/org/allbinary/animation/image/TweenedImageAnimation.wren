@@ -1,124 +1,126 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation.image
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.image
 
--- local Graphics = require("javax.microedition.lcdui.Graphics")
--- local Image = require("javax.microedition.lcdui.Image")
-local DisposalUtil = require("org.allbinary.DisposalUtil")
-local AnimationBehavior = require("org.allbinary.animation.AnimationBehavior")
-local IndexedAnimation = require("org.allbinary.animation.IndexedAnimation")
-local Anchor = require("org.allbinary.graphics.Anchor")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
-local CircularIndexUtil = require("org.allbinary.util.CircularIndexUtil")
+import "../../../../allbinary_java" for JObject, JException, JR
+import "../../../../org/allbinary/animation/IndexedAnimation" for IndexedAnimation
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class TweenedImageAnimation is IndexedAnimation {
+  image { _image }
+  image=(value) { _image = value }
+  dx { _dx }
+  dx=(value) { _dx = value }
+  dy { _dy }
+  dy=(value) { _dy = value }
+  totalFrames { _totalFrames }
+  totalFrames=(value) { _totalFrames = value }
+  circularIndexUtil { _circularIndexUtil }
+  circularIndexUtil=(value) { _circularIndexUtil = value }
+  anchor { _anchor }
+  anchor=(value) { _anchor = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_TweenedImageAnimation() {
+    _image = null
+    _dx = 0
+    _dy = 0
+    _totalFrames = 0
+    _circularIndexUtil = null
+    _anchor = 0
+        
+        
+        
+        
+        
+        _anchor = Anchor.TOP_LEFT
+  }
+    
 
-local TweenedImageAnimation = {}
-TweenedImageAnimation.__index = TweenedImageAnimation
-TweenedImageAnimation.className = "TweenedImageAnimation"
-setmetatable(TweenedImageAnimation, {__index = IndexedAnimation})
+    construct new(image, dx, dy, totalFrames, animationBehavior) {
+        super(animationBehavior)
+        initFields_TweenedImageAnimation()
+        _image = image
+        _dx = dx
+        _dy = dy
+        _totalFrames = totalFrames
+        _circularIndexUtil = CircularIndexUtil.createInstance(_totalFrames)
+    }
+    
 
-function TweenedImageAnimation:_init_fields()
-    self.image = nil
-    self.dx = nil
-    self.dy = nil
-    self.totalFrames = nil
-    self.circularIndexUtil = nil
-    self.anchor = Anchor.TOP_LEFT
-end
+    getAnimationSize() {
+        return this.getSize()
+    }
+    
 
+    nextFrame() {
+        _circularIndexUtil.next()
+    }
+    
 
-function TweenedImageAnimation.new(image, dx, dy, totalFrames, animationBehavior)
-    local self = setmetatable(IndexedAnimation.new(animationBehavior), TweenedImageAnimation)
-    self:_init_fields()
-        -- super(...) made self above
-        self.image = image
-        self.dx = dx
-        self.dy = dy
-        self.totalFrames = totalFrames
-        self.circularIndexUtil = CircularIndexUtil.createInstance(self.totalFrames)
-    return self
-end
+    previousFrame() {
+        _circularIndexUtil.previous()
+    }
+    
 
+    setFrame(index) {
+        _circularIndexUtil.setIndex(index)
+    }
+    
 
--- throws Exception
-function TweenedImageAnimation:getAnimationSize()
-        return self:getSize()
-end
+    getFrame() {
+        return _circularIndexUtil.getIndex()
+    }
+    
 
+    getSize() {
+        return _totalFrames
+    }
+    
 
-function TweenedImageAnimation:nextFrame()
-        self.circularIndexUtil:next()
-end
+    setSequence(sequence) {
+    }
+    
 
-
-function TweenedImageAnimation:previousFrame()
-        self.circularIndexUtil:previous()
-end
-
-
-function TweenedImageAnimation:setFrame(index)
-        self.circularIndexUtil:setIndex(index)
-end
-
-
-function TweenedImageAnimation:getFrame()
-        return self.circularIndexUtil:getIndex()
-end
-
-
-function TweenedImageAnimation:getSize()
-        return self.totalFrames
-end
-
-
-function TweenedImageAnimation:setSequence(sequence)
-end
-
-
-function TweenedImageAnimation:getSequence()
+    getSequence() {
         return PrimitiveIntUtil.getArrayInstance()
-end
+    }
+    
 
+    paintXY(graphics, x, y) {
+        var frame = this.getFrame()
+        var currentX = JR.i32(_dx * frame)
+        var currentY = JR.i32(_dy * frame)
+        graphics.drawImage(_image, JR.i32(x + currentX), JR.i32(y + currentY), _anchor)
+    }
+    
 
-function TweenedImageAnimation:paintXY(graphics, x, y)
-        local frame = self:getFrame()
-        local currentX = self.dx * frame
-        local currentY = self.dy * frame
-        graphics:drawImage(self.image, x + currentX, y + currentY, self.anchor)
-end
+    close() {
+        DisposalUtil.getInstance().disposeImage(_image)
+    }
+    
 
+    finalize() {
+        DisposalUtil.getInstance().disposeImage(_image)
+    }
+}
 
--- throws Exception
-function TweenedImageAnimation:close()
-        DisposalUtil.getInstance():disposeImage(self.image)
-end
-
-
--- throws Throwable
-function TweenedImageAnimation:finalize()
-        DisposalUtil.getInstance():disposeImage(self.image)
-end
-
-return TweenedImageAnimation
+import "../../../../javax/microedition/lcdui/Graphics" for Graphics
+import "../../../../javax/microedition/lcdui/Image" for Image
+import "../../../../org/allbinary/DisposalUtil" for DisposalUtil
+import "../../../../org/allbinary/animation/AnimationBehavior" for AnimationBehavior
+import "../../../../org/allbinary/graphics/Anchor" for Anchor
+import "../../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
+import "../../../../org/allbinary/util/CircularIndexUtil" for CircularIndexUtil
 

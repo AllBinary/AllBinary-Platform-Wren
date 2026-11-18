@@ -1,86 +1,81 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---   
--- Generated Code Do Not Modify
--- package org.allbinary.animation.compound
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *   
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation.compound
 
-local Animation = require("org.allbinary.animation.Animation")
-local AnimationBehaviorFactory = require("org.allbinary.animation.AnimationBehaviorFactory")
-local AnimationInterfaceFactoryInterface = require("org.allbinary.animation.AnimationInterfaceFactoryInterface")
-local IndexedAnimation = require("org.allbinary.animation.IndexedAnimation")
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local ScaleProperties = require("org.allbinary.media.ScaleProperties")
+import "../../../../allbinary_java" for JObject, JException, JR
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class SimultaneousCompoundIndexAnimationInterfaceFactory is JObject {
+  basicAnimationInterfaceFactoryInterfaceArray { _basicAnimationInterfaceFactoryInterfaceArray }
+  basicAnimationInterfaceFactoryInterfaceArray=(value) { _basicAnimationInterfaceFactoryInterfaceArray = value }
+  animationBehaviorFactory { _animationBehaviorFactory }
+  animationBehaviorFactory=(value) { _animationBehaviorFactory = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_SimultaneousCompoundIndexAnimationInterfaceFactory() {
+    _basicAnimationInterfaceFactoryInterfaceArray = null
+    _animationBehaviorFactory = null
+        
+        
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory) {
+    super()
+    initFields_SimultaneousCompoundIndexAnimationInterfaceFactory()
+        _basicAnimationInterfaceFactoryInterfaceArray = basicAnimationInterfaceFactoryInterfaceArray
+        _animationBehaviorFactory = animationBehaviorFactory
+    }
+    
 
-local SimultaneousCompoundIndexAnimationInterfaceFactory = {}
-SimultaneousCompoundIndexAnimationInterfaceFactory.__index = SimultaneousCompoundIndexAnimationInterfaceFactory
-SimultaneousCompoundIndexAnimationInterfaceFactory.className = "SimultaneousCompoundIndexAnimationInterfaceFactory"
+    getInstance(instanceId) {
+        var size = _basicAnimationInterfaceFactoryInterfaceArray.count
+        var animationInterfaceArray = List.filled(size, null)
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            animationInterfaceArray[index] = _basicAnimationInterfaceFactoryInterfaceArray[index].getInstance(instanceId)
+            }
+        }
+        return this.getOrCreate(animationInterfaceArray)
+    }
+    
 
-function SimultaneousCompoundIndexAnimationInterfaceFactory:_init_fields()
-    self.basicAnimationInterfaceFactoryInterfaceArray = nil
-    self.animationBehaviorFactory = nil
-end
+    getOrCreate(animationInterfaceArray) {
+        return SimultaneousCompoundIndexAnimation.new(animationInterfaceArray, _animationBehaviorFactory.getOrCreateInstance())
+    }
+    
 
+    getBasicAnimationInterfaceFactoryInterfaceArray() {
+        return _basicAnimationInterfaceFactoryInterfaceArray
+    }
+    
 
-function SimultaneousCompoundIndexAnimationInterfaceFactory.new(basicAnimationInterfaceFactoryInterfaceArray, animationBehaviorFactory)
-    local self = setmetatable({}, SimultaneousCompoundIndexAnimationInterfaceFactory)
-    self:_init_fields()
-        self.basicAnimationInterfaceFactoryInterfaceArray = basicAnimationInterfaceFactoryInterfaceArray
-        self.animationBehaviorFactory = animationBehaviorFactory
-    return self
-end
+    setInitialScale(scaleProperties) {
+    }
+}
 
-
--- throws Exception
-function SimultaneousCompoundIndexAnimationInterfaceFactory:getInstance(instanceId)
-        local size = (self.basicAnimationInterfaceFactoryInterfaceArray.n or #self.basicAnimationInterfaceFactoryInterfaceArray)
-        local animationInterfaceArray = java_new_array(nil, size)
-        for index = 0, size - 1 do
-            animationInterfaceArray[index + 1] = self.basicAnimationInterfaceFactoryInterfaceArray[index + 1]:getInstance(instanceId)
-        end
-        return self:getOrCreate(animationInterfaceArray)
-end
-
-
-function SimultaneousCompoundIndexAnimationInterfaceFactory:getOrCreate(animationInterfaceArray)
-        return SimultaneousCompoundIndexAnimation.new(animationInterfaceArray, self.animationBehaviorFactory:getOrCreateInstance())
-end
-
-
-function SimultaneousCompoundIndexAnimationInterfaceFactory:getBasicAnimationInterfaceFactoryInterfaceArray()
-        return self.basicAnimationInterfaceFactoryInterfaceArray
-end
-
-
-function SimultaneousCompoundIndexAnimationInterfaceFactory:setInitialScale(scaleProperties)
-end
-
-return SimultaneousCompoundIndexAnimationInterfaceFactory
+import "../../../../org/allbinary/animation/Animation" for Animation
+import "../../../../org/allbinary/animation/AnimationBehaviorFactory" for AnimationBehaviorFactory
+import "../../../../org/allbinary/animation/AnimationInterfaceFactoryInterface" for AnimationInterfaceFactoryInterface
+import "../../../../org/allbinary/animation/IndexedAnimation" for IndexedAnimation
+import "../../../../org/allbinary/media/ScaleProperties" for ScaleProperties
+import "./SimultaneousCompoundIndexAnimation" for SimultaneousCompoundIndexAnimation
 

@@ -1,107 +1,109 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration.event
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration.event
 
-local Feature = require("org.allbinary.game.configuration.feature.Feature")
-local Features = require("org.allbinary.game.configuration.feature.Features")
-local GameFeatureUtil = require("org.allbinary.game.configuration.feature.GameFeatureUtil")
-local ForcedLogUtil = require("org.allbinary.logic.communication.log.ForcedLogUtil")
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local StringMaker = require("org.allbinary.logic.string.StringMaker")
-local StringUtil = require("org.allbinary.logic.string.StringUtil")
-local AllBinaryEventObject = require("org.allbinary.logic.util.event.AllBinaryEventObject")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local BasicArrayList = require("org.allbinary.util.BasicArrayList")
-local BasicArrayListD = require("org.allbinary.util.BasicArrayListD")
-local GameFeatureListenerInterface = require("org.allbinary.game.configuration.event.GameFeatureListenerInterface")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class BaseChangedGameFeatureListener is JObject {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  gameFeatureUtil { _gameFeatureUtil }
+  gameFeatureUtil=(value) { _gameFeatureUtil = value }
+  list { _list }
+  list=(value) { _list = value }
+  changed { _changed }
+  changed=(value) { _changed = value }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_BaseChangedGameFeatureListener() {
+    _logUtil = null
+    _gameFeatureUtil = null
+    _list = null
+    _changed = false
+        _logUtil = LogUtil.getInstance()
+        _gameFeatureUtil = GameFeatureUtil.getInstance()
+        _list = BasicArrayListD.new()
+        _changed = true
+  }
 
-local BaseChangedGameFeatureListener = {}
-BaseChangedGameFeatureListener.__index = BaseChangedGameFeatureListener
-BaseChangedGameFeatureListener.className = "BaseChangedGameFeatureListener"
+  construct new() {
+    super()
+    initFields_BaseChangedGameFeatureListener()
+  }
+    
 
-function BaseChangedGameFeatureListener:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.gameFeatureUtil = GameFeatureUtil.getInstance()
-    self.list = BasicArrayListD.new()
-    self.changed = true
-end
+    onEvent(eventObject) {
+        ForcedLogUtil.log(CommonStrings.getInstance().NOT_IMPLEMENTED, this)
+    }
+    
 
-function BaseChangedGameFeatureListener.new()
-    local self = setmetatable({}, BaseChangedGameFeatureListener)
-    self:_init_fields()
-    return self
-end
+    onGameFeatureChange(gameFeatureEvent) {
+        _logUtil.putF(StringMaker.new().append(_gameFeatureUtil.GAME_FEATURE_CHANGED).append(gameFeatureEvent.getWhatChanged()).toString(), this, _gameFeatureUtil.ON_GAME_FEATURE_CHANGE)
+        _list.add(gameFeatureEvent.getGameOption())
+        this.setChanged(true)
+    }
+    
 
+    add(gameFeature) {
+        _list.add(gameFeature)
+    }
+    
 
-function BaseChangedGameFeatureListener:onEvent(eventObject)
-        ForcedLogUtil.log(CommonStrings.getInstance().NOT_IMPLEMENTED, self)
-end
+    remove(gameFeature) {
+        _list.remove(gameFeature)
+    }
+    
 
+    setChanged(initialized) {
+        _changed = initialized
+        if (!this.isChanged()) {
+            _list.clear()
+        }
+    }
+    
 
-function BaseChangedGameFeatureListener:onGameFeatureChange(gameFeatureEvent)
-        self.logUtil:putF(tostring(StringMaker.new():append(self.gameFeatureUtil.GAME_FEATURE_CHANGED):append(gameFeatureEvent:getWhatChanged())), self, self.gameFeatureUtil.ON_GAME_FEATURE_CHANGE)
-        self.list:add(gameFeatureEvent:getGameOption())
-        self:setChanged(true)
-end
-
-
-function BaseChangedGameFeatureListener:add(gameFeature)
-        self.list:add(gameFeature)
-end
-
-
-function BaseChangedGameFeatureListener:remove(gameFeature)
-        self.list:remove(gameFeature)
-end
-
-
-function BaseChangedGameFeatureListener:setChanged(initialized)
-        self.changed = initialized
-        if not self:isChanged() then
-            self.list:clear()
-        end
-end
-
-
-function BaseChangedGameFeatureListener:isChangedFeature(gameFeature)
-        local isChanged = self.list:contains(gameFeature)
-        local stringBuffer = StringMaker.new()
-        stringBuffer:append("GameFeature: ")
-        stringBuffer:append(StringUtil.getInstance():toString(gameFeature))
-        stringBuffer:append(" isFeature: ")
-        stringBuffer:appendboolean(Features.getInstance():isFeature(gameFeature))
-        stringBuffer:append(" isChanged: ")
-        stringBuffer:appendboolean(isChanged)
-        self.logUtil:putF(tostring(stringBuffer), self, "isChanged")
+    isChangedFeature(gameFeature) {
+        var isChanged = _list.contains(gameFeature)
+        var stringBuffer = StringMaker.new()
+        stringBuffer.append("GameFeature: ")
+        stringBuffer.append(StringUtil.getInstance().toString(gameFeature))
+        stringBuffer.append(" isFeature: ")
+        stringBuffer.appendboolean(Features.getInstance().isFeature(gameFeature))
+        stringBuffer.append(" isChanged: ")
+        stringBuffer.appendboolean(isChanged)
+        _logUtil.putF(stringBuffer.toString(), this, "isChanged")
         return isChanged
-end
+    }
+    
 
+    isChanged() {
+        return _changed
+    }
+}
 
-function BaseChangedGameFeatureListener:isChanged()
-        return self.changed
-end
-
-return BaseChangedGameFeatureListener
+import "../../../../../org/allbinary/game/configuration/feature/Feature" for Feature
+import "../../../../../org/allbinary/game/configuration/feature/Features" for Features
+import "../../../../../org/allbinary/game/configuration/feature/GameFeatureUtil" for GameFeatureUtil
+import "../../../../../org/allbinary/logic/communication/log/ForcedLogUtil" for ForcedLogUtil
+import "../../../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../../../org/allbinary/logic/string/StringMaker" for StringMaker
+import "../../../../../org/allbinary/logic/string/StringUtil" for StringUtil
+import "../../../../../org/allbinary/logic/util/event/AllBinaryEventObject" for AllBinaryEventObject
+import "../../../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "../../../../../org/allbinary/util/BasicArrayList" for BasicArrayList
+import "../../../../../org/allbinary/util/BasicArrayListD" for BasicArrayListD
+import "./GameFeatureListenerInterface" for GameFeatureListenerInterface
+import "./GameFeatureEvent" for GameFeatureEvent
 

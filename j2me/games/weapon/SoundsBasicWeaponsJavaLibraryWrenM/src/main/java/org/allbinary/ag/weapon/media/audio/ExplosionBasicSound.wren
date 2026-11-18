@@ -1,50 +1,49 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.ag.weapon.media.audio
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.ag.weapon.media.audio
 
-local CompositeSound = require("org.allbinary.media.audio.CompositeSound")
-local Sound = require("org.allbinary.media.audio.Sound")
+import "../../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../../org/allbinary/media/audio/CompositeSound" for CompositeSound
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class ExplosionBasicSound is CompositeSound {
+    static soundInterface {
+    if (__soundInterface_set == null) {
+      __soundInterface_set = true
+      __soundInterface = ExplosionBasicSound.new()
+    }
+    return __soundInterface
+  }
+  static soundInterface=(value) {
+    __soundInterface_set = true
+    __soundInterface = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_ExplosionBasicSound() {
+  }
+    
 
-local ExplosionBasicSound = {}
-ExplosionBasicSound.__index = ExplosionBasicSound
-ExplosionBasicSound.className = "ExplosionBasicSound"
-setmetatable(ExplosionBasicSound, {__index = CompositeSound})
+    construct new() {
+        super("resource:/wav/explosion.wav")
+    }
+    
 
-
-function ExplosionBasicSound.new()
-    local self = setmetatable(CompositeSound.new("resource:/wav/explosion.wav"), ExplosionBasicSound)
-        -- super(...) made self above
-    return self
-end
-
-
-function ExplosionBasicSound.getInstance()
+    static getInstance() {
         return ExplosionBasicSound.soundInterface
-end
+    }
+}
 
-ExplosionBasicSound.soundInterface = ExplosionBasicSound.new()
-
-return ExplosionBasicSound
+import "../../../../../../org/allbinary/media/audio/Sound" for Sound
 

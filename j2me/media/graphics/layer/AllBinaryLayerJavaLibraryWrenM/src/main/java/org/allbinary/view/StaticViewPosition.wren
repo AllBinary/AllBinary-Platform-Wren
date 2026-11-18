@@ -1,57 +1,47 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.view
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.view
 
-local ViewPosition = require("org.allbinary.view.ViewPosition")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./ViewPosition" for ViewPosition
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class StaticViewPosition is ViewPosition {
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_StaticViewPosition() {
+  }
+    
 
-local StaticViewPosition = {}
-StaticViewPosition.__index = StaticViewPosition
-StaticViewPosition.className = "StaticViewPosition"
-setmetatable(StaticViewPosition, {__index = ViewPosition})
+    construct new(x, y, z) {
+        super(x, y, z)
+    }
+    
 
+    getX() {
+        return this.getRawX()
+    }
+    
 
-function StaticViewPosition.new(x, y, z)
-    local self = setmetatable(ViewPosition.new(x, y, z), StaticViewPosition)
-        -- super(...) made self above
-    return self
-end
+    getY() {
+        return this.getRawY()
+    }
+    
 
+    getZ() {
+        return this.getRawZ()
+    }
+}
 
-function StaticViewPosition:getX()
-        return self:getRawX()
-end
-
-
-function StaticViewPosition:getY()
-        return self:getRawY()
-end
-
-
-function StaticViewPosition:getZ()
-        return self:getRawZ()
-end
-
-return StaticViewPosition
 

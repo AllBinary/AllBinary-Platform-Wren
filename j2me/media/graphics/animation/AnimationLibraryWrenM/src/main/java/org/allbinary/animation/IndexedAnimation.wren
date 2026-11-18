@@ -1,136 +1,120 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.animation
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.animation
 
-local LogUtil = require("org.allbinary.logic.communication.log.LogUtil")
-local PrimitiveIntUtil = require("org.allbinary.logic.math.PrimitiveIntUtil")
-local CommonStrings = require("org.allbinary.string.CommonStrings")
-local Animation = require("org.allbinary.animation.Animation")
-local IndexedAnimationInterface = require("org.allbinary.animation.IndexedAnimationInterface")
+import "../../../allbinary_java" for JObject, JException, JR
+import "./Animation" for Animation
 
--- Java library Throwable. tostring gives the message like Java getMessage.
-local function java_exception(className, message, cause)
-    if cause == nil and type(message) == "table" then
-        cause = message
-        message = tostring(message)
-    end
-    local exception = {className = className, message = message, cause = cause}
-    function exception:getMessage() return self.message end
-    function exception:getCause() return self.cause end
-    function exception:printStackTrace() print(debug.traceback(tostring(self))) end
-    return setmetatable(exception, {__tostring = function(self) if self.message ~= nil then return tostring(self.message) end return self.className end})
-end
+class IndexedAnimation is Animation {
+  logUtil { _logUtil }
+  logUtil=(value) { _logUtil = value }
+  commonStrings { _commonStrings }
+  commonStrings=(value) { _commonStrings = value }
+  animationBehaviorP { _animationBehaviorP }
+  animationBehaviorP=(value) { _animationBehaviorP = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_IndexedAnimation() {
+    _logUtil = null
+    _commonStrings = null
+    _animationBehaviorP = null
+        _logUtil = LogUtil.getInstance()
+        _commonStrings = CommonStrings.getInstance()
+        
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(animationBehavior) {
+    super()
+    initFields_IndexedAnimation()
+        _animationBehaviorP = animationBehavior
+    }
+    
 
-local IndexedAnimation = {}
-IndexedAnimation.__index = IndexedAnimation
-IndexedAnimation.className = "IndexedAnimation"
-setmetatable(IndexedAnimation, {__index = Animation})
+    getAnimationBehavior() {
+        return _animationBehaviorP
+    }
+    
 
-function IndexedAnimation:_init_fields()
-    self.logUtil = LogUtil.getInstance()
-    self.commonStrings = CommonStrings.getInstance()
-    self.animationBehaviorP = nil
-end
+    reset() {
+        _animationBehaviorP.reset()
+        this.setFrame(0)
+    }
+    
 
+    setFrame(index) {
+    }
+    
 
-function IndexedAnimation.new(animationBehavior)
-    local self = setmetatable(Animation.new(), IndexedAnimation)
-    self:_init_fields()
-        self.animationBehaviorP = animationBehavior
-    return self
-end
-
-
-function IndexedAnimation:getAnimationBehavior()
-        return self.animationBehaviorP
-end
-
-
-function IndexedAnimation:reset()
-        self.animationBehaviorP:reset()
-        self:setFrame(0)
-end
-
-
-function IndexedAnimation:setFrame(index)
-end
-
-
-function IndexedAnimation:getFrame()
+    getFrame() {
         return 0
-end
+    }
+    
 
+    getAnimationSize() {
+        Fiber.abort(JR.exception("Exception", _commonStrings.NOT_IMPLEMENTED))
+    }
+    
 
--- throws Exception
-function IndexedAnimation:getAnimationSize()
-        error(java_exception("Exception", self.commonStrings.NOT_IMPLEMENTED), 0)
-end
-
-
-function IndexedAnimation:getSize()
+    getSize() {
         return 0
-end
+    }
+    
 
+    previousFrame() {
+    }
+    
 
-function IndexedAnimation:previousFrame()
-end
-
-
-function IndexedAnimation:isLastFrame()
-        if self:getFrame() == self:getSize() - 1 then
+    isLastFrame() {
+        if ((this.getFrame() == JR.i32(this.getSize() - 1))) {
             return true
-        else
+        } else {
             return false
-        end
-end
+        }
+    }
+    
 
+    setSequence(sequence) {
+    }
+    
 
-function IndexedAnimation:setSequence(sequence)
-end
-
-
-function IndexedAnimation:getSequence()
+    getSequence() {
         return PrimitiveIntUtil.getArrayInstance()
-end
+    }
+    
 
+    setState(indexedAnimation) {
+        this.setFrame(indexedAnimation.getFrame())
+        this.setDx(indexedAnimation.getDx())
+        this.setDy(indexedAnimation.getDy())
+    }
+    
 
-function IndexedAnimation:setState(indexedAnimation)
-        self:setFrame(indexedAnimation:getFrame())
-        self:setDx(indexedAnimation:getDx())
-        self:setDy(indexedAnimation:getDy())
-end
-
-
-function IndexedAnimation:getWidth()
+    getWidth() {
         return 0
-end
+    }
+    
 
-
-function IndexedAnimation:getHeight()
+    getHeight() {
         return 0
-end
+    }
+}
 
-return IndexedAnimation
+import "../../../org/allbinary/logic/communication/log/LogUtil" for LogUtil
+import "../../../org/allbinary/logic/math/PrimitiveIntUtil" for PrimitiveIntUtil
+import "../../../org/allbinary/string/CommonStrings" for CommonStrings
+import "./IndexedAnimationInterface" for IndexedAnimationInterface
+import "./AnimationBehavior" for AnimationBehavior
 

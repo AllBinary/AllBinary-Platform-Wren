@@ -1,38 +1,38 @@
--- Generated Code Do Not Modify
--- package org.allbinary.game.configuration.feature
+// Generated Code Do Not Modify
+// package org.allbinary.game.configuration.feature
 
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class MultiPlayerGameFeatureFactory is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = MultiPlayerGameFeatureFactory.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_MultiPlayerGameFeatureFactory() {
+  }
+    
 
-local MultiPlayerGameFeatureFactory = {}
-MultiPlayerGameFeatureFactory.__index = MultiPlayerGameFeatureFactory
-MultiPlayerGameFeatureFactory.className = "MultiPlayerGameFeatureFactory"
-
-
-function MultiPlayerGameFeatureFactory.getInstance()
+    static getInstance() {
         return MultiPlayerGameFeatureFactory.instance
-end
+    }
+    
 
+    construct new() {
+    super()
+    initFields_MultiPlayerGameFeatureFactory()
+    }
+    
 
-function MultiPlayerGameFeatureFactory.new()
-    local self = setmetatable({}, MultiPlayerGameFeatureFactory)
-    return self
-end
+    addCommands(anyType) {
+    }
+}
 
-
-function MultiPlayerGameFeatureFactory:addCommands(anyType)
-end
-
-MultiPlayerGameFeatureFactory.instance = MultiPlayerGameFeatureFactory.new()
-
-return MultiPlayerGameFeatureFactory
 

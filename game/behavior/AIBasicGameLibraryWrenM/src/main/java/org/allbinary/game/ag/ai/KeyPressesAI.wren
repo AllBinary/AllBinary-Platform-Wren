@@ -1,109 +1,109 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.ag.ai
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.ag.ai
 
-local GameInput = require("org.allbinary.game.input.GameInput")
-local AllBinaryLayer = require("org.allbinary.layer.AllBinaryLayer")
-local AllBinaryLayerManager = require("org.allbinary.layer.AllBinaryLayerManager")
-local HashtableUtil = require("org.allbinary.util.HashtableUtil")
-local BasicAI = require("org.allbinary.game.ai.BasicAI")
-local ABHashtable = require("org.allbinary.util.ABHashtable")
+import "../../../../../allbinary_java" for JObject, JException, JR
+import "../../../../../org/allbinary/game/ai/BasicAI" for BasicAI
 
-local function java_new_array(default, size, ...)
-    local array = {n = size}
-    for index = 1, size do
-        if select("#", ...) > 0 then array[index] = java_new_array(default, ...) else array[index] = default end
-    end
-    return array
-end
+class KeyPressesAI is BasicAI {
+  on { _on }
+  on=(value) { _on = value }
+  keys { _keys }
+  keys=(value) { _keys = value }
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+  initFields_KeyPressesAI() {
+    _on = false
+    _keys = null
+        _on = true
+        
+  }
+    
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+    construct new(hashtable, ownerLayerInterface, gameInput) {
+        super(ownerLayerInterface, gameInput)
+        initFields_KeyPressesAI()
+        _keys = List.filled(hashtable.size(), null)
+        var objectArray = HashtableUtil.getInstance().getKeysAsArray(hashtable)
+        var size = objectArray.count
+        if (true) {
+            var index = 0
+            var jfirst = true
+            while (true) {
+                if (!jfirst) {
+                    index = JR.i32(index + 1)
+                }
+                jfirst = false
+                if (!((index < size))) break
+            _keys[index] = hashtable.get(objectArray[index])
+            }
+        }
+    }
+    
 
-local KeyPressesAI = {}
-KeyPressesAI.__index = KeyPressesAI
-KeyPressesAI.className = "KeyPressesAI"
-setmetatable(KeyPressesAI, {__index = BasicAI})
+    processAI(allBinaryLayerManager) {
+        if (_on) {
+            if (true) {
+                var index = 0
+                var jfirst = true
+                while (true) {
+                    if (!jfirst) {
+                        index = JR.i32(index + 1)
+                    }
+                    jfirst = false
+                    if (!((index < _keys.count))) break
+                super.processKeyAI(_keys[index].intValue())
+                }
+            }
+        }
+    }
+    
 
-function KeyPressesAI:_init_fields()
-    self.on = true
-    self.keys = nil
-end
+    toggle() {
+        if (this.isOn()) {
+            this.setOn(false)
+        } else {
+            this.setOn(true)
+        }
+    }
+    
 
+    disable() {
+        this.setOn(false)
+    }
+    
 
-function KeyPressesAI.new(hashtable, ownerLayerInterface, gameInput)
-    local self = setmetatable(BasicAI.new(ownerLayerInterface, gameInput), KeyPressesAI)
-    self:_init_fields()
-        -- super(...) made self above
-        self.keys = java_new_array(nil, hashtable:size())
-        local objectArray = HashtableUtil.getInstance():getKeysAsArray(hashtable)
-        local size = (objectArray.n or #objectArray)
-        for index = 0, size - 1 do
-            self.keys[index + 1] = hashtable:get(objectArray[index + 1])
-        end
-    return self
-end
+    enable() {
+        this.setOn(true)
+    }
+    
 
+    setOn(on) {
+        _on = on
+    }
+    
 
--- throws Exception
-function KeyPressesAI:processAI(allBinaryLayerManager)
-        if self.on then
-            for index = 0, (self.keys.n or #self.keys) - 1 do
-                BasicAI.processKeyAI(self, math.tointeger(self.keys[index + 1] // 1))
-            end
-        end
-end
+    isOn() {
+        return _on
+    }
+}
 
-
--- throws Exception
-function KeyPressesAI:toggle()
-        if self:isOn() then
-            self:setOn(false)
-        else
-            self:setOn(true)
-        end
-end
-
-
--- throws Exception
-function KeyPressesAI:disable()
-        self:setOn(false)
-end
-
-
--- throws Exception
-function KeyPressesAI:enable()
-        self:setOn(true)
-end
-
-
-function KeyPressesAI:setOn(on)
-        self.on = on
-end
-
-
-function KeyPressesAI:isOn()
-        return self.on
-end
-
-return KeyPressesAI
+import "../../../../../org/allbinary/game/input/GameInput" for GameInput
+import "../../../../../org/allbinary/layer/AllBinaryLayer" for AllBinaryLayer
+import "../../../../../org/allbinary/layer/AllBinaryLayerManager" for AllBinaryLayerManager
+import "../../../../../org/allbinary/util/HashtableUtil" for HashtableUtil
+import "../../../../../org/allbinary/util/ABHashtable" for ABHashtable
+import "../../../../../java/lang/Integer" for Integer
 

@@ -1,62 +1,62 @@
---
--- AllBinary Open License Version 1
--- Copyright (c) 2011 AllBinary
--- 
--- By agreeing to this license you and any business entity you represent are
--- legally bound to the AllBinary Open License Version 1 legal agreement.
--- 
--- You may obtain the AllBinary Open License Version 1 legal agreement from
--- AllBinary or the root directory of AllBinary's AllBinary Platform repository.
--- 
--- Created By: Travis Berthelot
---  
--- Generated Code Do Not Modify
--- package org.allbinary.game.combat.damage
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+// package org.allbinary.game.combat.damage
 
-local DamageableInterface = require("org.allbinary.game.combat.damage.DamageableInterface")
+import "../../../../../allbinary_java" for JObject, JException, JR
 
-local function java_idiv(a, b)
-    local q = a / b
-    if q < 0 then return math.ceil(q) end
-    return math.floor(q)
-end
+class DamageableBaseBehavior is JObject {
+    static instance {
+    if (__instance_set == null) {
+      __instance_set = true
+      __instance = DamageableBaseBehavior.new()
+    }
+    return __instance
+  }
+  static instance=(value) {
+    __instance_set = true
+    __instance = value
+  }
 
-local function java_int(value)
-    if value < 0 then return math.tointeger(math.ceil(value)) end
-    return math.tointeger(math.floor(value))
-end
+  initFields_DamageableBaseBehavior() {
+  }
 
-local DamageableBaseBehavior = {}
-DamageableBaseBehavior.__index = DamageableBaseBehavior
-DamageableBaseBehavior.className = "DamageableBaseBehavior"
+  construct new() {
+    super()
+    initFields_DamageableBaseBehavior()
+  }
+    
 
-function DamageableBaseBehavior.new()
-    local self = setmetatable({}, DamageableBaseBehavior)
-    return self
-end
-
-
-function DamageableBaseBehavior.getInstance()
+    static getInstance() {
         return DamageableBaseBehavior.instance
-end
+    }
+    
 
+    getName() {
+        return JR.className(this)
+    }
+    
 
-function DamageableBaseBehavior:getName()
-        return getmetatable(self).className
-end
+    damage(damage, damageType) {
+    }
+    
 
-
--- throws Exception
-function DamageableBaseBehavior:damage(damage, damageType)
-end
-
-
--- throws Exception
-function DamageableBaseBehavior:getDamage(damageType)
+    getDamage(damageType) {
         return 6000
-end
+    }
+}
 
-DamageableBaseBehavior.instance = DamageableBaseBehavior.new()
-
-return DamageableBaseBehavior
+import "./DamageableInterface" for DamageableInterface
 
